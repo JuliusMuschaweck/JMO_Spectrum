@@ -1,0 +1,2 @@
+I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+(https://creativecommons.org/publicdomain/zero/1.0/legalcode)
