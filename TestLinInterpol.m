@@ -4,7 +4,7 @@ yy = xx+1;
 
 xq = 360:0.5:830;
 
-n = 100;
+n = 5000;
 tic;
 for i = 1:n
     yyq = LinInterpol(xx,yy,xq);
