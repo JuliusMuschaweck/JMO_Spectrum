@@ -1,5 +1,5 @@
 %% JMO Spectrum Library Documentation
-% Version 1.01, Oct. 13, 2019
+% Version 1.2, Jan 22, 2020
 % 
 % Julius Muschaweck, JMO GmbH, Zugspitzstr. 66, 82131 Gauting, Germany. julius@jmoptics.de
 %% Rationale
@@ -20,9 +20,19 @@
 % I release this software into the public domain under <https://creativecommons.org/publicdomain/zero/1.0/legalcode 
 % CC0>
 %% Version history
-% Version 1.0, Sept. 9, 2019: Initial version
+% Version 1.2, Jan. 22, 2020
 % 
-% Version 1.01, Oct. 13: Added <internal:H_E49609D5 WriteLightToolsSpectrumFile>
+% Added <internal:EAF319A5 CIE standard illuminants>
+% 
+% Added <internal:H_B18B3F0A CRI> (color rendering index) computations
+% 
+% Added <internal:H_79735AFE AssignNewWavelength> function
+% 
+% Version 1.01, Oct. 13:
+% 
+% Added <internal:H_E49609D5 WriteLightToolsSpectrumFile>
+% 
+% Version 1.0, Sept. 9, 2019: Initial version
 %% Getting started
 % To define a spectrum and compute its CIE xy color coordinates, simply say
 
@@ -111,6 +121,9 @@ s
 % 
 % <internal:H_8F93BC09 AddWeightedSpectra> adds multiple spectra with weights
 % 
+% <internal:H_79735AFE AssignNewWavelength> replaces the wavelength of a spectrum, 
+% interpolating the values correctly
+% 
 % <internal:H_1B8563B5 CCT_from_xy> computes correlated color temperature and 
 % uv-distance to Planck locus from spectrum
 % 
@@ -119,6 +132,14 @@ s
 % 
 % <internal:H_255A8B5A CIE1931_XYZ> computes CIE 1931 XYZ color coordinates 
 % and tristimulus values from spectrum
+% 
+% <internal:H_0FA30A6E CIE_Illuminant> returns a large selection of CIE standard 
+% illuminants
+% 
+% <internal:H_493C3BEA CIE_Illuminant_D> computes the CIE standard daylight 
+% spectrum as function of color temperature
+% 
+% <internal:H_B18B3F0A CRI> is a class for computing color rendering index values
 % 
 % <internal:H_8C73749A CODATA2018> returns a struct with CODATA 2018 values 
 % for relevant physical constants (speed of light, Boltzmann constant etc.)
@@ -239,6 +260,27 @@ grid on;
 xlabel('lam');
 ylabel('val');
 title('AddWeightedSpectra demo');
+%% |AssignNewWavelength|
+% Assign a new wavelength vector to a spectrum, interpolating the old values.
+
+% function rv = AssignNewWavelength(spectrum, lam_new)
+%% 
+% *Input:*
+% 
+% |spectrum:| a spectrum
+% 
+% |lam_new:| the new wavelength array, ascending doubles.
+% 
+% *Output:*
+% 
+% |rv:| A copy of the old spectrum with all fields, but |lam| is replaced and 
+% |val| is interpolated. For |lam_new| values outside the old interval, |val(i) 
+% == 0|
+% 
+% *Usage Example:*
+
+s_old = MakeSpectrum([400 500], [0 100]);
+s_new = AssignNewWavelength(s_old, [450 451 452])
 %% |CCT_from_xy|
 % Compute correlated color temperature of an xy color point. Uses parabolic 
 % interpolation between nearest <internal:H_719369C9 Planck locus >points
@@ -309,6 +351,50 @@ s.XYZ = CIE1931_XYZ(s);
 % add this information to the same spectrum as an additional field
 s
 s.XYZ
+%% |CIE_Illuminant|
+% Returns CIE standard illuminants.
+% 
+% Available spectra are: 'A';'D65';'C';'E','D50';'D55';'D75';'FL1';'FL2';'FL3';'FL4';'FL5';'FL6';'FL7';'FL8';'FL9';'FL10';'FL11';'FL12';
+% 
+% 'FL3_1';'FL3_2';'FL3_3';'FL3_4';'FL3_5';'FL3_6';'FL3_7';'FL3_8';'FL3_9';'FL3_10';'FL3_11';'FL3_12';'FL3_13';'FL3_14';'FL3_15';
+% 
+% 'HP1';'HP2';'HP3';'HP4';'HP5'
+
+% function rv = CIE_Illuminant(name,varargin)
+%% 
+% *Input:* name is the desired name, one of the available names listed above
+% 
+% varargin: Name/Value pair 'lam',lam to define the desired wavelength table 
+% to which the illuminant spectrum will be interpolated. Default is 360:830 nm 
+% in 1 nm steps
+% 
+% *Output:* spectrum struct with fields lam (copy of input, or default 360:830), 
+% val and name (copy of input name)
+% 
+% *Usage Example:*
+
+FL4 = CIE_Illuminant('FL4')
+clf;plot(FL4.lam,FL4.val);
+title('CIE standard FL4 fluorescent spectrum')
+%% |CIE_Illuminant_D|
+% Returns CIE standard daylight illuminant D as function of CCT.
+
+% function rv = CIE_Illuminant_D(CCT,varargin)
+%% 
+% *Input:* CCT is the desired color temperature. Must be in [4000, 25000]. 
+% 
+% varargin: Name/Value pair 'lam',lam to define the desired wavelength table 
+% to which the illuminant spectrum will be interpolated. Default is 360:830 nm 
+% in 1 nm steps
+% 
+% *Output:* spectrum struct with fields lam (copy of input, or default 360:830), 
+% val and name (copy of input name)
+% 
+% *Usage Example:*
+
+D6100 = CIE_Illuminant_D(6100,'lam',300:5:830);
+clf;plot(D6100.lam,D6100.val);
+title('CIE standard D (daylight) spectrum for CCT = 6100');
 %% |CODATA2018|
 % A struct with the most relevant physical constants for optics, as defined 
 % by <http://www.codata.org/ CODATA>
@@ -362,6 +448,86 @@ lambda = 500e-9; % in meters
 c = cd.c.value % speed of light
 freq = c/lambda% frequency of 500 nm light about 600 THz
 pe = freq * cd.h.value % energy of a 500 nm photon, in Joule
+%% |CRI|
+% A class to compute color rendering indices. See <https://en.wikipedia.org/wiki/Color_rendering_index, 
+% https://en.wikipedia.org/wiki/Color_rendering_index,> and CIE 13.3-1995 Technical 
+% Report
+
+% classdef CRI < handle 
+%% 
+% *Constructor:*
+
+% function this = CRI()
+cri = CRI()
+%% 
+% loads the CRI reflectivity spectra into the read-only variable <internal:BB7E62A5 
+% CRISpectra_>
+% 
+% *SetStrict_5nm*
+
+% function prev = SetStrict_5nm(this, yesno)
+prev = cri.SetStrict_5nm(true)
+% do something
+cri.SetStrict_5nm(prev); % restore previous state
+%% 
+% sets the internal wavelength interval to 5 nm or 1 nm
+% 
+% *Input:* yesno: logical (true -> 5nm, false -> 1nm)
+% 
+% *Output:* prev: logical, the value before the call
+% 
+% *SingleRi*
+% 
+% computes a special Ri value
+
+% function rv = SingleRi(this, spectrum, i)
+FL4 = CIE_Illuminant('FL4');
+D65 = CIE_Illuminant('D65');
+cri.SingleRi(FL4,9) % Really really bad R9, fluorescent and saturated red don't work well
+cri.SingleRi(D65,9) % By definition, CIE D should work perfectly for CCT > 5000
+%% 
+% *Ra*
+% 
+% computes the general Ra, the by far most used value
+
+% function [rv, Ri_1_8] = Ra(this, spectrum)
+cri.Ra(FL4) % CRI is designed to give 51
+cri.Ra(D65) % by definition, 100
+%% 
+% *Input:* a spectrum
+% 
+% *Output:* rv: double, the Ra value.
+% 
+% Ri_1_8: array of eight doubles, the individual Ri values of which Ra is the 
+% mean
+% 
+% *FullCRI*
+% 
+% computes the CRI for all sixteen reflectivity spectra. R1..R14 are defined 
+% in the standard, R15 is Asian skin, and R16 (my personal addition) is perfect 
+% white
+
+% function rv = FullCRI(this, spectrum)
+cri.FullCRI(FL4)
+%% 
+% *Input:* a spectrum
+% 
+% *Output:* rv:  a struct with fields Ri (array of 16 doubles, the individual 
+% Ri values), and Ra (the general index)
+% 
+% *PlotCRISpectra*
+% 
+% plots the 16 reflectivity spectra
+
+% function PlotCRISpectra(this)
+cri.PlotCRISpectra();
+%% 
+% *CRISpectra_*
+% 
+% a read-only property. An array of 16 structs with fields describing the individual 
+% spectra:
+
+cri.CRISpectra_
 %% |GaussSpectrum|
 % Creates a normalized Gaussian spectrum with given mean and standard deviation
 
@@ -757,9 +923,13 @@ WriteLightToolsSpectrumFile(s,'Planck5600.sre');
 
 % 
 %% 
-% *Input:* x
+% *Input:*
 % 
-% *Output:* x
+% |rhs:| the right hand side
+% 
+% *Output:*
+% 
+% |lhs:| the left hand side
 % 
 % *Usage Example:*
 
