@@ -1,5 +1,5 @@
 %% JMO Spectrum Library Documentation
-% Version 1.2, Jan 22, 2020
+% Version 1.22, Jan 24, 2020
 % 
 % Julius Muschaweck, JMO GmbH, Zugspitzstr. 66, 82131 Gauting, Germany. julius@jmoptics.de
 %% Rationale
@@ -20,6 +20,34 @@
 % I release this software into the public domain under <https://creativecommons.org/publicdomain/zero/1.0/legalcode 
 % CC0>
 %% Version history
+% Version 1.22, Jan 24, 2020
+% 
+% Added <internal:H_5B76A1C2 ComputeSpectrumColorimetry>, convenience function 
+% to compute XYZ, CCT and color rendering values in one call
+% 
+% Added <internal:H_D3899C1A Vlambda>, returning V(lambda), CIE 1924 as a spectrum
+% 
+% Added <internal:H_A722E16B PlotCIExyBorder>, plotting the CIE x/y "color horseshoe", 
+% with optional ticks and other options
+% 
+% <internal:H_1844A91E MakeSpectrum> now accepts optional Name/Value pairs to 
+% set fields like e.g. 'name'
+% 
+% Version 1.21, Jan 24, 2020
+% 
+% Added <internal:H_3EAB6F64 CCT>, convenience function to compute CCT from 
+% spectrum directly, not via x/y
+% 
+% Added <internal:H_FBE66BAA Example_WhiteLED.m> as an example script composing 
+% a white LED from blue and yellow, with supporting spectra blue.sre and yellow.sre
+% 
+% Added <internal:H_3F40F2E2 LDomPurity>, to compute dominant wavelength and 
+% purity of a spectrum
+% 
+% Added <internal:H_55C19AF2 ReadLightToolsSpectrumFile>, to read LightTools 
+% .sre files, as supplied by many LED vendors. Reads also simple ASCII 2-column 
+% tables with any text header
+% 
 % Version 1.2, Jan. 22, 2020
 % 
 % Added <internal:EAF319A5 CIE standard illuminants>
@@ -124,6 +152,9 @@ s
 % <internal:H_79735AFE AssignNewWavelength> replaces the wavelength of a spectrum, 
 % interpolating the values correctly
 % 
+% <internal:H_3EAB6F64 CCT>, convenience function to compute CCT from spectrum 
+% directly, not via x/y
+% 
 % <internal:H_1B8563B5 CCT_from_xy> computes correlated color temperature and 
 % uv-distance to Planck locus from spectrum
 % 
@@ -139,15 +170,22 @@ s
 % <internal:H_493C3BEA CIE_Illuminant_D> computes the CIE standard daylight 
 % spectrum as function of color temperature
 % 
-% <internal:H_B18B3F0A CRI> is a class for computing color rendering index values
+% <internal:H_5B76A1C2 ComputeSpectrumColorimetry>, convenience function to 
+% compute XYZ, CCT and color rendering values in one call
 % 
 % <internal:H_8C73749A CODATA2018> returns a struct with CODATA 2018 values 
 % for relevant physical constants (speed of light, Boltzmann constant etc.)
+% 
+% <internal:H_FBE66BAA Example_WhiteLED.m> as an example script composing a 
+% white LED from blue and yellow, with supporting spectra blue.sre and yellow.sre
 % 
 % <internal:H_7F410E14 GaussSpectrum> creates a Gaussian spectrum for given 
 % mean and standard deviation
 % 
 % <internal:H_7FEE43E1 IsOctave> determines if running on GNU Octave or Matlab
+% 
+% <internal:H_3F40F2E2 LDomPurity>, to compute dominant wavelength and purity 
+% of a spectrum
 % 
 % <internal:H_7062F614 LinInterpol> computes linear interpolation like |interp1,| 
 % but about five times faster on Matlab on Windows
@@ -168,11 +206,21 @@ s
 % <internal:H_57625957 PlanckSpectrum> creates a blackbody spectrum with various 
 % normalizations to choose from
 % 
+% <internal:H_A722E16B PlotCIExyBorder>, plotting the CIE x/y "color horseshoe", 
+% with optional ticks and other options
+% 
+% <internal:H_55C19AF2 ReadLightToolsSpectrumFile>, to read LightTools .sre 
+% files, as supplied by many LED vendors. Reads also simple ASCII 2-column tables 
+% with any text header
+% 
 % <internal:H_D6BB9ECF SpectrumSanityCheck> checks if a spectrum fulfills the 
 % <internal:H_EC1C6D0E requirements>
 % 
 % <internal:H_2128175D TestLinInterpol> tests the <internal:H_7062F614 LinInterpol> 
 % function
+% 
+% <internal:H_D3899C1A Vlambda>, returning V(lambda), CIE 1924 as a spectrum<internal:H_B18B3F0A 
+% CRI> is a class for computing color rendering index values
 % 
 % <internal:H_E49609D5 WriteLightToolsSpectrumFile> writes a spectrum to an 
 % ASCII file in LightTools® format.
@@ -281,6 +329,27 @@ title('AddWeightedSpectra demo');
 
 s_old = MakeSpectrum([400 500], [0 100]);
 s_new = AssignNewWavelength(s_old, [450 451 452])
+%% |CCT|
+% convenience function to compute CCT from spectrum directly, not via x/y
+
+% function [iCCT, dist_uv] = CCT(spectrum)
+%% 
+% *Input:*
+% 
+% |spectrum:| a spectrum with fields lam and val
+% 
+% *Output:*
+% 
+% |iCCT:|  Correlated color temperature in Kelvin
+% 
+% |dist_uv:| Distance to Planck locus in u/v color space. When |dist_uv>0.05,| 
+% a warning is issued, when |dist_uv| > 0.09, an error. Positive when x/y is above 
+% Planck locus (on the "green" side), negative when below.
+% 
+% *Usage Example:*
+
+test = CIE_Illuminant('D65'); % 6500K CIE daylight spectrum, slightly above Planck
+[iCCT, dist_uv] = CCT(test) %#ok<ASGLU> % not exactly 6500, depends on step size of XYZ integration.
 %% |CCT_from_xy|
 % Compute correlated color temperature of an xy color point. Uses parabolic 
 % interpolation between nearest <internal:H_719369C9 Planck locus >points
@@ -311,8 +380,8 @@ den = 2*uv(1) - 8*uv(2) + 4;
 x = 3*uv(1)/den;
 y = 2 * uv(2) / den;
 % compute CCT 
-[CCT, dist_uv] = CCT_from_xy(x,y);
-CCT - T % should be zero, is about 1.3 mK
+[iCCT, dist_uv] = CCT_from_xy(x,y);
+iCCT - T % should be zero, is about 1.3 mK
 dist_uv - 0.04 % should be zero
 %% |CIE1931_lam_x_y_z.mat|
 % A .mat file which contains a struct named |'CIE1931XYZ'| with CIE 1931 data: 
@@ -448,6 +517,46 @@ lambda = 500e-9; % in meters
 c = cd.c.value % speed of light
 freq = c/lambda% frequency of 500 nm light about 600 THz
 pe = freq * cd.h.value % energy of a 500 nm photon, in Joule
+%% |ComputeSpectrumColorimetry|
+% convenience function to compute XYZ, CCT and color rendering values in one 
+% call
+
+% function rv = ComputeSpectrumColorimetry(s, varargin)
+%% 
+% Takes the spectrum struct and adds fields with computed colorimetric values:
+% 
+% XYZ: struct with fields x, y, z, X, Y, Z as returned from CIE1931_XYZ(s)
+% 
+% CCT, dist_uv_Planck: color temperature and distance to Planck locus
+% 
+% CRI_all: struct with all 16 Ri and Ra as returned from CRI.FullCRI(s)
+% 
+% Ra: number, general CRI value
+% 
+% 
+% 
+% Also performs optional normalization to peak = 1
+% 
+% *Input:*
+% 
+% |s:| spectrum, struct with fields |lam| and |val.|
+% 
+% |varargin:| Name/Value pair: 'Normalize', 'peak' | 'off' (default) 
+% 
+% Normalize -> 'peak' scales spectrum .val to have peak = 1
+% 
+% Normalize -> 'off' leaves .val unchanged
+% 
+% *Output:*
+% 
+% |rv:| the spectrum, with added fields and possibly scaled |.val| field. Other 
+% fields in |s|, like e.g. |.name,| remain unchanged
+% 
+% *Usage Example:*
+
+test = MakeSpectrum([400 700],[1 1],'hopp',42); % hopp is just some field to show it remains
+ComputeSpectrumColorimetry(test)
+%% 
 %% |CRI|
 % A class to compute color rendering indices. See <https://en.wikipedia.org/wiki/Color_rendering_index, 
 % https://en.wikipedia.org/wiki/Color_rendering_index,> and CIE 13.3-1995 Technical 
@@ -528,6 +637,12 @@ cri.PlotCRISpectra();
 % spectra:
 
 cri.CRISpectra_
+%% |Example_WhiteLED.m|
+% example script composing a white LED from blue and yellow, with supporting 
+% spectra blue.sre and yellow.sre. Run from Matlab environment and look at variables 
+% and figures.
+
+% ExampleWhiteLED()
 %% |GaussSpectrum|
 % Creates a normalized Gaussian spectrum with given mean and standard deviation
 
@@ -565,6 +680,40 @@ GaussSpectrum(400:500,450,10)
 % *Usage Example:*
 
 IsOctave()
+%% |LDomPurity|
+% Compute dominant wavelength and purity of a spectrum using |E = [ 1/3, 1/3]| 
+% as white point 
+
+% function [ldom, purity] = LDomPurity(rhs)
+%% 
+% *Input:*
+% 
+% |rhs:|  may be spectrum (struct with lam and val), or XYZ (struct with x and 
+% y), or array with length 2 
+% 
+% *Output:*
+% 
+% |ldom:| dominant wavelength in nm, i.e. the wavelength where the E -> x/y 
+% line intersects the monochromatic border. Negative if E -> x/y intersects magenta 
+% line, not the monochromatic border. 555 if x/y == E within circle of eps = 2.2e-16.
+% 
+% |purity:| purity, i.e. the E->x/y distance relative to E->border. 0 if x/y 
+% == E, 1 if x/y on border. Negative if E -> x/y intersects magenta line, not 
+% the monochromatic border.
+% 
+% *Usage Example:*
+
+blue = GaussSpectrum(360:830,460,20);
+[ldom,purity] = LDomPurity(blue) %#ok<ASGLU> % yes, LDom > LPeak for blue
+red = GaussSpectrum(360:830,630,20);
+[ldom,purity] = LDomPurity(red) %#ok<ASGLU> % yes, LDom < LPeak for red
+magenta = AddSpectra(blue,red);
+m_XYZ = CIE1931_XYZ(magenta);
+[ldom,purity] = LDomPurity(m_XYZ) %#ok<ASGLU> % both values are negative
+green_xy = [0.16,0.80];
+[ldom,purity] = LDomPurity(green_xy) %#ok<ASGLU> % x/y near border for about 530 nm
+[ldom,purity] = LDomPurity([1/3,1/3]) % ldom is arbitrary
+%% 
 %% |LinInterpol|
 % Computes linearly interpolated values of scalar tabulated function. Very similar 
 % to built in |interp1|, but uses faster C++ DLL under Matlab (on my machine, 
@@ -632,7 +781,7 @@ LinInterpolAdd4Async([0 1],[1 1.1], [0 1],[2 2], [0 1],[3 3], [0 2],[4 4], [0, 1
 % Creates a spectrum struct out of arrays |lam| and |val| and checks if they 
 % meet the <internal:H_EC1C6D0E requirements>
 
-% function rv = MakeSpectrum(lam, val)
+% function rv = MakeSpectrum(lam, val, varargin)
 %% 
 % *Input:* 
 % 
@@ -645,6 +794,8 @@ LinInterpolAdd4Async([0 1],[1 1.1], [0 1],[2 2], [0 1],[3 3], [0 2],[4 4], [0, 1
 % 
 % The <internal:H_EC1C6D0E requirements> are checked, an error thrown if violated
 % 
+% |varargin:| Name/Value pairs for additional fields
+% 
 % *Output:* 
 % 
 % |rv| is a spectrum struct with column vector fields |lam| and |val|_._
@@ -652,7 +803,7 @@ LinInterpolAdd4Async([0 1],[1 1.1], [0 1],[2 2], [0 1],[3 3], [0 2],[4 4], [0, 1
 % *Usage Example:*
 
 clear s
-s = MakeSpectrum([400 700], [1 1])
+s = MakeSpectrum([400 700], [1 1],'name','flat spectrum') %#ok<NASGU> 
 %% |MultiplySpectra|
 % Multiply two spectra, e.g. an LED spectrum with a transmission spectrum
 
@@ -737,23 +888,16 @@ legend({'s1','s2','prodspec = s1*s2'},'Location','northwest');
 
 clear pl xb yb T xy
 pl = PlanckLocus();
-load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
-nfig = nfig + 1;
-figure(nfig);
-clf;
+fh = figure();clf;
+PlotCIExyBorder('Figure',fh);
 hold on;
-xb = CIE1931XYZ.xBorder;
-yb = CIE1931XYZ.yBorder;
-xb(end+1)=xb(1); % close loop
-yb(end+1)=yb(1);
-plot(xb,yb,'k');
-plot(pl.x,pl.y);
 T = [1000 2000 3000 4000 5000 6000];
 xy = pl.xy_func(T);
 scatter(xy(:,1),xy(:,2));
+plot(pl.x,pl.y);
 axis equal;
 grid on;
-axis([0 0.8 0 0.9]);
+axis([-0.05 0.9 -0.05 0.9]);
 xlabel('CIE x');
 ylabel('CIE y');
 title('CIE xy border and Planck locus demo')
@@ -819,6 +963,82 @@ xlabel('\lambda (nm)');
 ylabel('spectral radiance L_\lambda (W/(m² nm sr)')
 legend({'3000K','4000K','5000K','6000K'})
 title('Blackbody spectral radiance')
+%% |PlotCIExyBorder|
+% plotting the CIE x/y "color horseshoe", with optional ticks and other options 
+
+% function [ah, fh] = PlotCIExyBorder(varargin)
+%% 
+% Plot the CIE x/y "color horseshoe" into a new figure or a given figure or 
+% axes handle. Various options are available to control the look. Re-use the figure 
+% and/or axes handle for further plotting into the same figure
+% 
+% *Input:*
+% 
+% |varargin|: Name/Value pairs:
+% 
+% |'Handle'|: valid figure handle to use for the plot. Current hold state will 
+% be restored
+% 
+% |'Axes'|  : valid axes handle to use for the plot. Current hold state will 
+% be restored. Overrides |'Handle'|
+% 
+% |'LineSpec'| : valid |LineSpec| string (see |plot| documentation), e.g. |'--b'| 
+% for dashed blue lines, see 'plot' documentation.
+% 
+% |'PlotOptions':| cell array of valid plot options, e.g. |{'Color',[0.5 0.5 
+% 0.5],'LineWidth',2}|
+% 
+% |'Ticks'| : array of wavelength values where ticks and labels are plotted. 
+% Reasonable default. Say |...,'Ticks',[],...| to suppress
+% 
+% |'TickFontSize':| number, obvious meaning. Default: |6|
+% 
+% *Output:*
+% 
+% |ah:| the axis handle
+% 
+% |fh:| the figure handle
+% 
+% *Usage Example:* (see also the example for <internal:H_719369C9 PlanckLocus>)
+
+[ah, fh] = PlotCIExyBorder('LineSpec','m','PlotOptions',{'LineWidth',1.5});
+%% |ReadLightToolsSpectrumFile|
+% Read LightTools .sre files, as supplied by many LED vendors. Reads also simple 
+% ASCII 2-column tables with any text header
+
+% function rv = ReadLightToolsSpectrumFile( fn )
+%% 
+% LightTools .sre files are simple ASCII 2 column text files, with a text header. 
+% The files |blue.sre| and |yellow.sre| are examples. 
+% 
+% LightTools .sre files have the option to be photometric, i.e. values are luminous 
+% flux, whereas all spectra in this library are radiometric. If it is photometric, 
+% ReadLightToolsSpectrumFile rescales the values properly to radiometric. There 
+% is also an option to be discrete, i.e. a spectrum of narrow lines. ReadLightToolsSpectrumFile 
+% converts such files to a continuous spectrum with very narrow triangular peaks.
+% 
+% ReadLightToolsSpectrumFile can also be used to read a spectrum from an ASCII 
+% file which starts with any number of text header lines, i.e. lines whose first 
+% non-whitespace character is not a '0'..'9' digit, followed by lines with two 
+% numbers each. 
+% 
+% The last line may or may not be terminated with a newline, i.e. the last line 
+% may be empty.
+% 
+% *Input:*
+% 
+% |fn:| File name. Extension must be supplied, is not automatically added.
+% 
+% *Output:*
+% 
+% |rv:| The spectrum
+% 
+% *Usage Example:*
+
+blue = ReadLightToolsSpectrumFile( 'blue.sre' );
+figure; clf;
+plot(blue.lam, blue.val);
+xlabel('\lambda'); title('blue.sre read by ReadLightToolsSpectrumFile');
 %% |SpectrumSanityCheck|
 % Checks <internal:H_EC1C6D0E requirements> for a spectrum variable, and returns 
 % a sanitized version of the variable, with column vectors |lam| and |val|.
@@ -867,6 +1087,27 @@ bad = struct('lam', [1, 2, 1], 'val', [0 0 0]);
 % *Usage Example:*
 
 TestLinInterpol
+%% |Vlambda|
+% Returns V(lambda), CIE 1924 as a spectrum
+
+% function rv = Vlambda()
+%% 
+% In steps of 1 nm from 360 nm to 830 nm
+% 
+% *Input:* none
+% 
+% *Output:*
+% 
+% |rv:| V(lambda) as spectrum in steps of 1 nm from 360 nm to 830 nm
+% 
+% *Usage Example:*
+
+vl = Vlambda();
+figure(); clf;
+plot(vl.lam, vl.val);
+xlabel('\lambda (nm)');
+title('V(\lambda)')
+%% 
 %% |WriteLightToolsSpectrumFile|
 % Write LightTools .sre spectrum file, to assign to a source
 
@@ -919,10 +1160,12 @@ WriteLightToolsSpectrumFile(s,'Planck5600.sre');
 % 
 % 
 %% |template for copy paste|
-% descr
+% short 
 
 % 
 %% 
+% long
+% 
 % *Input:*
 % 
 % |rhs:| the right hand side

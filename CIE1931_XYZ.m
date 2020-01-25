@@ -1,3 +1,4 @@
+
 function rv = CIE1931_XYZ(spec)
 % function rv = CIE1931_XYZ(spec)
 % compute CIE 1931 XYZ tristimulus and xy coords from spec.lam, spec.val
@@ -36,7 +37,7 @@ function rv = CIE1931_XYZ(spec)
     ispecval = LinInterpol(spec.lam,spec.val,(lam0:lam1)');
     idxlam0 = lam0 - iXYZ.lam(1) + 1;
     idxlam1 = lam1 - iXYZ.lam(1) + 1;
-    rv.X = trapz(ispecval .* iXYZ.x(idxlam0:idxlam1));
+    rv.X = trapz(ispecval .* iXYZ.x(idxlam0:idxlam1)); % ok since iXYZ.x,y,z have unit spacing
     rv.Y = trapz(ispecval .* iXYZ.y(idxlam0:idxlam1));
     rv.Z = trapz(ispecval .* iXYZ.z(idxlam0:idxlam1));
     rv.x = rv.X / (rv.X+rv.Y+rv.Z);

@@ -67,6 +67,9 @@ classdef CRI < handle
         end
         
         function rv_struct = Test(this, doPrint)
+            if nargin == 1
+                doPrint = true;
+            end
             prev = this.SetStrict_5nm(false);
             rv_struct = {};
             rv_struct{end+1} = iTestR1_14(CIE_Illuminant_D(6500), 'D(6500)', 100 * ones(14,1),0.02);
@@ -163,7 +166,10 @@ classdef CRI < handle
             tmp = CIE1931_XYZ(s_k);
             s_k.val = s_k.val * 100 / tmp.Y;
             XYZ_k = CIE1931_XYZ(s_k);
-            [CCT, dist_uv] = CCT_from_xy(XYZ_k.x, XYZ_k.y);
+            [CCT, dist_uv, ok, errmsg] = CCT_from_xy(XYZ_k.x, XYZ_k.y);
+            if ~ok && contains(errmsg, 'error')
+                error('CRI.PrepareLamp: Cannot compute CCT: %s',errmsg);
+            end
             warnings = {};
             if dist_uv >= 0.05
                 warnings{end+1}=sprintf('test lamp too far from Planck to compute CCT properly, dist_uv = %g, >= 0.05',dist_uv);
@@ -195,12 +201,12 @@ classdef CRI < handle
             rv.delta_uv = delta_uv;
             rv.cd_k = cd_k;
             rv.cd_r = cd_r;
-            function rv = GenSpectrumStruct(s, XYZ, uv)
+            function irv = GenSpectrumStruct(s, XYZ, uv)
                 % s_r and s_k both have fields X, Y, Z, x, y, z, u, v
-                rv = s;
-                rv.x = XYZ.x; rv.y = XYZ.y; rv.z = XYZ.z; 
-                rv.X = XYZ.X; rv.Y = XYZ.Y; rv.Z = XYZ.Z; 
-                rv.u = uv.u; rv.v = uv.v;                
+                irv = s;
+                irv.x = XYZ.x; irv.y = XYZ.y; irv.z = XYZ.z; 
+                irv.X = XYZ.X; irv.Y = XYZ.Y; irv.Z = XYZ.Z; 
+                irv.u = uv.u; irv.v = uv.v;                
             end
         end
         
@@ -225,7 +231,7 @@ classdef CRI < handle
             uvprime_ki = this.ColorShift(uv_ki,lamp_ref);
             % 5.8 transform to 1964 U*V*W*
             UVW_ri = UVW(XYZ_ri.Y, uv_ri);
-            UVW_ki = UVW(XYZ_ki.Y, uv_ki);            
+            UVW_ki = UVW(XYZ_ki.Y, uvprime_ki);            
             % 5.9 compute Delta U*V*W*
             Delta_Ei = sqrt((UVW_ri.U - UVW_ki.U)^2 + (UVW_ri.V - UVW_ki.V)^2 + (UVW_ri.W - UVW_ki.W)^2);            
             % 6.2 compute R_i            
@@ -238,13 +244,13 @@ classdef CRI < handle
                 rv.V = 13 * rv.W * (uv.v - lamp_ref.s_r.v);
             end
         end
-        function rv = ColorShift(this,uv_k,lamp_ref)                
+        function irv = ColorShift(this,uv_k,lamp_ref)                
             cd_k = this.cd(uv_k);
-            c = cd_k.c * lamp_ref.cd_k.c / lamp_ref.cd_r.c;
-            d = cd_k.d * lamp_ref.cd_k.d / lamp_ref.cd_r.d;
+            c = cd_k.c * lamp_ref.cd_r.c / lamp_ref.cd_k.c;
+            d = cd_k.d * lamp_ref.cd_r.d / lamp_ref.cd_k.d;
             den = (16.518 + 1.481*c - d);
-            rv.u = (10.872 + 0.404*c - 4*d) / den;
-            rv.v = 5.520 / den;
+            irv.u = (10.872 + 0.404*c - 4*d) / den;
+            irv.v = 5.520 / den;
         end
         function rv = uv(~,XYZ)
             den = - 2 * XYZ.x + 12 * XYZ.y + 3;

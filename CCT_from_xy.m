@@ -1,8 +1,12 @@
-function [CCT, dist_uv] = CCT_from_xy(x,y)
+function [CCT, dist_uv, ok, errmsg] = CCT_from_xy(x,y)
 % function [CCT, dist_uv] = CCT_from_xy(x,y)
 % computes CCT in the range of 1000K to 1000.000K with extreme precision
 % dist_uv is the distance to the Planck locus in uv coordinates, should be
 % less than 0.05 for valid CCT
+% There is a warning for duv > 0.05, and an error for duv > 0.09, or CCT out of 1000K..10^6K range.
+% However, if nargout >= 3, i.e. the 'ok' return value is queried, no warnings or errors are raised.
+% Instead, ok == true (if no error) || false , and errmsg == '' || 'warning: ...' || 'error: ...', and if there is an
+% error, then CCT = NaN and dist_uv = NaN
     pl = PlanckLocus();
     den = -2*x + 12*y + 3;
     u = 4 * x / den;
@@ -11,16 +15,32 @@ function [CCT, dist_uv] = CCT_from_xy(x,y)
     dv = v - pl.v;
     duv = sqrt(du.^2 + dv.^2);
     [minduv, iminduv] = min(duv);
-    if minduv > 0.05
-        warning('CCT: duv > 0.05');
-    end
+    okcheck = nargout >= 3;
+    ok = false; CCT = NaN; dist_uv = NaN; errmsg = '';
     if minduv > 0.09
-        error('CCT: duv > 0.09');
+        if okcheck
+            errmsg = 'CCT error: duv > 0.09'; 
+            return;
+        else
+            error('CCT: duv > 0.09');
+        end
     end
     if iminduv < 2 || iminduv >= pl.nT
-        error('CCT: out of 1000K ... infty range');
+        if okcheck
+            errmsg = 'CCT error: out of 1000K ... infty range'; 
+            return;
+        else
+            error('CCT: out of 1000K ... infty range');
+        end
     end
-
+    ok = true;
+    if minduv > 0.05
+        if okcheck
+            errmsg = 'CCT warning: duv > 0.05'; 
+        else
+            warning('CCT: duv > 0.05');
+        end
+    end
 %     test0 = JuddDistance(invT);
 %     testp = JuddDistance(pl.invT(iminduv+1));
 %     testm = JuddDistance(pl.invT(iminduv-1));    
