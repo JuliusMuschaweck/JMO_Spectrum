@@ -18,7 +18,7 @@ legend({'blue part','yellow part','weighted sum'});
 grid on;
 white.XYZ = CIE1931_XYZ(white);
 [white.CCT, white.dist_uv] = CCT_from_xy(white.XYZ.x,white.XYZ.y);
-
+white.name = 'typical white LED spectrum';
 white_1nm = AssignNewWavelength(white,400:780);
 white_1nm.val = white_1nm.val / max(white_1nm.val);
 
