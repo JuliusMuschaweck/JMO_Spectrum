@@ -3,15 +3,16 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     %
     % Parameters:
     %   varargin: Name/Value pairs:
-    %       'Handle': valid figure handle to use for the plot. Current hold state will be restored
+    %       'Figure': valid figure handle to use for the plot. Current hold state will be restored
     %       'Axes'  : valid axes handle to use for the plot. Current hold state will be restored.
-    %       Overrides 'Handle';
+    %       Overrides 'Figure';
     %       'LineSpec' : valid LineSpec string, e.g. '--b' for dashed blue lines, see 'plot' documentation.
     %       'PlotOptions': cell array of valid plot options
     %                   e.g. {'Color',[0.5 0.5 0.5],'LineWidth',2}
     %       'Ticks' : array of wavelength values where ticks and labels are plotted. Reasonable default
     %                   Say ...,'Ticks',[],... to suppress ticks
     %       'TickFontSize': number, obvious use. Default: 6
+    %       'ColorFill': logical, fills shoe with approximate RGB colors. Default: false
     p = inputParser;
     p.addParameter('Figure',[], @(h) ishandle(h) && strcmp(get(h,'type'),'figure'));
     p.addParameter('Axes',[], @(h) ishandle(h) && strcmp(get(h,'type'),'axes'));
@@ -20,6 +21,7 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     defaultTicks = [400, 430, 450:10:480, 485:5:520, 530:10:620, 640, 700];
     p.addParameter('Ticks',defaultTicks,@(x) isempty(x) || (isnumeric(x) && isvector(x)));
     p.addParameter('TickFontSize',6,@(x) isnumeric(x) && isscalar(x));
+    p.addParameter('ColorFill',false,@islogical);
     parse(p,varargin{:});
     if isempty(p.Results.Axes)
         if isempty(p.Results.Figure)
@@ -40,6 +42,12 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     lspec = p.Results.LineSpec;
     popts = p.Results.PlotOptions;
     blank = isempty(p.Results.Axes) && isempty(p.Results.Figure);
+    
+    if p.Results.ColorFill
+        load('RGBColorShoeImage.mat','rgbimg2');
+        image([0 1],[1 0],flipud(rgbimg2));
+        set(gca,'ydir','normal');
+    end
     
     load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
     hold on;
