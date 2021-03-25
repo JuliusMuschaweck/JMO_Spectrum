@@ -1,4 +1,4 @@
-function rv = ComputeSpectrumColorimetry(s, varargin)
+function rv = ComputeSpectrumColorimetry(spec, varargin)
     % For input spectrum s, compute colorimetry information, return same spectrum with added fields
     % Parameters:
     %   s: spectrum, struct with fields lam and val
@@ -21,7 +21,7 @@ function rv = ComputeSpectrumColorimetry(s, varargin)
     p.addRequired('s');
     validateNormalize = @(str) strcmp(str,'peak') || strcmp(str,'off');
     p.addParameter('Normalize','off',validateNormalize);
-    parse(p, s, varargin{:});
+    parse(p, spec, varargin{:});
     rv = p.Results.s;
     if strcmp(p.Results.Normalize,'peak')
         rv.val = rv.val / max(rv.val); % normalize to max = 1;

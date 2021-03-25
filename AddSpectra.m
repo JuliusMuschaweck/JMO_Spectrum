@@ -1,6 +1,30 @@
+%% AddSpectra
+% Adds two spectra without weights. Convenience function with simpler
+% interface than <file:AddWeightedSpectra.html AddWeightedSpectra>
+%% Syntax
+% |function rv = AddSpectra(lhs, rhs)|
+%% Input Arguments
+% * |lhs|: A valid spectrum
+% * |rhs|: A valid spectrum
+%% Output Arguments
+% * |rv|: Spectrum containing the merged wavelengths in field |rv.lam|, and
+% the sum of both input spectra in field |rv.val|
+%% Algorithm
+% Computes the sum of |rhs| and |lhs|. When both spectra do not overlap, the wavelength ranges are concatenated, 
+% and the range in between is padded with zero. If they do overlap, then |rv.lam| contains all values from both input spectra, 
+% with duplicate values removed, and what is added are the linearly interpolated values from both input spectra. Thus, the sum spectrum is a 
+% perfect model of the underlying continuous function which is the sum of the continuous, linearly interpolated input spectra.
+%% See also
+% <AddWeightedSpectra.html AddWeightedSpectra>
+%% Usage Example
+% <include>ExampleAddSpectra.m</include>
+
+% publish with publish('AddSpectra.m','evalCode',true,'showCode',false,'codeToEvaluate','ExampleAddSpectra();');
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
 function rv = AddSpectra(lhs, rhs)
-% function rv = AddSpectra(lhs, rhs)
-% input: lhs, rhs: spectra. i.e. struct with vector fields lam and val
-% output: sum of both. 
     rv = AddWeightedSpectra({lhs rhs},[1 1]);
 end

@@ -1,3 +1,28 @@
+%% AddWeightedSpectra
+% Adds several spectra with weights.
+%% Syntax
+% |function rv = AddWeightedSpectra(spectra,weights)|
+%% Input Arguments
+% * |spectra|: scalar, 1-D vector or 1-D cell array of valid spectra
+% * |weights|: scalar or 1-D vector of double
+%% Output Arguments
+% * |rv|: Spectrum containing the merged wavelengths in field |rv.lam|, and the weighted sum of all input spectra in field |rv.val|
+%% Algorithm
+% Computes the weighted sum of all spectra. When spectra do not overlap, the wavelength ranges are concatenated, 
+% and the range in between is padded with zero. If they do overlap, then |rv.lam| contains all values from all input spectra, 
+% with duplicate values removed, and what is added are the weighted sum of linearly interpolated values from all input spectra. Thus, the sum spectrum is a 
+% perfect model of the underlying continuous function which is the weighted sum of the continuous, linearly interpolated input spectra.
+%% See also
+% <AddSpectra.html AddSpectra>, <MultiplySpectra.html MultiplySpectra>
+%% Usage Example
+% <include>ExampleAddWeightedSpectra.m</include>
+
+% publish with publish('AddWeightedSpectra.m','evalCode',true,'showCode',false,'codeToEvaluate','ExampleAddWeightedSpectra();');
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
 function rv = AddWeightedSpectra(spectra,weights)
 % function rv = AddWeightedSpectra(spectra,weights)
 % vectors of spectra and scalar weights
