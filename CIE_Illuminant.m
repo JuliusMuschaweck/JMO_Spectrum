@@ -20,7 +20,6 @@ function rv = CIE_Illuminant(name,varargin)
     elseif strcmp(name,'E')
         s = MakeSpectrum(lam,ones(size(lam)));
         s.name = 'CIE standard illuminant E';
-        return;
     else
         error('CIE_Illuminant: unknown illuminant name: %s',name);
     end

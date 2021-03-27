@@ -1,5 +1,5 @@
 
-function rv = CIE1931_XYZ(spec)
+function rv = CIE1931_XYZ(spec, options)
 % function rv = CIE1931_XYZ(spec)
 % compute CIE 1931 XYZ tristimulus and xy coords from spec.lam, spec.val
 % spec is struct with spec.lam and spec.val arrays
