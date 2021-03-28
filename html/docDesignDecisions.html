@@ -1,0 +1,143 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Design decisions (go back home)</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-21"><meta name="DC.source" content="docDesignDecisions.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Design decisions (go back <a href="JMOSpectrumLibrary.html">home</a>)</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Spectrum</a></li><li><a href="#3">Conventions</a></li></ul></div><h2 id="1">Spectrum</h2><p>In this library, a spectrum is a struct with at least two fields named <tt>lam</tt> and <tt>val</tt>, which meet the following requirements:</p><div><ul><li><tt>lam</tt> is a 1D vector of numeric values which are not complex, &gt; 0, and strictly ascending.</li><li><tt>val</tt> is a 1D vector of numeric values which are not complex.</li><li><tt>lam</tt> and <tt>val</tt> are of same length and have at least two elements.</li></ul></div><p>It is desirable, but not necessary, for <tt>lam</tt> and <tt>val</tt> to be column vectors.</p><p>There is a function <tt>rv = SpectrumSanityCheck(rhs)</tt> (see <a href="SpectrumSanityCheck.html">here</a>, which tests all these requirements and, if met, returns the same struct except that lam and val are converted to column vectors if necessary.</p><p>A spectrum models the function S(lambda) which represents a physical scalar function of wavelength. Like spectral radiant flux, spectral irradiance, spectral radiant intensity, spectral radiance, spectral transmission, spectral absorption, spectral efficiency. The tabulated values in val are linearly interpolated. Outside the range given by lam,  S(lambda) == 0.</p><p>Accordingly, there are no spectra consisting of truly monochromatic lines in this library. If you want to approximate line spectra, make very narrow triangles. Spectra are continuous, except at the wavelength boundaries, where they jump to zero</p><p><tt>lam</tt> is considered to have units of nanometers in all library functions that make use of this unit, e.g. color calculations.</p><p>Why structs and not classes? Classes are nice to guarantee that properties like lam and val always are present, and would allow methods which operate directly on spectra. However, structs are simpler and more versatile. I, as the library designer, cannot know which additional information a user (I myself, for example), wants to attach to a given spectrum. Name, date, name of LED, color coordinates and more. To make a spectrum s, I can simply say</p><pre class="codeinput">clear <span class="string">s</span>
+s.lam = [360 830];
+s.val = [1 1];
+s.name = <span class="string">"CIE standard illuminant E"</span>;
+s.hopp = <span class="string">"topp"</span>;
+s
+</pre><pre class="codeoutput">
+s = 
+
+  struct with fields:
+
+     lam: [360 830]
+     val: [1 1]
+    name: "CIE standard illuminant E"
+    hopp: "topp"
+
+</pre><p>to give it an appropriate name and an arbitrary value in an arbitrary additional field. Of course, a user could always create a subclass to add properties to a given class, but it is just so much simpler to assign to an additional struct field in a single line. In my experience, these conventions for spectra are simple and few enough to be easily remembered and adhered to.</p><h2 id="3">Conventions</h2><p>In my code, I like to have long unabbreviated variable and function names. Except for a few standards:</p><div><ul><li><tt>rv</tt> is my name for the return value of a function</li><li><tt>spec</tt> is my name for a single spectrum argument of a function.</li><li><tt>lhs</tt> and <tt>rhs</tt>  are short for 'left hand side' and 'right hand side', the arguments of a binary function.</li></ul></div><p>Proper library function names start with capital letters, e.g. <tt>MakeSpectrum.m</tt>. Internal helper functions start with a small "i", e.g. <tt>iLinInterpolProto.m</tt>, and scripts used for generating documentation start with a small "doc", e.g. <tt>docDesignDecisions.m</tt> which creates this page.</p><p>A spectrum struct is valid if it has fields <tt>lam</tt> and <tt>val</tt> which fulfill the requirements above. In addition, I assume a spectrum may have the following fields:</p><div><ul><li><tt>name</tt>:  A short character string with a name.</li><li><tt>description</tt>: A longer character string with a description.</li><li><tt>XYZ</tt>:  A struct with tristimulus and color coordinate fields X, Y, Z, x, y, z, typically created by code like s.XYZ = CIE1931_XYZ(s)</li></ul></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Design decisions (go back <JMOSpectrumLibrary.html home>)
+%% Spectrum
+% In this library, a spectrum is a struct with at least two fields named |lam| and |val|, which meet the following requirements:
+%
+% * |lam| is a 1D vector of numeric values which are not complex, > 0, and strictly ascending.
+% * |val| is a 1D vector of numeric values which are not complex.
+% * |lam| and |val| are of same length and have at least two elements.
+% 
+% It is desirable, but not necessary, for |lam| and |val| to be column vectors.
+% 
+% There is a function |rv = SpectrumSanityCheck(rhs)| (see <SpectrumSanityCheck.html here>, which tests all these requirements 
+% and, if met, returns the same struct except that lam and val are converted to column vectors if necessary.
+% 
+% A spectrum models the function S(lambda) which represents a physical scalar function of wavelength. Like spectral radiant flux, spectral irradiance, 
+% spectral radiant intensity, spectral radiance, spectral transmission, spectral absorption, spectral efficiency. The tabulated values in val are 
+% linearly interpolated. Outside the range given by lam,  S(lambda) == 0. 
+% 
+% Accordingly, there are no spectra consisting of truly monochromatic lines in this library. If you want to approximate line spectra, 
+% make very narrow triangles. Spectra are continuous, except at the wavelength boundaries, where they jump to zero
+% 
+% |lam| is considered to have units of nanometers in all library functions that make use of this unit, e.g. color calculations.
+%
+% Why structs and not classes? Classes are nice to guarantee that properties like lam and val always are present, and would allow methods which operate directly on spectra. 
+% However, structs are simpler and more versatile. I, as the library designer, cannot know which additional information a user (I myself, for example), 
+% wants to attach to a given spectrum. Name, date, name of LED, color coordinates and more. To make a spectrum s, I can simply say
+%
+clear s
+s.lam = [360 830];
+s.val = [1 1];
+s.name = "CIE standard illuminant E";
+s.hopp = "topp";
+s
+%%
+% to give it an appropriate name and an arbitrary value in an arbitrary additional field. Of course, a user could always create a subclass to add 
+% properties to a given class, but it is just so much simpler to assign to an additional struct field in a single line. 
+% In my experience, these conventions for spectra are simple and few enough
+% to be easily remembered and adhered to. 
+%% Conventions
+% In my code, I like to have long unabbreviated variable and function names. Except for a few standards:
+% 
+% * |rv| is my name for the return value of a function
+% * |spec| is my name for a single spectrum argument of a function.
+% * |lhs| and |rhs|  are short for 'left hand side' and 'right hand side', the arguments of a binary function.
+% 
+% Proper library function names start with capital letters, e.g.
+% |MakeSpectrum.m|. Internal helper functions start with a small "i", e.g.
+% |iLinInterpolProto.m|, and scripts used for generating documentation start
+% with a small "doc", e.g. |docDesignDecisions.m| which creates this page.
+% 
+% A spectrum struct is valid if it has fields |lam| and |val| which fulfill the requirements above. In addition, I assume a spectrum may have the following fields:
+%
+% * |name|:  A short character string with a name. 
+% * |description|: A longer character string with a description.
+% * |XYZ|:  A struct with tristimulus and color coordinate fields X, Y, Z, x, y, z, typically created by code like s.XYZ = CIE1931_XYZ(s)
+##### SOURCE END #####
+--></body></html>
