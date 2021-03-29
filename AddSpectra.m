@@ -17,9 +17,9 @@
 %% See also
 % <AddWeightedSpectra.html AddWeightedSpectra>
 %% Usage Example
-% <include>ExampleAddSpectra.m</include>
+% <include>Examples\ExampleAddSpectra.m</include>
 
-% publish with publish('AddSpectra.m','evalCode',true,'showCode',false,'codeToEvaluate','ExampleAddSpectra();');
+% publish with publish('AddSpectra.m','evalCode',true,'showCode',false,'codeToEvaluate','runExample(''ExampleAddSpectra'')');
 
 % JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
