@@ -2,10 +2,9 @@
 % Version 1.32, March 21, 2021
 % 
 % Julius Muschaweck, JMO GmbH, Zugspitzstr. 66, 82131 Gauting, Germany
-%
-% email: 
-% julius@jmoptics.de
-% web: 
+% &nbsp; &nbsp; email: 
+% julius@jmoptics.de?
+% &nbsp; &nbsp; web: 
 % <https://www.jmoptics.de>
 %% Rationale
 % We deal routinely with spectra in illumination optics. We need to analyze LED spectra, compute color coordinates and color rendering values from spectra, integrate them, 
@@ -24,11 +23,12 @@
 %% License -- Public Domain
 % I release this software into the public domain under 
 % <https://creativecommons.org/publicdomain/zero/1.0/legalcode CC0>
+%% Detailed documentation
+% For details, see the <AlphabeticList.html alphabetic list> of functions, and the <GroupedList.html grouped list>.
 %% Getting Started
 % Let's create a very simple spectrum: CIE standard illuminant E, which is
 % just a flat spectrum from 360 nm to 830 nm. By definition it should have
 % equal X,Y,Z tristimulus values and x-y color coordinates of |[1/3, 1/3]|.
-clear s;
 s.lam = [360 830];
 s.val = [1 1];
 s
@@ -36,12 +36,26 @@ xyz = CIE1931_XYZ(s)
 s.xyz = xyz; % A common pattern: Compute some property of a spectrum, then add it as a field
 %%
 % Now, let's create three Gaussian spectra, and compute the result of
-% additive color mixing with some arbitrary weights. See 
-% <AddWeightedSpectra.html AddWeightedSpectra> on how to generate, add
-% and plot these three spectra.
-% 
-% <<AddWeightedSpectraDemoPic.png>>
-%
+% additive color mixing with some weights to generate some kind of white, using <AddWeightedSpectra.html AddWeightedSpectra>. 
+% Then, we compute a whole lot of colorimetric values for this spectrum with <ComputeSpectrumColorimetry.html
+% ComputeSpectrumColorimetry>.
+red = GaussSpectrum(linspace(550,700),620,15);
+green = GaussSpectrum(linspace(430,730),530,20);
+blue = GaussSpectrum(linspace(400,500),450,8);
+sumspec = AddWeightedSpectra({red, green, blue},[2, 1.5, 1.5]);
+figure();
+clf;
+hold on;
+plot(red.lam, red.val,'r');
+plot(green.lam, green.val,'g');
+plot(blue.lam, blue.val,'b');
+plot(sumspec.lam, sumspec.val,'k');
+legend({'red','green','blue','weighted sum'},'Location','NorthWest');
+grid on;
+xlabel('lam');
+ylabel('val');
+title('AddWeightedSpectra demo');%
+ComputeSpectrumColorimetry(sumspec)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 

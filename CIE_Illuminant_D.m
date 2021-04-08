@@ -1,3 +1,46 @@
+%% CIE_Illuminant_D
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes CIE standard illuminant D (daylight) for a desired color temperature
+%% Syntax
+% |rv = CIE_Illuminant_D(CCT,varargin)|
+%% Input Arguments
+% * |CCT|: scalar double. Correlated color temperature. |4000 <= CCT <= 25000|, else error
+% * |varargin|: Name-value pair |'lam',lam| where |lam| is a valid wavelength range (strictly ascending vector of
+% positive double| Default is |360:830|. 
+%% Output Arguments
+% * |rv|: A spectrum, |struct| with fields |lam| (a copy of the input variable when given, else 360:830), |val| (the
+% spectrum values), and |name| (an appropriate name). CIE D is defined from 300 nm to 830 nm. The spectrum will be zero
+% for values of |lam| outside this range.
+%% Algorithm
+% Retrieves the S0, S1 and S2 spectra from |CIE_Standard_Illuminants.mat|, computes the M1 and M2 weights according to
+% the CIE formulas and assembles the weighted sum of the three spectra. Then, interpolates the resulting spectrum over
+% |lam|. See CIE 015:2018 ("Colorimetry, 4th edition") for the definitions. Note that the S0, S1 and S2 functions are given in 10 nm steps, and thus
+% the CIE D illuminant is not smooth when interpolated on a finer wavelength resolution. When a smoother spectrum is
+% desired, you may consult CIE 204:2013 (“Methods for re-defining CIE D illuminants”) for a smoothing method that does
+% only minimally change resulting color coordinates from a wide range of reflective samples. They also do no correctly
+% represent the narrow absorption bands of the atmosphere: CIE D is for colorimetric calculations only, with no steep
+% slopes in reflection or transmission. When using with sharp dichroic filters, it may be better to use the high resolution AM1.5
+% spectrum, see file AM0AM1_5.xls, which is contained in this library distribution.
+%% See also
+% <CIE_Illuminant.html CIE_Illuminant>, <CCT.html CCT>, <PlanckSpectrum.html PlanckSpectrum>
+%% Usage Example
+% <include>Examples/ExampleCIE_Illuminant_D.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
 function rv = CIE_Illuminant_D(CCT,varargin)
 % Compute CIE standard illuminant D for color temperature CCT, for 360:830 nm. Optional 'lam',lam 
     if CCT < 4000 || CCT > 25000

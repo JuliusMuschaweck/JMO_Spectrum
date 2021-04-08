@@ -20,6 +20,7 @@ function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)
     end
     nn = length(spec.lam);
     if isempty(msg)
+        msg = check( nn > 1, msg, 'length of lam must be >= 2 (no line spectra)');
         msg = check( isreal(spec.lam), msg, 'lam must be real');
         msg = check( sum(isfinite(spec.lam)) == nn, msg, 'lam must be finite');
         msg = check( isreal(spec.val), msg, 'val must be real');

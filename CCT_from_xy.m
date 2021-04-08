@@ -1,3 +1,56 @@
+%% CCT_from_xy
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes the correlated color temperature (CCT) of a spectrum
+%% Syntax
+% |[CCT, dist_uv, ok, errmsg] = CCT_from_xy(x,y)|
+%% Input Arguments
+% * |x|: Scalar double, CIE 1931 x coordinate
+% * |y|: Scalar double, CIE 1931 y coordinate
+%% Output Arguments
+% * |iCCT|: scalar double. The correlated color temperature in Kelvin
+% * |dist_uv|: scalar double. The distance to the Planck locus in uv coordinates. Negative when below Planck locus
+% (towards magenta).
+% * |ok|: When requested, function sets ok to false, sets iCCT and dist_uv to NaN in case of error instead of throwing
+% error.
+% * |errmsg|: Contains error and warning message(s)
+%% Algorithm
+% For a CIE 1931 xy color point, transform it to CIE 1960 uv coordinates, and then find the
+% closest point on the Planck locus in CIE 1960 uv coordinates. The absolute temperature corresponding to the blackbody
+% radiation that yields this point on the Planck locus is the CCT. See also the official CIE definition
+% <https://cie.co.at/eilvterm/17-23-068>. 
+%
+% # Data for the Planck locus is obtained by calling <PlanckLocus.html PlanckLocus>, giving 1001 uv points
+% along the Planck locus from 500 K to 1e+11K, equidistant in 1/T, and thus not too non-equidistant in uv.
+% # The closest of these 1001 uv points is determined by computing all 1001 distances and then looking for the minimum.
+% # If that minimum is > 0.09, there is an error, |CCT = NaN; dist_uv = NaN;|, and the function returns
+% # If that minimum is > 0.05, there is a warning (see <https://cie.co.at/eilvterm/17-23-068>), because the color is so
+% far away from the Planck locus that it is too green or magenta for a self respecting CCT.
+% # If the temperature corresponding to that minimum is < 500.5 or > 500,000, there is an error.
+% # At correct CCT, the vector connecting uv and the CCT point on the Planck locus is perpendicular to the Planck locus
+% tangent unit vector, i.e. their cross product must be zero. This zero point is determined by treating this cross
+% product as a quadratic function of inverse temperature, and computing the root of this quadratic function.
+% # The CCT is then the inverse of this root. The uv distance is computed by evaluating a spline interpolation function
+% of u and v. 
+%% See also
+% <CCT.html CCT>
+%% Usage Example
+% <include>Examples/ExampleCCT_from_xy.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
 function [CCT, dist_uv, ok, errmsg] = CCT_from_xy(x,y)
 % function [CCT, dist_uv] = CCT_from_xy(x,y)
 % computes CCT in the range of 1000K to 1000.000K with extreme precision
@@ -27,10 +80,10 @@ function [CCT, dist_uv, ok, errmsg] = CCT_from_xy(x,y)
     end
     if iminduv < 2 || iminduv >= pl.nT
         if okcheck
-            errmsg = 'CCT error: out of 1000K ... infty range'; 
+            errmsg = 'CCT error: out of 500K ... 500,000K range'; 
             return;
         else
-            error('CCT: out of 1000K ... infty range');
+            error('CCT: out of 500K ... 500,000K range');
         end
     end
     ok = true;

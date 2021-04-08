@@ -1,11 +1,20 @@
 %% AddSpectra
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
 % Adds two spectra without weights. Convenience function with simpler
 % interface than <file:AddWeightedSpectra.html AddWeightedSpectra>
 %% Syntax
 % |function rv = AddSpectra(lhs, rhs)|
 %% Input Arguments
-% * |lhs|: A valid spectrum
-% * |rhs|: A valid spectrum
+% * |lhs|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
+% * |rhs|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
 %% Output Arguments
 % * |rv|: Spectrum containing the merged wavelengths in field |rv.lam|, and
 % the sum of both input spectra in field |rv.val|

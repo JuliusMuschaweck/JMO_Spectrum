@@ -1,28 +1,34 @@
 %% AssignNewWavelength
-% <html> horst <br> erwin</html>
-% Adds several spectra with weights.
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Assign a new wavelength vector to a spectrum, interpolating the old values.
 %% Syntax
-% |function rv = AddWeightedSpectra(spectra,weights)|
+% |function rv = AssignNewWavelength(spectrum, lam_new)|
 %% Input Arguments
-% * |spectra|: scalar, 1-D vector or 1-D cell array of valid spectra
-% * |weights|: scalar or 1-D vector of double
+% * |spectrum|: scalar, valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
+% * |lam_new|: 1-D vector of double, valid wavelength array (positive, stricly ascending)
 %% Output Arguments
-% * |rv|: Spectrum containing the merged wavelengths in field |rv.lam|, and the weighted sum of all input spectra in field |rv.val|
+% * |rv|: A copy of the old spectrum with all fields, but |lam| is replaced and |val| is linearly interpolated. For
+% |lam_new values| outside the old interval, |val(i) == 0|
 %% Algorithm
-% Computes the weighted sum of all spectra. When spectra do not overlap, the wavelength ranges are concatenated, 
-% and the range in between is padded with zero. If they do overlap, then |rv.lam| contains all values from all input spectra, 
-% with duplicate values removed, and what is added are the weighted sum of linearly interpolated values from all input spectra. Thus, the sum spectrum is a 
-% perfect model of the underlying continuous function which is the weighted sum of the continuous, linearly interpolated input spectra.
+% See Output Arguments
 %% See also
-% <AddSpectra.html AddSpectra>, <MultiplySpectra.html MultiplySpectra>
-%% Usage Example
-% <include>ExampleAddWeightedSpectra.m</include>
-
-% publish with publish('AssignNewWavelength.m','evalCode',false,'showCode',false,'codeToEvaluate','ExampleAssignNewWavelength();');
-
-% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% <EvalSpectrum.html EvalSpectrum>
+%% Author's notice
+% JMO Spectrum Library, 2021. See <https://github.com/JuliusMuschaweck/JMO_Spectrum> for complete up to date code and
+% documentation. 
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
-% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+% <https://creativecommons.org/publicdomain/zero/1.0/legalcode>
+%% Usage Example
+% <include>ExampleAssignNewWavelength.m</include>
+
 
 function rv = AssignNewWavelength(spectrum, lam_new)
 % replaces the old wavelength array with a new one, interpolating the values, outside = 0

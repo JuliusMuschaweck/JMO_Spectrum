@@ -1,9 +1,18 @@
 %% AddWeightedSpectra
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
 % Adds several spectra with weights.
 %% Syntax
 % |function rv = AddWeightedSpectra(spectra,weights)|
 %% Input Arguments
-% * |spectra|: scalar, 1-D vector or 1-D cell array of valid spectra
+% * |spectra|: scalar, 1-D vector or 1-D cell array of valid spectra (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
 % * |weights|: scalar or 1-D vector of double
 %% Output Arguments
 % * |rv|: Spectrum containing the merged wavelengths in field |rv.lam|, and the weighted sum of all input spectra in field |rv.val|

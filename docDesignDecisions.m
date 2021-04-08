@@ -1,4 +1,13 @@
-%% Design decisions (go back <JMOSpectrumLibrary.html home>)
+%% Design decisions
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
 %% Spectrum
 % In this library, a spectrum is a struct with at least two fields named |lam| and |val|, which meet the following requirements:
 %
@@ -9,18 +18,19 @@
 % It is desirable, but not necessary, for |lam| and |val| to be column vectors.
 % 
 % There is a function |rv = SpectrumSanityCheck(rhs)| (see <SpectrumSanityCheck.html here>, which tests all these requirements 
-% and, if met, returns the same struct except that lam and val are converted to column vectors if necessary.
+% and, if met, returns the same struct except that |lam| and |val| are converted to column vectors if necessary.
 % 
 % A spectrum models the function S(lambda) which represents a physical scalar function of wavelength. Like spectral radiant flux, spectral irradiance, 
-% spectral radiant intensity, spectral radiance, spectral transmission, spectral absorption, spectral efficiency. The tabulated values in val are 
-% linearly interpolated. Outside the range given by lam,  S(lambda) == 0. 
+% spectral radiant intensity, spectral radiance, spectral transmission, spectral absorption, spectral efficiency. The tabulated values in |val| are 
+% linearly interpolated. Outside the range given by |lam|,  S(lambda) == 0. 
 % 
 % Accordingly, there are no spectra consisting of truly monochromatic lines in this library. If you want to approximate line spectra, 
-% make very narrow triangles. Spectra are continuous, except at the wavelength boundaries, where they jump to zero
+% make very narrow triangles. Spectra are continuous, except at the wavelength boundaries, where they jump to zero. If
+% you want to avoid this discontinuity at the boundary, let |val(1) == 0| and |val(end) == 0|.
 % 
 % |lam| is considered to have units of nanometers in all library functions that make use of this unit, e.g. color calculations.
 %
-% Why structs and not classes? Classes are nice to guarantee that properties like lam and val always are present, and would allow methods which operate directly on spectra. 
+% Why structs and not classes? Classes are nice to guarantee that properties like |lam| and |val| always are present, and would allow methods which operate directly on spectra. 
 % However, structs are simpler and more versatile. I, as the library designer, cannot know which additional information a user (I myself, for example), 
 % wants to attach to a given spectrum. Name, date, name of LED, color coordinates and more. To make a spectrum s, I can simply say
 %

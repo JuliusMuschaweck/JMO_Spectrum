@@ -1,39 +1,79 @@
-function rv = PlanckSpectrum(lam_vec, T, varargin)
-    % function rv = PlanckSpectrum(lam_vec, T, varargin)
-    %% Revision July 19th, 2020: Take refractive index into account. Default: n = 1.000277 (standard air)
-    %% Output: spectrum with .lam == lam_vec, .val spectral values for blackbody
-    %   spectrum
-    %  .name an appropriate name, and .XYZ if lam_vec is in nm units
-    %% Input: lam_vec vector of reals, T scalar real in K.
-    %   T may be inf, then returns lam_vec^(-4), scaled to 'localpeak1'
-    %   Options:
-    %   'normalize' -> string, default 'globalpeak1'
-    %       'globalpeak1': scaled such that global peak would be 1.0 even if
-    %           outside lambda range. Only for constant index
-    %       'localpeak1': scaled such that the peak value of any lam_vec is
-    %           1.0, Note: Not exactly identical if global peak is in range, due to
-    %           discretization
-    %       'localflux1: scaled such that integral over lambda range is 1.0
-    %       'radiance': scaled such rv is blackbody spectral radiance, W/(wlu m²sr)
-    %       'basic_radiance': scaled such rv is blackbody spectral basic radiance, W/(wlu m²sr)
-    %       'exitance': scaled such that rv is blackbody spectral exitance, W/(wlu m²)
-    %           wlu is wavelengthUnit, see below
-    %   'wavelengthUnit' -> positive real scalar, default 1e-9 (nanometers)
-    %       1e-9 : lam_vec given in nm, returned spectrum is W / (nm m² sr) or W / (nm m²)
-    %               rv.XYZ will be CIE XYZ values X, Y, Z, x, y
-    %       1e-6: lam_vec given in µm, returned spectrum is W / (µm m² sr) or W / (µm m²)
-    %       1  : lam_vec given in m, returned spectrum is W / (m m² sr) or W / (m m²)
-    %   'n_refr_const' -> positive real scalar, default 1.000277
-    %   'n_refr_func' -> function handle to dispersion function n(lambda), default not used (returning NaN)
-    %               signature: [n, dn_dlambda] = n_refr_func(lambda):
-    %   'n_refr_table' -> n is a valid spectrum, i.e. struct with appropriate fields lam and val
-    %   'n_refr_func' has precedence over 'n_refr_table', which has precedence over 'n_refr_const'
-    %   NOTE: For dispersive index as function of wavelength, the wavelength is interpreted as wavelength
+%% PlanckSpectrum
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes Planck's blackbody spectrum as function of temperature and wavelength
+%% Syntax
+% |function rv = PlanckSpectrum(lam_vec, T, opts)|
+%% Input Arguments
+% * |lam_vec|: vector of double, positive, strictly ascending. Wavelengths of the resulting spectrum
+% * |T|: scalar positive double. The absolute temperature in Kelvin. May be |Inf|, then, with |'normalize'| to
+% |'localpeak1'| returns the high temperate asymptotic shape.
+% * |opts|: Name-value pairs:
+%
+% <html>
+% <table border=1><tr><td><b>Name</b></td><td><b>Type</b></td><td><b>Value</b></td><td><b>Meaning</b></td></tr>
+% <tr><td> 'normalize' </td><td>string</td> <td> 'globalpeak1' (default) </td> <td> scaled such that global peak would be 1.0 even if
+%           outside lambda range. Only for constant index </td></tr>
+% <tr><td>             </td><td></td><td> 'localpeak1' </td> <td> scaled such that the peak value for the given lam_vec is
+%           1.0, Note: Not exactly identical if global peak is in range, due to
+%           discretization </td></tr>
+% <tr><td>  </td><td></td><td> 'localflux1' </td> <td> scaled such that integral over given lambda range is 1.0 </td></tr>
+% <tr><td>  </td><td></td><td> 'radiance' </td> <td> scaled such rv is blackbody spectral radiance, W/(wlu m²sr), where wlu is the length unit (usually nm) </td></tr>
+% <tr><td>  </td><td></td><td> 'basic_radiance' </td> <td> scaled such rv is blackbody spectral basic radiance, W/(wlu m²sr) </td></tr>
+% <tr><td>  </td><td></td><td> 'exitance' </td> <td> scaled such that rv is blackbody spectral exitance, W/(wlu m²) </td></tr>
+% <tr><td> 'wavelengthUnit' </td><td>positive real scalar</td><td> 1e-9 (default) </td> <td> lam_vec given in nm, returned spectrum is W / (nm m² sr) or W / (nm m²)
+    %               rv.XYZ will be CIE XYZ values X, Y, Z, x, y </td></tr>
+% <tr><td>  </td><td></td><td> 1e-6 </td> <td> lam_vec given in µm, returned spectrum is W / (µm m² sr) or W / (µm m²) </td></tr>
+% <tr><td>  </td><td></td><td> 1 </td> <td> lam_vec given in m, returned spectrum is W / (m m² sr) or W / (m m²) </td></tr>
+% <tr><td> 'n_refr_const' </td><td> positive real scalar </td><td> 1.000277 (default) </td> <td> standard air </td></tr>
+% <tr><td> </td><td> </td><td> 1.0 </td> <td> vacuum </td></tr>
+% <tr><td> </td><td> </td><td> any other value </td> <td> some constant index medium </td></tr>
+% <tr><td> 'n_refr_table' </td><td>A valid spectrum, i.e. struct with appropriate fields lam and val </td><td> </td> <td> </td></tr>
+% <tr><td> 'n_refr_func' </td><td> function handle with signature: [n, dn_dlambda] = n_refr_func(lambda) </td><td> @(lambda) NaN; (default)</td> <td> Not used </td></tr>
+% <tr><td> </td><td></td><td> any other function </td> <td> Dispersion of the embedding medium. Takes precedence over 'n_refr_table' and 'n_refr_const' 
+% NOTE: For dispersive index as function of wavelength, the wavelength is interpreted as wavelength
     %   within the medium (!!). For gases like air or argon, with pressure near atmospheric, the
     %   difference is negligible. For the (academic) case of blackbody radiation in an optically dense
     %   medium, where the dispersion curve is given as function of wavelength in vacuum or air, that
     %   function needs to be converted to a function of wavelength in medium before passing it as a
     %   parameter.
+% </td></tr>
+% <tr><td> 'doTest' </td><td> logical scalar </td><td> false (default) </td> <td> Ignore </td></tr>
+% <tr><td>  </td><td> </td><td> true </td> <td> Perform diagnostic test ignoring input values, then return. See code for details </td></tr>
+% </table>
+% </html>
+%
+%% Output Arguments
+% * |rv|: A spectrum, i.e. struct with fields |lam| (copy of |lam_vec|) and |val|, the Planck spectrum.
+%% Algorithm
+% Takes the constants for b, h, c and k from <CODATA2018.html CODATA2018>, and computes the blackbody parameters c1L and
+% c2 from these. Using b, c1L and c2, computes the blackbody basic spectral radiance, which is then normalized according
+% to the |'normalize'| option. For the intricacies of computing blackbody spectra in anything else but vacuum,
+% especially in dispersive media (like air, if you want to be precise), see <BlackbodySpectrumWithRefractiveIndex.html
+% BlackbodySpectrumWithRefractiveIndex>
+%% See also
+% <CIE_Illuminant.html CIE_Illuminant>, <CIE_Illuminant_D.html CIE_Illuminant_D>
+%% Usage Example
+% <include>Examples/ExamplePlanckSpectrum.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+
+
+
+function rv = PlanckSpectrum(lam_vec, T, varargin)
     
     % preliminaries
     if nargin == 0
@@ -205,7 +245,7 @@ end
 
 %%
 function TestPlanckSpectrum()
-    %% Input: lam_vec vector of reals, T scalar real in K.
+    % Input: lam_vec vector of reals, T scalar real in K.
     %   T may be inf, then returns lam_vec^(-4), scaled to 'localpeak1'
     %   Options:
     %   'normalize' -> string, default 'globalpeak1'
