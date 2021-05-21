@@ -1,0 +1,272 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MatchAdditiveMix</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="MatchAdditiveMix.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>MatchAdditiveMix</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ1, XYZ2, XYZ3</tt>: <tt>struct</tt> s with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: the three input tristimuli</li><li><tt>XYZ_target</tt>: <tt>struct</tt> with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: the target tristimulus</li><li><tt>opts</tt>: Name-Value pair: <tt>'XYZ_fix'</tt>, another <tt>struct</tt> with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: a fixed contribution, such that the sum of <tt>XYZ_fix</tt> and the weighted three <tt>XYZi</tt> tristimuli yield <tt>XYZ_target</tt>.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: (3,1) double column vector: the weights such that <tt>[XYZ1.X,XYZ2.X,XYZ3.X] * rv + XYZ_fixed.X == XYZ_target.X</tt>, likewise for <tt>Y</tt> and <tt>Z</tt>, within numerical accuracy.</li><li><tt>Acond</tt>: scalar double. The condition number of the 3x3 matrix of the equation system: diagnostic information</li></ul></div><h2 id="4">Algorithm</h2><p>Sets up the 3x3 linear equation system, and solves it.</p><h2 id="5">See also</h2><p><a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="MatchWhiteLEDSpectrum.html">MatchWhiteLEDSpectrum</a>, <a href="OptimalAdditiveMix.html">OptimalAdditiveMix</a>, <a href="XYZ_from_xyY.html">XYZ_from_xyY</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleMatchAdditiveMix()
+    XYZ1 = struct(<span class="string">'X'</span>, 1 , <span class="string">'Y'</span>, 1, <span class="string">'Z'</span>, 1 );
+    XYZ2 = struct(<span class="string">'X'</span>, 1 , <span class="string">'Y'</span>, 1, <span class="string">'Z'</span>, 1.001 ); <span class="comment">% very nearly the same, nearly singular, yields extreme weights</span>
+    XYZ3 = struct(<span class="string">'X'</span>, 1, <span class="string">'Y'</span>, 0.5, <span class="string">'Z'</span>, 1.5 );
+    XYZ_target = struct(<span class="string">'X'</span>, 2 , <span class="string">'Y'</span>, 3, <span class="string">'Z'</span>, 4 );
+    [rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target)
+    <span class="comment">% Read some LED spectra: red, greenm blue, cold white, warm white    </span>
+    sr = ReadLightToolsSpectrumFile(<span class="string">'LERTDUW_S2WP_red.sre'</span>);
+    sg = ReadLightToolsSpectrumFile(<span class="string">'LERTDUW_S2WP_green.sre'</span>);
+    sb = ReadLightToolsSpectrumFile(<span class="string">'LERTDUW_S2WP_blue.sre'</span>);
+    scw = ReadLightToolsSpectrumFile(<span class="string">'LED_6498K.sre'</span>);
+    sww = ReadLightToolsSpectrumFile(<span class="string">'LED_3000K.sre'</span>);
+    <span class="comment">% compute their tristimulus values</span>
+    sr.XYZ = CIE1931_XYZ(sr);
+    sg.XYZ = CIE1931_XYZ(sg);
+    sb.XYZ = CIE1931_XYZ(sb);
+    scw.XYZ = CIE1931_XYZ(scw);
+    sww.XYZ = CIE1931_XYZ(sww);
+
+    <span class="comment">% define 4500K Planck as target </span>
+    pl = PlanckLocus();
+    T = 4500;
+    xy_t = pl.xy_func(T);
+    XYZ_t.Y = 100;
+    colorweight = XYZ_t.Y / xy_t(2);
+    XYZ_t.X = xy_t(1) * colorweight;
+    XYZ_t.Z = (1 - sum(xy_t)) * colorweight;
+
+    
+    <span class="comment">% compute R/G/B weights to achieve target by additive mixing</span>
+    <span class="comment">% but with a given fixed setting of the cold white and warm white LEDs</span>
+    n = 21;
+    w_cw = linspace(0,1,n);
+    w_ww = linspace(0,1,n);
+    
+    bestRa = -Inf;
+    maxdev = 0;
+    <span class="keyword">for</span> i_cw = 1:n
+        <span class="keyword">for</span> i_ww = 1:n
+            XYZ_fix = XYZsum({scw.XYZ, sww.XYZ},[w_cw(i_cw), w_ww(i_ww)]);
+            res = MatchAdditiveMix(sr.XYZ, sg.XYZ, sb.XYZ, XYZ_t, <span class="string">'XYZ_fix'</span>, XYZ_fix);
+            <span class="keyword">if</span> min(res) &lt; 0
+                Ra(i_cw, i_ww) = NaN;
+                R9(i_cw, i_ww) = NaN;
+                efficacy(i_cw, i_ww) = NaN;
+            <span class="keyword">else</span>
+                sumspec = AddWeightedSpectra({sr, sg, sb, scw, sww},[res(1), res(2), res(3), w_cw(i_cw), w_ww(i_ww)]);
+                cri = CRI();
+                Ra(i_cw, i_ww) = cri.Ra(sumspec);
+                <span class="keyword">if</span> Ra(i_cw, i_ww) &gt; bestRa
+                    bestRa = Ra(i_cw, i_ww);
+                    bestSpec = sumspec;
+                <span class="keyword">end</span>
+                R9(i_cw, i_ww) = cri.SingleRi(sumspec,9);
+                ssXYZ = CIE1931_XYZ(sumspec);
+                test = norm([ssXYZ.x, ssXYZ.y] - xy_t);
+                <span class="keyword">if</span> test &gt; maxdev
+                    maxdev = test;
+                <span class="keyword">end</span>
+                efficacy(i_cw, i_ww) = ssXYZ.Y * 683 / IntegrateSpectrum(sumspec);
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    figure(1);
+    clf;
+    hold <span class="string">on</span>;
+    plot(sr.lam, sr.val, <span class="string">'r'</span>);
+    plot(sg.lam, sg.val, <span class="string">'g'</span>);
+    plot(sb.lam, sb.val, <span class="string">'b'</span>);
+    plot(scw.lam, scw.val, <span class="string">'k'</span>);
+    plot(sww.lam, sww.val, <span class="string">'Color'</span>,[0.5,0.5,0]);
+    plot(bestSpec.lam, bestSpec.val, <span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2);
+    legend({<span class="string">'r'</span>,<span class="string">'g'</span>,<span class="string">'b'</span>,<span class="string">'cold white'</span>,<span class="string">'warm white'</span>,sprintf(<span class="string">'best Ra = %g mix'</span>,bestRa)});
+    title(<span class="string">'The optimal Ra mix'</span>);
+
+    figure(2);
+    surf(w_cw, w_ww,Ra,<span class="string">'FaceAlpha'</span>,0.6);
+    xlabel(<span class="string">'cold white'</span>);
+    ylabel(<span class="string">'warm white'</span>);
+    zlabel(<span class="string">'Ra'</span>);
+    title(sprintf(<span class="string">'CRI Ra of warm white / cold white / R / G / B mix for CCT = %g'</span>,T));
+    colorbar;
+    
+    figure(3);
+    surf(w_cw, w_ww,R9,<span class="string">'FaceAlpha'</span>,0.6);
+    xlabel(<span class="string">'cold white'</span>);
+    ylabel(<span class="string">'warm white'</span>);
+    zlabel(<span class="string">'R9'</span>);
+    title(sprintf(<span class="string">'CRI R9 of warm white / cold white / R / G / B mix for CCT = %g'</span>,T));
+    colorbar;
+    
+    figure(4);
+    surf(w_cw, w_ww,efficacy,<span class="string">'FaceAlpha'</span>,0.6);
+    xlabel(<span class="string">'cold white'</span>);
+    ylabel(<span class="string">'warm white'</span>);
+    zlabel(<span class="string">'efficacy'</span>);
+    title(sprintf(<span class="string">'efficacy of warm white / cold white / R / G / B mix for CCT = %g'</span>,T));
+    colorbar;
+    
+    fprintf(<span class="string">'max. dev. xy = %g\n'</span>, maxdev);
+    
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> rv = XYZsum(XYZ, w)
+    nn = length(XYZ);
+    X = 0; 
+    Y = 0; 
+    Z = 0;
+    <span class="keyword">for</span> i = 1:nn
+        iXYZ = XYZ{i};
+        X = X + w(i) * iXYZ.X;
+        Y = Y + w(i) * iXYZ.Y;
+        Z = Z + w(i) * iXYZ.Z;
+    <span class="keyword">end</span>
+    rv = struct(<span class="string">'X'</span>, X , <span class="string">'Y'</span>, Y, <span class="string">'Z'</span>, Z );
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+rv =
+
+   1.0e+03 *
+
+   -2.9960
+    3.0000
+   -0.0020
+
+
+Acond =
+
+   1.0490e+04
+
+max. dev. xy = 1.54984e-05
+</pre><img vspace="5" hspace="5" src="MatchAdditiveMix_01.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_02.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_03.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MatchAdditiveMix
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution
+%% Syntax
+% |[rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target, opts)|
+%% Input Arguments
+% * |XYZ1, XYZ2, XYZ3|: |struct| s with scalar double fields |X|, |Y| and |Z|: the three input tristimuli
+% * |XYZ_target|: |struct| with scalar double fields |X|, |Y| and |Z|: the target tristimulus
+% * |opts|: Name-Value pair: |'XYZ_fix'|, another |struct| with scalar double fields |X|, |Y| and |Z|: a fixed
+% contribution, such that the sum of |XYZ_fix| and the weighted three |XYZi| tristimuli yield |XYZ_target|.
+%
+%% Output Arguments
+% * |rv|: (3,1) double column vector: the weights such that |[XYZ1.X,XYZ2.X,XYZ3.X] * rv + XYZ_fixed.X == XYZ_target.X|,
+% likewise for |Y| and |Z|, within numerical accuracy.
+% * |Acond|: scalar double. The condition number of the 3x3 matrix of the equation system: diagnostic information
+%% Algorithm
+% Sets up the 3x3 linear equation system, and solves it.
+%% See also
+% <AddWeightedSpectra.html AddWeightedSpectra>, <CIE1931_XYZ.html CIE1931_XYZ>,
+% <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum>, <OptimalAdditiveMix.html OptimalAdditiveMix>,
+% <XYZ_from_xyY.html XYZ_from_xyY>
+%% Usage Example
+% <include>Examples/ExampleMatchAdditiveMix.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+function [rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target, opts)
+    arguments
+        XYZ1 (1,1) struct
+        XYZ2 (1,1) struct
+        XYZ3 (1,1) struct
+        XYZ_target (1,1) struct
+        opts.XYZ_fix = struct('X', 0, 'Y', 0, 'Z', 0);
+    end
+    XYZ_fix =  opts.XYZ_fix;
+    
+    A = [XYZ1.X, XYZ2.X, XYZ3.X;...
+         XYZ1.Y, XYZ2.Y, XYZ3.Y;...
+         XYZ1.Z, XYZ2.Z, XYZ3.Z];
+    b = [XYZ_target.X; XYZ_target.Y; XYZ_target.Z] ...
+            - [XYZ_fix.X; XYZ_fix.Y; XYZ_fix.Z];
+    rv = A\b;
+
+    Acond = cond(A);
+end
+##### SOURCE END #####
+--></body></html>

@@ -1,6 +1,5 @@
 clear;
 load('CIEDE2000TestData_Sharma.mat');
-
 n = length(CIEDE2000TestData_Sharma);
 for i = 1:n
     s = CIEDE2000TestData_Sharma{i};

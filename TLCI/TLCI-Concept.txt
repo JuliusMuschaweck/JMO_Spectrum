@@ -1,0 +1,69 @@
+TLCI class hierarchy
+
+
+
+%% test samples	
+class TTestSample
+    name
+    description
+    lam
+    val
+    
+function rv = ColorCheckerTestSamples(i)
+    return i'th sample, i in [1,24]
+    i may be array, then return cell array of TTestSample
+    
+%% camera model hierarchy
+class TCamera % abstract base
+    RGB_C_prime = Response(spectrum)
+
+class TRGBFilterCamera < TCamera
+    % most cameras use three filters
+    rSensitivity,
+    gSensitivity,
+    bSensitivity
+    
+class TMatrixGammaCamera <TRGBFilterCamera
+    % The kind TLCI uses, with sensitivity, constant matrix, gamma
+    M 
+    X_C_prime = Gamma(X_B) % abstract
+    RGB_B = SaturationControl(RGB_M) % abstract
+    
+class TTLCIStdCamera < TMatrixGammaCamera
+    % the standard TLCI camera
+    RGB_B = SaturationControl(RGB_M) % implementation
+    X_C_prime = Gamma(X_B) % implementation
+    
+class TGenericRGBCamera < TMatrixGammaCamera
+    % with some generic RGB filters, Gaussian?
+
+    
+%% Display    
+class TDisplay
+    XYZ = Response(RGB_C_prime) % abstract
+    % XYZ tristimulus values 
+    
+class TGammaRGBDisplay < TDisplay
+    % gamma and primaries are the only parameters, like in the TLCI
+    % standard, XYZ = M * RGB_C_prime .^gamma
+    gamma
+    M % the matrix 
+
+class TTLCIDisplay < TDisplay
+    % the standard TLCI display
+    
+%% Color difference
+class TSingleColorDifferenceCalculator
+    delta = Diff( XYZ1, XYZ2 ) % abstract
+    
+class TCIEDE2000 < TSingleColorDifferenceCalculator
+    delta = Diff( XYZ1, XYZ2 ) % implementation
+    % the TLCI method
+    
+class TAggregateColorDifferenceCalculator
+    % abstract class 
+    rv = Goodness( dca ) % dca is an array of real values
+    
+class TTLCIColorDifferenceCalculator < TAggregateColorDifferenceCalculator
+    rv = Goodness( dca ) % dca is an array of real values
+    % the TLCI formula

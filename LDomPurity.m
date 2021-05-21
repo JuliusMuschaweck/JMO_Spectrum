@@ -1,3 +1,15 @@
+%% LDomPurity
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+
 function [ldom, purity] = LDomPurity(rhs)
     % Computes dominant wavelength in nm and purity, from E = (1/3,1/3). 
     % Ldom and purity negative if E -> x/y intersects magenta line, not the monochromatic border.

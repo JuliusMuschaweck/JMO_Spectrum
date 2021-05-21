@@ -1,3 +1,15 @@
+%% SpectrumSanityCheck
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)	
 % function [ok, msg, colspec] = SpectrumSanityCheck(spec, varargin)
 % expect .lam and .val fields, both numeric col vectors of same length > 1

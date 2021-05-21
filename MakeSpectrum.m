@@ -1,3 +1,16 @@
+%% MakeSpectrum
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
+
 function rv = MakeSpectrum(lam, val, varargin)
 % function rv = MakeSpectrum(lam, val)
 % creates a spectrum struct out of fields lam and val

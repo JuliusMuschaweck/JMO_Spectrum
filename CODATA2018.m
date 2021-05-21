@@ -1,3 +1,53 @@
+%% CODATA2018
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Returns a struct with CODATA constants relevant to illumination, and some more
+%% Syntax
+% |cd = CODATA2018()|
+%% Input Arguments
+% * None
+%% Output Arguments
+% |cd|: struct with fields
+% * |b|:= Wien wavelength displacement law constant
+% * |bprime|:= Wien frequency displacement law constant
+% * |c|:= speed of light in vacuum
+% * |e|:= elementary charge
+% * |h|:= Planck constant
+% * |k|:= Boltzmann constant
+% * |me|:= electron mass
+% * |mn|:= neutron mass
+% * |mp|:= proton mass
+% * |NA|:= Avogadro constant
+% * |R|:= molar gas constant
+% * |Vm|:= molar volume of ideal gas (273.15 K, 101.325 kPa)
+% * |sigma|:= Stefan-Boltzmann constant
+% * |c1|:= first radiation constant, 2 pi h c^2
+% * |c1L|:= first radiation constant for spectral radiance, 2 h c^2
+% * |c2|:= second radiation constant, h c / k
+% 
+% Each field is a struct, with fields |name| (the same names as above), |value| (the value), |reluncertainty| (the
+% relative uncertainty), |absuncertainty| (absolute uncertainty), and |unit| (the physical unit)
+%% Algorithm
+% Creates |cd| using data from NIST, <https://physics.nist.gov/cuu/Constants/index.html>
+%% See also
+% <PlanckSpectrum.html PlanckSpectrum>
+%% Usage Example
+% <include>Examples/ExampleCODATA2018.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
 function cd = CODATA2018()
 % function cd = CODATA2018()
 % from https://physics.nist.gov/cuu/Constants/index.html

@@ -14,6 +14,19 @@
 %% Input Arguments
 % * |a|: scalar double. Length of something
 % * |b|: scalar double. Width of something
+% * |opts|: Name-Value pairs
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'doTest'       </td> <td> logical scalar   </td> <td> false (default) </td> <td> Ignore                                     </td></tr>
+% <tr><td> <a href="CCT.html">link to CCT.html</a> </td> <td>                  </td> <td> true            </td> <td> Perform diagnostic test ignoring input values, then return. See code for details </td></tr>
+% </table>
+% </p>
+% </html>
+%
+
 %% Output Arguments
 % * |rv|: scalar double. Area of something
 %% Algorithm

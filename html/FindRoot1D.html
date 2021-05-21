@@ -1,0 +1,272 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>FindRoot1D</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="FindRoot1D.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>FindRoot1D</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Finds root of scalar function of one real variable, without derivatives.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Algorithm</a></li><li><a href="#7">See also</a></li><li><a href="#8">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = FindRoot1D( func, x1, x2 )</tt></p><p><tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt></p><p><tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, _)</tt></p><h2 id="2">Description</h2><p><tt>rv = FindRoot1D( func, x1, x2 )</tt> finds a root of the continuous function <tt>func</tt>, bracketed between <tt>x1</tt> and <tt>x2</tt>, i.e. <tt>func(x1)</tt> and <tt>func(x2)</tt> must have opposite signs. Then, <tt>func(rv] == 0</tt> within a tolerance <tt>tol</tt>, meaning that <tt>func(x)</tt> changes sign within an interval of width <tt>tol</tt>. The default tolerance is <tt>1e-12</tt>.</p><p><tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt> lets you define options via name-value pairs as optional arguments. Possible options are</p><div><ul><li><tt>'tol'</tt>: The <tt>x</tt> tolerance, default <tt>1e-12</tt>. Must be a positive real number</li><li><tt>'nfemax'</tt>: The maximum number of function evaluations default <tt>100</tt>. Must be a positive integer.</li><li><tt>'throwOnFailure'</tt>: Determines if error conditions cause throwing an error, default = true</li></ul></div><p><tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, _)</tt> returns additional information. <tt>fb</tt> is the function value, <tt>fb==func(rv)</tt>, <tt>nfe</tt> is the actual number of function evaluations. <tt>ok</tt> is a boolean flag with obvious meaning, and <tt>msg</tt> is an error message.</p><h2 id="3">Examples</h2><pre class="language-matlab">x0 = FindRoot1D(@(x) x^4 - 0.1, 0, 1)
+x0 = 0.5623
+</pre><h2 id="4">Input Arguments</h2><div><ul><li><tt>func</tt>: A function handle to a function that returns a scalar real when you call it with a scalar real parameter, like <tt>func(0.3)</tt>.</li><li><tt>x1, x2</tt>: Scalar real numbers such that <tt>func(x1)</tt> and <tt>func(x2)</tt> have opposite signs.</li><li><tt>NameValueArgs</tt>: Optional name-value argument pairs, see above.</li></ul></div><h2 id="5">Output Arguments</h2><div><ul><li><tt>rv</tt>: The root, i.e. the value where <tt>func(rv) == 0</tt> within tolerance. NaN on error</li><li><tt>fb</tt>: The function value at the root, <tt>fb == func(rv)</tt>. NaN on error</li><li><tt>nfe</tt>: Number of function evaluations. Integer &gt;= 2.</li><li><tt>ok</tt>: Flag to show success or failure. Logical. Makes sense only if the optional <tt>'throwOnFailure'</tt> flag is set to <tt>false</tt>.</li><li><tt>msg</tt>: Error message, on failure. String. Makes sense only if the optional <tt>'throwOnFailure'</tt> flag is set to <tt>false</tt>.</li></ul></div><h2 id="6">Algorithm</h2><p>Closely following the Van Wijngaarden-Dekker-Brent method of Press et al., "Numerical Recipes", chapter 9.3.</p><p>Tries to converge to the root by inverse parabolic interpolation. When the interpolation step fails or doesn't make the bracketing interval shrink fast enough, uses bisection, in effect combining the fail safety of bisectioning with the speed of inverse parabolic interpolation.</p><p>Does not make use of derivative information. Assumes that the function <tt>func</tt> is continuous. In fact, <tt>FindRoot1D(@(x) 1/x, -0.1, 0.2)</tt> happily returns <tt>7.2758e-13</tt> as a root, ignoring that <tt>1/x</tt> has a pole at <tt>x==0</tt>.</p><p>Provides essentially the same functionality as Matlab's <tt>fzero(func, [x1, x2])</tt>, but is about 13 times faster.</p><h2 id="7">See also</h2><p>Matlab's <tt>fzero</tt> function</p><h2 id="8">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleFindRoot1D()
+    rv = FindRoot1D( @log, 0.1, 42);
+    fprintf(<span class="string">'Root of log function = %g, with %g difference to 1\n'</span>,rv, rv-1);
+    tol = 1e-6;
+    [rv, fb, nfe, ok, msg] = FindRoot1D( @log, 0.1, 42, <span class="string">'tol'</span>,tol);
+    fprintf(<span class="string">'Same, but with tol = %g: root = %g, with %g difference to 1\n'</span>,tol, rv, rv-1);
+    fprintf(<span class="string">'function value at root = %g, using %g evaluations\n'</span>, fb, nfe);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">Root of log function = 1, with 0 difference to 1
+Same, but with tol = 1e-06: root = 1, with -4.171e-12 difference to 1
+function value at root = -4.171e-12, using 12 evaluations
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% FindRoot1D
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+% 
+% Finds root of scalar function of one real variable, without derivatives.
+%% Syntax
+% |rv = FindRoot1D( func, x1, x2 )|
+%
+% |rv = FindRoot1D( func, x1, x2, NameValueArgs)|
+%
+% |[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, ___)|
+%% Description
+% |rv = FindRoot1D( func, x1, x2 )| finds a root of the continuous function 
+% |func|, bracketed between |x1| and |x2|, i.e.
+% |func(x1)| and |func(x2)| must have opposite signs. Then, |func(rv] == 0| within a tolerance |tol|, 
+% meaning that |func(x)| changes sign within an interval of width |tol|. The default tolerance is
+% |1e-12|.
+%
+% |rv = FindRoot1D( func, x1, x2, NameValueArgs)| lets you define options via name-value pairs as optional
+% arguments. Possible options are
+% 
+% * |'tol'|: The |x| tolerance, default |1e-12|. Must be a positive real number
+% * |'nfemax'|: The maximum number of function evaluations default |100|. Must be a positive integer. 
+% * |'throwOnFailure'|: Determines if error conditions cause throwing an error, default = true
+%
+% |[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, ___)| returns additional information. |fb| is the
+% function value, |fb==func(rv)|, |nfe| is the actual number of function evaluations. |ok| is a boolean
+% flag with obvious meaning, and |msg| is an error message.
+%
+%% Examples
+%   x0 = FindRoot1D(@(x) x^4 - 0.1, 0, 1)
+%  x0 = 0.5623
+%% Input Arguments
+% * |func|: A function handle to a function that returns a scalar real when you call it with a scalar
+% real parameter, like |func(0.3)|.
+% * |x1, x2|: Scalar real numbers such that |func(x1)| and |func(x2)| have opposite signs. 
+% * |NameValueArgs|: Optional name-value argument pairs, see above.
+%% Output Arguments
+% * |rv|: The root, i.e. the value where |func(rv) == 0| within tolerance. NaN on error
+% * |fb|: The function value at the root, |fb == func(rv)|. NaN on error
+% * |nfe|: Number of function evaluations. Integer >= 2.
+% * |ok|: Flag to show success or failure. Logical. Makes sense only if the optional |'throwOnFailure'| flag is
+% set to |false|. 
+% * |msg|: Error message, on failure. String. Makes sense only if the optional |'throwOnFailure'| flag is
+% set to |false|. 
+%% Algorithm
+% Closely following the Van Wijngaarden-Dekker-Brent method of Press et al., "Numerical Recipes", chapter
+% 9.3.
+% 
+% Tries to converge to the root by inverse parabolic interpolation. When the interpolation step fails or
+% doesn't make the bracketing interval shrink fast enough, uses bisection, in effect combining the fail
+% safety of bisectioning with the speed of inverse parabolic interpolation.
+%
+% Does not make use of derivative information. Assumes that the function |func| is continuous. In fact,
+% |FindRoot1D(@(x) 1/x, -0.1, 0.2)| happily returns |7.2758e-13| as a root, ignoring that |1/x| has a
+% pole at |x==0|.
+%
+% Provides essentially the same functionality as Matlab's |fzero(func, [x1, x2])|, but is about 13 times
+% faster. 
+%% See also
+% Matlab's |fzero| function
+%% Usage Example
+% <include>Examples/ExampleFindRoot1D.m</include>
+
+function [rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, NameValueArgs)
+    arguments
+        func
+        x1 (1,1) double
+        x2 (1,1) double
+        NameValueArgs.tol (1,1) {double, mustBePositive} = 1e-12
+        NameValueArgs.nfemax (1,1) {double, mustBePositive, mustBeInteger} = 100
+        NameValueArgs.throwOnFailure (1,1) logical = true
+    end
+    ok = true;
+    msg = 'FindRoot1D: success';
+    ITMAX = 100;
+    a = x1;
+    b = x2;
+    c = x2;
+    fa = func(a);
+    fb = func(b);
+    nfe = 2;
+    if (fa * fb > 0)
+        msg = sprintf('FindRoot1D error: Root must be bracketed, f(%g) = %g, f(%g) = %g',a, fa, b, fb);
+        if NameValueArgs.throwOnFailure
+            error(msg); %#ok<SPERR>
+        else 
+            rv = NaN;
+            fb = NaN;
+            ok = false;
+            return;
+        end
+    end
+    
+    fc = fb;
+    for i = 0:(ITMAX-1)
+        if fb*fc > 0 % the root must be between a and c
+            c = a;
+            fc = fa;
+            e = b-a;
+            d = b-a;
+        end
+        if abs(fc) < abs(fb)
+            a = b;
+            b = c;
+            c = a;
+            fa = fb;
+            fb = fc;
+            fc = fa;
+        end
+        tol1 = 2 * eps * abs(b) + 0.5 * NameValueArgs.tol;
+        xm = 0.5*(c-b);
+        if (abs(xm) <= tol1) || fb == 0.0 % done
+            rv = b;
+            return;
+        end
+        if (abs(e) >= tol1) && (abs(fa) > abs(fb)) % attempt inverse quadr. interpolation
+            s = fb/fa;
+            if (a==c)
+                p = 2 * xm * s;
+                q = 1 - s;
+            else
+                q = fa/fc;
+                r = fb/fc;
+                p = s * (2.0*xm*q*(q-r) - (b-a)*(r-1));
+                q = (q-1) * (r-1) * (s-1);
+            end
+            if p > 0.0
+                q = -q;
+            end
+            p = abs(p);
+            min1 = 3.0 * xm * q - abs(tol1 * q);
+            min2 = abs (e*q);
+            min12 = min(min1, min2);
+            if 2 * p < min12 % accept interpolation
+                e = d;
+                d = p/q;
+            else
+                d = xm; % interpolation failed, bisection
+                e = d;
+            end
+        else % bounds decreasing too slowly, use bisection
+            d = xm;
+            e = d;
+        end
+        a = b;
+        fa = fb;
+        if (abs(d) > tol1)
+            b = b + d;
+        else
+            b = b + SIGN(tol1, xm);
+        end
+        fb = func(b);
+        nfe = nfe + 1;
+    end
+    msg = sprintf('FindRoot1D error: too many function evaluations, nfe = %g',nfe);
+    if NameValueArgs.throwOnFailure
+        error(msg); %#ok<SPERR>
+    else 
+        rv = NaN;
+        fb = NaN;
+        ok = false;
+    end
+end
+
+function rv1 = SIGN(aa,bb)
+    if bb >= 0
+        rv1 = abs(aa);
+    else
+        rv1 = - abs(aa);
+    end
+end
+##### SOURCE END #####
+--></body></html>

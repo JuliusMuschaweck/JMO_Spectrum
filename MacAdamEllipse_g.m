@@ -1,3 +1,16 @@
+%% MacAdamEllipse_g
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
+
 function g = MacAdamEllipse_g(X, Y, Z, varargin)
 % Compute MacAdamEllipsoid g matrix (inverse covariance matrix of ellipsois
 % Input:

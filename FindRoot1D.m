@@ -1,9 +1,20 @@
 %% FindRoot1D
-% Find root of scalar function of one real variable.
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+% 
+% Finds root of scalar function of one real variable, without derivatives.
 %% Syntax
-%   rv = FindRoot1D( func, x1, x2 )
-%   rv = FindRoot1D( func, x1, x2, NameValueArgs)
-%   [rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, ___)
+% |rv = FindRoot1D( func, x1, x2 )|
+%
+% |rv = FindRoot1D( func, x1, x2, NameValueArgs)|
+%
+% |[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, ___)|
 %% Description
 % |rv = FindRoot1D( func, x1, x2 )| finds a root of the continuous function 
 % |func|, bracketed between |x1| and |x2|, i.e.
@@ -16,7 +27,7 @@
 % 
 % * |'tol'|: The |x| tolerance, default |1e-12|. Must be a positive real number
 % * |'nfemax'|: The maximum number of function evaluations default |100|. Must be a positive integer. 
-% * |'throwOnFailure'|: Determines if error conditions cause throwing an error
+% * |'throwOnFailure'|: Determines if error conditions cause throwing an error, default = true
 %
 % |[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, ___)| returns additional information. |fb| is the
 % function value, |fb==func(rv)|, |nfe| is the actual number of function evaluations. |ok| is a boolean
@@ -46,14 +57,17 @@
 % doesn't make the bracketing interval shrink fast enough, uses bisection, in effect combining the fail
 % safety of bisectioning with the speed of inverse parabolic interpolation.
 %
-% </html>
-%
 % Does not make use of derivative information. Assumes that the function |func| is continuous. In fact,
 % |FindRoot1D(@(x) 1/x, -0.1, 0.2)| happily returns |7.2758e-13| as a root, ignoring that |1/x| has a
 % pole at |x==0|.
 %
 % Provides essentially the same functionality as Matlab's |fzero(func, [x1, x2])|, but is about 13 times
 % faster. 
+%% See also
+% Matlab's |fzero| function
+%% Usage Example
+% <include>Examples/ExampleFindRoot1D.m</include>
+
 function [rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, NameValueArgs)
     arguments
         func

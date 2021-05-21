@@ -1,0 +1,266 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CauchyFromAbbe</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="CauchyFromAbbe.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CauchyFromAbbe</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Computes the first two Cauchy dispersion coefficients from index/Abbe number</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>function rv = CauchyFromAbbe(n, v, opts)</p><h2 id="2">Input Arguments</h2><div><ul><li><tt>nd</tt>: scalar double. Refractive index at lambda_d = 587.56 nm</li><li><tt>vd</tt>: scalar double. Abbe number, (nd-1) / (nF-nC)</li><li><tt>opts</tt>: Optional name-value pairs:</li></ul></div><p>
+<p style="margin-left: 25px">
+<table border=1>
+<tr><td> <b>Name</b> </td>      <td><b>Type</b></td>      <td><b>Value</b></td>                <td><b>Default</b></td>   <td><b>Meaning</b></td></tr>
+<tr><td> 'lambda_n_nm' </td>    <td> real or char </td>   <td> real > 0, 'd' , 'D', 'e' </td>  <td>'d'           </td>   <td> reference wavelength for index n in nanometers </td></tr>
+<tr><td> 'lambda_v_nm' </td>    <td> real or char </td>   <td> real > 0, 'd' , 'D', 'e' </td>  <td>'d'           </td>   <td> reference wavelength for Abbe number v in nanometers </td></tr>
+<tr><td> 'Cauchy_wlu' </td>     <td> real </td>           <td> real > 0                 </td>  <td>1e-6          </td>   <td> wavelength unit for Cauchy A1. Default 1e-6 (microns). Use 1e-9 for nanometer </td></tr>
+<tr><td> 'lam' </td>            <td> real vector </td>    <td> valid wavelength array in nm</td>  <td> NaN       </td>   <td> When present, rv contains field nSpectrum: a spectrum which is the Cauchy model evaluated over lam </td></tr>
+</table></p>
+</p><h2 id="3">Output Arguments</h2><p><tt>rv</tt> is a struct with fields * <tt>A0</tt> and <tt>A1</tt>: both scalar double, the two Cauchy coefficients. <tt>A0</tt> is dimensionless, <tt>A1</tt> has unit <tt>Cauchy_wlu^2</tt>, which defaults to <tt>&micro;m^2</tt>. * <tt>CauchyFunc</tt>: An anonymous function handle to a function with signature <tt>n = func(lam)</tt>. Evaluates the index as function of <tt>lam</tt> in nanometers, relieving the user from worrying about wavelength unit conversion when adhering to the "all wavelengths are nanometers" convention. * <tt>nSpectrum</tt>: A spectrum, i.e. a struct with fields <tt>lam</tt> and <tt>val</tt>, where <tt>lam</tt> is a copy of the <tt>'lam'</tt> optional argument in nanometers, and <tt>val</tt> is the refractive index evaluated over this array.</p><h2 id="4">Algorithm</h2><p>The Cauchy dispersion model assumes n = A0 + A1/lambda^2 + A2/lambda^4 + ... When only index nD and Abbe number are given, only A0 and A1 can be computed. See <a href="docCauchyFromAbbe.html">docCauchyFromAbbe</a> for details.</p><h2 id="5">See also</h2><p><a href="AddWeightedSpectra.html">AddWeightedSpectra</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleCauchyFromAbbe()
+    <span class="comment">%</span>
+    nd = 1.5168;
+    vd = 64.17;
+    <span class="comment">% see if nd and vd are correctly reproduced</span>
+    cc = CauchyFromAbbe(nd, vd);
+    test_nd = cc.CauchyFunc(587.5618);
+    fprintf(<span class="string">'BK7 example\ngiven nd = %g, computed nd = %g, difference = %g\n'</span>,nd, test_nd, test_nd - nd);
+    [test_nFnC] = cc.CauchyFunc([486.134,656.281]); <span class="comment">% evaluate on array</span>
+    test_v = (test_nd - 1) / (test_nFnC(1) - test_nFnC(2));
+    fprintf(<span class="string">'given vd = %g, computed vd = %g, difference = %g\n'</span>,vd, test_v, test_v - vd);
+    <span class="comment">% see if A1 is correct if Cauchy model uses nm instead of &micro;m</span>
+    ccnm = CauchyFromAbbe(nd, vd,<span class="string">'Cauchy_wlu'</span>,1e-9);
+    fprintf(<span class="string">'micron A1 = %g, nm A1 = %g, ratio = %g, should be (&micro;m/nm)^2 = 1e6\n'</span>,cc.A1, ccnm.A1, ccnm.A1 / cc.A1);
+    <span class="comment">% see what happens if D line is used for n</span>
+    nD = 1.5167;
+    ccD = CauchyFromAbbe(nD, vd,<span class="string">'lambda_n_nm'</span>,<span class="string">'D'</span>);
+    ccD2 = CauchyFromAbbe(nD, vd,<span class="string">'lambda_n_nm'</span>,589.29);
+    fprintf(<span class="string">'test A0/A1 difference for ''D'' vs. 589.29 nm, dA0 = %g, dA1 = %g\n'</span>,ccD.A0 - ccD2.A0,ccD.A1 - ccD2.A1);
+    <span class="comment">% plot BK7 dispersion curve</span>
+    tabulated = readmatrix(<span class="string">'Examples/NBK7.csv'</span>,<span class="string">'NumHeaderLines'</span>,1);
+    useable = ~isnan(tabulated(:,2));
+    BK7.lam = tabulated(useable,1) * 1000;
+    BK7.val = tabulated(useable,2);
+    cc2 = CauchyFromAbbe(nd, vd,<span class="string">'lam'</span>,min(BK7.lam):max(BK7.lam));
+    figure();
+    clf;
+    plot(BK7.lam,BK7.val);
+    hold <span class="string">on</span>;
+    plot(cc2.nSpectrum.lam, cc2.nSpectrum.val);
+    legend({<span class="string">'BK7 literature'</span>,<span class="string">'BK7 Cauchy model'</span>});
+    xlabel(<span class="string">'\lambda (nm'</span>);
+    ylabel(<span class="string">'n'</span>);
+    title(<span class="string">'BK7 index'</span>)    
+    fprintf(<span class="string">'good coincidence in the visible range, large difference outside'</span>);
+    figure();
+    ndiff = AddWeightedSpectra({BK7,cc2.nSpectrum},[1,-1]);
+    ndiff = AssignNewWavelength(ndiff,400:700);
+    plot(ndiff.lam, ndiff.val);
+    xlabel(<span class="string">'\lambda (nm'</span>);
+    ylabel(<span class="string">'\Delta n'</span>);
+    title(<span class="string">'BK7 index difference literature / Cauchy'</span>)
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">BK7 example
+given nd = 1.5168, computed nd = 1.5168, difference = 0
+given vd = 64.17, computed vd = 64.17, difference = -1.16529e-12
+micron A1 = 0.00421729, nm A1 = 4217.29, ratio = 1e+06, should be (&micro;m/nm)^2 = 1e6
+test A0/A1 difference for 'D' vs. 589.29 nm, dA0 = 0, dA1 = 0
+good coincidence in the visible range, large difference outsideWarning: error in runExample: Undefined function 'AssignNewWavelength' for
+input arguments of type 'struct'. 
+</pre><img vspace="5" hspace="5" src="CauchyFromAbbe_01.png" alt=""> <img vspace="5" hspace="5" src="CauchyFromAbbe_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CauchyFromAbbe
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes the first two Cauchy dispersion coefficients from index/Abbe number
+%% Syntax
+% function rv = CauchyFromAbbe(n, v, opts)
+%% Input Arguments
+% * |nd|: scalar double. Refractive index at lambda_d = 587.56 nm
+% * |vd|: scalar double. Abbe number, (nd-1) / (nF-nC)
+% * |opts|: Optional name-value pairs:
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b> </td>      <td><b>Type</b></td>      <td><b>Value</b></td>                <td><b>Default</b></td>   <td><b>Meaning</b></td></tr>
+% <tr><td> 'lambda_n_nm' </td>    <td> real or char </td>   <td> real > 0, 'd' , 'D', 'e' </td>  <td>'d'           </td>   <td> reference wavelength for index n in nanometers </td></tr>
+% <tr><td> 'lambda_v_nm' </td>    <td> real or char </td>   <td> real > 0, 'd' , 'D', 'e' </td>  <td>'d'           </td>   <td> reference wavelength for Abbe number v in nanometers </td></tr>
+% <tr><td> 'Cauchy_wlu' </td>     <td> real </td>           <td> real > 0                 </td>  <td>1e-6          </td>   <td> wavelength unit for Cauchy A1. Default 1e-6 (microns). Use 1e-9 for nanometer </td></tr>
+% <tr><td> 'lam' </td>            <td> real vector </td>    <td> valid wavelength array in nm</td>  <td> NaN       </td>   <td> When present, rv contains field nSpectrum: a spectrum which is the Cauchy model evaluated over lam </td></tr>
+% </table></p>
+% </html>
+
+%% Output Arguments
+% |rv| is a struct with fields 
+% * |A0| and |A1|: both scalar double, the two Cauchy coefficients. |A0| is dimensionless, |A1| has unit |Cauchy_wlu^2|, which defaults to |µm^2|. 
+% * |CauchyFunc|: An anonymous function handle to a function with signature |n = func(lam)|. Evaluates the index as
+% function of |lam| in nanometers, relieving the user from worrying about wavelength unit conversion when adhering to
+% the "all wavelengths are nanometers" convention.
+% * |nSpectrum|: A spectrum, i.e. a struct with fields |lam| and |val|, where |lam| is a copy of the |'lam'| optional
+% argument in nanometers, and |val| is the refractive index evaluated over this array.
+%% Algorithm
+% The Cauchy dispersion model assumes n = A0 + A1/lambda^2 + A2/lambda^4 + ... When only index nD and Abbe number are
+% given, only A0 and A1 can be computed. See <docCauchyFromAbbe.html docCauchyFromAbbe> for details.
+%% See also
+% <AddWeightedSpectra.html AddWeightedSpectra>
+%% Usage Example
+% <include>Examples/ExampleCauchyFromAbbe.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+function rv = CauchyFromAbbe(n, v, opts)
+    arguments
+        n (1,1) double
+        v (1,1) double
+        opts.lambda_n_nm (:,1) {mustBeReferenceWavelength} = 'd'
+        opts.lambda_v_nm (:,1) {mustBeReferenceWavelength} = 'd'
+        opts.Cauchy_wlu (1,1) double = 1e-6
+        opts.lam (:,1) double = NaN
+    end
+% Input: 
+%   n: refractive index at lambda_d = 587.6 nm
+%   v: Abbe number
+% Output:
+%   A0, A1: First two Cauchy dispersion coefficients, n = A0 + A1 / lambda^2.
+%   A0: dimensionless, A1: micron^2
+
+% solve A0, A1 in microns
+    ln = GetReferenceWavelengthInMicrons(opts.lambda_n_nm);
+    lv = GetReferenceWavelengthInMicrons(opts.lambda_v_nm);
+    lF = 0.486134;
+    lC = 0.656281;
+    c0 = 1 / ln^2;
+    c1 = 1 / lv^2;
+    c2 = 1/lF^2 - 1/lC^2;
+    c3 = c1 - c2 * v;
+    iM = [c3, -c0; -1, 1] / (c3-c0);
+    A = iM * [n; 1]; % A == [A0, A1]
+    rv.A0 = A(1);
+    fac = (1e-6 / opts.Cauchy_wlu)^2; % adjust for different Cauchy_wlu
+    rv.A1 = A(2) * fac;
+    rv.CauchyFunc = @(ll) A(1) + A(2) ./ ((ll * 0.001).^2);
+    if ~isnan(opts.lam(1))
+        s.lam = opts.lam; % in nanometers! But A1 in microns^-2
+        s.val = rv.CauchyFunc(s.lam);
+        s.name = 'CauchyIndex';
+        s.description = sprintf('Refractive index according to Cauchy model, with A0 = %g, A1 = %g µm^-2, for material with n = %g at %g nm, and v = %g with reference %g nm', rv.A0, rv.A1, n, ln*1000, v, lv*1000);
+        rv.nSpectrum = s;
+    end
+end
+
+function mustBeReferenceWavelength(a)
+    if ~(isnumeric(a) || (ischar(a) && length(a) == 1))
+        eidType = 'mustBeReferenceWavelength:notStringOrDouble';
+        msgType = 'Input must be a string, ''d'', ''D'' or ''e'', or a positive real number';
+        throwAsCaller(MException(eidType,msgType))
+    end
+    if isnumeric(a) && (a<=0)
+        eidType = 'mustBeReferenceWavelength:notPositive';
+        msgType = 'Real input must be positive';
+        throwAsCaller(MException(eidType,msgType))
+    end
+    if ischar(a)
+        if ~(strcmp(a,'d') || strcmp(a,'D') || strcmp(a,'e'))
+            eidType = 'mustBeReferenceWavelength:invalidLine';
+            msgType = 'For char input, only ''d'', ''D'' or ''e'' are allowed';
+            throwAsCaller(MException(eidType,msgType))
+        end
+    end
+end
+
+function rv = GetReferenceWavelengthInMicrons(a)
+    if isnumeric(a)
+        rv = 0.001 * a;
+    else % must be valid char
+        if a(1) == 'd'
+            rv = 0.5875618;
+        elseif a(1) == 'D'
+            rv = 0.58929;
+        elseif a(1) == 'e'
+            rv = 0.546073;
+        else
+            error('CauchyFromAbbe: invalid reference wavelength: this cannot happen');
+        end
+    end
+end
+##### SOURCE END #####
+--></body></html>

@@ -1,3 +1,15 @@
+%% PlanckLocus
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 function rv = PlanckLocus()
     % Output: struct with size 1000 vectors T, invT, x, y, u, v, up, vp
     % equidistant in 1/T from 500K to 1e11K

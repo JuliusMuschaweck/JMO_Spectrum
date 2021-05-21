@@ -1,0 +1,150 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>GaussSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="GaussSpectrum.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>GaussSpectrum</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Creates a Gaussian spectrum, normalized to peak = 1.0</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = GaussSpectrum(lam_vec,mean,sdev,varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lam_vec</tt>: double vector, positive, strictly ascending. The wavelengths</li><li><tt>mean</tt>: scalar double. Mean value around which the spectrum is centered</li><li><tt>sdev</tt>: scalar double. Standard deviation of spectrum around <tt>mean</tt></li><li><tt>varargin</tt>: character string. When <tt>'val_only'</tt> returns only the value array, not a spectrum</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: <tt>struct</tt>. A valid spectrum</li></ul></div><h2 id="4">Algorithm</h2><p>Computes the values as <tt>exp(- (lam_vec-mean).^2 / (2 * sdev^2))</tt>. Note that the actual maximum of the value array may be <tt>max(rv.val) &lt; 1</tt>, and is only <tt>max(rv.val) == 1</tt> if <tt>lam_vec</tt> contains <tt>mean</tt> as one of the wavelengths.</p><h2 id="5">See also</h2><p><a href="PlanckSpectrum.html">PlanckSpectrum</a>, <a href="CIE_Illuminant.html">CIE_Illuminant</a>, <a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleGaussSpectrum()
+    lam = 360:830;
+    mean = 530;
+    sdev = 50;
+    g1 = GaussSpectrum(lam, mean, sdev);
+    fprintf(<span class="string">'g1.name = %s\n'</span>,g1.name);
+    figure();
+    clf;
+    plot(g1.lam, g1.val);
+    xlabel(<span class="string">'\lambda(nm)'</span>);
+    title(sprintf(<span class="string">'Gauss spectrum with \\mu = %g nm, \\sigma = %g nm\n'</span>, mean, sdev));
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">g1.name = Gauss spectrum for mean 530 nm and sdev 50 nm, normalized to peak = 1
+</pre><img vspace="5" hspace="5" src="GaussSpectrum_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% GaussSpectrum
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Creates a Gaussian spectrum, normalized to peak = 1.0
+%% Syntax
+% |rv = GaussSpectrum(lam_vec,mean,sdev,varargin)|
+%% Input Arguments
+% * |lam_vec|: double vector, positive, strictly ascending. The wavelengths
+% * |mean|: scalar double. Mean value around which the spectrum is centered
+% * |sdev|: scalar double. Standard deviation of spectrum around |mean|
+% * |varargin|: character string. When |'val_only'| returns only the value array, not a spectrum
+%% Output Arguments
+% * |rv|: |struct|. A valid spectrum
+%% Algorithm
+% Computes the values as |exp(- (lam_vec-mean).^2 / (2 * sdev^2))|. Note that the actual maximum of the value array may
+% be |max(rv.val) < 1|, and is only |max(rv.val) == 1| if |lam_vec| contains |mean| as one of the wavelengths.
+%% See also
+% <PlanckSpectrum.html PlanckSpectrum>, <CIE_Illuminant.html CIE_Illuminant>, <CIE_Illuminant_D.html CIE_Illuminant_D>
+%% Usage Example
+% <include>Examples/ExampleGaussSpectrum.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+
+function rv = GaussSpectrum(lam_vec,mean,sdev,varargin)
+% function rv = GaussSpectrum(lam_vec,mean,sdev,varargin)
+% Creates a Gaussian spectrum, normalized to peak = 1.0
+% Input: lam_vec: Vector of ascending positive numbers
+% mean, sdev are mean and standard deviation 
+% optional argument 'val_only'
+% Output: rv is spectrum with fields lam, val and name
+% 
+    oneval = @(lam) exp(- (lam-mean).^2 / (2 * sdev^2));
+    rv.val = oneval(lam_vec);
+    rv.lam = lam_vec;
+    
+    if (nargin == 4) && strcmp(  varargin{1}, 'val_only' )
+        rv = reshape(rv.val,numel(rv.val),1);
+    else 
+        [~,~,rv] = SpectrumSanityCheck(rv);
+        rv.name = ['Gauss spectrum for mean ',num2str(mean),' nm and sdev ',...
+            num2str(sdev),' nm, normalized to peak = 1'];
+    end
+end
+##### SOURCE END #####
+--></body></html>

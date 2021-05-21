@@ -1,0 +1,205 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>AddWeightedSpectra</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="AddWeightedSpectra.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>AddWeightedSpectra</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Adds several spectra with weights.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>function rv = AddWeightedSpectra(spectra,weights)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spectra</tt>: scalar, 1-D vector or 1-D cell array of valid spectra (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li><li><tt>weights</tt>: scalar or 1-D vector of double</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: Spectrum containing the merged wavelengths in field <tt>rv.lam</tt>, and the weighted sum of all input spectra in field <tt>rv.val</tt></li></ul></div><h2 id="4">Algorithm</h2><p>Computes the weighted sum of all spectra. When spectra do not overlap, the wavelength ranges are concatenated, and the range in between is padded with zero. If they do overlap, then <tt>rv.lam</tt> contains all values from all input spectra, with duplicate values removed, and what is added are the weighted sum of linearly interpolated values from all input spectra. Thus, the sum spectrum is a perfect model of the underlying continuous function which is the weighted sum of the continuous, linearly interpolated input spectra.</p><h2 id="5">See also</h2><p><a href="AddSpectra.html">AddSpectra</a>, <a href="MultiplySpectra.html">MultiplySpectra</a></p><h2 id="6">Usage Example</h2><pre class="error">File 'ExampleAddWeightedSpectra.m' not found.</pre><img vspace="5" hspace="5" src="AddWeightedSpectra_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% AddWeightedSpectra
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Adds several spectra with weights.
+%% Syntax
+% |function rv = AddWeightedSpectra(spectra,weights)|
+%% Input Arguments
+% * |spectra|: scalar, 1-D vector or 1-D cell array of valid spectra (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
+% * |weights|: scalar or 1-D vector of double
+%% Output Arguments
+% * |rv|: Spectrum containing the merged wavelengths in field |rv.lam|, and the weighted sum of all input spectra in field |rv.val|
+%% Algorithm
+% Computes the weighted sum of all spectra. When spectra do not overlap, the wavelength ranges are concatenated, 
+% and the range in between is padded with zero. If they do overlap, then |rv.lam| contains all values from all input spectra, 
+% with duplicate values removed, and what is added are the weighted sum of linearly interpolated values from all input spectra. Thus, the sum spectrum is a 
+% perfect model of the underlying continuous function which is the weighted sum of the continuous, linearly interpolated input spectra.
+%% See also
+% <AddSpectra.html AddSpectra>, <MultiplySpectra.html MultiplySpectra>
+%% Usage Example
+% <include>ExampleAddWeightedSpectra.m</include>
+
+% publish with publish('AddWeightedSpectra.m','evalCode',true,'showCode',false,'codeToEvaluate','ExampleAddWeightedSpectra();');
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+function rv = AddWeightedSpectra(spectra,weights)
+% function rv = AddWeightedSpectra(spectra,weights)
+% vectors of spectra and scalar weights
+    if ~isvector(spectra)
+        error('AddWeightedSpectra: spectra must be size [1 n] or [n 1]');
+    end
+    if ~isvector(weights)
+        error('AddWeightedSpectra: weights must be size [1 n] or [n 1]');
+    end
+    if ~isreal(weights)
+        error('AddWeightedSpectra: weights must be real array');
+    end
+    nS = length(weights);
+    if length(spectra) ~= nS
+        error('AddWeightedSpectra: weights and spectra must be same length');
+    end
+    function rv = NoCell(s)
+        if iscell(s)
+            rv = s{1};
+        else
+            rv = s;
+        end
+    end
+    [~,~,rv] = SpectrumSanityCheck(NoCell(spectra(1)),'doStrip',true);
+    rv.val = rv.val * weights(1);
+    for i = 2:nS
+        [~,~,si] = SpectrumSanityCheck(NoCell(spectra(i)),'doStrip',true);
+        si.val = si.val * weights(i);
+        if isequal(rv.lam, si.lam)
+            % same lam, just add val
+            rv.val = rv.val + si.val;
+            continue;
+        end
+        if (rv.lam(end) < si.lam(1) || rv.lam(1) > si.lam(end))
+            % no overlap, concatenate, but val = 0 between spectra
+            if rv.lam(end) < si.lam(1)
+                slo = rv;
+                shi = si;
+            else
+                slo = si;
+                shi = rv;
+            end
+            dl = (shi.lam(1) - slo.lam(end)) * 1e-6;
+            lam0 = slo.lam(end) + dl;
+            lam1 = shi.lam(1) - dl;
+            % check for very small non overlap
+            if slo.lam(end) < lam0 && lam0 < lam1 && lam1 < shi.lam(1)
+                rv.lam = cat(1,slo.lam, lam0, lam1, shi.lam);
+                rv.val = cat(1,slo.val, 0, 0, shi.val);
+            else % gap smaller than roundoff error
+                rv.lam = cat(1,slo.lam, shi.lam);
+                rv.val = cat(1,slo.val, shi.val);
+            end
+            continue;
+        end % no overlap
+        % treat overlapping, unequal lambdas
+        tmplam = unique(sort(cat(1,rv.lam,si.lam)));
+        vl = LinInterpol(rv.lam,rv.val,tmplam);
+        vr = LinInterpol(si.lam,si.val,tmplam);
+        rv.lam = tmplam;
+        rv.val = vl + vr;
+    end
+end
+
+function Test()
+%%
+    clear sp;
+    clear spc;
+    sp(1) = MakeSpectrum([400 410 420], [1,2,3]);
+    spc{1} = sp(1);
+    sp(2) = MakeSpectrum([400 410 420], [3,2,1]);
+    spc{2} = sp(2);
+    test1 = AddWeightedSpectra(sp,[1,2]);
+    test1c = AddWeightedSpectra(spc,[1,2]);
+
+%%    
+    sp(3) = MakeSpectrum([420+1e-12, 430 440], [4,4,4]);
+    test1 = AddWeightedSpectra(sp,[1,2,3]);
+
+%%
+    sp(4) = MakeSpectrum([450 460 470], [4,4,4]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4]);
+    
+%%
+    sp(5) = MakeSpectrum([350 360 370], [4,4,4]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4,5]);
+
+%%
+    sp(6) = MakeSpectrum([350 360 470], [100 100 100]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4,5,100]);
+    
+end
+##### SOURCE END #####
+--></body></html>

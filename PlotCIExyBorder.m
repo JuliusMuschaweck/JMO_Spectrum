@@ -1,3 +1,15 @@
+%% PlotCIExyBorder
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 function [ah, fh] = PlotCIExyBorder(varargin)
     % Plots the CIE xy border "shoe" into a figure and returns the axes and figure handles for further plotting
     %
@@ -45,7 +57,9 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     
     if p.Results.ColorFill
         load('RGBColorShoeImage.mat','rgbimg2');
-        image([0 1],[1 0],flipud(rgbimg2));
+        im = image([0 1],[1 0],flipud(rgbimg2));
+        alph = 1 - (sum(flipud(rgbimg2),3) == 3); % set white to transparent
+        im.AlphaData = alph;
         set(gca,'ydir','normal');
     end
     

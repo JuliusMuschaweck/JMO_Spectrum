@@ -13,8 +13,9 @@
 % |rv = CIE_Illuminant_D(CCT,varargin)|
 %% Input Arguments
 % * |CCT|: scalar double. Correlated color temperature. |4000 <= CCT <= 25000|, else error
-% * |varargin|: Name-value pair |'lam',lam| where |lam| is a valid wavelength range (strictly ascending vector of
-% positive double| Default is |360:830|. 
+% * |varargin|: Name-value pairs: |'lam',lam| where |lam| is a valid wavelength range (strictly ascending vector of
+% positive double| Default is |360:830|. |'enforceCCTrange', yesno| where |yesno| is logical scalar; when |false|, |CCT|
+% may be outside the |4000 <= CCT <= 25000|.
 %% Output Arguments
 % * |rv|: A spectrum, |struct| with fields |lam| (a copy of the input variable when given, else 360:830), |val| (the
 % spectrum values), and |name| (an appropriate name). CIE D is defined from 300 nm to 830 nm. The spectrum will be zero
@@ -43,14 +44,15 @@
 
 function rv = CIE_Illuminant_D(CCT,varargin)
 % Compute CIE standard illuminant D for color temperature CCT, for 360:830 nm. Optional 'lam',lam 
-    if CCT < 4000 || CCT > 25000
-        error('CIE_Illuminant_D: CCT = %g out of range (4000..25000K)',CCT);
-    end
     p = inputParser;
     p.addRequired('CCT');
     p.addParameter('lam',360:830);
+    p.addParameter('enforceCCTrange',true);
     parse(p, CCT, varargin{:});
     lam = p.Results.lam;
+    if p.Results.enforceCCTrange && (CCT < 4000 || CCT > 25000)
+        error('CIE_Illuminant_D: CCT = %g out of range (4000..25000K)',CCT);
+    end
     persistent CIE_Standard;
     if isempty(CIE_Standard)
         tmp = load('CIE_Standard_Illuminants.mat','CIE_Standard');

@@ -1,5 +1,18 @@
+%% ShiftToLdom
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 function [spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)
     % delta_lam must be added to spec_in to get dominant wavelength ldom
+    spec_in = struct('lam', spec_in.lam, 'val', spec_in.val); % to remove possible other fields like spec_in.XYZ
     maxldom = 695;
     minldom = 400;
     if ldom > maxldom || ldom < minldom
@@ -16,19 +29,23 @@ function [spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)
         nonzerolam = spec_in.lam(nonzero);
         lam_min = nonzerolam(1);
         maxshift = maxldom - lam_min;
-        testshift = 2 * (ldom - ldom0);
-        shift = min(maxshift, testshift);
-        test = spec_in;
-        test.lam = test.lam + shift;
-        testldom = LDomPurity(test);
-        if testldom <= ldom
-            shift = maxshift;
+        minshift = min(ldom - ldom0, maxshift);
+        for u = [0, 0.03, 0.1, 0.3, 0.7, 0.999]
+            shift = (1-u) * minshift + u * maxshift;
             test = spec_in;
             test.lam = test.lam + shift;
             testldom = LDomPurity(test);
-            if testldom <= ldom
-                error('ShiftToLdom: cannot adjust spectrum far enough towards red');
+            if abs(ldom - testldom) < 1e-3 % lucky punch
+                spec_out = test;
+                delta_lam = shift;
+                return;
             end
+            if testldom > ldom % sufficient
+                break;
+            end
+        end
+        if testldom <= ldom
+            error('ShiftToLdom: cannot adjust spectrum far enough towards red');
         end
         % now ldom0 < ldom < testldom => bracket
         if shift <= 0

@@ -6,5 +6,6 @@ function publishWithStandardExample(fn)
         fn = fn(1:(end-2));
     end
     fprintf('publishing %s\n',fn);
+    drawnow;
     publish([fn,'.m'],'evalCode',true,'showCode',false,'codeToEvaluate',strcat('runExample(''Example',fn,''')'));
 end

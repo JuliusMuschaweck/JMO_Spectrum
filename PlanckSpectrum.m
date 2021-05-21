@@ -18,6 +18,7 @@
 % * |opts|: Name-value pairs:
 %
 % <html>
+% <p style="margin-left: 25px">
 % <table border=1><tr><td><b>Name</b></td><td><b>Type</b></td><td><b>Value</b></td><td><b>Meaning</b></td></tr>
 % <tr><td> 'normalize' </td><td>string</td> <td> 'globalpeak1' (default) </td> <td> scaled such that global peak would be 1.0 even if
 %           outside lambda range. Only for constant index </td></tr>
@@ -47,7 +48,7 @@
 % </td></tr>
 % <tr><td> 'doTest' </td><td> logical scalar </td><td> false (default) </td> <td> Ignore </td></tr>
 % <tr><td>  </td><td> </td><td> true </td> <td> Perform diagnostic test ignoring input values, then return. See code for details </td></tr>
-% </table>
+% </table></p>
 % </html>
 %
 %% Output Arguments

@@ -1,0 +1,190 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CIE1931_XYZ</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="CIE1931_XYZ.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CIE1931_XYZ</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE1931_XYZ(spec)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A struct with fields <tt>X, Y, Z, x, y, z, cw</tt>, all scalar double</li></ul></div><h2 id="4">Algorithm</h2><p>The integrals of the spectrum, weighted with the color matching functions, are computed using <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>. There the wavelength arrays are properly interweaved, both the spectrum and the color matching functions are linearly interpolated for all occurring wavelenghts, multiplied and integrated using the trapezoidal rule. Thus, even spectra with extremely narrow spikes and/or steep slopes within a single nanometer range are treated correctly. There are two exceptions: When <tt>spec.lam</tt> has no overlap with 360:830, returns <tt>0,0,0,NaN,NaN,Nan</tt>. When <tt>spec.lam</tt> is a scalar (a single line spectrum, which is actually not considered a proper spectrum in this library), the color matching functions are evaluated at that single wavelength.</p><h2 id="5">See also</h2><p><a href="CIE_Lab.html">CIE_Lab</a>, <a href="CIE_Luv.html">CIE_Luv</a>, <a href="CIE_upvp.html">CIE_upvp</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="LDomPurity.html">LDomPurity</a>, <a href="LinInterpol.html">LinInterpol</a>, <a href="MultiplySpectra.html">MultiplySpectra</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleCIE1931_XYZ()
+    <span class="comment">% Standard illuminant E: A flat spectrum from 360:830</span>
+    sE = CIE_Illuminant(<span class="string">'E'</span>);
+    <span class="comment">% a common pattern: Compute some property of a spectrum, then add that property as a field.</span>
+    <span class="comment">% Many routines make use of this: When field XYZ is present in a spectrum, and that field is a struct with fields</span>
+    <span class="comment">% 'x' and 'y', then the computation of CIE XYZ values by integration is skipped when the XYZ values are needed.</span>
+    sE.XYZ = CIE1931_XYZ(sE);
+    fprintf(<span class="string">'CIE Illuminant E: X Y Z x y z = %g, %g, %g, %g, %g, %g\n'</span>,sE.XYZ.X,sE.XYZ.Y,sE.XYZ.Z,sE.XYZ.x,sE.XYZ.y,sE.XYZ.z);
+    <span class="comment">% a single mode helium neon laser line with integral 1</span>
+    s_HeNe = MakeSpectrum([632.815, 632.816, 632.817],[0,1000,0]);
+    s_HeNe.XYZ = CIE1931_XYZ(s_HeNe);
+    fprintf(<span class="string">'HeNe: X Y Z x y z = %g, %g, %g, %g, %g, %g\n'</span>,s_HeNe.XYZ.X,s_HeNe.XYZ.Y,s_HeNe.XYZ.Z,s_HeNe.XYZ.x,s_HeNe.XYZ.y,s_HeNe.XYZ.z);
+    testY = EvalSpectrum(Vlambda(),632.816);
+    fprintf(<span class="string">'Compare HeNe Y = %g vs V(lambda) at 632.816 = %g: difference = %g\n'</span>,s_HeNe.XYZ.Y,testY, s_HeNe.XYZ.Y - testY);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">CIE Illuminant E: X Y Z x y z = 106.865, 106.857, 106.892, 0.333315, 0.333288, 0.333397
+HeNe: X Y Z x y z = 0.584787, 0.237093, 3.64118e-05, 0.711492, 0.288463, 4.43012e-05
+Compare HeNe Y = 0.237093 vs V(lambda) at 632.816 = 0.237093: difference = -5.60649e-12
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CIE1931_XYZ
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z
+%% Syntax
+% |rv = CIE1931_XYZ(spec)|
+%% Input Arguments
+% * |spec|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
+%% Output Arguments
+% * |rv|: A struct with fields |X, Y, Z, x, y, z, cw|, all scalar double
+%% Algorithm
+% The integrals of the spectrum, weighted with the color matching functions, are computed using
+% <IntegrateSpectrum.html IntegrateSpectrum>. There the wavelength arrays are properly interweaved, both the spectrum
+% and the color matching functions are linearly interpolated for all occurring wavelenghts, multiplied and integrated
+% using the trapezoidal rule. Thus, even spectra with extremely narrow spikes and/or steep slopes within a single
+% nanometer range are treated correctly. There are two exceptions: 
+% When |spec.lam| has no overlap with 360:830, returns |0,0,0,NaN,NaN,Nan|. When |spec.lam| is a scalar (a single line
+% spectrum, which is actually not considered a proper spectrum in this library), the color matching functions are
+% evaluated at that single wavelength.
+%% See also
+% <CIE_Lab.html CIE_Lab>, <CIE_Luv.html CIE_Luv>, <CIE_upvp.html CIE_upvp>, <IntegrateSpectrum.html IntegrateSpectrum>, 
+% <LDomPurity.html LDomPurity>, <LinInterpol.html LinInterpol>, <MultiplySpectra.html MultiplySpectra>
+%% Usage Example
+% <include>Examples/ExampleCIE1931_XYZ.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+function rv = CIE1931_XYZ(spec)
+    % function rv = CIE1931_XYZ(spec)
+    % compute CIE 1931 XYZ tristimulus and xy coords from spec.lam, spec.val
+    % spec is struct with spec.lam and spec.val arrays
+    % rv is struct with tristimulus values rv.X, rv.Y, rv.Z, and color coordinates rv.x and rv.y
+    % also returns rv.z = 1 - rv.x-rv.y
+    persistent iXYZ;
+    if isempty(iXYZ)
+        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+        iXYZ = CIE1931XYZ;
+    end
+    if (iXYZ.lam(2) - iXYZ.lam(1)) ~= 1
+        error('CIE1931_XYZ: no unit spacing in CIE1931XYZ.lam');
+    end
+    if spec.lam(1) >= iXYZ.lam(end) || spec.lam(end) <= iXYZ.lam(1)
+        % no overlap
+        rv.X = 0;
+        rv.Y = 0;
+        rv.Z = 0;
+        rv.cw = 0;
+        rv.x = NaN;
+        rv.y = NaN;
+        rv.z = NaN;
+        return;
+    end
+    if numel(spec.lam) == 1
+        % 6.4.2021 JM: change to LinInterpol, include multiplication with (scalar) spec.val
+        rv.X = LinInterpol(iXYZ.lam,iXYZ.x,spec.lam) * spec.val;
+        rv.Y = LinInterpol(iXYZ.lam,iXYZ.y,spec.lam) * spec.val;
+        rv.Z = LinInterpol(iXYZ.lam,iXYZ.z,spec.lam) * spec.val;
+        rv.cw = rv.X + rv.Y + rv.Z;
+        rv.x = rv.X / (rv.X+rv.Y+rv.Z);
+        rv.y = rv.Y / (rv.X+rv.Y+rv.Z);
+        rv.z = 1 - rv.x - rv.y;
+        return;
+    end
+    % 6.4.21 JM: it's wrong to interpolate spec in 1 nm steps! Think of a near delta spectrum around Helium d
+    %     lam0 = floor(max(spec.lam(1), iXYZ.lam(1)));
+    %     lam1 = ceil(min(spec.lam(end), iXYZ.lam(end)));
+    %     ispecval = LinInterpol(spec.lam,spec.val,(lam0:lam1)');
+    %     idxlam0 = lam0 - iXYZ.lam(1) + 1;
+    %     idxlam1 = lam1 - iXYZ.lam(1) + 1;
+    %     rv.X = trapz(ispecval .* iXYZ.x(idxlam0:idxlam1)); % ok since iXYZ.x,y,z have unit spacing
+    %     rv.Y = trapz(ispecval .* iXYZ.y(idxlam0:idxlam1));
+    %     rv.Z = trapz(ispecval .* iXYZ.z(idxlam0:idxlam1));
+    rv.X = IntegrateSpectrum(spec,MakeSpectrum(iXYZ.lam, iXYZ.x));
+    rv.Y = IntegrateSpectrum(spec,MakeSpectrum(iXYZ.lam, iXYZ.y));
+    rv.Z = IntegrateSpectrum(spec,MakeSpectrum(iXYZ.lam, iXYZ.z));
+    rv.cw = rv.X + rv.Y + rv.Z;
+    rv.x = rv.X / (rv.X+rv.Y+rv.Z);
+    rv.y = rv.Y / (rv.X+rv.Y+rv.Z);
+    rv.z = 1 - rv.x - rv.y;
+end
+##### SOURCE END #####
+--></body></html>

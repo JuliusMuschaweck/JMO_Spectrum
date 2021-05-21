@@ -1,0 +1,176 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CODATA2018</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="CODATA2018.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CODATA2018</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Returns a struct with CODATA constants relevant to illumination, and some more</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>cd = CODATA2018()</tt></p><h2 id="2">Input Arguments</h2><div><ul><li>None</li></ul></div><h2 id="3">Output Arguments</h2><p><tt>cd</tt>: struct with fields * <tt>b</tt>:= Wien wavelength displacement law constant * <tt>bprime</tt>:= Wien frequency displacement law constant * <tt>c</tt>:= speed of light in vacuum * <tt>e</tt>:= elementary charge * <tt>h</tt>:= Planck constant * <tt>k</tt>:= Boltzmann constant * <tt>me</tt>:= electron mass * <tt>mn</tt>:= neutron mass * <tt>mp</tt>:= proton mass * <tt>NA</tt>:= Avogadro constant * <tt>R</tt>:= molar gas constant * <tt>Vm</tt>:= molar volume of ideal gas (273.15 K, 101.325 kPa) * <tt>sigma</tt>:= Stefan-Boltzmann constant * <tt>c1</tt>:= first radiation constant, 2 pi h c^2 * <tt>c1L</tt>:= first radiation constant for spectral radiance, 2 h c^2 * <tt>c2</tt>:= second radiation constant, h c / k</p><p>Each field is a struct, with fields <tt>name</tt> (the same names as above), <tt>value</tt> (the value), <tt>reluncertainty</tt> (the relative uncertainty), <tt>absuncertainty</tt> (absolute uncertainty), and <tt>unit</tt> (the physical unit)</p><h2 id="4">Algorithm</h2><p>Creates <tt>cd</tt> using data from NIST, <a href="https://physics.nist.gov/cuu/Constants/index.html">https://physics.nist.gov/cuu/Constants/index.html</a></p><h2 id="5">See also</h2><p><a href="PlanckSpectrum.html">PlanckSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleCODATA2018()
+    cd = CODATA2018();
+    c = cd.c;
+    fprintf(<span class="string">'c: name = %s, value = %i, reluncertainty = %g, unit = %s\n'</span>,c.name, c.value, c.reluncertainty, c.unit);
+    c2 = cd.c2.value;
+    h = cd.h.value;
+    k = cd.k.value;
+    c2_indirect = h * c.value / k;
+    fprintf(<span class="string">'difference of c2 = %0.11f to h * c / k is %g\n'</span>,c2, c2-c2_indirect);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">c: name = speed of light in vacuum, value = 299792458, reluncertainty = 0, unit = m s^-1
+difference of c2 = 0.01438776877 to h * c / k is -5.03934e-12
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CODATA2018
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Returns a struct with CODATA constants relevant to illumination, and some more
+%% Syntax
+% |cd = CODATA2018()|
+%% Input Arguments
+% * None
+%% Output Arguments
+% |cd|: struct with fields
+% * |b|:= Wien wavelength displacement law constant
+% * |bprime|:= Wien frequency displacement law constant
+% * |c|:= speed of light in vacuum
+% * |e|:= elementary charge
+% * |h|:= Planck constant
+% * |k|:= Boltzmann constant
+% * |me|:= electron mass
+% * |mn|:= neutron mass
+% * |mp|:= proton mass
+% * |NA|:= Avogadro constant
+% * |R|:= molar gas constant
+% * |Vm|:= molar volume of ideal gas (273.15 K, 101.325 kPa)
+% * |sigma|:= Stefan-Boltzmann constant
+% * |c1|:= first radiation constant, 2 pi h c^2
+% * |c1L|:= first radiation constant for spectral radiance, 2 h c^2
+% * |c2|:= second radiation constant, h c / k
+% 
+% Each field is a struct, with fields |name| (the same names as above), |value| (the value), |reluncertainty| (the
+% relative uncertainty), |absuncertainty| (absolute uncertainty), and |unit| (the physical unit)
+%% Algorithm
+% Creates |cd| using data from NIST, <https://physics.nist.gov/cuu/Constants/index.html>
+%% See also
+% <PlanckSpectrum.html PlanckSpectrum>
+%% Usage Example
+% <include>Examples/ExampleCODATA2018.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+function cd = CODATA2018()
+% function cd = CODATA2018()
+% from https://physics.nist.gov/cuu/Constants/index.html
+    persistent rv;
+    if isempty(rv)
+        rv.b  = MakeEntry('Wien wavelength displacement law constant', 0.002897771955, 0, 'm K');
+        rv.bprime = MakeEntry('Wien frequency displacement law constant', 5878925757, 0, 'Hz K^-1');
+        rv.c  = MakeEntry('speed of light in vacuum', 299792458, 0, 'm s^-1');
+        rv.e  = MakeEntry('elementary charge', 1.602176634E-19, 0, 'C');
+        rv.h  = MakeEntry('Planck constant', 6.62607015E-34, 0, 'J s');
+        rv.k  = MakeEntry('Boltzmann constant', 1.380649E-23, 0, 'J K^-1');
+        rv.me = MakeEntry('electron mass', 9.109383701528E-31, 3e-10, 'kg');
+        rv.mn = MakeEntry('neutron mass', 1.6749274980495E-27, 5e-10, 'kg');
+        rv.mp = MakeEntry('proton mass', 1.6726219236951E-27, 3.1e-10, 'kg');
+     % from CODATA2014   rv.mu = MakeEntry('atomic mass constant', 1.66053904E-27, 2E-35, 'kg');
+        rv.NA = MakeEntry('Avogadro constant', 6.02214076E+23, 0, 'mol^-1');
+        rv.R  = MakeEntry('molar gas constant', 8.314462618, 0, 'J mol^-1 K^-1');
+        rv.Vm = MakeEntry('molar volume of ideal gas (273.15 K, 101.325 kPa)', 22.41396954e-3, 0, 'm^3 mol^-1');
+        rv.sigma = MakeEntry('Stefan-Boltzmann constant', 5.670374419e-8, 0, 'W m^-2 K^-4');
+        rv.c1 = MakeEntry('first radiation constant, 2 pi h c^2', 3.741771852E-16, 0, 'W m^2');
+        rv.c1L= MakeEntry('first radiation constant for spectral radiance, 2 h c^2', 1.191042972E-16, 0, 'W m^2 sr^-1');
+        rv.c2 = MakeEntry('second radiation constant, h c / k', 0.01438776877, 0, 'm K');
+    end
+    cd = rv;
+end
+
+function rv = MakeEntry(name,value,uncertainty,unit)
+    rv.name = name;
+    rv.value = value;
+    rv.reluncertainty = uncertainty;
+    rv.absuncertainty = uncertainty * value;
+    rv.unit = unit;
+end
+##### SOURCE END #####
+--></body></html>

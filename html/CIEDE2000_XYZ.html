@@ -1,0 +1,154 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CIEDE2000_XYZ</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="CIEDE2000_XYZ.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CIEDE2000_XYZ</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Compute the CIEDE2000 color difference between two XYZ stimuli.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>dE = CIEDE2000_XYZ( XYZ1, XYZ2, XYZn )</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ1</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the first stimulus</li><li><tt>XYZ2</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the second stimulus</li><li><tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ1</tt> aand <tt>XYZ2</tt> are taken</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>dE</tt>: scalar double. The color difference. <tt>dE == 1</tt> is assumed to be just noticeable.</li></ul></div><h2 id="4">Algorithm</h2><p>Computes CIELAB Lab values for <tt>XYZ1</tt> and <tt>XYZ2</tt> using <a href="CIE_Lab.html">CIE_Lab</a>. (This is the step for which the reference white is needed). Then forwards to <a href="CIEDE2000_Lab.html">CIEDE2000_Lab</a> to do the actual work.</p><h2 id="5">See also</h2><p><a href="CIEDE2000_Lab.html">CIEDE2000_XYZ</a> <a href="CIE_Lab.html">CIE_Lab</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleCIEDE2000_XYZ()
+    name = <span class="string">' Air Mass 1.5 Solar Spectrum'</span>;
+    fprintf(<span class="string">'CIEDE2000 dE of CIE D Illuminants vs. %s\n'</span>,name);
+    d6500 = CIE_Illuminant_D(6500); <span class="comment">% our reference white</span>
+    d6500.XYZ = CIE1931_XYZ(d6500);
+    figure();
+    hold <span class="string">on</span>;
+    plot(d6500.lam, d6500.val);
+    TT = 5000:200:7000;
+    am1_5 = ResampleSpectrum(SolarSpectrum(<span class="string">'AM15_GlobalTilt'</span>), 360:830);
+    am1_5.val = am1_5.val * 33;
+    am1_5.XYZ = CIE1931_XYZ(am1_5);
+    plot(am1_5.lam, am1_5.val,<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,2);
+    leg = {<span class="string">'D(6500)'</span>, <span class="string">'AM 1.5 Global Tilt'</span>};
+    <span class="keyword">for</span> T = TT
+        ds = CIE_Illuminant_D(T);
+        ds.val = ds.val * 0.5;
+        ds.XYZ = CIE1931_XYZ(ds);
+        plot(ds.lam, ds.val);
+        dE = CIEDE2000_XYZ(ds.XYZ, am1_5.XYZ, d6500.XYZ);
+        fprintf(<span class="string">'T = %g K, dE = %g\n'</span>, T, dE);
+        leg{end+1} = sprintf(<span class="string">'D(%g)'</span>,T);
+    <span class="keyword">end</span>
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    ylabel(<span class="string">'Spectrum (a.u.)'</span>);
+    legend(leg,<span class="string">'Location'</span>,<span class="string">'northeastoutside'</span>);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">T = 5000 K, dE = 5.15571
+T = 5200 K, dE = 4.046
+T = 5400 K, dE = 3.19512
+T = 5600 K, dE = 2.84076
+T = 5800 K, dE = 3.15144
+T = 6000 K, dE = 3.97183
+T = 6200 K, dE = 5.05809
+T = 6400 K, dE = 6.27216
+T = 6600 K, dE = 7.56989
+T = 6800 K, dE = 8.79269
+T = 7000 K, dE = 9.89
+</pre><img vspace="5" hspace="5" src="CIEDE2000_XYZ_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CIEDE2000_XYZ
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Compute the CIEDE2000 color difference between two XYZ stimuli.
+%% Syntax
+% |dE = CIEDE2000_XYZ( XYZ1, XYZ2, XYZn )|
+%% Input Arguments
+% * |XYZ1|: A |struct| with scalar real fields |X|, |Y| and |Z|, the first stimulus
+% * |XYZ2|: A |struct| with scalar real fields |X|, |Y| and |Z|, the second stimulus
+% * |XYZn|: A |struct| with scalar real fields |X|, |Y| and |Z|, the tristimulus values of the "reference white": the brightest diffuse white in the scene from which |XYZ1| aand |XYZ2| are taken
+%% Output Arguments
+% * |dE|: scalar double. The color difference. |dE == 1| is assumed to be just noticeable.
+%% Algorithm
+% Computes CIELAB Lab values for |XYZ1| and |XYZ2| using <CIE_Lab.html CIE_Lab>. (This is the step for which the reference white is needed). Then forwards to <CIEDE2000_Lab.html CIEDE2000_Lab> to do the actual work. 
+%% See also
+% <CIEDE2000_Lab.html CIEDE2000_XYZ> <CIE_Lab.html CIE_Lab>
+%% Usage Example
+% <include>Examples/ExampleCIEDE2000_XYZ.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+function dE = CIEDE2000_XYZ( XYZ1, XYZ2, XYZn )
+    dE = CIEDE2000_Lab(CIE_Lab(XYZ1, XYZn), CIE_Lab(XYZ2, XYZn));
+end
+##### SOURCE END #####
+--></body></html>

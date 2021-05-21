@@ -1,0 +1,198 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CIE_Illuminant_D</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="CIE_Illuminant_D.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CIE_Illuminant_D</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>Computes CIE standard illuminant D (daylight) for a desired color temperature</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_Illuminant_D(CCT,varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>CCT</tt>: scalar double. Correlated color temperature. <tt>4000 &lt;= CCT &lt;= 25000</tt>, else error</li><li><tt>varargin</tt>: Name-value pair <tt>'lam',lam</tt> where <tt>lam</tt> is a valid wavelength range (strictly ascending vector of positive double| Default is <tt>360:830</tt>.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A spectrum, <tt>struct</tt> with fields <tt>lam</tt> (a copy of the input variable when given, else 360:830), <tt>val</tt> (the spectrum values), and <tt>name</tt> (an appropriate name). CIE D is defined from 300 nm to 830 nm. The spectrum will be zero for values of <tt>lam</tt> outside this range.</li></ul></div><h2 id="4">Algorithm</h2><p>Retrieves the S0, S1 and S2 spectra from <tt>CIE_Standard_Illuminants.mat</tt>, computes the M1 and M2 weights according to the CIE formulas and assembles the weighted sum of the three spectra. Then, interpolates the resulting spectrum over <tt>lam</tt>. See CIE 015:2018 ("Colorimetry, 4th edition") for the definitions. Note that the S0, S1 and S2 functions are given in 10 nm steps, and thus the CIE D illuminant is not smooth when interpolated on a finer wavelength resolution. When a smoother spectrum is desired, you may consult CIE 204:2013 (&#8220;Methods for re-defining CIE D illuminants&#8221;) for a smoothing method that does only minimally change resulting color coordinates from a wide range of reflective samples. They also do no correctly represent the narrow absorption bands of the atmosphere: CIE D is for colorimetric calculations only, with no steep slopes in reflection or transmission. When using with sharp dichroic filters, it may be better to use the high resolution AM1.5 spectrum, see file AM0AM1_5.xls, which is contained in this library distribution.</p><h2 id="5">See also</h2><p><a href="CIE_Illuminant.html">CIE_Illuminant</a>, <a href="CCT.html">CCT</a>, <a href="PlanckSpectrum.html">PlanckSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleCIE_Illuminant_D()
+    <span class="comment">% plot some CIE D spectra</span>
+    figure();
+    hold <span class="string">on</span>;
+    leg = {};
+    <span class="keyword">for</span> T = [4000, 6000, 10000, 25000]
+        s = CIE_Illuminant_D(T,<span class="string">'lam'</span>,300:5:830);
+        plot(s.lam, s.val)
+        leg{end+1} = sprintf(<span class="string">'T = %g'</span>,T);
+    <span class="keyword">end</span>
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    title(<span class="string">'Various CIE D spectra'</span>);
+    legend(leg);
+    
+    <span class="comment">% compare Planck locus with CIE D color coordinates</span>
+    figure()
+    hold <span class="string">on</span>;
+    pl = PlanckLocus();
+    n = 30;
+    <span class="comment">% inverse temperature is approx. equidistant</span>
+    invT = linspace( 1/4000, 1/25000, n);
+    T = 1 ./ invT;
+    plxy = pl.xy_func(T);
+    plot(plxy(:,1), plxy(:,2));
+    Dxy = zeros(n,2);
+    <span class="keyword">for</span> i = 1:n
+        s = CIE_Illuminant_D(T(i));
+        XYZ = CIE1931_XYZ(s);
+        Dxy(i,1) = XYZ.x;
+        Dxy(i,2) = XYZ.y;
+    <span class="keyword">end</span> 
+    plot(Dxy(:,1), Dxy(:,2));
+    axis <span class="string">equal</span>;
+    grid <span class="string">on</span>;
+    xlabel(<span class="string">'CIE x'</span>);
+    xlabel(<span class="string">'CIE y'</span>);
+    title(<span class="string">'CIE D is above Planck locus'</span>);
+    legend(<span class="string">'Planck locus'</span>, <span class="string">'CIE D'</span>,<span class="string">'Location'</span>,<span class="string">'southeast'</span>);
+<span class="keyword">end</span>
+
+</pre><img vspace="5" hspace="5" src="CIE_Illuminant_D_01.png" alt=""> <img vspace="5" hspace="5" src="CIE_Illuminant_D_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CIE_Illuminant_D
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Computes CIE standard illuminant D (daylight) for a desired color temperature
+%% Syntax
+% |rv = CIE_Illuminant_D(CCT,varargin)|
+%% Input Arguments
+% * |CCT|: scalar double. Correlated color temperature. |4000 <= CCT <= 25000|, else error
+% * |varargin|: Name-value pair |'lam',lam| where |lam| is a valid wavelength range (strictly ascending vector of
+% positive double| Default is |360:830|. 
+%% Output Arguments
+% * |rv|: A spectrum, |struct| with fields |lam| (a copy of the input variable when given, else 360:830), |val| (the
+% spectrum values), and |name| (an appropriate name). CIE D is defined from 300 nm to 830 nm. The spectrum will be zero
+% for values of |lam| outside this range.
+%% Algorithm
+% Retrieves the S0, S1 and S2 spectra from |CIE_Standard_Illuminants.mat|, computes the M1 and M2 weights according to
+% the CIE formulas and assembles the weighted sum of the three spectra. Then, interpolates the resulting spectrum over
+% |lam|. See CIE 015:2018 ("Colorimetry, 4th edition") for the definitions. Note that the S0, S1 and S2 functions are given in 10 nm steps, and thus
+% the CIE D illuminant is not smooth when interpolated on a finer wavelength resolution. When a smoother spectrum is
+% desired, you may consult CIE 204:2013 (“Methods for re-defining CIE D illuminants”) for a smoothing method that does
+% only minimally change resulting color coordinates from a wide range of reflective samples. They also do no correctly
+% represent the narrow absorption bands of the atmosphere: CIE D is for colorimetric calculations only, with no steep
+% slopes in reflection or transmission. When using with sharp dichroic filters, it may be better to use the high resolution AM1.5
+% spectrum, see file AM0AM1_5.xls, which is contained in this library distribution.
+%% See also
+% <CIE_Illuminant.html CIE_Illuminant>, <CCT.html CCT>, <PlanckSpectrum.html PlanckSpectrum>
+%% Usage Example
+% <include>Examples/ExampleCIE_Illuminant_D.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+function rv = CIE_Illuminant_D(CCT,varargin)
+% Compute CIE standard illuminant D for color temperature CCT, for 360:830 nm. Optional 'lam',lam 
+    if CCT < 4000 || CCT > 25000
+        error('CIE_Illuminant_D: CCT = %g out of range (4000..25000K)',CCT);
+    end
+    p = inputParser;
+    p.addRequired('CCT');
+    p.addParameter('lam',360:830);
+    parse(p, CCT, varargin{:});
+    lam = p.Results.lam;
+    persistent CIE_Standard;
+    if isempty(CIE_Standard)
+        tmp = load('CIE_Standard_Illuminants.mat','CIE_Standard');
+        CIE_Standard = tmp.CIE_Standard;
+    end
+    % formulas from https://en.wikipedia.org/wiki/Standard_illuminant#Illuminant_series_D
+    iT = 1000 / CCT;
+    if CCT > 7000
+        xD = 0.237040 + 0.24748 * iT + 1.9018 * iT^2 - 2.0064 * iT^3;
+    else % CCT in 4000;7000
+        xD = 0.244063 + 0.09911 * iT + 2.9678 * iT^2 - 4.6070 * iT^3;
+    end
+    yD = - 3 * xD^2 + 2.870 * xD - 0.275;
+    M = 0.0241 + 0.2562 * xD - 0.7341 * yD;
+    M1 =(-1.3515 - 1.7703 * xD + 5.9114 * yD) / M;
+    M2 = (0.03000 - 31.4424 * xD + 30.0717 * yD) / M;
+    ilam = CIE_Standard.DaylightComponents.lam;
+    S0 =  CIE_Standard.DaylightComponents.S0;
+    S1 =  CIE_Standard.DaylightComponents.S1;
+    S2 =  CIE_Standard.DaylightComponents.S2;
+    SD = S0 + M1 * S1 + M2 * S2;
+    rv.lam = lam;
+    rv.val = LinInterpol(ilam, SD, lam);
+    rv.name = sprintf('CIE standard illuminant D for CCT = %g',CCT);        
+end
+##### SOURCE END #####
+--></body></html>

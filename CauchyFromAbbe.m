@@ -17,13 +17,14 @@
 % * |opts|: Optional name-value pairs:
 %
 % <html>
+% <p style="margin-left: 25px">
 % <table border=1>
 % <tr><td> <b>Name</b> </td>      <td><b>Type</b></td>      <td><b>Value</b></td>                <td><b>Default</b></td>   <td><b>Meaning</b></td></tr>
 % <tr><td> 'lambda_n_nm' </td>    <td> real or char </td>   <td> real > 0, 'd' , 'D', 'e' </td>  <td>'d'           </td>   <td> reference wavelength for index n in nanometers </td></tr>
 % <tr><td> 'lambda_v_nm' </td>    <td> real or char </td>   <td> real > 0, 'd' , 'D', 'e' </td>  <td>'d'           </td>   <td> reference wavelength for Abbe number v in nanometers </td></tr>
 % <tr><td> 'Cauchy_wlu' </td>     <td> real </td>           <td> real > 0                 </td>  <td>1e-6          </td>   <td> wavelength unit for Cauchy A1. Default 1e-6 (microns). Use 1e-9 for nanometer </td></tr>
 % <tr><td> 'lam' </td>            <td> real vector </td>    <td> valid wavelength array in nm</td>  <td> NaN       </td>   <td> When present, rv contains field nSpectrum: a spectrum which is the Cauchy model evaluated over lam </td></tr>
-% </table>
+% </table></p>
 % </html>
 
 %% Output Arguments

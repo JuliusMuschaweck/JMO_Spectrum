@@ -16,14 +16,16 @@
 % |'A';'C';'E','D','D50';'D55';'D65';'D75';'FL1';'FL2';'FL3';'FL4';'FL5';'FL6';'FL7';'FL8';'FL9';'FL10';'FL11';'FL12';|
 % |'FL3_1';'FL3_2';'FL3_3';'FL3_4';'FL3_5';'FL3_6';'FL3_7';'FL3_8';'FL3_9';'FL3_10';'FL3_11';'FL3_12';'FL3_13';'FL3_14';'FL3_15';|
 % |'HP1';'HP2';'HP3';'HP4';'HP5'|
+% |'LED_B1';'LED_B2';'LED_B3';'LED_B4';'LED_B5';'LED_BH1';'LED_RGB1';'LED_V1';'LED_V2'|
 % * |opts|: name-value pairs. 
 %
 % <html>
+% <p style="margin-left: 25px">
 % <table border=1>
 % <tr><td> <b>Name</b> </td>      <td><b>Type</b></td>      <td><b>Value</b></td>                <td><b>Default</b></td>   <td><b>Meaning</b></td></tr>
 % <tr><td> 'lam' </td>            <td> real vector </td>    <td> valid wavelength array in nm</td>  <td> 360:830 </td> <td> The wavelengths over which the offical illuminant will be interpolated
 % <tr><td> 'T'   </td>            <td> real scalar </td>    <td> 4000 <= T <= 25000          </td>  <td> 5000 </td> <td> When |name == 'D'|, this is the CCT for illuminant D (daylight) 
-% </table>
+% </table></p>
 % </html>
 
 %% Output Arguments
@@ -36,7 +38,7 @@
 % |lam|.
 %
 % The wavelength ranges in the standard are 300 nm to 780 nm in 5 nm steps for
-% |'A';'C';'E','D','D50';'D55';'D65';'D75'|, and 380 nm to 780 nm in 5 nm steps ro all |FLxx| and |HPx| spectra. For
+% |'A';'C';'E','D','D50';'D55';'D65';'D75'|, and 380 nm to 780 nm in 5 nm steps for all |FLxx| and |HPx| and |LEDx| spectra. For
 % |'D'|, the wavelength range of the standard is 300 nm to 830 nm in 5 nm steps. 
 %
 %% See also

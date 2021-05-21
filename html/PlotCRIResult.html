@@ -1,0 +1,191 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PlotCRIResult</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="PlotCRIResult.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>PlotCRIResult</h1><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% PlotCRIResult
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
+function PlotCRIResult(lamp, fignum, titlestr, pos_offset)
+    load('CRISpectra.mat');
+    XYZ0 = CIE1931_XYZ(lamp);
+    
+    % xyz2rgb uses D65 as default white point
+    rgb0 = rgb(XYZ0, 1/XYZ0.Y,'d65');
+    
+    % make a 1024 x 1024 RGB picture
+    n = 1024;
+    pic = ones(n, n, 3);
+    % divided into 4x4 tiles for 16 color samples
+    dn = n / 4;
+    
+    % reference spectrum
+    [cct, duv] = CCT(lamp);
+    if duv > 0.05
+        warning('lamp too far away from Planck, CCT = %g, d_uv = %g',cct, duv);
+    end
+    if cct < 5000
+        whitepoint = 'd50';
+        refspec = PlanckSpectrum(360:830, cct);
+    elseif cct < 2 / (1/5000 + 1/5500) % 5238K, mean invT
+        whitepoint = 'd50';
+        refspec = CIE_Illuminant_D(cct);
+    elseif cct < 2 / (1/5500 + 1/6500) % 5958K, mean invT
+        whitepoint = 'd55';
+        refspec = CIE_Illuminant_D(cct);
+    else
+        whitepoint = 'd65';
+        refspec = CIE_Illuminant_D(cct);
+    end
+    refXYZ0 = CIE1931_XYZ(refspec);
+    
+    % the loop to create the picture
+    idx = 0;
+    for i = 1:4 % row
+        for j = 1:4 % column
+            idx = idx + 1; % which CRI sample
+            r0 = (i-1) * dn + 1; % upper left corner of tile
+            c0 = (j-1) * dn + 1;
+            s = CRISpectra(idx);
+            % outer frame with reference color
+            sref = MultiplySpectra(s, refspec); % the reflected spectrum
+            XYZref = CIE1931_XYZ(sref);
+            irgbref = rgb(XYZref, 1/refXYZ0.Y,whitepoint); % and its sRGB values
+            cri_rgb_ref{i,j} = irgbref;
+            for ii = 1:3 % assign to the tile
+                pic(r0:(r0+dn),c0:(c0+dn),ii) = irgbref(ii);
+            end
+            % inner square with lamp color
+            sr = MultiplySpectra(s, lamp); % the reflected spectrum
+            XYZ = CIE1931_XYZ(sr);
+            irgb = rgb(XYZ, 1/XYZ0.Y, whitepoint); % and its sRGB values
+            cri_rgb{i,j} = irgb;
+            for ii = 1:3 % assign to the tile
+                pic((r0+dn/4):(r0+3*dn/4),(c0+dn/4):(c0+3*dn/4),ii) = irgb(ii);
+            end
+        end
+    end
+    
+    % show the result
+    fh = figure(fignum);
+    fh.Position = [pos_offset pos_offset 1000 1000];
+    clf;
+    imagesc(pic);
+    axis equal;
+    axis off;
+    hold on;
+    idx = 0;
+    cri = CRI;
+    icri = cri.FullCRI(lamp);
+    for i = 1:4
+        for j = 1:4
+            idx = idx + 1;
+            s = CRISpectra(idx);
+            r0 = (i-1) * dn + 1;
+            c0 = (j-1) * dn + 1;
+            irgb = cri_rgb{i,j};
+            irgbref = cri_rgb_ref{i,j};
+            text(c0+dn/2, r0+dn/2,sprintf('%s',s.name), 'HorizontalAlignment','center',  'VerticalAlignment','middle','FontSize',20);
+            text(c0+dn/2, r0+dn/2 + 30,sprintf('%s', s.description), 'HorizontalAlignment','center',  'VerticalAlignment','middle');
+            text(c0+dn/2, r0+dn/2 + 55,sprintf('lamp RGB: [%0.3f,%0.3f,%0.3f]', irgb(1), irgb(2), irgb(3)), 'HorizontalAlignment','center',  'VerticalAlignment','middle');
+            text(c0+dn/2, r0+dn/2 + 80,sprintf('ref. RGB: [%0.3f,%0.3f,%0.3f]', irgbref(1), irgbref(2), irgbref(3)), 'HorizontalAlignment','center',  'VerticalAlignment','middle');
+            text(c0+dn/2, r0+dn/2 + 105,sprintf('R%g = %0.1f', idx, icri.Ri(idx)), 'HorizontalAlignment','center',  'VerticalAlignment','middle');
+        end
+    end
+    title(sprintf('%s, Ra = %0.1f',titlestr,icri.Ra));
+end
+
+function rv = rgb(XYZ, scale, whitepoint)
+    % replace xyz2rgb with the function from GNU Octave's image package if you don't have the image processing toolbox
+    % of Matlab
+    % https://octave.sourceforge.io/image/index.html
+    % NB: the Octave function knows only d65
+    rv = xyz2rgb([XYZ.X, XYZ.Y, XYZ.Z] * scale,'WhitePoint',whitepoint);
+    rv (rv>1) = 1;
+    rv (rv<0) = 0;
+end
+
+
+##### SOURCE END #####
+--></body></html>

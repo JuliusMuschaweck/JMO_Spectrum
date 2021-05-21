@@ -1,3 +1,38 @@
+%% CIEDE2000_Lab
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Compute the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli.
+%% Syntax
+% |dE = CIEDE2000_Lab( Lab1, Lab2 )|
+%% Input Arguments
+% * |Lab1|: A |struct| with scalar real fields |L|, |a| and |b|
+% * |Lab1|: A |struct| with scalar real fields |L|, |a| and |b|
+%% Output Arguments
+% * |dE|: scalar double. The color difference. |dE == 1| is assumed to be just noticeable.
+%% Algorithm
+% Computes the CIEDE 2000 color difference, following CIE 015:2018 (same as 
+% <https://www.iso.org/standard/63731.html ISO/CIE 11664-6:2014>. The computation is somewhat involved. 
+% In <https://doi.org/10.1002/col.20070 Sharma et al, “The CIEDE2000 Color-Difference Formula: Implementation Notes, Supplementary Test Data, and Mathematical Observations.”>
+% the authors give great guidance and many additional test Lab pairs. I followed their advice; for a test, see usage example below.
+%% See also
+% <CIEDE2000_XYZ.html CIEDE2000_XYZ> <CIE_Lab.html CIE_Lab>
+%% Usage Example
+% <include>Examples/ExampleCIEDE2000_Lab.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
 function dE = CIEDE2000_Lab( Lab1, Lab2 )
     kL = 1; % the three weighting factors which are usually 1
     kC = 1;

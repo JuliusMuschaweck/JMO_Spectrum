@@ -1,3 +1,15 @@
+%% RGBLEDSpectrum
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 classdef RGBLEDSpectrum < handle
     %RGBLEDSpectrum models RGB LED spectra at various conditions, based on data sheet information
     

@@ -1,3 +1,71 @@
+%% ComputeSpectrumColorimetry
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% For a given spectrum, computes a large selection of colorimetric properties
+%% Syntax
+% |rv = ComputeSpectrumColorimetry(spec, varargin)|
+%% Input Arguments
+% * |spec|: A valid spectrum. See <SpectrumSanityCheck.html SpectrumSanityCheck>
+% * |varargin|: Name-Value pairs:
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'Normalize'    </td> <td> character string </td> <td> 'off' (default) </td> <td> Ignore                                     </td></tr>
+% <tr><td>                </td> <td>                  </td> <td> 'peak'          </td> <td> Normalize values to peak == 1 </td></tr>
+% <tr><td> 'XYZn'         </td> <td> struct           </td> <td> Fields X, Y, Z  </td> <td> Reference white stimulus                   </td></tr>
+% <tr><td> 'XYZn'         </td> <td> real vector, length 3 </td> <td> [X, Y, Z]  </td> <td> Reference white stimulus                   </td></tr>
+% </table>
+% </p>
+% </html>
+%
+%% Output Arguments
+% * |rv|: A spectrum: A copy of the original spectrum struct, with added fields
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td> <b>Value</b>             </td> <td> <b>Meaning</b>                              </td></tr>
+% <tr><td> 'XYZ'          </td> <td> struct           </td> <td> scalar real fields x, y, z, X, Y, Z  </td> <td> As returned from <a href="CIE1931_XYZ.html"> CIE1931_XYZ</a> </td></tr>
+% <tr><td> 'x'            </td> <td> scalar real      </td> <td>                          </td> <td> CIE 1931 x (convenience for XYZ.x)  </td></tr>
+% <tr><td> 'y'            </td> <td> scalar real      </td> <td>                          </td> <td> CIE 1931 y (convenience for XYZ.x)  </td></tr>
+% <tr><td> 'u'            </td> <td> scalar real      </td> <td>                          </td> <td> CIE u = 4 * x / (-2*x + 12*y +3)  (see <a href="CIE_upvp.html"> CIE_upvp</a>) </td></tr>
+% <tr><td> 'v'            </td> <td> scalar real      </td> <td>                          </td> <td> CIE v = 6 * y / (-2*x + 12*y +3)  </td></tr>
+% <tr><td> 'up'           </td> <td> scalar real      </td> <td>                          </td> <td> CIE up = u = 4 * x / (-2*x + 12*y +3)  </td></tr>
+% <tr><td> 'vp'           </td> <td> scalar real      </td> <td>                          </td> <td> CIE vp = 1.5 v = 9 * y / (-2*x + 12*y +3)  </td></tr>
+% <tr><td> 'CCT'          </td> <td> scalar real      </td> <td>                          </td> <td> Correlated color temperature  </td></tr>
+% <tr><td> 'dist_uv_Planck'</td> <td> scalar real     </td> <td>                          </td> <td> u,v Distance to Planck locus (see <a href="CCT.html"> CCT</a>) </td></tr>
+% <tr><td> 'CRI_all'      </td> <td> struct           </td> <td> fields Ri (16x1 double) and Ra (double) </td> <td> All CRI values (see <a href="CRI.html"> CRI</a>) </td></tr>
+% <tr><td> 'Ra'           </td> <td> scalar real      </td> <td>                          </td> <td> General CRI  </td></tr>
+% <tr><td> 'Ldom'         </td> <td> scalar real      </td> <td>                          </td> <td> Dominant wavelength (see <a href="LDomPurity.html"> LDomPurity</a>) </td></tr>
+% <tr><td> 'purity'       </td> <td> scalar real      </td> <td>                          </td> <td> Purity (see <a href="LDomPurity.html"> LDomPurity</a>) </td></tr>
+% <tr><td> 'Lab'          </td> <td> struct           </td> <td> fields L, a, b           </td> <td> Only with optional XYZn input argument: CIELAB L*, a*, b* (see <a href="CIE_Lab.html"> CIE_Lab</a>) </td></tr>
+% <tr><td> 'Luv'          </td> <td> struct           </td> <td> fields L, u, v           </td> <td> Only with optional XYZn input argument: CIELUV L*, u*, v* (see <a href="CIE_Luv.html"> CIE_Luv</a>) </td></tr>
+% </table>
+% </p>
+% </html>
+%
+%% Algorithm
+% Calls the various colorimetry functions and collects these values in the returned struct.
+%% See also
+% <CIE1931_XYZ.html CIE1931_XYZ>, <CIE_upvp.html CIE_upvp>, <CIE_Lab.html CIE_Lab>, <CIE_Luv.html CIE_Luv>, <CRI.html CRI>, <LDomPurity.html LDomPurity>, 
+%% Usage Example
+% <include>Examples/ExampleComputeSpectrumColorimetry.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 function rv = ComputeSpectrumColorimetry(spec, varargin)
     % For input spectrum s, compute colorimetry information, return same spectrum with added fields
     % Parameters:

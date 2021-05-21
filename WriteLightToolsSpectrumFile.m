@@ -1,3 +1,15 @@
+%% WriteLightToolsSpectrumFile
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 function WriteLightToolsSpectrumFile(spectrum, filename, varargin)
 % function WriteLightToolsSpectrumFile(spectrum, filename, varargin)
 % Action: Write LightTools .sre spectrum file, to assign to a source

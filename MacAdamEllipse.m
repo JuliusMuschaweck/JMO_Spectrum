@@ -1,3 +1,16 @@
+%% MacAdamEllipse
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
+
 function [ell, g, a, b, theta_deg] = MacAdamEllipse(x, y, nstep, npoints)
 % Compute points and parameters of a MacAdamEllipse
 % Input:

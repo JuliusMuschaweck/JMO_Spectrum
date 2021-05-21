@@ -1,6 +1,5 @@
 publishWithStandardExample('AddSpectra.m');
 publishWithStandardExample('AddWeightedSpectra.m');
-publishWithStandardExample('AssignNewWavelength.m');
 publishWithStandardExample('CauchyFromAbbe.m');
 publishWithStandardExample('CCT.m');
 publishWithStandardExample('CCT_from_xy.m');
@@ -9,45 +8,57 @@ publishWithStandardExample('CIE1931_XYZ.m');
 publishWithStandardExample('CIE_Illuminant.m');
 publishWithStandardExample('CIE_Illuminant_D.m');
 publishWithStandardExample('CIE_Lab.m');
+publishWithStandardExample('CIE_Luv.m');
+publishWithStandardExample('CIEDE2000_Lab.m');
+publishWithStandardExample('CIEDE2000_XYZ.m');
+publishWithStandardExample('CIE_upvp.m');
+publishWithStandardExample('CODATA2018.m');
+publishWithStandardExample('ComputeSpectrumColorimetry.m');
+publishWithStandardExample('CRI.m');
+publishWithStandardExample('EvalSpectrum.m');
 
+publishWithStandardExample('FindRoot1D.m');
+publishWithStandardExample('FindRootND.m');
+publishWithStandardExample('GaussSpectrum.m');
+publishWithStandardExample('IntegrateSpectrum.m');
+publish('IsOctave.m','evalCode',false,'showCode',false);
+publishWithStandardExample('IsSpectrum.m');
+publishWithStandardExample('JMOSpectrumVersion.m');
+
+publishWithStandardExample('MatchAdditiveMix.m');
 
 publishWithStandardExample('PlanckSpectrum.m');
+publishWithStandardExample('ResampleSpectrum.m');
 
-% CIEDE2000_Lab.m 
-% CIEDE2000_XYZ.m 
-% CIE_Luv.m 
-% CIE_upvp.m 
-% CODATA2018.m 
-% ComputeSpectrumColorimetry.m 
-% CRI.m 
-% EvalSpectrum.m 
-% Example_WhiteLED.m 
-% FindRoot1D.m 
-% GaussSpectrum.m 
-% IntegrateSpectrum.m 
-% IsOctave.m 
-% IsSpectrum.m 
-% LDomPurity.m 
-% LinInterpol.m 
-% LinInterpolAdd4Async.m 
-% MacAdamEllipse.m 
-% MacAdamEllipse_g.m 
-% MakeSpectrum.m 
-% MultiplySpectra.m 
-% PlanckLocus.m 
-% PlotCIExyBorder.m 
-% RainbowColorMap.m 
-% ReadLightToolsSpectrumFile.m 
-% RGBLEDSpectrum.m 
-% ShiftToLdom.m 
-% SolarSpectrum.m 
-% SpectrumSanityCheck.m 
-% TestCIEDE2000.m 
-% TestCRI_vanKries.m 
-% TestLinInterpol.m 
-% TestMacAdamEllipse.m 
-% Vlambda.m 
-% WriteLightToolsSpectrumFile.m 
+% COBYLA.m
+% Example_WhiteLED.m
+
+NotYetDocumented('LDomPurity.m');
+NotYetDocumented('LinInterpol.m');
+NotYetDocumented('LinInterpolAdd4Async.m');
+NotYetDocumented('MacAdamEllipse.m');
+NotYetDocumented('MacAdamEllipse_g.m');
+NotYetDocumented('MakeSpectrum.m');
+NotYetDocumented('MakeSpectrumDirect.m');
+NotYetDocumented('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
+NotYetDocumented('MultiplySpectra.m');
+NotYetDocumented('Octave_xyz2rgb.m');
+NotYetDocumented('OptimalAdditiveMix.m');
+NotYetDocumented('PlanckLocus.m');
+NotYetDocumented('PlotCIExyBorder.m');
+NotYetDocumented('PlotCRIResult.m'); % see ExamplePlotCRIResult.m
+NotYetDocumented('RainbowColorMap.m');
+NotYetDocumented('ReadASCIITableFile.m');
+NotYetDocumented('ReadASCIITableSpectrumFile.m');
+NotYetDocumented('ReadLightToolsSpectrumFile.m');
+NotYetDocumented('RGBLEDSpectrum.m');
+NotYetDocumented('ShiftToLdom.m');
+NotYetDocumented('SolarSpectrum.m');
+NotYetDocumented('SpectrumSanityCheck.m');
+NotYetDocumented('TestMacAdamEllipse.m');
+NotYetDocumented('Vlambda.m');
+NotYetDocumented('WriteLightToolsSpectrumFile.m');
+NotYetDocumented('XYZ_from_xyY.m');
 
 
 fprintf('publish additional docs\n')
@@ -72,3 +83,6 @@ function Doc_mlx(fn)
     matlab.internal.liveeditor.openAndConvert(fn, ['html/',fname,'.html']);
 end
 
+function NotYetDocumented(fn)
+    publish(fn,'evalCode',false,'showCode',false);
+end

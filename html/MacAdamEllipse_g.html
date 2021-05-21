@@ -1,0 +1,159 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MacAdamEllipse_g</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="MacAdamEllipse_g.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>MacAdamEllipse_g</h1><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a>
+</p>
+</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MacAdamEllipse_g
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
+
+function g = MacAdamEllipse_g(X, Y, Z, varargin)
+% Compute MacAdamEllipsoid g matrix (inverse covariance matrix of ellipsois
+% Input:
+%       X, Y, Z: tristimulus values of center point
+% Output:
+%       g:      the 3 x 3 X-Y-Z tristimulus ellipsoid
+%       
+% Algorithm follows Chickering, K. D. „Optimization of the MacAdam-Modified 1965 Friele 
+%   Color-Difference Formula“. JOSA 57, Nr. 4 (1. April 1967): https://doi.org/10.1364/JOSA.57.000537.
+% and Chickering, K. D. „FMC Color-Difference Formulas: Clarification Concerning Usage“.
+%   JOSA 61, Nr. 1 (1. Januar 1971): 118. https://doi.org/10.1364/JOSA.61.000118.
+    % When applyK1K2 = false, we compute the FMC-1 formula according to Chickering 1971
+    % then, the result depends only on x,y color coordinates, not on lightness/luminance
+    % in other words, X,Y,Z can be multiplied with the same factors without changing result.
+    % When applyK1K2 = true, we compute the FMC-2 formula, see Chickering 1971.
+    % Then, scaling Y to 10.79 yields almost identical results to FMC-1.
+    % OSRAM ColorCalculator uses FMC-1
+    applyK1K2 = false;
+    % eq (4)
+    P = 0.724 * X + 0.382 * Y - 0.098 * Z;
+    Q = - 0.48 * X + 1.37 * Y + 0.1276 * Z;
+    S = 0.686 * Z;
+    % eq (5)
+    D = sqrt(P^2+Q^2);
+    % eq (6)
+    a = sqrt(17.3e-6 * D^2 / (1 + 2.73 * P^2*Q^2/(P^4+Q^4)));
+    % eq (7)
+    b = sqrt(3.098e-4 * (S^2 + 0.2015 * Y^2));
+    % eq (11)
+    K1 = 0.55669 + Y * (0.049434 + Y * (-0.82575e-3 + Y * (0.79172e-5 - 0.30087e-7 * Y)));
+    % eq (12)
+    K2 = 0.17548 + Y * (0.027556 + Y * (-0.57262e-3 + Y * (0.63893e-5 - 0.26731e-7 * Y)));
+    % eq 20 - 23
+    if ~applyK1K2 
+        K1 = 1;
+        K2 = 1;
+    end
+    e1 = K1 * S / (b * D^2); % D^2 in denom?
+    e2 = K1 / b;
+    e3 = 0.279 * K2 / (a * D);
+    e4 = K1 / (a * D);
+    % eq 14-19
+    C11 = (e1^2 + e3^2) * P^2 + e4^2 * Q^2;
+    C12 = (e1^2 + e3^2 - e4^2) * P*Q;
+    C22 = (e1^2 + e3^2) * Q^2 + e4^2 * P^2; 
+    C13 = - e1*e2*P;
+    C23 = - e1*e2*Q;
+    C33 = e2^2;
+    C21 = C12;
+    C31 = C13;
+    C32 = C23;
+    % eq 25
+    A = [0.724, 0.328, -0.098;...
+        -0.48,  1.37,  0.1276;...
+        0,      0,     0.686];
+    % eq 26
+    E = X + Y + Z;
+    M = [E,  - E * X / Y,   X / Y;...
+         0,     0,         1;...
+         -E,  -E*(Y+Z)/Y    Z/Y];
+    % eq 27
+    C = [C11, C12, C13;...
+         C21, C22, C23;...
+         C31, C32, C33];
+     % eq 24
+     g = M' * A' * C * A * M;
+end
+##### SOURCE END #####
+--></body></html>

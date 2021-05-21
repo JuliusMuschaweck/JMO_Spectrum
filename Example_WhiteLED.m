@@ -83,7 +83,7 @@ Ra485 = cri.Ra(better);
 best = AddWeightedSpectra({white,GaussSpectrum(white.lam,485,sigma),GaussSpectrum(white.lam,630,sigma)},[1,1.5,0.27]);
 bestXYZ = CIE1931_XYZ(best);
 CCTbest = CCT_from_xy(bestXYZ.x,bestXYZ.y);
-fprintf('x/y: %g/%g, CCT = %g',bestXYZ.x,bestXYZ.y,CCTbest);
+fprintf('x/y: %g/%g, CCT = %g\n',bestXYZ.x,bestXYZ.y,CCTbest);
 RaBest = cri.Ra(best);
 figure(5);
 plot(best.lam, best.val);

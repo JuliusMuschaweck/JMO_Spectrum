@@ -1,3 +1,39 @@
+%% GaussSpectrum
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Creates a Gaussian spectrum, normalized to peak = 1.0
+%% Syntax
+% |rv = GaussSpectrum(lam_vec,mean,sdev,varargin)|
+%% Input Arguments
+% * |lam_vec|: double vector, positive, strictly ascending. The wavelengths
+% * |mean|: scalar double. Mean value around which the spectrum is centered
+% * |sdev|: scalar double. Standard deviation of spectrum around |mean|
+% * |varargin|: character string. When |'val_only'| returns only the value array, not a spectrum
+%% Output Arguments
+% * |rv|: |struct|. A valid spectrum
+%% Algorithm
+% Computes the values as |exp(- (lam_vec-mean).^2 / (2 * sdev^2))|. Note that the actual maximum of the value array may
+% be |max(rv.val) < 1|, and is only |max(rv.val) == 1| if |lam_vec| contains |mean| as one of the wavelengths.
+%% See also
+% <PlanckSpectrum.html PlanckSpectrum>, <CIE_Illuminant.html CIE_Illuminant>, <CIE_Illuminant_D.html CIE_Illuminant_D>
+%% Usage Example
+% <include>Examples/ExampleGaussSpectrum.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+
 function rv = GaussSpectrum(lam_vec,mean,sdev,varargin)
 % function rv = GaussSpectrum(lam_vec,mean,sdev,varargin)
 % Creates a Gaussian spectrum, normalized to peak = 1.0

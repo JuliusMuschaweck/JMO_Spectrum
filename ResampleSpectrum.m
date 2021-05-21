@@ -1,4 +1,4 @@
-%% AssignNewWavelength
+%% ResampleSpectrum
 % 
 % <html>
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
@@ -10,7 +10,7 @@
 %
 % Assign a new wavelength vector to a spectrum, interpolating the old values.
 %% Syntax
-% |function rv = AssignNewWavelength(spectrum, lam_new)|
+% |function rv = ResampleSpectrum(spectrum, lam_new)|
 %% Input Arguments
 % * |spectrum|: scalar, valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
 % * |lam_new|: 1-D vector of double, valid wavelength array (positive, stricly ascending)
@@ -27,10 +27,10 @@
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
 % <https://creativecommons.org/publicdomain/zero/1.0/legalcode>
 %% Usage Example
-% <include>ExampleAssignNewWavelength.m</include>
+% <include>ExampleResampleSpectrum.m</include>
 
 
-function rv = AssignNewWavelength(spectrum, lam_new)
+function rv = ResampleSpectrum(spectrum, lam_new)
 % replaces the old wavelength array with a new one, interpolating the values, outside = 0
     rv = spectrum;
     rv.lam = lam_new;

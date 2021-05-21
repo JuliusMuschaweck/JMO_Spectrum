@@ -8,13 +8,13 @@
 % </p>
 % </html>
 %
-% Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum
+% Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z
 %% Syntax
 % |rv = CIE1931_XYZ(spec)|
 %% Input Arguments
 % * |spec|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
 %% Output Arguments
-% * |rv|: A struct with fields |X, Y, Z, x, y, z|, all scalar double
+% * |rv|: A struct with fields |X, Y, Z, x, y, z, cw|, all scalar double
 %% Algorithm
 % The integrals of the spectrum, weighted with the color matching functions, are computed using
 % <IntegrateSpectrum.html IntegrateSpectrum>. There the wavelength arrays are properly interweaved, both the spectrum
@@ -55,6 +55,7 @@ function rv = CIE1931_XYZ(spec)
         rv.X = 0;
         rv.Y = 0;
         rv.Z = 0;
+        rv.cw = 0;
         rv.x = NaN;
         rv.y = NaN;
         rv.z = NaN;
@@ -65,6 +66,7 @@ function rv = CIE1931_XYZ(spec)
         rv.X = LinInterpol(iXYZ.lam,iXYZ.x,spec.lam) * spec.val;
         rv.Y = LinInterpol(iXYZ.lam,iXYZ.y,spec.lam) * spec.val;
         rv.Z = LinInterpol(iXYZ.lam,iXYZ.z,spec.lam) * spec.val;
+        rv.cw = rv.X + rv.Y + rv.Z;
         rv.x = rv.X / (rv.X+rv.Y+rv.Z);
         rv.y = rv.Y / (rv.X+rv.Y+rv.Z);
         rv.z = 1 - rv.x - rv.y;
@@ -82,6 +84,7 @@ function rv = CIE1931_XYZ(spec)
     rv.X = IntegrateSpectrum(spec,MakeSpectrum(iXYZ.lam, iXYZ.x));
     rv.Y = IntegrateSpectrum(spec,MakeSpectrum(iXYZ.lam, iXYZ.y));
     rv.Z = IntegrateSpectrum(spec,MakeSpectrum(iXYZ.lam, iXYZ.z));
+    rv.cw = rv.X + rv.Y + rv.Z;
     rv.x = rv.X / (rv.X+rv.Y+rv.Z);
     rv.y = rv.Y / (rv.X+rv.Y+rv.Z);
     rv.z = 1 - rv.x - rv.y;

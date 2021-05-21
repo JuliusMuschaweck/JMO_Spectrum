@@ -1,4 +1,4 @@
-function ExampleCIE_Lab()
+function ExampleCIE_Luv()
     white = CIE_Illuminant('D65');
     red = MultiplySpectra(white, GaussSpectrum(360:830, 620, 60));
     green = MultiplySpectra(white, GaussSpectrum(360:830, 505, 30));
@@ -9,12 +9,12 @@ function ExampleCIE_Lab()
     green.XYZ = CIE1931_XYZ(green);
     blue.XYZ = CIE1931_XYZ(blue);
 
-    show1 = @(name, Lab) fprintf('%s L = %g, a = %g, b = %g\n',name, Lab.L, Lab.a, Lab.b);
+    show1 = @(name, Luv) fprintf('%s L = %g, u = %g, v = %g\n',name, Luv.L, Luv.u, Luv.v);
     XYZn = white.XYZ;
-    show1('white', CIE_Lab(white.XYZ, XYZn));
-    show1('red', CIE_Lab(red.XYZ, XYZn));
-    show1('green', CIE_Lab(green.XYZ, XYZn));
-    show1('blue', CIE_Lab(blue.XYZ, XYZn));
+    show1('white', CIE_Luv(white.XYZ, XYZn));
+    show1('red', CIE_Luv(red.XYZ, XYZn));
+    show1('green', CIE_Luv(green.XYZ, XYZn));
+    show1('blue', CIE_Luv(blue.XYZ, XYZn));
     
     figure();
     hold on;

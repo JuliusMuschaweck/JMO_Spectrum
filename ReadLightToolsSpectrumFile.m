@@ -1,3 +1,15 @@
+%% ReadLightToolsSpectrumFile
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
 function rv = ReadLightToolsSpectrumFile( fn )
     % Read a spectrum from LightTols .sre file format. Return spectrum, with field "dataname" if present
     %
