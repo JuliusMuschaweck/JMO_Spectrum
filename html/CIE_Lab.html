@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE_Lab</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-20"><meta name="DC.source" content="CIE_Lab.m"><style type="text/css">
+      --><title>CIE_Lab</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-15"><meta name="DC.source" content="CIE_Lab.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -73,46 +73,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 </p>
-</p><p>Computes CIELAB L*, a*, b* values from XYZ tristimulus values</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_Lab(XYZ, XYZn)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values for which Lab values shall be computed</li><li><tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ</tt> is taken</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt>. <tt>L</tt> is the lightness, which should be between 0 (totally black) and 100 (the reference white). <tt>a &gt; 0</tt> for reddish, <tt>a &lt; 0</tt> for greenish hues, and <tt>b &gt; 0</tt> for yellowish, <tt>b &lt; 0</tt> for bluish hues.</li></ul></div><h2 id="4">Algorithm</h2><p>Applies the CIELAB formulas (8.3) to (8.11) according to section 8.2.1. of CIE 015:2018</p><h2 id="5">See also</h2><p><a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="CIE_Luv.html">CIE_Luv</a>, <a href="CIE_upvp.html">CIE_upvp</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
-<span class="keyword">function</span> ExampleCIE_Lab()
-    white = CIE_Illuminant(<span class="string">'D65'</span>);
-    red = MultiplySpectra(white, GaussSpectrum(360:830, 620, 60));
-    green = MultiplySpectra(white, GaussSpectrum(360:830, 505, 30));
-    blue = MultiplySpectra(white, GaussSpectrum(360:830, 430, 60));
-    
-    white.XYZ = CIE1931_XYZ(white);
-    red.XYZ = CIE1931_XYZ(red);
-    green.XYZ = CIE1931_XYZ(green);
-    blue.XYZ = CIE1931_XYZ(blue);
-
-    show1 = @(name, Lab) fprintf(<span class="string">'%s L = %g, a = %g, b = %g\n'</span>,name, Lab.L, Lab.a, Lab.b);
-    XYZn = white.XYZ;
-    show1(<span class="string">'white'</span>, CIE_Lab(white.XYZ, XYZn));
-    show1(<span class="string">'red'</span>, CIE_Lab(red.XYZ, XYZn));
-    show1(<span class="string">'green'</span>, CIE_Lab(green.XYZ, XYZn));
-    show1(<span class="string">'blue'</span>, CIE_Lab(blue.XYZ, XYZn));
-    
-    figure();
-    hold <span class="string">on</span>;
-    plot(white.lam, white.val,<span class="string">'k'</span>);
-    plot(red.lam, red.val,<span class="string">'r'</span>);    
-    plot(green.lam, green.val,<span class="string">'g'</span>);        
-    plot(blue.lam, blue.val,<span class="string">'b'</span>);
-    
-    PlotCIExyBorder(<span class="string">'ColorFill'</span>,true);
-    title(<span class="string">''</span>);
-    scatter(white.XYZ.x, white.XYZ.y,<span class="string">'kx'</span>);
-    scatter(red.XYZ.x, red.XYZ.y,<span class="string">'kx'</span>);
-    scatter(green.XYZ.x, green.XYZ.y,<span class="string">'kx'</span>);
-    scatter(blue.XYZ.x, blue.XYZ.y,<span class="string">'kx'</span>);
-<span class="keyword">end</span>
-
-
-</pre><pre class="codeoutput">white L = 100, a = 0, b = 0
-red L = 79.729, a = 23.715, b = 98.2935
-green L = 66.2237, a = -108.214, b = 4.65561
-blue L = 49.5674, a = 15.5897, b = -77.6118
-</pre><img vspace="5" hspace="5" src="CIE_Lab_01.png" alt=""> <img vspace="5" hspace="5" src="CIE_Lab_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Computes CIELAB L*, a*, b* values from XYZ tristimulus values</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_Lab(XYZ, XYZn)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values for which Lab values shall be computed</li><li><tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ</tt> is taken</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt>. <tt>L</tt> is the lightness, which should be between 0 (totally black) and 100 (the reference white). <tt>a &gt; 0</tt> for reddish, <tt>a &lt; 0</tt> for greenish hues, and <tt>b &gt; 0</tt> for yellowish, <tt>b &lt; 0</tt> for bluish hues.</li></ul></div><h2 id="4">Algorithm</h2><p>Applies the CIELAB formulas (8.3) to (8.11) according to section 8.2.1. of CIE 015:2018</p><h2 id="5">See also</h2><p><a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="CIE_Luv.html">CIE_Luv</a>, <a href="CIE_upvp.html">CIE_upvp</a></p><h2 id="6">Usage Example</h2><pre class="error">File 'Examples/ExampleCIE_Lab.m' not found.</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% CIE_Lab
 % 

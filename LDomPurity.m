@@ -8,8 +8,34 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Computes dominant wavelength and purity
+%% Syntax
+% |[ldom, purity] = LDomPurity(rhs)|
+%% Input Arguments
+% * |rhs|: A valid spectrum (see <IsSpectrum.html IsSpectrum> for what that is), or
+% * |rhs|: alternatively, a struct with fieldy |x| and |y| (a CIE 1931 color point), or
+% * |rhs|: alternatively, a double vector of length 2, interpreted as an x-y CIE 1931 color point
+%% Output Arguments
+% * |ldom|: scalar double: the dominant wavelength in nm. Negative when color point lies towards magenta line. 555 nm
+% when color point coincides with white point within roundoff.
+% * |purity|: scalar double: the relative distance from the |[1/3, 1/3]| white point to the monochromatic border. 
+%    Negative when colorpoint lies towards magenta line. Zero when color point coincides with white point within roundoff.
+%% Algorithm
+% First, computes the angle of the line from white point to border, to see if that is towards the monochromatic border
+% or towards magenta line. Then, finds that monochromatic wavelength whose border point leads to the same angle, by iterative root finding. The
+% monochromatic border points are taken from the CIE standard in 1 nm steps. In between a 1 nm interval, linear
+% interpolation is used.
+%% See also
+% <CIE1931_Data.html CIE1931_Data>, <ShiftToLdom.html ShiftToLdom>
+%% Usage Example
+% <include>Examples/ExampleLDomPurity.m</include>
 
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 function [ldom, purity] = LDomPurity(rhs)
     % Computes dominant wavelength in nm and purity, from E = (1/3,1/3). 
     % Ldom and purity negative if E -> x/y intersects magenta line, not the monochromatic border.

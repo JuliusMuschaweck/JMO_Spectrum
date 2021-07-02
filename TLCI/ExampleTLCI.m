@@ -1,3 +1,4 @@
+
 function ExampleTLCI()
     
     %% Example for TLCI calculation
@@ -10,6 +11,8 @@ function ExampleTLCI()
     camera = TTLCIStdCamera;
     % the standard gamma 2.4 rec709 display
     display = TTLCIDisplay;
+    % the standard TLCI way to make a reference spectrum with same CCT
+    refSpecGen = TTLCIRefSpectrumGenerator;
     % CIEDE2000 is used to compute color differences
     singleCDC = TCIEDE2000(display);
     % this is the standard TLCI way to use the individual color differences
@@ -17,11 +20,11 @@ function ExampleTLCI()
     
     % The TLIC calculator object
     StandardTLCICalculator = TGenericTLCICalculator(testSamples, whiteSample, camera, ...
-        display, singleCDC, aggregateCDC);
+        display, refSpecGen, singleCDC, aggregateCDC);
     
     
     %% apply to a really bad two line spectrum
-    bad = MakeSpectrum([469 470 471  574 575 576],[0 1 0 0 1.7 0]);
+    bad = MakeSpectrum([465 470 475  570 575 580],[0 1 0 0 1.7 0]);
     xy = CIE1931_XYZ(bad);
     [iCCT,iduv] = CCT(bad);
     

@@ -50,6 +50,8 @@
 % <ComputeSpectrumColorimetry.html ComputeSpectrumColorimetry> For a given spectrum, computes a large selection of colorimetric properties
 %
 % <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices%% LED model
+%
+% <LDomPurity.html LDomPurity> computes dominant wavelength and purity
 %% Utility functions
 %
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
@@ -70,12 +72,10 @@
 % <IsSpectrum.html IsSpectrum> checks if a variable is a valid spectrum
 % 
 % <JMOSpectrumVersion.html JMOSpectrumVersion> returns the version of this library
+%
+% <LinInterpol.html LinInterpol> from tabulated function |yy(xx)|, compute linearly interpolated values at |xq| query points
 %% Not Yet Documented
 %
-% <LDomPurity.html LDomPurity>
-% 
-% <LinInterpol.html LinInterpol>
-% 
 % <LinInterpolAdd4Async.html LinInterpolAdd4Async>
 % 
 % <MacAdamEllipse.html MacAdamEllipse>

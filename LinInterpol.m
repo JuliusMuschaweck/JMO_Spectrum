@@ -8,7 +8,36 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% From tabulated function |yy(xx)|, compute linearly interpolated values at |xq| query points
+%% Syntax
+% |yq = LinInterpol(xx,yy,xq)|
+%% Input Arguments
+% * |xx|: double vector, array of |x| values. Must be strictly ascending and have at least length 2 (unchecked preconditions).
+% * |yy|: double vector, array of function values. Must have at least same length as |xx| (unchecked precondition); if
+% longer, the excess values are ignored.
+% * |xq|: double vector, array of query values. Must be strictly ascending if length > 1.
+%% Output Arguments
+% * |yq|: double vector, same length as |xq|, with linearly interpolated function values for |xq| values inside the |xx|
+% range, zero for |xq| values strictly outside the |xx| range.
+%% Algorithm
+% Computes the same result as Matlab's |interp1(xx, yy, xq, 'linear', 0)|. (In fact, the routine forwards to precisely
+% this call if the platform is not a Windows PC or if the routine is used in Gnu Octave). On a Windows PC under Matlab,
+% the call is forwarded to a C++ DLL (see the |LinInterpol| subdirectory for the Visual Studio c++ project and source
+% code). Using this function is much faster, and much less safe than |interp1|, but within well tested library routines,
+% speed is important, because linear interpolation is at the core of many library routines: Whenever two spectra, or a
+% spectrum and a weighting function, are used in a routine, linear interpolation is used to "interweave" the wavelength
+% arrays.
+%% See also
+% <LinInterpolAdd4Async.html LinInterpolAdd4Async>
+%% Usage Example
+% <include>Examples/ExampleLinInterpol.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 %
 function yq = LinInterpol(xx,yy,xq)
     % function yq = LinInterpol(xx,yy,xq)

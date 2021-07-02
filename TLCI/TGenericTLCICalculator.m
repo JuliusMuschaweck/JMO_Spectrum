@@ -5,13 +5,14 @@ classdef TGenericTLCICalculator
         whiteSample
         camera
         display
+        referenceSpectrumGenerator
         singleColorDifferenceCalculator
         aggregateColorDifferenceCalculator
     end
     
     methods
         function obj = TGenericTLCICalculator(testSamples, whiteSample, camera, ...
-                display, singleCDC, aggregateCDC)
+                display, refSpecGen, singleCDC, aggregateCDC)
             %GenericTLCICalculator constructor.
             %Insert desired objects
             % testSamples: an array of TTestSample, e.g.
@@ -28,6 +29,7 @@ classdef TGenericTLCICalculator
             obj.whiteSample = whiteSample;
             obj.camera = camera;
             obj.display = display;
+            obj.referenceSpectrumGenerator = refSpecGen;
             obj.singleColorDifferenceCalculator = singleCDC;
             obj.aggregateColorDifferenceCalculator = aggregateCDC;
         end
@@ -51,7 +53,8 @@ classdef TGenericTLCICalculator
             spectrum.XYZ = CIE1931_XYZ(spectrum);
             spectrum.CCT = CCT_from_xy(spectrum.XYZ.x, spectrum.XYZ.y);
             testCCT = spectrum.CCT;
-            refSpectrum = TLCIReferenceSpectrum(spectrum.CCT);
+            % refSpectrum = TLCIReferenceSpectrum(spectrum.CCT);
+            refSpectrum = obj.referenceSpectrumGenerator.ReferenceSpectrum(spectrum);
             obj.camera = DoWhiteBalance(obj,refSpectrum);
             refXYZ = NaN(3,nSamples);
             clipped.ref = false(1,nSamples);

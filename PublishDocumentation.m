@@ -24,18 +24,17 @@ publishWithStandardExample('IntegrateSpectrum.m');
 publish('IsOctave.m','evalCode',false,'showCode',false);
 publishWithStandardExample('IsSpectrum.m');
 publishWithStandardExample('JMOSpectrumVersion.m');
+publishWithStandardExample('LDomPurity.m');
 
 publishWithStandardExample('MatchAdditiveMix.m');
 
 publishWithStandardExample('PlanckSpectrum.m');
 publishWithStandardExample('ResampleSpectrum.m');
+publishWithStandardExample('LinInterpol.m');
+publishWithStandardExample('LinInterpolAdd4Async.m');
 
 % COBYLA.m
 % Example_WhiteLED.m
-
-NotYetDocumented('LDomPurity.m');
-NotYetDocumented('LinInterpol.m');
-NotYetDocumented('LinInterpolAdd4Async.m');
 NotYetDocumented('MacAdamEllipse.m');
 NotYetDocumented('MacAdamEllipse_g.m');
 NotYetDocumented('MakeSpectrum.m');

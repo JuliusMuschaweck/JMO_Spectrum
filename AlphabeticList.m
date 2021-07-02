@@ -59,6 +59,10 @@
 % 
 % <JMOSpectrumVersion.html JMOSpectrumVersion> returns the version of this library
 %
+% <LDomPurity.html LDomPurity> computes dominant wavelength and purity
+% 
+% <LinInterpol.html LinInterpol> from tabulated function |yy(xx)|, compute linearly interpolated values at |xq| query points
+% 
 % <MatchAdditiveMix.html MatchAdditiveMix> computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution
 % 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
@@ -67,10 +71,6 @@
 % 360:830 nm in 1 nm steps
 %
 %% Not Yet Documented
-%
-% <LDomPurity.html LDomPurity>
-% 
-% <LinInterpol.html LinInterpol>
 % 
 % <LinInterpolAdd4Async.html LinInterpolAdd4Async>
 % 
