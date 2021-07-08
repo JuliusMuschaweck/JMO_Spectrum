@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>MacAdamEllipse</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-15"><meta name="DC.source" content="MacAdamEllipse.m"><style type="text/css">
+      --><title>MacAdamEllipse</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-07"><meta name="DC.source" content="MacAdamEllipse.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,13 +67,70 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>MacAdamEllipse</h1><p>
+  </style></head><body><div class="content"><h1>MacAdamEllipse</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Compute points and parameters of a MacAdam Ellipse</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[ell, g, a, b, theta_deg] = MacAdamEllipse(x, y, nstep, npoints)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>x</tt>: scalar double. CIE 1931 x coordinate of center point</li><li><tt>y</tt>: scalar double. CIE 1931 y coordinate of center point</li><li><tt>nstep</tt>: scalar double. Must be positive. Size scale factor of the ellipse. <tt>nstep == 1</tt> for "just noticeable"</li><li><tt>npoints</tt>: scalar double. Must be positive and integer. The number of points to sample the ellipse</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>ell</tt>: (2 x <tt>npoints</tt>) array of double. The ellipse points. First/second column: x/y values</li><li><tt>g</tt>: 3x3 array of double. The 3 x 3 X-Y-Z tristimulus ellipsoid matrix; only 2x2 are meaningful</li><li><tt>a</tt>: scalar double. First half axis of 1-step ellipse</li><li><tt>b</tt>: scalar double. Second half axis of 1-step ellipse</li><li><tt>theta_deg</tt>: tilt angle of half axis <tt>a</tt> in degrees.</li></ul></div><h2 id="4">Algorithm</h2><p>Algorithm follows Chickering, K. D. &#8222;Optimization of the MacAdam-Modified 1965 Friele   Color-Difference Formula&#8220;. JOSA 57, Nr. 4 (1. April 1967): <a href="https://doi.org/10.1364/JOSA.57.000537">https://doi.org/10.1364/JOSA.57.000537</a>. and Chickering, K. D. &#8222;FMC Color-Difference Formulas: Clarification Concerning Usage&#8220;.   JOSA 61, Nr. 1 (1. Januar 1971): 118. <a href="https://doi.org/10.1364/JOSA.61.000118">https://doi.org/10.1364/JOSA.61.000118</a>. Thanks go to John Selverian of OSRAM for his helpful hints in his OSRAM Color Calculator app.</p><h2 id="5">See also</h2><p><a href="MacAdamEllipse_g.html">MacAdamEllipse_g</a>, <a href="CIEDE2000_Lab.html">CIEDE2000_Lab</a>, <a href="CIEDE2000_XYZ.html">CIEDE2000_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleMacAdamEllipse()
+<span class="comment">%% plot ellipses of various step sizes</span>
+    figure();clf;hold <span class="string">on</span>;
+    x = 0.333;
+    y = 0.333;
+    scatter(x,y,<span class="string">'x'</span>);
+    <span class="keyword">for</span> steps = [1,3,5,7,9]
+        ell = MacAdamEllipse(0.333, 0.333, steps, 100);
+        ell(1:2,end+1) = ell(1:2,1); <span class="comment">% close loop</span>
+        plot(ell(1,:), ell(2,:));
+    <span class="keyword">end</span>
+    axis <span class="string">equal</span>;
+    xlabel(<span class="string">'CIE x'</span>);
+    ylabel(<span class="string">'CIE y'</span>);
+    title(<span class="string">'MacAdam ellipses, 1,3,5,7,9 step'</span>);
+    
+    <span class="comment">% compute all the parameters for a step 10 ellipse</span>
+    [ell, g, a, b, theta_deg] = MacAdamEllipse(0.333, 0.333, 10, 100);
+    
+    <span class="comment">% compute the MacAdam distance of some point on this 10 step ellipse, which should be 10</span>
+    xy9 = ell(:,3); <span class="comment">% some point on a 10 step ellipse</span>
+    scatter(xy9(1), xy9(2), <span class="string">'+'</span>);
+    plot([x, xy9(1)], [y, xy9(2)],<span class="string">'--'</span>);
+    dxy = xy9 - [x;y];
+    dev = sqrt(dxy' * g(1:2, 1:2) * dxy); <span class="comment">% g(1:2,1:2) is the matrix of the quadratic form for this distance</span>
+    fprintf(<span class="string">'The "MacAdam distance" of an xy color point to a reference color point can be computed using the ellipse matrix g\n'</span>);
+    fprintf(<span class="string">'See dashed line. Here, it should be 10, and it is %g\n'</span>,dev);
+
+    <span class="comment">% plot the major and minor half axes of the 9 step ellipse</span>
+    theta_rad = theta_deg * pi / 180; <span class="comment">% angle in radians</span>
+    xy_a = [x,y] + 9 * a * [cos(theta_rad), sin(theta_rad)];
+    xy_b = [x,y] + 9 * b * [cos(theta_rad + pi/2), sin(theta_rad + pi/2)];
+    plot([x, xy_a(1)],  [y, xy_a(2)]);
+    plot([x, xy_b(1)],  [y, xy_b(2)]);
+    
+    <span class="comment">% plot a bunch of 10 step ellipses</span>
+    fh = figure();     clf; hold <span class="string">on</span>;
+    PlotCIExyBorder(<span class="string">'Figure'</span>,fh,<span class="string">'ColorFill'</span>,true);
+    axis <span class="string">equal</span>;
+    xy = [  0.333, 0.333; <span class="comment">% white</span>
+            0.18, 0.05; <span class="comment">% blue</span>
+            0.6, 0.3; <span class="comment">% red</span>
+            0.2, 0.7]; <span class="comment">% green</span>
+    <span class="keyword">for</span> i = 1 : size(xy,1)
+        ell = MacAdamEllipse(xy(i,1), xy(i,2), 10, 100);
+        scatter(xy(i,1), xy(i,2),<span class="string">'+k'</span>);
+        ell(1:2,end+1) = ell(1:2,1); <span class="comment">% close loop</span>
+        plot(ell(1,:), ell(2,:),<span class="string">'k'</span>);
+    <span class="keyword">end</span>
+    xlabel(<span class="string">'CIE x'</span>);
+    ylabel(<span class="string">'CIE y'</span>);
+    title(<span class="string">'Various 10 step MacAdam ellipses'</span>);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">The "MacAdam distance" of an xy color point to a reference color point can be computed using the ellipse matrix g
+See dashed line. Here, it should be 10, and it is 10
+</pre><img vspace="5" hspace="5" src="MacAdamEllipse_01.png" alt=""> <img vspace="5" hspace="5" src="MacAdamEllipse_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MacAdamEllipse
 % 
@@ -85,7 +142,39 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % </p>
 % </html>
 %
-% documentation to be completed
+% Compute points and parameters of a MacAdam Ellipse
+%% Syntax
+% |[ell, g, a, b, theta_deg] = MacAdamEllipse(x, y, nstep, npoints)|
+%% Input Arguments
+% * |x|: scalar double. CIE 1931 x coordinate of center point
+% * |y|: scalar double. CIE 1931 y coordinate of center point
+% * |nstep|: scalar double. Must be positive. Size scale factor of the ellipse. |nstep == 1| for "just noticeable"
+% * |npoints|: scalar double. Must be positive and integer. The number of points to sample the ellipse
+%% Output Arguments
+% * |ell|: (2 x |npoints|) array of double. The ellipse points. First/second column: x/y values
+% * |g|: 3x3 array of double. The 3 x 3 X-Y-Z tristimulus ellipsoid matrix; only 2x2 are meaningful
+% * |a|: scalar double. First half axis of 1-step ellipse
+% * |b|: scalar double. Second half axis of 1-step ellipse
+% * |theta_deg|: tilt angle of half axis |a| in degrees.
+
+
+%% Algorithm
+% Algorithm follows Chickering, K. D. „Optimization of the MacAdam-Modified 1965 Friele 
+%   Color-Difference Formula“. JOSA 57, Nr. 4 (1. April 1967): https://doi.org/10.1364/JOSA.57.000537.
+% and Chickering, K. D. „FMC Color-Difference Formulas: Clarification Concerning Usage“.
+%   JOSA 61, Nr. 1 (1. Januar 1971): 118. https://doi.org/10.1364/JOSA.61.000118.
+% Thanks go to John Selverian of OSRAM for his helpful hints in his OSRAM Color Calculator app.
+
+%% See also
+% <MacAdamEllipse_g.html MacAdamEllipse_g>, <CIEDE2000_Lab.html CIEDE2000_Lab>, <CIEDE2000_XYZ.html CIEDE2000_XYZ>
+%% Usage Example
+% <include>Examples/ExampleMacAdamEllipse.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
 function [ell, g, a, b, theta_deg] = MacAdamEllipse(x, y, nstep, npoints)

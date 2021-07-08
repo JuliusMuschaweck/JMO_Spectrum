@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>MakeSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-15"><meta name="DC.source" content="MakeSpectrum.m"><style type="text/css">
+      --><title>MakeSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-08"><meta name="DC.source" content="MakeSpectrum.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,13 +67,45 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>MakeSpectrum</h1><p>
+  </style></head><body><div class="content"><h1>MakeSpectrum</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>creates a spectrum struct out of fields lam and val, with sanity checks</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = MakeSpectrum(lam, val, varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lam</tt>: vector of double. The wavelength array, should be strictly positive and strictly ascending, with length &gt; 1 (no single line spectra in this library)</li><li><tt>val</tt>: vector of double, of same length as <tt>lam</tt>. The values of the spectrum</li><li><tt>varargin</tt>: Name-Value pairs, which get added to the spectrum struct as additional fields.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: a struct with fields <tt>lam</tt>, <tt>val</tt> (both column vectors of same length), and any additional fields defined by the name-value pairs in <tt>varargin</tt>.</li></ul></div><h2 id="4">Algorithm</h2><p>Creates the struct, and calls <tt>SpectrumSanityCheck</tt> to make sure all requirements are met and that <tt>lam</tt> and <tt>val</tt> are column vectors.</p><h2 id="5">See also</h2><p><a href="MakeSpectrumDirect.html">MakeSpectrumDirect</a>, <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleMakeSpectrum()
+    lam = 360:830;
+    cutoff = 500;
+    width = 20;
+    val = 0.5 * (1 + tanh((lam - cutoff) / width));
+    s = MakeSpectrum(lam, val, <span class="string">'name'</span>, <span class="string">'HighPass_500_200'</span>,<span class="keyword">...</span>
+        <span class="string">'description'</span>,<span class="string">'high pass filter curve around 500 nm with width 20 nm'</span>,<span class="keyword">...</span>
+        <span class="string">'created'</span>, datetime(<span class="string">'now'</span>))
+    figure();
+    clf;
+    hold <span class="string">on</span>;
+    plot(s.lam, s.val);
+    plot([cutoff - width, cutoff - width],[0 1],<span class="string">'k--'</span>);
+    plot([cutoff, cutoff],[0 1],<span class="string">'k--'</span>);
+    plot([cutoff + width, cutoff + width],[0 1],<span class="string">'k--'</span>);
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    ylabel(<span class="string">'filter transmission'</span>);
+    title(<span class="string">'500 nm / 20 nm high pass filter transmission'</span>);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+s = 
+
+  struct with fields:
+
+            lam: [471&times;1 double]
+            val: [471&times;1 double]
+           name: 'HighPass_500_200'
+    description: 'high pass filter curve around 500 nm with width 20 nm'
+        created: 08-Jul-2021 08:28:36
+
+</pre><img vspace="5" hspace="5" src="MakeSpectrum_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MakeSpectrum
 % 
@@ -85,9 +117,31 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % </p>
 % </html>
 %
-% documentation to be completed
-%
+% creates a spectrum struct out of fields lam and val, with sanity checks
+%% Syntax
+% |rv = MakeSpectrum(lam, val, varargin)|
+%% Input Arguments
+% * |lam|: vector of double. The wavelength array, should be strictly positive and strictly ascending, with length > 1
+% (no single line spectra in this library)
+% * |val|: vector of double, of same length as |lam|. The values of the spectrum
+% * |varargin|: Name-Value pairs, which get added to the spectrum struct as additional fields.
+%% Output Arguments
+% * |rv|: a struct with fields |lam|, |val| (both column vectors of same length), and any additional fields defined by
+% the name-value pairs in |varargin|.
+%% Algorithm
+% Creates the struct, and calls |SpectrumSanityCheck| to make sure all requirements are met and that |lam| and |val| are
+% column vectors.
+%% See also
+% <MakeSpectrumDirect.html MakeSpectrumDirect>, <SpectrumSanityCheck.html SpectrumSanityCheck>
+%% Usage Example
+% <include>Examples/ExampleMakeSpectrum.m</include>
 
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 function rv = MakeSpectrum(lam, val, varargin)
 % function rv = MakeSpectrum(lam, val)
 % creates a spectrum struct out of fields lam and val

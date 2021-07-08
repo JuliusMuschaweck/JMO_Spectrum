@@ -63,7 +63,17 @@
 % 
 % <LinInterpol.html LinInterpol> from tabulated function |yy(xx)|, compute linearly interpolated values at |xq| query points
 % 
+% <LinInterpolAdd4Async.html LinInterpolAdd4Async> from four tabulated functions yy0(xx0) ... yy3(xx3), compute the sum of the four interpolated functions over the same query grid xq, using four processors in parallel
+% 
+% <MacAdamEllipse.html MacAdamEllipse> compute points and parameters of a MacAdam Ellipse
+% 
+% <MacAdamEllipse_g.html MacAdamEllipse_g> helper function for <MacAdamEllipse.html MacAdamEllipse>
+%
 % <MatchAdditiveMix.html MatchAdditiveMix> computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution
+% 
+% <MakeSpectrum.html MakeSpectrum> creates a spectrum struct out of fields lam and val, with sanity checks
+% 
+% <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
 % 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
 %
@@ -71,16 +81,6 @@
 % 360:830 nm in 1 nm steps
 %
 %% Not Yet Documented
-% 
-% <LinInterpolAdd4Async.html LinInterpolAdd4Async>
-% 
-% <MacAdamEllipse.html MacAdamEllipse>
-% 
-% <MacAdamEllipse_g.html MacAdamEllipse_g>
-% 
-% <MakeSpectrum.html MakeSpectrum>
-% 
-% <MakeSpectrumDirect.html MakeSpectrumDirect>
 % 
 % <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % see ExampleMatchWhiteLEDSpectrum.m
 % 

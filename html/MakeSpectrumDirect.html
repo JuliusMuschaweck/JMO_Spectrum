@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>MakeSpectrumDirect</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-15"><meta name="DC.source" content="MakeSpectrumDirect.m"><style type="text/css">
+      --><title>MakeSpectrumDirect</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-08"><meta name="DC.source" content="MakeSpectrumDirect.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,13 +67,53 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>MakeSpectrumDirect</h1><p>
+  </style></head><body><div class="content"><h1>MakeSpectrumDirect</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Creates a spectrum struct from fields lam and val without any checks, optionally adding CIE 1931 XYZ. This function is faster than <a href="MakeSpectrum.html">MakeSpectrum</a>, but should be used only in a run time sensitive context where you are sure that no sanity checks are necessary.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = MakeSpectrumDirect(lam, val, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lam</tt>: vector of double. The wavelength array, should be strictly positive and strictly ascending, with length &gt; 1           (no single line spectra in this library)</li><li><tt>val</tt>: vector of double, of same length as <tt>lam</tt>. The values of the spectrum</li><li><tt>opts</tt>: Optional name-value pair: <tt>'XYZ'</tt> -&gt; logical scalar. Default: <tt>false</tt></li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A struct with fields <tt>lam</tt> and <tt>val</tt>, containing copies of the input arguments. If optional name-value pair is <tt>'XYZ', true</tt>, then a field <tt>XYZ</tt> is added, a struct which in turn contains fields <tt>x, y, z, cw, X, Y, Z</tt> (the value returned from calling <tt>CIE1931_XYZ(rv)</tt>).</li></ul></div><h2 id="4">Algorithm</h2><p>Creates the spectrum struct with no checks, and calls <tt>CIE1931_XYZ</tt> to add field <tt>XYZ</tt> when requested. This</p><h2 id="5">See also</h2><p><a href="MakeSpectrum.html">MakeSpectrum</a>, <a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleMakeSpectrumDirect()
+<span class="comment">    %%</span>
+    lam = 400:600;
+    center = 500;
+    width = 20;
+    val = exp( - 0.5 / width^2 * (lam - center).^2);
+    s = MakeSpectrumDirect(lam, val, <span class="string">'XYZ'</span>, true)
+    s.XYZ
+    figure();
+    clf;
+    hold <span class="string">on</span>;
+    plot(s.lam, s.val);
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    ylabel(<span class="string">'normalized spectrum'</span>);
+    title(<span class="string">'A Gauss spectrum'</span>);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+s = 
+
+  struct with fields:
+
+    lam: [201&times;1 double]
+    val: [201&times;1 double]
+    XYZ: [1&times;1 struct]
+
+
+ans = 
+
+  struct with fields:
+
+     X: 3.8048
+     Y: 19.7164
+     Z: 21.2582
+    cw: 44.7794
+     x: 0.0850
+     y: 0.4403
+     z: 0.4747
+
+</pre><img vspace="5" hspace="5" src="MakeSpectrumDirect_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MakeSpectrumDirect
 % 
@@ -85,9 +125,33 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % </p>
 % </html>
 %
-% documentation to be completed
-%
+% Creates a spectrum struct from fields lam and val without any checks, optionally adding CIE 1931 XYZ. This function
+% is faster than <MakeSpectrum.html MakeSpectrum>, but should be used only in a run time sensitive context where you are sure that no
+% sanity checks are necessary.
+%% Syntax
+% |rv = MakeSpectrumDirect(lam, val, opts)|
+%% Input Arguments
+% * |lam|: vector of double. The wavelength array, should be strictly positive and strictly ascending, with length > 1
+%           (no single line spectra in this library)
+% * |val|: vector of double, of same length as |lam|. The values of the spectrum
+% * |opts|: Optional name-value pair: |'XYZ'| -> logical scalar. Default: |false|
+%% Output Arguments
+% * |rv|: A struct with fields |lam| and |val|, containing copies of the input arguments. If optional name-value pair is
+% |'XYZ', true|, then a field |XYZ| is added, a struct which in turn contains fields |x, y, z, cw, X, Y, Z| (the value
+% returned from calling |CIE1931_XYZ(rv)|). 
+%% Algorithm
+% Creates the spectrum struct with no checks, and calls |CIE1931_XYZ| to add field |XYZ| when requested. This 
+%% See also
+% <MakeSpectrum.html MakeSpectrum>, <CIE1931_XYZ.html CIE1931_XYZ>, <SpectrumSanityCheck.html SpectrumSanityCheck>
+%% Usage Example
+% <include>Examples/ExampleMakeSpectrumDirect.m</include>
 
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 function rv = MakeSpectrumDirect(lam, val, opts)
     arguments
         lam (:,1) double

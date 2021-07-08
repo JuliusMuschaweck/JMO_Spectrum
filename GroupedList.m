@@ -52,6 +52,10 @@
 % <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices%% LED model
 %
 % <LDomPurity.html LDomPurity> computes dominant wavelength and purity
+% 
+% <MacAdamEllipse.html MacAdamEllipse> compute points and parameters of a MacAdam Ellipse
+% 
+% <MacAdamEllipse_g.html MacAdamEllipse_g> helper function for <MacAdamEllipse.html MacAdamEllipse>
 %% Utility functions
 %
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
@@ -74,17 +78,13 @@
 % <JMOSpectrumVersion.html JMOSpectrumVersion> returns the version of this library
 %
 % <LinInterpol.html LinInterpol> from tabulated function |yy(xx)|, compute linearly interpolated values at |xq| query points
+% 
+% <LinInterpolAdd4Async.html LinInterpolAdd4Async> from four tabulated functions yy0(xx0) ... yy3(xx3), compute the sum of the four interpolated functions over the same query grid xq, using four processors in parallel
+% 
+% <MakeSpectrum.html MakeSpectrum> creates a spectrum struct out of fields lam and val, with sanity checks
+% 
+% <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
 %% Not Yet Documented
-%
-% <LinInterpolAdd4Async.html LinInterpolAdd4Async>
-% 
-% <MacAdamEllipse.html MacAdamEllipse>
-% 
-% <MacAdamEllipse_g.html MacAdamEllipse_g>
-% 
-% <MakeSpectrum.html MakeSpectrum>
-% 
-% <MakeSpectrumDirect.html MakeSpectrumDirect>
 % 
 % <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % see ExampleMatchWhiteLEDSpectrum.m
 % 

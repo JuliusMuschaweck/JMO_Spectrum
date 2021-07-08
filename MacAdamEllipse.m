@@ -8,7 +8,39 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Compute points and parameters of a MacAdam Ellipse
+%% Syntax
+% |[ell, g, a, b, theta_deg] = MacAdamEllipse(x, y, nstep, npoints)|
+%% Input Arguments
+% * |x|: scalar double. CIE 1931 x coordinate of center point
+% * |y|: scalar double. CIE 1931 y coordinate of center point
+% * |nstep|: scalar double. Must be positive. Size scale factor of the ellipse. |nstep == 1| for "just noticeable"
+% * |npoints|: scalar double. Must be positive and integer. The number of points to sample the ellipse
+%% Output Arguments
+% * |ell|: (2 x |npoints|) array of double. The ellipse points. First/second column: x/y values
+% * |g|: 3x3 array of double. The 3 x 3 X-Y-Z tristimulus ellipsoid matrix; only 2x2 are meaningful
+% * |a|: scalar double. First half axis of 1-step ellipse
+% * |b|: scalar double. Second half axis of 1-step ellipse
+% * |theta_deg|: tilt angle of half axis |a| in degrees.
+
+
+%% Algorithm
+% Algorithm follows Chickering, K. D. „Optimization of the MacAdam-Modified 1965 Friele 
+%   Color-Difference Formula“. JOSA 57, Nr. 4 (1. April 1967): https://doi.org/10.1364/JOSA.57.000537.
+% and Chickering, K. D. „FMC Color-Difference Formulas: Clarification Concerning Usage“.
+%   JOSA 61, Nr. 1 (1. Januar 1971): 118. https://doi.org/10.1364/JOSA.61.000118.
+% Thanks go to John Selverian of OSRAM for his helpful hints in his OSRAM Color Calculator app.
+
+%% See also
+% <MacAdamEllipse_g.html MacAdamEllipse_g>, <CIEDE2000_Lab.html CIEDE2000_Lab>, <CIEDE2000_XYZ.html CIEDE2000_XYZ>
+%% Usage Example
+% <include>Examples/ExampleMacAdamEllipse.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
 function [ell, g, a, b, theta_deg] = MacAdamEllipse(x, y, nstep, npoints)

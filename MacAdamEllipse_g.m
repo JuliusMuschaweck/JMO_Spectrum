@@ -7,8 +7,29 @@
 % <a href="GroupedList.html"> Grouped list</a>
 % </p>
 % </html>
+% Helper function for <MacAdamEllipse.html MacAdamEllipse>
+%% Syntax
+% |g = MacAdamEllipse_g(X, Y, Z)|
+%% Input Arguments
+% * |X, Y; Z|: scalar doubles. Tristimulus values of center point.
+%% Output Arguments
+% * |g|: 3x3 double array. The matrix of the 3x3 tristimulus ellipsoid. Use only g(1:2,1:2) for the x-y ellipse matrix
+%% Algorithm
+% Algorithm follows Chickering, K. D. „Optimization of the MacAdam-Modified 1965 Friele 
+%   Color-Difference Formula“. JOSA 57, Nr. 4 (1. April 1967): https://doi.org/10.1364/JOSA.57.000537.
+% and Chickering, K. D. „FMC Color-Difference Formulas: Clarification Concerning Usage“.
+%   JOSA 61, Nr. 1 (1. Januar 1971): 118. https://doi.org/10.1364/JOSA.61.000118.
+%% See also
+% <MacAdamEllipse.html MacAdamEllipse>
+%% Usage Example
+% See <MacAdamEllipse.html MacAdamEllipse>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
-% documentation to be completed
 %
 
 function g = MacAdamEllipse_g(X, Y, Z, varargin)

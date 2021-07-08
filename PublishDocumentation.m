@@ -32,13 +32,13 @@ publishWithStandardExample('PlanckSpectrum.m');
 publishWithStandardExample('ResampleSpectrum.m');
 publishWithStandardExample('LinInterpol.m');
 publishWithStandardExample('LinInterpolAdd4Async.m');
-
+publishWithStandardExample('MacAdamEllipse.m');
+publish('MacAdamEllipse_g.m','evalCode',false,'showCode',false);
+publishWithStandardExample('MakeSpectrum.m');
+publishWithStandardExample('MakeSpectrumDirect.m');
 % COBYLA.m
 % Example_WhiteLED.m
-NotYetDocumented('MacAdamEllipse.m');
-NotYetDocumented('MacAdamEllipse_g.m');
-NotYetDocumented('MakeSpectrum.m');
-NotYetDocumented('MakeSpectrumDirect.m');
+
 NotYetDocumented('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
 NotYetDocumented('MultiplySpectra.m');
 NotYetDocumented('Octave_xyz2rgb.m');
