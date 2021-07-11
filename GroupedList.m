@@ -25,9 +25,15 @@
 % <IntegrateSpectrum.html IntegrateSpectrum> computes integral of spectrum over wavelength, with an optional weighting function
 % 
 % <MatchAdditiveMix.html MatchAdditiveMix> computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution
+% 
+% <MultiplySpectra.html MultiplySpectra> multiplies two spectra, returning the product spectrum
 %
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
+%% Modeling LED spectra
+% 
+% <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % Given a white LED spectrum, modifies it to match a desired CIE XYZ target 
+% (e.g. for LEDs from a different white bin, or at different operating conditions)
 %% Evaluate colorimetric properties
 %
 % <CCT.html CCT> computes the correlated color temperature of a spectrum

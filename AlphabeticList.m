@@ -75,16 +75,17 @@
 % 
 % <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
 % 
+% <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % Given a white LED spectrum, modifies it to match a desired CIE XYZ target 
+% (e.g. for LEDs from a different white bin, or at different operating conditions)
+% 
+% <MultiplySpectra.html MultiplySpectra> multiplies two spectra, returning the product spectrum
+% 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
 %
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
 %
 %% Not Yet Documented
-% 
-% <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % see ExampleMatchWhiteLEDSpectrum.m
-% 
-% <MultiplySpectra.html MultiplySpectra>
 % 
 % <Octave_xyz2rgb.html Octave_xyz2rgb>
 % 

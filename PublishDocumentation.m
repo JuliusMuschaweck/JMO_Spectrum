@@ -36,11 +36,11 @@ publishWithStandardExample('MacAdamEllipse.m');
 publish('MacAdamEllipse_g.m','evalCode',false,'showCode',false);
 publishWithStandardExample('MakeSpectrum.m');
 publishWithStandardExample('MakeSpectrumDirect.m');
+publishWithStandardExample('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
+publishWithStandardExample('MultiplySpectra.m');
 % COBYLA.m
 % Example_WhiteLED.m
 
-NotYetDocumented('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
-NotYetDocumented('MultiplySpectra.m');
 NotYetDocumented('Octave_xyz2rgb.m');
 NotYetDocumented('OptimalAdditiveMix.m');
 NotYetDocumented('PlanckLocus.m');
