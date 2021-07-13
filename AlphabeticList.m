@@ -84,10 +84,11 @@
 %
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
+% 
+% <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
+% superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
 %
 %% Not Yet Documented
-% 
-% <Octave_xyz2rgb.html Octave_xyz2rgb>
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
 % 

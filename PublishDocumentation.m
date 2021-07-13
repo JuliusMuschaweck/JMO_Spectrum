@@ -38,12 +38,11 @@ publishWithStandardExample('MakeSpectrum.m');
 publishWithStandardExample('MakeSpectrumDirect.m');
 publishWithStandardExample('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
 publishWithStandardExample('MultiplySpectra.m');
+publish('Octave_xyz2rgb.m','evalCode',false,'showCode',false);
+publishWithStandardExample('PlanckLocus.m');
 % COBYLA.m
 % Example_WhiteLED.m
-
-NotYetDocumented('Octave_xyz2rgb.m');
 NotYetDocumented('OptimalAdditiveMix.m');
-NotYetDocumented('PlanckLocus.m');
 NotYetDocumented('PlotCIExyBorder.m');
 NotYetDocumented('PlotCRIResult.m'); % see ExamplePlotCRIResult.m
 NotYetDocumented('RainbowColorMap.m');

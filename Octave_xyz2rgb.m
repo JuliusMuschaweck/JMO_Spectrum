@@ -8,7 +8,8 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% A GNU Octave routine by Hartmut Gimpel to convert CIE XYZ to RGB
+% Superseded by my own <XYZ_to_sRGB.html XYZ_to_sRGB>
 %
 
 % ## Copyright (C) 2015 Hartmut Gimpel

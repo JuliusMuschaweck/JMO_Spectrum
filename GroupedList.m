@@ -90,13 +90,10 @@
 % <MakeSpectrum.html MakeSpectrum> creates a spectrum struct out of fields lam and val, with sanity checks
 % 
 % <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
+% 
+% <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
+% superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
 %% Not Yet Documented
-% 
-% <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % see ExampleMatchWhiteLEDSpectrum.m
-% 
-% <MultiplySpectra.html MultiplySpectra>
-% 
-% <Octave_xyz2rgb.html Octave_xyz2rgb>
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
 % 
