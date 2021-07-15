@@ -23,7 +23,7 @@
 % Applies the formulas of the CIE 1960 and CIE 1964 uniform color spaces to perform the projective transformation from
 % x,y.
 %% See also
-% <CIE1931_XYZ.html CIE1931_XYZ>
+% <CIE1931_XYZ.html CIE1931_XYZ> <CIE_xy_from_upvp.html CIE_xy_from_upvp>
 %% Usage Example
 % <include>Examples/ExampleCIE_upvp.m</include>
 

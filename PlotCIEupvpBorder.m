@@ -1,0 +1,146 @@
+%% PlotCIEupvpBorder
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% documentation to be completed
+%
+function [ah, fh] = PlotCIEupvpBorder(varargin)
+    % Plots the CIE u'v' border "shoe" into a figure and returns the axes and figure handles for further plotting
+    %
+    % Parameters:
+    %   varargin: Name/Value pairs:
+    %       'Figure': valid figure handle to use for the plot. Current hold state will be restored
+    %       'Axes'  : valid axes handle to use for the plot. Current hold state will be restored.
+    %       Overrides 'Figure';
+    %       'LineSpec' : valid LineSpec string, e.g. '--b' for dashed blue lines, see 'plot' documentation.
+    %       'PlotOptions': cell array of valid plot options
+    %                   e.g. {'Color',[0.5 0.5 0.5],'LineWidth',2}
+    %       'Ticks' : array of wavelength values where ticks and labels are plotted. Reasonable default
+    %                   Say ...,'Ticks',[],... to suppress ticks
+    %       'TickFontSize': number, obvious use. Default: 6
+    %       'ColorFill': logical, fills shoe with approximate RGB colors. Default: false
+    p = inputParser;
+    p.addParameter('Figure',[], @(h) ishandle(h) && strcmp(get(h,'type'),'figure'));
+    p.addParameter('Axes',[], @(h) ishandle(h) && strcmp(get(h,'type'),'axes'));
+    p.addParameter('LineSpec','k');
+    p.addParameter('PlotOptions',{},@(c) iscell(c));
+    defaultTicks = [400, 430, 450, 460, 465:5:520, 530:10:620, 640, 700];
+    p.addParameter('Ticks',defaultTicks,@(x) isempty(x) || (isnumeric(x) && isvector(x)));
+    p.addParameter('TickFontSize',6,@(x) isnumeric(x) && isscalar(x));
+    p.addParameter('ColorFill',false,@islogical);
+    parse(p,varargin{:});
+    if isempty(p.Results.Axes)
+        if isempty(p.Results.Figure)
+            fh = figure();
+            ah = axes;
+            holdstate = true;
+        else
+            fh = p.Results.Figure;
+            figure(fh);
+            ah = gca;
+            holdstate = ishold(ah);
+        end
+    else
+        ah = p.Results.Axes;
+        fh = ah.Parent;
+        holdstate = ishold(ah);
+    end
+    lspec = p.Results.LineSpec;
+    popts = p.Results.PlotOptions;
+    blank = isempty(p.Results.Axes) && isempty(p.Results.Figure);
+    
+    if p.Results.ColorFill
+        load('RGBColorShoeImage.mat','rgb_upvp_img');
+        im = image([0 1],[1 0],flipud(rgb_upvp_img));
+        alph = 1 - (sum(flipud(rgb_upvp_img),3) >= 3); % set white to transparent
+        im.AlphaData = alph;
+        set(gca,'ydir','normal');
+    end
+    
+    load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+    hold on;
+    xb = CIE1931XYZ.xBorder;
+    yb = CIE1931XYZ.yBorder;
+    xb(end+1)=xb(1); % close loop
+    yb(end+1)=yb(1);
+    tmp = CIE_upvp(struct('x',xb, 'y',yb));
+    upb = tmp.up;
+    vpb = tmp.vp;
+    plot(ah,upb,vpb,lspec,popts{:});
+    if blank
+        axis equal;
+        grid on;
+        if isempty(p.Results.Ticks)
+            axis([0 0.65 0 0.6]);
+        else
+            axis([-0.08,0.65,-0.05,0.65]);
+        end
+        xlabel('CIE u''');
+        ylabel('CIE v''');
+        title('CIE u''v'' border');
+    end
+    if ~isempty(p.Results.Ticks)
+        [b,db] = border(p.Results.Ticks,CIE1931XYZ,upb(1:(end-1)), vpb(1:(end-1)));
+        for i = 1:size(b,1)
+            d = [-0.00,0.015];
+            plot(b(i,1) + db(i,1) * d, b(i,2) + db(i,2) * d, p.Results.LineSpec);
+            text(b(i,1) + 0.035 * db(i,1), b(i,2) + 0.035 * db(i,2),num2str(p.Results.Ticks(i)),...
+                'HorizontalAlignment','center','FontSize',p.Results.TickFontSize);
+        end
+    end
+    if ~holdstate
+        hold(ah,'off');
+    end
+end
+
+function ColorFillDemo()
+% % This snippet show how we can do color filling:
+    figure();
+    clf;
+    hold on;
+    img = imread('Berg.jpg');
+    alpha = 0.5 * ones(size(img,1,2));
+    alpha(100:1000,100:1000) = 0.2;
+    alpha(1000:1800,100:1000) = 0.8;
+
+    % Create a red octagon using the fill function.
+    t = (1/16:1/8:1)'*2*pi;
+    x = cos(t);
+    y = sin(t);
+    fill(x,y,'r');
+    axis square;
+    axis tight;
+    % alpha can be anything -- set to 1 outside color shoe
+    % we could do this pixel by pixel using LDom/purity, slow but available and we do it only once and save   
+    % To get the fill color: Use Rec709 / sRGB to compute rgb within sRGB gamut, and continue with 
+    % same color on lines from E to border when outside gamut. 
+    imagesc([-1 1],[-1,1],flipud(img),'AlphaData',alpha);
+    %imagesc([0 1],[0,1],flipud(img));
+    plot([-1 1],[-1 1], 'LineWidth',3);
+end
+
+function [upvpbb, dxyb] = border(lam, CIEXYZ, upb, vpb)
+    % for lam length n, return xyb border points, and local normal unit vectors outward
+    iupbb = interp1(CIEXYZ.lam, upb, lam);
+    ivpb = interp1(CIEXYZ.lam, vpb, lam);
+    upvpbb = cat(2,iupbb(:),ivpb(:));
+    
+    blam = [360, 410:10:600, 830];
+    upblam = interp1(CIEXYZ.lam, upb, blam);
+    vpblam = interp1(CIEXYZ.lam, vpb, blam);
+    
+    dupbint = ipp_deriv(pchip(blam, upblam));
+    dvpbint = ipp_deriv(pchip(blam, vpblam));
+    
+    % perpendicular outward
+    diupb = - ppval(dvpbint,lam);
+    divpb = ppval( dupbint, lam);
+    idupblen = sqrt((diupb(:)).^2 + (divpb(:)).^2);
+    dxyb = cat(2,diupb(:)./ idupblen ,divpb(:)./ idupblen);
+end

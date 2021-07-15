@@ -62,6 +62,8 @@
 % <MacAdamEllipse.html MacAdamEllipse> compute points and parameters of a MacAdam Ellipse
 % 
 % <MacAdamEllipse_g.html MacAdamEllipse_g> helper function for <MacAdamEllipse.html MacAdamEllipse>
+% 
+% <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
 %% Utility functions
 %
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
@@ -96,8 +98,6 @@
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
-% 
-% <PlanckLocus.html PlanckLocus>
 % 
 % <PlotCIExyBorder.html PlotCIExyBorder>
 % 

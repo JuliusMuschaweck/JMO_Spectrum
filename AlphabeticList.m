@@ -80,6 +80,8 @@
 % 
 % <MultiplySpectra.html MultiplySpectra> multiplies two spectra, returning the product spectrum
 % 
+% <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
+% 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
 %
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
@@ -91,8 +93,6 @@
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
-% 
-% <PlanckLocus.html PlanckLocus>
 % 
 % <PlotCIExyBorder.html PlotCIExyBorder>
 % 

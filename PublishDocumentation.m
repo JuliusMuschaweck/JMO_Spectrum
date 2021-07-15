@@ -12,6 +12,7 @@ publishWithStandardExample('CIE_Luv.m');
 publishWithStandardExample('CIEDE2000_Lab.m');
 publishWithStandardExample('CIEDE2000_XYZ.m');
 publishWithStandardExample('CIE_upvp.m');
+publishWithStandardExample('CIE_xy_from_upvp.m');
 publishWithStandardExample('CODATA2018.m');
 publishWithStandardExample('ComputeSpectrumColorimetry.m');
 publishWithStandardExample('CRI.m');
@@ -28,8 +29,6 @@ publishWithStandardExample('LDomPurity.m');
 
 publishWithStandardExample('MatchAdditiveMix.m');
 
-publishWithStandardExample('PlanckSpectrum.m');
-publishWithStandardExample('ResampleSpectrum.m');
 publishWithStandardExample('LinInterpol.m');
 publishWithStandardExample('LinInterpolAdd4Async.m');
 publishWithStandardExample('MacAdamEllipse.m');
@@ -40,6 +39,8 @@ publishWithStandardExample('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLE
 publishWithStandardExample('MultiplySpectra.m');
 publish('Octave_xyz2rgb.m','evalCode',false,'showCode',false);
 publishWithStandardExample('PlanckLocus.m');
+publishWithStandardExample('PlanckSpectrum.m');
+publishWithStandardExample('ResampleSpectrum.m');
 % COBYLA.m
 % Example_WhiteLED.m
 NotYetDocumented('OptimalAdditiveMix.m');
