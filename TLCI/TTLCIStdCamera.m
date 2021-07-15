@@ -14,6 +14,7 @@ classdef TTLCIStdCamera < TMatrixGammaCamera
                  0.107, 0.890, 0.003;...
                  0.040, -0.134, 1.094];
             obj@TMatrixGammaCamera(rS, gS, bS, M);
+            obj.cameraname = 'TLCI standard camera';
         end
         
         function X_C_prime = Gamma(obj, X_B)

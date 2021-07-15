@@ -23,6 +23,7 @@ classdef TMatrixGammaCamera <TRGBFilterCamera
             end                
             obj@TRGBFilterCamera(superArgs{:});
             obj.M = MM;
+            obj.cameraname = 'abstract TMatrixGammaCamera';
         end
 
         function RGB_C_prime = Response(obj, spectrum)

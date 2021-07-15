@@ -25,7 +25,8 @@ classdef TRGBFilterCamera < TCamera
             end
             obj.whiteBalance.r = 1;
             obj.whiteBalance.g = 1;
-            obj.whiteBalance.b = 1;            
+            obj.whiteBalance.b = 1;
+            obj.cameraname = 'abstract TRGBFilterCamera';
         end
         
         function naked = SensorResponse(obj, spectrum)
