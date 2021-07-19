@@ -98,7 +98,7 @@ classdef CRI < handle
         
         function rv = MySingleR(this, testlamp_spectrum, reflectivity_spectrum)
             lamp = this.PrepareLamp(testlamp_spectrum);
-            rr = AssignNewWavelength(reflectivity_spectrum, this.CRISpectra_(1).lam);
+            rr = ResampleSpectrum(reflectivity_spectrum, this.CRISpectra_(1).lam);
             rv = this.SingleRi_1nm(lamp, rr);
         end
         
