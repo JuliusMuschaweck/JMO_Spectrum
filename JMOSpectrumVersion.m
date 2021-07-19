@@ -24,5 +24,5 @@
 %
 function rv = JMOSpectrumVersion()
     rv.major = 2;
-    rv.minor = 0;
+    rv.minor = 1;
 end
