@@ -11,7 +11,7 @@ hold on;
 plot(blue.lam, blue.val,'b');
 plot(yellow.lam, yellow.val,'Color',[0.5 0.5 0]);
 LEDwhite = AddWeightedSpectra({blue,yellow},[1,0.5]);
-LEDwhite = AssignNewWavelength(LEDwhite, (min(LEDwhite.lam)) : (max(LEDwhite.lam)));
+LEDwhite = ResampleSpectrum(LEDwhite, (min(LEDwhite.lam)) : (max(LEDwhite.lam)));
 plot(LEDwhite.lam, LEDwhite.val,'k');
 LEDwhite.XYZ = CIE1931_XYZ(LEDwhite);
 [LEDwhite.CCT, LEDwhite.dist_uv] = CCT(LEDwhite);

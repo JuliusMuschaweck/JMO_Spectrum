@@ -35,7 +35,7 @@ function ExampleCauchyFromAbbe()
     fprintf('good coincidence in the visible range, large difference outside');
     figure();
     ndiff = AddWeightedSpectra({BK7,cc2.nSpectrum},[1,-1]);
-    ndiff = AssignNewWavelength(ndiff,400:700);
+    ndiff = ResampleSpectrum(ndiff,400:700);
     plot(ndiff.lam, ndiff.val);
     xlabel('\lambda (nm');
     ylabel('\Delta n');

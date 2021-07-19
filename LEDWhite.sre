@@ -1,8 +1,8 @@
-# LightTools spectrum file, created 12-Feb-2020 15:56:06
-# typical cold white LED spectrum, CCT = 6090, Ra = 67
-# CCT: 6089.5
+# LightTools spectrum file, created 19-Jul-2021 15:06:08
+# typical cold white LED spectrum, CCT = 6088, Ra = 67
+# CCT: 6087.82
 # dist_uv: 0.00141476
-# Ra: 66.7788
+# Ra: 66.7767
 dfat 1.0
 dataname: Generated from Matlab spectrum variable
 continuous
