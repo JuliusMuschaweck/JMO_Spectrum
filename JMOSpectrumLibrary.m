@@ -1,5 +1,5 @@
 %% JMO Spectrum Library
-% Version 1.32, March 21, 2021
+% Version 2.1, July 19, 2021
 % 
 % Julius Muschaweck, JMO GmbH, Zugspitzstr. 66, 82131 Gauting, Germany
 % &nbsp; &nbsp; email: 
