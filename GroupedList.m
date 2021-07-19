@@ -95,6 +95,8 @@
 % 
 % <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
 % superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
+%
+% <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>

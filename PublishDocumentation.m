@@ -40,11 +40,12 @@ publishWithStandardExample('MultiplySpectra.m');
 publish('Octave_xyz2rgb.m','evalCode',false,'showCode',false);
 publishWithStandardExample('PlanckLocus.m');
 publishWithStandardExample('PlanckSpectrum.m');
+publishWithStandardExample('PlotCIExyBorder.m');
 publishWithStandardExample('ResampleSpectrum.m');
 % COBYLA.m
 % Example_WhiteLED.m
 NotYetDocumented('OptimalAdditiveMix.m');
-NotYetDocumented('PlotCIExyBorder.m');
+NotYetDocumented('PlotCIEupvpBorder.m');
 NotYetDocumented('PlotCRIResult.m'); % see ExamplePlotCRIResult.m
 NotYetDocumented('RainbowColorMap.m');
 NotYetDocumented('ReadASCIITableFile.m');

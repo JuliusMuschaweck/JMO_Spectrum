@@ -8,7 +8,45 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Plot the CIE xy monochromatic border, with optional color fill and other options
+%% Syntax
+% |[ah, fh] = PlotCIExyBorder(varargin)|
+%% Input Arguments
+% * |varargin|: Optional name-value pairs:
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'Figure'       </td> <td> handle to figure </td> <td> empty (default) </td> <td> valid figure handle to use for the plot. Current hold state will be restored. When empty, plot into new figure</td></tr>
+% <tr><td> 'Axes'         </td> <td> handle to axes   </td> <td> empty (default) </td> <td> valid axes handle to use for the plot. Current hold state will be restored. Overrides 'Figure'</td></tr>
+% <tr><td> 'LineSpec'     </td> <td> string           </td> <td> 'k' (default) </td> <td> valid LineSpec string, e.g. '--b' for dashed blue lines, see 'plot' documentation </td></tr>
+% <tr><td> 'PlotOptions'  </td> <td> cell array       </td> <td> empty (default) </td> <td> cell array of valid plot options e.g. {'Color',[0.5 0.5 0.5],'LineWidth',2}</td></tr>
+% <tr><td> 'Ticks'        </td> <td> double vector    </td> <td> reasonable default </td> <td> array of wavelength values where ticks and labels are plotted. Say ...,'Ticks',[],... to suppress ticks</td></tr>
+% <tr><td> 'TickFontSize' </td> <td> scalar double    </td> <td> 6 (default) </td> <td> Font size for ticks annotation, in points </td></tr>
+% <tr><td> 'ColorFill'    </td> <td> scalar logical   </td> <td> false (default) </td> <td> When true, fill "shoe" with approximate colors </td></tr>
+% </table>
+% </p>
+% </html>
+%
+
+%% Output Arguments
+% * |ah|: handle to axes where the border was plotted, to be used for further plotting of e.g. color coordinates
+% * |fh|: handle to figure where the border was plotted, to be used for further plotting.
+
+%% Algorithm
+% Takes the monochromatic border values from the CIE standards and plots it, using the specified options.
+%% See also
+% <PlotCIEupvpBorder.html PlotCIEupvpBorder>, <CIE1931_Data.html, CIE1931_Data>
+%% Usage Example
+% <include>Examples/ExamplePlotCIExyBorder.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 %
 function [ah, fh] = PlotCIExyBorder(varargin)
     % Plots the CIE xy border "shoe" into a figure and returns the axes and figure handles for further plotting

@@ -80,21 +80,21 @@
 % 
 % <MultiplySpectra.html MultiplySpectra> multiplies two spectra, returning the product spectrum
 % 
+% <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
+% superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
+%
 % <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
 % 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
 %
+% <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
+% 
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
 % 
-% <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
-% superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
-%
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
-% 
-% <PlotCIExyBorder.html PlotCIExyBorder>
 % 
 % <PlotCRIResult.html PlotCRIResult>
 % 
