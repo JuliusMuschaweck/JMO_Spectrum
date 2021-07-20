@@ -5,12 +5,12 @@ publishWithStandardExample('CCT.m');
 publishWithStandardExample('CCT_from_xy.m');
 publishWithStandardExample('CIE1931_Data.m');
 publishWithStandardExample('CIE1931_XYZ.m');
+publishWithStandardExample('CIEDE2000_Lab.m');
+publishWithStandardExample('CIEDE2000_XYZ.m');
 publishWithStandardExample('CIE_Illuminant.m');
 publishWithStandardExample('CIE_Illuminant_D.m');
 publishWithStandardExample('CIE_Lab.m');
 publishWithStandardExample('CIE_Luv.m');
-publishWithStandardExample('CIEDE2000_Lab.m');
-publishWithStandardExample('CIEDE2000_XYZ.m');
 publishWithStandardExample('CIE_upvp.m');
 publishWithStandardExample('CIE_xy_from_upvp.m');
 publishWithStandardExample('CODATA2018.m');
@@ -27,14 +27,15 @@ publishWithStandardExample('IsSpectrum.m');
 publishWithStandardExample('JMOSpectrumVersion.m');
 publishWithStandardExample('LDomPurity.m');
 
-publishWithStandardExample('MatchAdditiveMix.m');
-
 publishWithStandardExample('LinInterpol.m');
 publishWithStandardExample('LinInterpolAdd4Async.m');
 publishWithStandardExample('MacAdamEllipse.m');
 publish('MacAdamEllipse_g.m','evalCode',false,'showCode',false);
 publishWithStandardExample('MakeSpectrum.m');
 publishWithStandardExample('MakeSpectrumDirect.m');
+
+publishWithStandardExample('MatchAdditiveMix.m');
+
 publishWithStandardExample('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
 publishWithStandardExample('MultiplySpectra.m');
 publish('Octave_xyz2rgb.m','evalCode',false,'showCode',false);
@@ -44,6 +45,7 @@ publishWithStandardExample('PlotCIExyBorder.m');
 publishWithStandardExample('ResampleSpectrum.m');
 % COBYLA.m
 % Example_WhiteLED.m
+NotYetDocumented('ColorChecker.m');
 NotYetDocumented('OptimalAdditiveMix.m');
 NotYetDocumented('PlotCIEupvpBorder.m');
 NotYetDocumented('PlotCRIResult.m'); % see ExamplePlotCRIResult.m
@@ -55,11 +57,12 @@ NotYetDocumented('RGBLEDSpectrum.m');
 NotYetDocumented('ShiftToLdom.m');
 NotYetDocumented('SolarSpectrum.m');
 NotYetDocumented('SpectrumSanityCheck.m');
+NotYetDocumented('sRGB_to_XYZ.m');
 NotYetDocumented('TestMacAdamEllipse.m');
 NotYetDocumented('Vlambda.m');
 NotYetDocumented('WriteLightToolsSpectrumFile.m');
 NotYetDocumented('XYZ_from_xyY.m');
-
+NotYetDocumented('XYZ_to_sRGB.m');
 
 fprintf('publish additional docs\n')
 publish('docDesignDecisions.m','evalCode',true,'showCode',true);
