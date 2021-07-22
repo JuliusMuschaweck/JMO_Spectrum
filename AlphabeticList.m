@@ -39,6 +39,8 @@
 %
 % <CODATA2018.html CODATA2018> Returns a struct with CODATA 2018 constants relevant to illumination, and some more
 %
+% <ColorChecker.html ColorChecker> returns selected MacBeth ColorChecker reflectivity spectra
+%
 % <ComputeSpectrumColorimetry.html ComputeSpectrumColorimetry> For a given spectrum, computes a large selection of colorimetric properties
 %
 % <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices

@@ -14,6 +14,7 @@ publishWithStandardExample('CIE_Luv.m');
 publishWithStandardExample('CIE_upvp.m');
 publishWithStandardExample('CIE_xy_from_upvp.m');
 publishWithStandardExample('CODATA2018.m');
+publishWithStandardExample('ColorChecker.m');
 publishWithStandardExample('ComputeSpectrumColorimetry.m');
 publishWithStandardExample('CRI.m');
 publishWithStandardExample('EvalSpectrum.m');
@@ -45,7 +46,6 @@ publishWithStandardExample('PlotCIExyBorder.m');
 publishWithStandardExample('ResampleSpectrum.m');
 % COBYLA.m
 % Example_WhiteLED.m
-NotYetDocumented('ColorChecker.m');
 NotYetDocumented('OptimalAdditiveMix.m');
 NotYetDocumented('PlotCIEupvpBorder.m');
 NotYetDocumented('PlotCRIResult.m'); % see ExamplePlotCRIResult.m

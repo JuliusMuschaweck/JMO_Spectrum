@@ -12,10 +12,13 @@
 % <CIE_Illuminant.html CIE_Illuminant> returns spectra for standard CIE illuminants
 %
 % <CIE_Illuminant_D.html CIE_Illuminant_D> Computes CIE standard illuminant D (daylight) for a desired color temperature
+%
+% <ColorChecker.html ColorChecker> returns selected MacBeth ColorChecker reflectivity spectra
 % 
 % <GaussSpectrum.html GaussSpectrum> creates a Gaussian spectrum, normalized to peak = 1.0
 % 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
+%
 %% Add, modify, transform spectra
 %
 % <AddSpectra.html AddSpectra> adds two spectra without weights.
