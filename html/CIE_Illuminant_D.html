@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE_Illuminant_D</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="CIE_Illuminant_D.m"><style type="text/css">
+      --><title>CIE_Illuminant_D</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="CIE_Illuminant_D.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../CIE_Illuminant_D.m"> CIE_Illuminant_D.m</a>
 </p>
 </p><p>Computes CIE standard illuminant D (daylight) for a desired color temperature</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_Illuminant_D(CCT,varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>CCT</tt>: scalar double. Correlated color temperature. <tt>4000 &lt;= CCT &lt;= 25000</tt>, else error</li><li><tt>varargin</tt>: Name-value pairs: <tt>'lam',lam</tt> where <tt>lam</tt> is a valid wavelength range (strictly ascending vector of positive double| Default is <tt>360:830</tt>. <tt>'enforceCCTrange', yesno</tt> where <tt>yesno</tt> is logical scalar; when <tt>false</tt>, <tt>CCT</tt> may be outside the <tt>4000 &lt;= CCT &lt;= 25000</tt>.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A spectrum, <tt>struct</tt> with fields <tt>lam</tt> (a copy of the input variable when given, else 360:830), <tt>val</tt> (the spectrum values), and <tt>name</tt> (an appropriate name). CIE D is defined from 300 nm to 830 nm. The spectrum will be zero for values of <tt>lam</tt> outside this range.</li></ul></div><h2 id="4">Algorithm</h2><p>Retrieves the S0, S1 and S2 spectra from <tt>CIE_Standard_Illuminants.mat</tt>, computes the M1 and M2 weights according to the CIE formulas and assembles the weighted sum of the three spectra. Then, interpolates the resulting spectrum over <tt>lam</tt>. See CIE 015:2018 ("Colorimetry, 4th edition") for the definitions. Note that the S0, S1 and S2 functions are given in 10 nm steps, and thus the CIE D illuminant is not smooth when interpolated on a finer wavelength resolution. When a smoother spectrum is desired, you may consult CIE 204:2013 (&#8220;Methods for re-defining CIE D illuminants&#8221;) for a smoothing method that does only minimally change resulting color coordinates from a wide range of reflective samples. They also do no correctly represent the narrow absorption bands of the atmosphere: CIE D is for colorimetric calculations only, with no steep slopes in reflection or transmission. When using with sharp dichroic filters, it may be better to use the high resolution AM1.5 spectrum, see file AM0AM1_5.xls, which is contained in this library distribution.</p><h2 id="5">See also</h2><p><a href="CIE_Illuminant.html">CIE_Illuminant</a>, <a href="CCT.html">CCT</a>, <a href="PlanckSpectrum.html">PlanckSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIE_Illuminant_D()
@@ -122,7 +123,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CIE_Illuminant_D.m"> CIE_Illuminant_D.m</a>
 % </p>
 % </html>
 %

@@ -4,13 +4,19 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../XXX.m"> XXX.m</a>
 % </p>
 % </html>
 %
 % short summary
 %% Syntax
-% |rv = XXX(a, b)|
+% |rv = XX(a, b)|
+%
+% <html><h3>Sub Section</h3> </html>
+%
+% subsection content
+%
 %% Input Arguments
 % * |a|: scalar double. Length of something
 % * |b|: scalar double. Width of something
@@ -26,7 +32,6 @@
 % </p>
 % </html>
 %
-
 %% Output Arguments
 % * |rv|: scalar double. Area of something
 %% Algorithm

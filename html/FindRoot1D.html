@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FindRoot1D</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="FindRoot1D.m"><style type="text/css">
+      --><title>FindRoot1D</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="FindRoot1D.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../FindRoot1D.m"> FindRoot1D.m</a>
 </p>
 </p><p>Finds root of scalar function of one real variable, without derivatives.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Algorithm</a></li><li><a href="#7">See also</a></li><li><a href="#8">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = FindRoot1D( func, x1, x2 )</tt></p><p><tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt></p><p><tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, _)</tt></p><h2 id="2">Description</h2><p><tt>rv = FindRoot1D( func, x1, x2 )</tt> finds a root of the continuous function <tt>func</tt>, bracketed between <tt>x1</tt> and <tt>x2</tt>, i.e. <tt>func(x1)</tt> and <tt>func(x2)</tt> must have opposite signs. Then, <tt>func(rv] == 0</tt> within a tolerance <tt>tol</tt>, meaning that <tt>func(x)</tt> changes sign within an interval of width <tt>tol</tt>. The default tolerance is <tt>1e-12</tt>.</p><p><tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt> lets you define options via name-value pairs as optional arguments. Possible options are</p><div><ul><li><tt>'tol'</tt>: The <tt>x</tt> tolerance, default <tt>1e-12</tt>. Must be a positive real number</li><li><tt>'nfemax'</tt>: The maximum number of function evaluations default <tt>100</tt>. Must be a positive integer.</li><li><tt>'throwOnFailure'</tt>: Determines if error conditions cause throwing an error, default = true</li></ul></div><p><tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, _)</tt> returns additional information. <tt>fb</tt> is the function value, <tt>fb==func(rv)</tt>, <tt>nfe</tt> is the actual number of function evaluations. <tt>ok</tt> is a boolean flag with obvious meaning, and <tt>msg</tt> is an error message.</p><h2 id="3">Examples</h2><pre class="language-matlab">x0 = FindRoot1D(@(x) x^4 - 0.1, 0, 1)
 x0 = 0.5623
@@ -96,7 +97,8 @@ function value at root = -4.171e-12, using 12 evaluations
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../FindRoot1D.m"> FindRoot1D.m</a>
 % </p>
 % </html>
 % 

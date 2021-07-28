@@ -1,0 +1,200 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>sRGB_to_XYZ</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="sRGB_to_XYZ.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>sRGB_to_XYZ</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../sRGB_to_XYZ.m"> sRGB_to_XYZ.m</a>
+</p>
+</p><p>Computes XYZ tristimulus value of displayed color on ideal sRGB display</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = sRGB_to_XYZ(R, G, B)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>R</tt>: scalar, vector or matrix of double. The red sRGB values. Negative values are allowed; they correspond to colors outside the sRGB gamut.</li><li><tt>G</tt>: scalar, vector or matrix of double. The green sRGB values, must be same number of elements as R</li><li><tt>B</tt>: scalar, vector or matrix of double. The blue sRGB values, must be same number of elements as R</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: struct with fields <tt>X</tt> , <tt>Y</tt>, <tt>Z</tt>, <tt>x</tt>,|y|, <tt>z</tt> (the tristimulus X, Y, Z values and color coordinates x, y, z, all same size as input argument <tt>R</tt>), and <tt>XYZ</tt>, an <tt>(n, 3)</tt> matrix, where <tt>n</tt> is the number of elements of input argument <tt>R</tt>, containing one XYZ value per row.</li></ul></div><h2 id="4">Algorithm</h2><p>The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be created from sRGB values to encode color and brightness. See also <a href="https://en.wikipedia.org/wiki/SRGB">&lt;https://en.wikipedia.org/wiki/SRGB</a>&gt; for a detailed description. sRGB values are "gamma corrected": the first step is therefore to remove the gamma correction. For small values, gamma correction is linear, for large absolute values, it is a power function with <img src="sRGB_to_XYZ_eq12534854723539763717.png" alt="$\gamma = 2.4$">. To cope with negative values, gamma correction f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is converted to <img src="sRGB_to_XYZ_eq01707589375685277624.png" alt="$XYZ = M \times RGB$"> with the matrix M derived from standardized primaries' tristimulus values. A display white point corresponding to D65 is assumed.</p><h2 id="5">See also</h2><p><a href="XYZ_to_sRGB.html">XYZ_to_sRGB</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExamplesRGB_to_XYZ()
+    <span class="comment">% the standard sRGB display white point: D65</span>
+    d65_XYZ = CIE1931_XYZ( CIE_Illuminant(<span class="string">'D65'</span>) );
+    <span class="comment">% now compare to RGB = (1,1,1)</span>
+    test = sRGB_to_XYZ(1, 1, 1);
+    fprintf(<span class="string">'expected white point x,y,Y = (%g, %g, %g), got (%g, %g, %g)\n'</span>,<span class="keyword">...</span>
+        d65_XYZ.x, d65_XYZ.y, 1.000,  test.x, test.y, test.Y);
+    
+    <span class="comment">% test brightness and color of "perceived 50% gray": same color, but only 21% luminance</span>
+    half = 0.5;
+    y_gray = ((200 * half + 11) / 211) .^ 2.4; <span class="comment">% the standard sRGB gamma </span>
+    testgray = sRGB_to_XYZ(half, half, half);
+    fprintf(<span class="string">'expected gray point x,y,Y = (%g, %g, %g), got (%g, %g, %g)\n'</span>,<span class="keyword">...</span>
+        d65_XYZ.x, d65_XYZ.y, y_gray,  testgray.x, testgray.y, testgray.Y);
+    
+    <span class="comment">% test red sRGB primary</span>
+    sRGB_XYZ_R = [0.4124, 0.2126, 0.0193]; <span class="comment">%from the standard</span>
+    testR = sRGB_to_XYZ(1,0,0);
+    fprintf(<span class="string">'red primary: expected (%g, %g, %g), got (%g, %g, %g)\n'</span>,<span class="keyword">...</span>
+        sRGB_XYZ_R(1), sRGB_XYZ_R(2), sRGB_XYZ_R(3), testR.X, testR.Y, testR.Z); 
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">expected white point x,y,Y = (0.312726, 0.329023, 1), got (0.312716, 0.329001, 1)
+expected gray point x,y,Y = (0.312726, 0.329023, 0.214041), got (0.312716, 0.329001, 0.214041)
+red primary: expected (0.4124, 0.2126, 0.0193), got (0.4124, 0.2126, 0.0193)
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% sRGB_to_XYZ
+%
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../sRGB_to_XYZ.m"> sRGB_to_XYZ.m</a>
+% </p>
+% </html>
+%
+% Computes XYZ tristimulus value of displayed color on ideal sRGB display
+%% Syntax
+% |rv = sRGB_to_XYZ(R, G, B)|
+%
+%% Input Arguments
+% * |R|: scalar, vector or matrix of double. The red sRGB values. Negative values are
+% allowed; they correspond to colors outside the sRGB gamut.
+% * |G|: scalar, vector or matrix of double. The green sRGB values, must be same number of
+% elements as R
+% * |B|: scalar, vector or matrix of double. The blue sRGB values, must be same number of
+% elements as R
+%% Output Arguments
+% * |rv|: struct with fields |X| , |Y|, |Z|, |x|,|y|, |z| (the tristimulus X, Y, Z values and
+% color coordinates x, y, z, all same size as input argument |R|), and |XYZ|, an |(n, 3)|
+% matrix, where |n| is the number of elements of input argument |R|, containing one XYZ value
+% per row.
+%% Algorithm
+% The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
+% created from sRGB values to encode color and brightness. See also 
+% <https://en.wikipedia.org/wiki/SRGB https://en.wikipedia.org/wiki/SRGB> for a detailed
+% description. sRGB values are "gamma corrected": the first step is therefore to remove the
+% gamma correction. For small values, gamma correction is linear, for large absolute values,
+% it is a power function with $\gamma = 2.4$. To cope with negative values, gamma correction
+% f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear
+% RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is
+% converted to $XYZ = M \times RGB$ with the matrix M derived from standardized primaries'
+% tristimulus values. A display white point corresponding to D65 is assumed.
+%% See also
+% <XYZ_to_sRGB.html XYZ_to_sRGB>
+%% Usage Example
+% <include>Examples/ExamplesRGB_to_XYZ.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+function rv = sRGB_to_XYZ(R, G, B)
+    arguments
+        R (:,:) double
+        G (:,:) double
+        B (:,:) double
+    end
+    RGB = cat(2,R(:),G(:),B(:)); % n x 3
+    negative = (RGB < (- 0.04045));
+    positive = (RGB > (+ 0.04045));
+    small = ~(negative | positive);
+    RGBlin = NaN(size(RGB));
+    RGBlin(small) = 25 * RGB(small) / 323;
+    RGBlin(positive) = ((200 * RGB(positive) + 11) / 211) .^ 2.4; 
+    RGBlin(negative) = - ((- 200 * RGB(negative) + 11) / 211) .^ 2.4; 
+    
+    M = [0.4124, 0.3576, 0.1805;
+         0.2126, 0.7152, 0.0722;
+         0.0193, 0.1192, 0.9505];
+    XYZ = M * RGBlin'; % 3 x n
+
+    rv.X = XYZ(1,:);
+    rv.Y = XYZ(2,:);
+    rv.Z = XYZ(3,:);
+    rv.XYZ = XYZ';
+    cw = sum(XYZ);
+    sz = size(R);
+    rv.X = reshape(rv.X,sz);
+    rv.Y = reshape(rv.Y,sz);
+    rv.Z = reshape(rv.Z,sz);
+    rv.x = rv.X / cw;
+    rv.y = rv.Y / cw;
+    rv.z = rv.Z / cw;
+    
+end
+
+
+
+%     M = [ 3.2406255, -1.5372080, -0.4986286;
+%          -0.9689307,  1.8757561,  0.0415175;
+%           0.0557101, -0.2040211,  1.0569959];
+%     iM = inv(M); % then copy paste
+%     iM = [0.412399997173099,0.357600002651009,0.180500014352339;
+%           0.212599990736123,0.715199984234609,0.0722000155301504;
+%           0.0193000170459133,0.119200041926217,0.950500047104164];
+
+##### SOURCE END #####
+--></body></html>

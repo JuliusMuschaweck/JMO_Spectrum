@@ -4,11 +4,51 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp;| &nbsp; 
+% Source code: <a href = "file:../ReadASCIITableFile.m"> ReadASCIITableFile.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% Reads a matrix of numbers from an ASCII text file, with optional delimiter control and
+% generic comment line handling.
+%% Syntax
+% |rv = ReadASCIITableFile(fn, opts)|
+%% Input Arguments
+% * |fn|: character string. Filename from where to read.
+% * |opts|: Name-Value pair
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'delimiters'   </td> <td> character string </td> <td> '' (default)    </td> <td> set of characters interpreted as delimiters between numbers. See Matlab's 'split' documentation for details. If not specified, white space is used as delimiter(s).</td></tr>
+% </table>
+% </p>
+% </html>
+%
+
+%% Output Arguments
+% * |rv|: double array. Content of the ASCII table
+%% Algorithm
+% Reads lines, trimming white space at beginning and end. Trimmed lines that don't start with
+% a digit ('0'...'9') are considered comments and are discarded. Non-comment lines are
+% expected to contain only real number in ASCII format, separated by the given delimiters.
+% Number of columns is taken
+% from first non-comment line, and all subsequent non-comment lines are expected to have the
+% same number of columns.
+%
+% Therefore, a valid input file consists 
+%% See also
+% <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile>,
+% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>
+%% Usage Example
+% <include>Examples/ExampleReadASCIITableFile.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function rv = ReadASCIITableFile(fn, opts)
     arguments
@@ -42,6 +82,7 @@ function rv = ReadASCIITableFile(fn, opts)
         end
     catch ME
         fclose(fh);
+        rethrow(ME);
     end
     
 end
@@ -71,7 +112,7 @@ function [values, iline] = GetLine(fh, delims, line_nr)
     end
     values = str2double(strings);% convert tokens to doubles
     values = (values(:))';
-    if any(isnan(values)) % see if that want well
+    if any(isnan(values)) % see if that went well
         error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, itt);
     end
 end

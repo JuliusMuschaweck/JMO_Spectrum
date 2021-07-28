@@ -4,11 +4,38 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../ReadLightToolsSpectrumFile.m"> ReadLightToolsSpectrumFile.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% Reads a spectrum from an ASCII text file in LightTools(R) spectrum format with comment line
+% handling.
+%% Syntax
+% |rv = ReadLightToolsSpectrumFile(fn)|
+%% Input Arguments
+% * |fn|: character string. Filename from where to read.
+%% Output Arguments
+% * |rv|: A valid spectrum (struct with fields |lam| and |val|).
+%% Algorithm
+% Reads the lines from the file, assembling the wavelength and value arrays. The 'dataname'
+% entry in the file will make its way into 'dataname' and 'name' fields of the returned
+% spectrum. When the 'discrete' flag is present in the file, the spectrum is approximated as
+% narrow peaks, with 0.001 times the minimum wavelength interval (there are no line spectra in this library). When the 'photometric' flag
+% is set in the file, the returned spectrum is still radiometric, by dividing each value by
+% its corresponding V(lambda) value.
+%% See also
+% <ReadASCIITableFile.html ReadASCIITableSpectrumFile>,
+% <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile>,
+% <SpectrumSanityCheck.html SpectrumSanityCheck>
+%% Usage Example
+% <include>Examples/ExampleReadLightToolsSpectrumFile.m</include>
+%
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function rv = ReadLightToolsSpectrumFile( fn )
     % Read a spectrum from LightTols .sre file format. Return spectrum, with field "dataname" if present
@@ -107,6 +134,7 @@ function rv = ReadLightToolsSpectrumFile( fn )
     rv.lam = lam(:);
     rv.val = val(:);
     rv.dataname = dataname;
+    rv.name = dataname;
     comment = '';
     delim = '';
     if photometric

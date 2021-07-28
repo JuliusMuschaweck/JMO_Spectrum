@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ReadASCIITableSpectrumFile</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="ReadASCIITableSpectrumFile.m"><style type="text/css">
+      --><title>ReadASCIITableSpectrumFile</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="ReadASCIITableSpectrumFile.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,13 +67,42 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>ReadASCIITableSpectrumFile</h1><p>
+  </style></head><body><div class="content"><h1>ReadASCIITableSpectrumFile</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../ReadASCIITableSpectrumFile.m"> ReadASCIITableSpectrumFile.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Reads an (n x 2) matrix of numbers from an ASCII text file, with optional delimiter control and generic comment line handling, and creates a spectrum from these two columns</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = ReadASCIITableSpectrumFile(fn, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>fn</tt>: character string. Filename from where to read.</li><li><tt>opts</tt>: Name-Value pairs</li></ul></div><p>
+<p style="margin-left: 25px">
+<table border=1>
+<tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+<tr><td> 'delimiters'   </td> <td> character string </td> <td> '' (default)    </td> <td> set of characters interpreted as delimiters between numbers. See Matlab's 'split' documentation for details. If not specified, white space is used as delimiter(s).</td></tr>
+<tr><td> 'name'         </td> <td> character string </td> <td> '' (default)    </td> <td> When specified, the returned spectrum will have an additional field |'name'| with this parameter</td></tr>
+</table>
+</p>
+</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A valid spectrum (struct with fields <tt>lam</tt> and <tt>val</tt>).</li></ul></div><h2 id="4">Algorithm</h2><p>Calls <a href="ReadASCIITableFile.html">ReadASCIITableSpectrumFile</a> to read the table, which is expected to have at least two rows and at least two columns. The first column is interpreted as wavelength in nanometers, the second column as the values. See <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a> for requirements what constitutes a valid spectrum.</p><h2 id="5">See also</h2><p><a href="ReadASCIITableFile.html">ReadASCIITableSpectrumFile</a>, <a href="ReadLightToolsSpectrumFile.html">ReadLightToolsSpectrumFile</a>, <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleReadASCIITableSpectrumFile()
+    fn = <span class="string">'LED_2666K.sre'</span>;
+    spec = ReadASCIITableSpectrumFile(fn, <span class="string">'name'</span>, <span class="string">'Generic 2666K white LED spectrum'</span>); <span class="comment">% default delimiters are ok</span>
+    spec
+    figure()
+    plot(spec.lam, spec.val);
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    title(spec.name);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+spec = 
+
+  struct with fields:
+
+     lam: [201&times;1 double]
+     val: [201&times;1 double]
+    name: 'Generic 2666K white LED spectrum'
+
+</pre><img vspace="5" hspace="5" src="ReadASCIITableSpectrumFile_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% ReadASCIITableSpectrumFile
 % 
@@ -81,12 +110,44 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../ReadASCIITableSpectrumFile.m"> ReadASCIITableSpectrumFile.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% Reads an (n x 2) matrix of numbers from an ASCII text file, with optional delimiter control and
+% generic comment line handling, and creates a spectrum from these two columns
+%% Syntax
+% |rv = ReadASCIITableSpectrumFile(fn, opts)|
+%% Input Arguments
+% * |fn|: character string. Filename from where to read.
+% * |opts|: Name-Value pairs
 %
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'delimiters'   </td> <td> character string </td> <td> '' (default)    </td> <td> set of characters interpreted as delimiters between numbers. See Matlab's 'split' documentation for details. If not specified, white space is used as delimiter(s).</td></tr>
+% <tr><td> 'name'         </td> <td> character string </td> <td> '' (default)    </td> <td> When specified, the returned spectrum will have an additional field |'name'| with this parameter</td></tr>
+% </table>
+% </p>
+% </html>
+%
+
+%% Output Arguments
+% * |rv|: A valid spectrum (struct with fields |lam| and |val|).
+%% Algorithm
+% Calls <ReadASCIITableFile.html ReadASCIITableSpectrumFile> to read the table, which is
+% expected to have at least two rows and at least two columns. The first column is
+% interpreted as wavelength in nanometers, the second column as the values. See
+% <SpectrumSanityCheck.html SpectrumSanityCheck> for requirements what constitutes a valid
+% spectrum. 
+%% See also
+% <ReadASCIITableFile.html ReadASCIITableSpectrumFile>,
+% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>,
+% <SpectrumSanityCheck.html SpectrumSanityCheck>
+%% Usage Example
+% <include>Examples/ExampleReadASCIITableSpectrumFile.m</include>
 function rv = ReadASCIITableSpectrumFile(fn, opts)
     arguments
         fn (1,:) char

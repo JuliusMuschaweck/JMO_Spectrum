@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CauchyFromAbbe</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="CauchyFromAbbe.m"><style type="text/css">
+      --><title>CauchyFromAbbe</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="CauchyFromAbbe.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,9 +71,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../CauchyFromAbbe.m"> CauchyFromAbbe.m</a>
 </p>
-</p><p>Computes the first two Cauchy dispersion coefficients from index/Abbe number</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>function rv = CauchyFromAbbe(n, v, opts)</p><h2 id="2">Input Arguments</h2><div><ul><li><tt>nd</tt>: scalar double. Refractive index at lambda_d = 587.56 nm</li><li><tt>vd</tt>: scalar double. Abbe number, (nd-1) / (nF-nC)</li><li><tt>opts</tt>: Optional name-value pairs:</li></ul></div><p>
+</p><p>Computes the first two Cauchy dispersion coefficients from index and Abbe number</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>function rv = CauchyFromAbbe(n, v, opts)</p><h2 id="2">Input Arguments</h2><div><ul><li><tt>nd</tt>: scalar double. Refractive index at lambda_d = 587.56 nm</li><li><tt>vd</tt>: scalar double. Abbe number, (nd-1) / (nF-nC)</li><li><tt>opts</tt>: Optional name-value pairs:</li></ul></div><p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Name</b> </td>      <td><b>Type</b></td>      <td><b>Value</b></td>                <td><b>Default</b></td>   <td><b>Meaning</b></td></tr>
@@ -120,7 +121,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
     fprintf(<span class="string">'good coincidence in the visible range, large difference outside'</span>);
     figure();
     ndiff = AddWeightedSpectra({BK7,cc2.nSpectrum},[1,-1]);
-    ndiff = AssignNewWavelength(ndiff,400:700);
+    ndiff = ResampleSpectrum(ndiff,400:700);
     plot(ndiff.lam, ndiff.val);
     xlabel(<span class="string">'\lambda (nm'</span>);
     ylabel(<span class="string">'\Delta n'</span>);
@@ -132,9 +133,7 @@ given nd = 1.5168, computed nd = 1.5168, difference = 0
 given vd = 64.17, computed vd = 64.17, difference = -1.16529e-12
 micron A1 = 0.00421729, nm A1 = 4217.29, ratio = 1e+06, should be (&micro;m/nm)^2 = 1e6
 test A0/A1 difference for 'D' vs. 589.29 nm, dA0 = 0, dA1 = 0
-good coincidence in the visible range, large difference outsideWarning: error in runExample: Undefined function 'AssignNewWavelength' for input
-arguments of type 'struct'. 
-</pre><img vspace="5" hspace="5" src="CauchyFromAbbe_01.png" alt=""> <img vspace="5" hspace="5" src="CauchyFromAbbe_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+good coincidence in the visible range, large difference outside</pre><img vspace="5" hspace="5" src="CauchyFromAbbe_01.png" alt=""> <img vspace="5" hspace="5" src="CauchyFromAbbe_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% CauchyFromAbbe
 % 
@@ -142,11 +141,12 @@ arguments of type 'struct'.
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CauchyFromAbbe.m"> CauchyFromAbbe.m</a>
 % </p>
 % </html>
 %
-% Computes the first two Cauchy dispersion coefficients from index/Abbe number
+% Computes the first two Cauchy dispersion coefficients from index and Abbe number
 %% Syntax
 % function rv = CauchyFromAbbe(n, v, opts)
 %% Input Arguments

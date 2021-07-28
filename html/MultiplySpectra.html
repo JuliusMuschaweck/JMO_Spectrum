@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>MultiplySpectra</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="MultiplySpectra.m"><style type="text/css">
+      --><title>MultiplySpectra</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="MultiplySpectra.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 </p>
 </p><p>Multiply two spectra</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>rv = <tt>MultiplySpectra(lhs, rhs)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lhs</tt>: A valid spectrum, i.e. a struct with two array fields, <tt>lam</tt> and <tt>val</tt> (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a> for detailed requirements)</li><li><tt>rhs</tt>: Likewise</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A spectrum modeling the product.</li></ul></div><h2 id="4">Algorithm</h2><p>A spectrum in this library models a continuous, piecewise linear function of wavelength. For a given array of wavelenghts, the modeled spectrum is linear between wavelength points, and zero outside the wavelength domain. At the ends of the wavelength domain the modeled spectrum may drop discontinously to zero. (If you don't like these discontinuities at the domain boundary, add end points with zero values.). The product spectrum's wavelength points consist of the "interweaved" wavelength arrays of <tt>lhs</tt> and|rhs|, where they overlap. If they don't overlap at all, a spectrum is returned with two wavelength points and both values zero.</p><p>At each wavelength point, one value is taken from the corresponding point of one spectrum and the linearly interpolated point of the other spectrum, then these two are multiplied. Strictly speaking, the product spectrum would not be piecewise linear, it would be piecewise quadratic. However, this is neglected here. If a better approximation to the quadratic product spectrum is desired, you may resample <tt>lhs</tt> and/or <tt>rhs</tt> on a finer wavelength array using <a href="ResampleSpectrum.html">ResampleSpectrum</a>.</p><h2 id="5">See also</h2><p><a href="AddSpectra.html">AddSpectra</a>, <a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="ResampleSpectrum.html">ResampleSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleMultiplySpectra()
@@ -96,7 +97,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 % </p>
 % </html>
 %

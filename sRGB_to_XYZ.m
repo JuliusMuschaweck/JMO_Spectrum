@@ -1,3 +1,52 @@
+%% sRGB_to_XYZ
+%
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../sRGB_to_XYZ.m"> sRGB_to_XYZ.m</a>
+% </p>
+% </html>
+%
+% Computes XYZ tristimulus value of displayed color on ideal sRGB display
+%% Syntax
+% |rv = sRGB_to_XYZ(R, G, B)|
+%
+%% Input Arguments
+% * |R|: scalar, vector or matrix of double. The red sRGB values. Negative values are
+% allowed; they correspond to colors outside the sRGB gamut.
+% * |G|: scalar, vector or matrix of double. The green sRGB values, must be same number of
+% elements as R
+% * |B|: scalar, vector or matrix of double. The blue sRGB values, must be same number of
+% elements as R
+%% Output Arguments
+% * |rv|: struct with fields |X| , |Y|, |Z|, |x|,|y|, |z| (the tristimulus X, Y, Z values and
+% color coordinates x, y, z, all same size as input argument |R|), and |XYZ|, an |(n, 3)|
+% matrix, where |n| is the number of elements of input argument |R|, containing one XYZ value
+% per row.
+%% Algorithm
+% The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
+% created from sRGB values to encode color and brightness. See also 
+% <https://en.wikipedia.org/wiki/SRGB https://en.wikipedia.org/wiki/SRGB> for a detailed
+% description. sRGB values are "gamma corrected": the first step is therefore to remove the
+% gamma correction. For small values, gamma correction is linear, for large absolute values,
+% it is a power function with $\gamma = 2.4$. To cope with negative values, gamma correction
+% f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear
+% RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is
+% converted to $XYZ = M \times RGB$ with the matrix M derived from standardized primaries'
+% tristimulus values. A display white point corresponding to D65 is assumed.
+%% See also
+% <XYZ_to_sRGB.html XYZ_to_sRGB>
+%% Usage Example
+% <include>Examples/ExamplesRGB_to_XYZ.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 function rv = sRGB_to_XYZ(R, G, B)
     arguments
         R (:,:) double
@@ -23,10 +72,17 @@ function rv = sRGB_to_XYZ(R, G, B)
     rv.Z = XYZ(3,:);
     rv.XYZ = XYZ';
     cw = sum(XYZ);
+    sz = size(R);
+    rv.X = reshape(rv.X,sz);
+    rv.Y = reshape(rv.Y,sz);
+    rv.Z = reshape(rv.Z,sz);
     rv.x = rv.X / cw;
     rv.y = rv.Y / cw;
     rv.z = rv.Z / cw;
+    
 end
+
+
 
 %     M = [ 3.2406255, -1.5372080, -0.4986286;
 %          -0.9689307,  1.8757561,  0.0415175;

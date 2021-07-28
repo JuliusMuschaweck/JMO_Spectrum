@@ -4,11 +4,12 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../AddWeightedSpectra.m"> AddWeightedSpectra.m</a>
 % </p>
 % </html>
 %
-% Adds several spectra with weights.
+% Adds several spectra with weights, properly interweaving the wavelengths
 %% Syntax
 % |function rv = AddWeightedSpectra(spectra,weights)|
 %% Input Arguments

@@ -4,12 +4,53 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> | &nbsp; 
+% Source code: <a href = "file:../RGBLEDSpectrum.m"> RGBLEDSpectrum.m</a></html>
 % </p>
 % </html>
 %
-% documentation to be completed
+% A class that models red/green/blue LED spectra under operating conditions, from data sheet
+% information only.
+%% Creation
+% |obj = RGBLEDSpectrum(baseSpectrum, grouping_Temp, grouping_I)|
 %
+% <html><h3>Input arguments</h3> </html>
+%
+% * |baseSpectum|: scalar double. Length of something
+%% Input Arguments
+% * |a|: scalar double. Length of something
+% * |b|: scalar double. Width of something
+% * |opts|: Name-Value pairs
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'doTest'       </td> <td> logical scalar   </td> <td> false (default) </td> <td> Ignore                                     </td></tr>
+% <tr><td> <a href="CCT.html">link to CCT.html</a> </td> <td>                  </td> <td> true            </td> <td> Perform diagnostic test ignoring input values, then return. See code for details </td></tr>
+% </table>
+% </p>
+% </html>
+%
+
+%% Output Arguments
+% * |rv|: scalar double. Area of something
+%% Algorithm
+% Does something
+%% See also
+% <YYY.html YYY>
+%% Usage Example
+% <include>Examples/ExampleRGBLEDSpectrum.m</include>
+
+
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
 classdef RGBLEDSpectrum < handle
     %RGBLEDSpectrum models RGB LED spectra at various conditions, based on data sheet information
     

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>RainbowColorMap</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="RainbowColorMap.m"><style type="text/css">
+      --><title>RainbowColorMap</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="RainbowColorMap.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,13 +67,35 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>RainbowColorMap</h1><p>
+  </style></head><body><div class="content"><h1>RainbowColorMap</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../RainbowColorMap.m"> RainbowColorMap.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>A rainbow color map to be used with Matlab's 'colormap' function</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = RainbowColorMap(nn)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>nn</tt>: scalar positive integer. Number of colors in map, 256 is a good value in many cases.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: double array, size <tt>(nn,3)</tt>. The color map.</li></ul></div><h2 id="4">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleRainbowColorMap()
+    
+    rcm = RainbowColorMap(256);
+    
+    figure();
+    hold <span class="string">on</span>;
+    plot(1:256,rcm(:,1),<span class="string">'r'</span>);
+    plot(1:256,rcm(:,2),<span class="string">'g'</span>);
+    plot(1:256,rcm(:,3),<span class="string">'b'</span>);
+    legend({<span class="string">'Red'</span>,<span class="string">'Green'</span>,<span class="string">'Blue'</span>});
+    title(<span class="string">'RainbowColorMap color channels'</span>);
+    
+    figure();
+    zz = peaks;
+    surf(zz);
+    colormap(rcm);
+    colorbar;
+    title(<span class="string">'RainbowColorMap example'</span>);
+<span class="keyword">end</span>
+
+</pre><img vspace="5" hspace="5" src="RainbowColorMap_01.png" alt=""> <img vspace="5" hspace="5" src="RainbowColorMap_02.png" alt=""> <img vspace="5" hspace="5" src="RainbowColorMap_03.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% RainbowColorMap
 % 
@@ -81,11 +103,27 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../RainbowColorMap.m"> RainbowColorMap.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% A rainbow color map to be used with Matlab's 'colormap' function
+%% Syntax
+% |rv = RainbowColorMap(nn)|
+%% Input Arguments
+% * |nn|: scalar positive integer. Number of colors in map, 256 is a good value in many
+% cases.
+%% Output Arguments
+% * |rv|: double array, size |(nn,3)|. The color map.
+%% Usage Example
+% <include>Examples/ExampleRainbowColorMap.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function rv = RainbowColorMap(nn)
 % RainbowColorMap(nn) returns a rainbow colormap with nn columns (256 is good)

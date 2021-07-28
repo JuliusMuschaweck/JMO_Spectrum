@@ -1,3 +1,15 @@
+%% XYZ_to_sRGB
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../XYZ_to_sRGB.m"> XYZ_to_sRGB.m</a>
+% </p>
+% </html>
+%
+% documentation to be completed
 function rv = XYZ_to_sRGB(X, Y, Z, opts)
     arguments
         X (:,:) double

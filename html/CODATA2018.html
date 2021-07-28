@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CODATA2018</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="CODATA2018.m"><style type="text/css">
+      --><title>CODATA2018</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="CODATA2018.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,9 +71,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a>  &nbsp; | &nbsp;
+Source code: <a href = "file:../CODATA2018.m"> CODATA2018.m</a>
 </p>
-</p><p>Returns a struct with CODATA constants relevant to illumination, and some more</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>cd = CODATA2018()</tt></p><h2 id="2">Input Arguments</h2><div><ul><li>None</li></ul></div><h2 id="3">Output Arguments</h2><p><tt>cd</tt>: struct with fields * <tt>b</tt>:= Wien wavelength displacement law constant * <tt>bprime</tt>:= Wien frequency displacement law constant * <tt>c</tt>:= speed of light in vacuum * <tt>e</tt>:= elementary charge * <tt>h</tt>:= Planck constant * <tt>k</tt>:= Boltzmann constant * <tt>me</tt>:= electron mass * <tt>mn</tt>:= neutron mass * <tt>mp</tt>:= proton mass * <tt>NA</tt>:= Avogadro constant * <tt>R</tt>:= molar gas constant * <tt>Vm</tt>:= molar volume of ideal gas (273.15 K, 101.325 kPa) * <tt>sigma</tt>:= Stefan-Boltzmann constant * <tt>c1</tt>:= first radiation constant, 2 pi h c^2 * <tt>c1L</tt>:= first radiation constant for spectral radiance, 2 h c^2 * <tt>c2</tt>:= second radiation constant, h c / k</p><p>Each field is a struct, with fields <tt>name</tt> (the same names as above), <tt>value</tt> (the value), <tt>reluncertainty</tt> (the relative uncertainty), <tt>absuncertainty</tt> (absolute uncertainty), and <tt>unit</tt> (the physical unit)</p><h2 id="4">Algorithm</h2><p>Creates <tt>cd</tt> using data from NIST, <a href="https://physics.nist.gov/cuu/Constants/index.html">https://physics.nist.gov/cuu/Constants/index.html</a></p><h2 id="5">See also</h2><p><a href="PlanckSpectrum.html">PlanckSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p><p>Returns CODATA constants relevant to illumination, and some more</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>cd = CODATA2018(varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>varargin</tt>: optional character string. May be any of the field names below, e.g. <tt>'b'</tt> or <tt>NA</tt>.</li></ul></div><h2 id="3">Output Arguments</h2><p>When no optional argument is present:</p><p><tt>cd</tt>: struct with fields * <tt>b</tt>:= Wien wavelength displacement law constant * <tt>bprime</tt>:= Wien frequency displacement law constant * <tt>c</tt>:= speed of light in vacuum * <tt>e</tt>:= elementary charge * <tt>h</tt>:= Planck constant * <tt>k</tt>:= Boltzmann constant * <tt>me</tt>:= electron mass * <tt>mn</tt>:= neutron mass * <tt>mp</tt>:= proton mass * <tt>NA</tt>:= Avogadro constant * <tt>R</tt>:= molar gas constant * <tt>Vm</tt>:= molar volume of ideal gas (273.15 K, 101.325 kPa) * <tt>sigma</tt>:= Stefan-Boltzmann constant * <tt>c1</tt>:= first radiation constant, 2 pi h c^2 * <tt>c1L</tt>:= first radiation constant for spectral radiance, 2 h c^2 * <tt>c2</tt>:= second radiation constant, h c / k</p><p>Each field is a struct, with fields <tt>name</tt> (the same names as above), <tt>value</tt> (the value), <tt>reluncertainty</tt> (the relative uncertainty), <tt>absuncertainty</tt> (absolute uncertainty), and <tt>unit</tt> (the physical unit)</p><p>When the optional argument is given, <tt>cd</tt> is the requested physical constant information struct.</p><h2 id="4">Algorithm</h2><p>Creates <tt>cd</tt> using data from NIST, <a href="https://physics.nist.gov/cuu/Constants/index.html">https://physics.nist.gov/cuu/Constants/index.html</a></p><h2 id="5">See also</h2><p><a href="PlanckSpectrum.html">PlanckSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleCODATA2018()
     cd = CODATA2018();
     c = cd.c;
@@ -95,16 +96,19 @@ difference of c2 = 0.01438776877 to h * c / k is -5.03934e-12
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a>  &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CODATA2018.m"> CODATA2018.m</a>
 % </p>
 % </html>
 %
-% Returns a struct with CODATA constants relevant to illumination, and some more
+% Returns CODATA constants relevant to illumination, and some more
 %% Syntax
-% |cd = CODATA2018()|
+% |cd = CODATA2018(varargin)|
 %% Input Arguments
-% * None
+% * |varargin|: optional character string. May be any of the field names below, e.g. |'b'| or |NA|.
 %% Output Arguments
+% When no optional argument is present:
+%
 % |cd|: struct with fields
 % * |b|:= Wien wavelength displacement law constant
 % * |bprime|:= Wien frequency displacement law constant
@@ -125,6 +129,9 @@ difference of c2 = 0.01438776877 to h * c / k is -5.03934e-12
 % 
 % Each field is a struct, with fields |name| (the same names as above), |value| (the value), |reluncertainty| (the
 % relative uncertainty), |absuncertainty| (absolute uncertainty), and |unit| (the physical unit)
+% 
+% When the optional argument is given, |cd| is the requested physical constant information
+% struct.
 %% Algorithm
 % Creates |cd| using data from NIST, <https://physics.nist.gov/cuu/Constants/index.html>
 %% See also
@@ -139,7 +146,7 @@ difference of c2 = 0.01438776877 to h * c / k is -5.03934e-12
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
-function cd = CODATA2018()
+function cd = CODATA2018(varargin)
 % function cd = CODATA2018()
 % from https://physics.nist.gov/cuu/Constants/index.html
     persistent rv;
@@ -162,7 +169,16 @@ function cd = CODATA2018()
         rv.c1L= MakeEntry('first radiation constant for spectral radiance, 2 h c^2', 1.191042972E-16, 0, 'W m^2 sr^-1');
         rv.c2 = MakeEntry('second radiation constant, h c / k', 0.01438776877, 0, 'm K');
     end
-    cd = rv;
+    if nargin == 0
+        cd = rv;
+    else
+        name = varargin{1};
+        if isfield(rv, name)
+            cd = rv.(name);
+        else
+            error('CODATA2018: unknown physical constant %s',name);
+        end
+    end
 end
 
 function rv = MakeEntry(name,value,uncertainty,unit)

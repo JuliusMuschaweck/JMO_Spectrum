@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>LinInterpolAdd4Async</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="LinInterpolAdd4Async.m"><style type="text/css">
+      --><title>LinInterpolAdd4Async</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="LinInterpolAdd4Async.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../LinInterpolAdd4Async.m"> LinInterpolAdd4Async.m</a>
 </p>
 </p><p>From four tabulated functions <tt>yy0(xx0) ... yy3(xx3)</tt>, compute the sum of the four interpolated functions over the same query grid <tt>xq</tt>, using four processors in parallel</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>yq = LinInterpolAdd4Async(xx0,yy0,xx1,yy1,xx2,yy2,xx3,yy3,xq)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>xx0</tt>: double vector, array of <tt>x</tt> values. Must be strictly ascending and have at least length 2 (unchecked preconditions).</li><li><tt>yy0</tt>: double vector, array of function values. Must have at least same length as <tt>xx0</tt> (unchecked precondition); if longer, the excess values are ignored.</li><li><tt>xx1, xx2, xx3</tt>: same as <tt>xx0</tt> for the other three functions</li><li><tt>yy1, yy2, yy3</tt>: same as <tt>yyx0</tt> for the other three functions</li><li><tt>xq</tt>: double vector, array of query values. Must be strictly ascending if length &gt; 1</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>yq</tt>: double vector, same length as <tt>xq</tt>, the sum of values the four individual interpolated functions at <tt>xq</tt></li></ul></div><h2 id="4">Algorithm</h2><p>Computes the same result as Matlab's <tt>interp1(xx0, yy0, xq, 'linear', 0) + interp1(xx1, yy1, xq, 'linear', 0) + interp1(xx2, yy2, xq, 'linear', 0) + interp1(xx3, yy3, xq, 'linear', 0)</tt>. (In fact, the routine forwards to precisely this call if the platform is not a Windows PC or if the routine is used in Gnu Octave). On a Windows PC under Matlab, the call is forwarded to a C++ DLL (see the <tt>LinInterpol</tt> subdirectory for the Visual Studio c++ project and source code). In the DLL, multithreading is used. This function may be faster than the synchronous call to <tt>LinInterpol(xx0,yy0,xq) + ... + LinInterpol(xx3,yy3,xq)</tt>, depending on hardware.</p><h2 id="5">See also</h2><p><a href="LinInterpol.html">LinInterpol</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleLinInterpolAdd4Async()
@@ -119,8 +120,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
    
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">LinInterpol: 3.98685e-05 seconds per call
-LinInterpolAdd4Async: 0.000188534 seconds per call
+</pre><pre class="codeoutput">LinInterpol: 4.32721e-05 seconds per call
+LinInterpolAdd4Async: 0.000158151 seconds per call
 </pre><img vspace="5" hspace="5" src="LinInterpolAdd4Async_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% LinInterpolAdd4Async
@@ -129,7 +130,8 @@ LinInterpolAdd4Async: 0.000188534 seconds per call
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../LinInterpolAdd4Async.m"> LinInterpolAdd4Async.m</a>
 % </p>
 % </html>
 %

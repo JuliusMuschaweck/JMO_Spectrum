@@ -4,11 +4,27 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../RainbowColorMap.m"> RainbowColorMap.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% A rainbow color map to be used with Matlab's 'colormap' function
+%% Syntax
+% |rv = RainbowColorMap(nn)|
+%% Input Arguments
+% * |nn|: scalar positive integer. Number of colors in map, 256 is a good value in many
+% cases.
+%% Output Arguments
+% * |rv|: double array, size |(nn,3)|. The color map.
+%% Usage Example
+% <include>Examples/ExampleRainbowColorMap.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function rv = RainbowColorMap(nn)
 % RainbowColorMap(nn) returns a rainbow colormap with nn columns (256 is good)

@@ -4,11 +4,12 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CauchyFromAbbe.m"> CauchyFromAbbe.m</a>
 % </p>
 % </html>
 %
-% Computes the first two Cauchy dispersion coefficients from index/Abbe number
+% Computes the first two Cauchy dispersion coefficients from index and Abbe number
 %% Syntax
 % function rv = CauchyFromAbbe(n, v, opts)
 %% Input Arguments

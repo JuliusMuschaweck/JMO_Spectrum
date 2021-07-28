@@ -39,25 +39,26 @@ publishWithStandardExample('MatchAdditiveMix.m');
 
 publishWithStandardExample('MatchWhiteLEDSpectrum.m'); % see ExampleMatchWhiteLEDSpectrum.m
 publishWithStandardExample('MultiplySpectra.m');
-publish('Octave_xyz2rgb.m','evalCode',false,'showCode',false);
 publishWithStandardExample('PlanckLocus.m');
 publishWithStandardExample('PlanckSpectrum.m');
 publishWithStandardExample('PlotCIExyBorder.m');
+publishWithStandardExample('PlotCIEupvpBorder.m');
+publishWithStandardExample('PlotCRIResult.m');
+publishWithStandardExample('RainbowColorMap.m');
+publishWithStandardExample('ReadASCIITableFile.m');
+publishWithStandardExample('ReadASCIITableSpectrumFile.m');
+publishWithStandardExample('ReadLightToolsSpectrumFile.m');
 publishWithStandardExample('ResampleSpectrum.m');
+
+publishWithStandardExample('sRGB_to_XYZ.m');
+
 % COBYLA.m
 % Example_WhiteLED.m
 NotYetDocumented('OptimalAdditiveMix.m');
-NotYetDocumented('PlotCIEupvpBorder.m');
-NotYetDocumented('PlotCRIResult.m'); % see ExamplePlotCRIResult.m
-NotYetDocumented('RainbowColorMap.m');
-NotYetDocumented('ReadASCIITableFile.m');
-NotYetDocumented('ReadASCIITableSpectrumFile.m');
-NotYetDocumented('ReadLightToolsSpectrumFile.m');
 NotYetDocumented('RGBLEDSpectrum.m');
 NotYetDocumented('ShiftToLdom.m');
 NotYetDocumented('SolarSpectrum.m');
 NotYetDocumented('SpectrumSanityCheck.m');
-NotYetDocumented('sRGB_to_XYZ.m');
 NotYetDocumented('TestMacAdamEllipse.m');
 NotYetDocumented('Vlambda.m');
 NotYetDocumented('WriteLightToolsSpectrumFile.m');

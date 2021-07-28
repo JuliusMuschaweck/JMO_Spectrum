@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>GaussSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="GaussSpectrum.m"><style type="text/css">
+      --><title>GaussSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="GaussSpectrum.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../GaussSpectrum.m"> GaussSpectrum.m</a>
 </p>
 </p><p>Creates a Gaussian spectrum, normalized to peak = 1.0</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = GaussSpectrum(lam_vec,mean,sdev,varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lam_vec</tt>: double vector, positive, strictly ascending. The wavelengths</li><li><tt>mean</tt>: scalar double. Mean value around which the spectrum is centered</li><li><tt>sdev</tt>: scalar double. Standard deviation of spectrum around <tt>mean</tt></li><li><tt>varargin</tt>: character string. When <tt>'val_only'</tt> returns only the value array, not a spectrum</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: <tt>struct</tt>. A valid spectrum</li></ul></div><h2 id="4">Algorithm</h2><p>Computes the values as <tt>exp(- (lam_vec-mean).^2 / (2 * sdev^2))</tt>. Note that the actual maximum of the value array may be <tt>max(rv.val) &lt; 1</tt>, and is only <tt>max(rv.val) == 1</tt> if <tt>lam_vec</tt> contains <tt>mean</tt> as one of the wavelengths.</p><h2 id="5">See also</h2><p><a href="PlanckSpectrum.html">PlanckSpectrum</a>, <a href="CIE_Illuminant.html">CIE_Illuminant</a>, <a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleGaussSpectrum()
@@ -96,7 +97,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../GaussSpectrum.m"> GaussSpectrum.m</a>
 % </p>
 % </html>
 %

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>LDomPurity</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="LDomPurity.m"><style type="text/css">
+      --><title>LDomPurity</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="LDomPurity.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../LDomPurity.m"> LDomPurity.m</a>
 </p>
 </p><p>Computes dominant wavelength and purity</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[ldom, purity] = LDomPurity(rhs)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>rhs</tt>: A valid spectrum (see <a href="IsSpectrum.html">IsSpectrum</a> for what that is), or</li><li><tt>rhs</tt>: alternatively, a struct with fieldy <tt>x</tt> and <tt>y</tt> (a CIE 1931 color point), or</li><li><tt>rhs</tt>: alternatively, a double vector of length 2, interpreted as an x-y CIE 1931 color point</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>ldom</tt>: scalar double: the dominant wavelength in nm. Negative when color point lies towards magenta line. 555 nm when color point coincides with white point within roundoff.</li><li><tt>purity</tt>: scalar double: the relative distance from the <tt>[1/3, 1/3]</tt> white point to the monochromatic border.    Negative when colorpoint lies towards magenta line. Zero when color point coincides with white point within roundoff.</li></ul></div><h2 id="4">Algorithm</h2><p>First, computes the angle of the line from white point to border, to see if that is towards the monochromatic border or towards magenta line. Then, finds that monochromatic wavelength whose border point leads to the same angle, by iterative root finding. The monochromatic border points are taken from the CIE standard in 1 nm steps. In between a 1 nm interval, linear interpolation is used.</p><h2 id="5">See also</h2><p><a href="CIE1931_Data.html">CIE1931_Data</a>, <a href="ShiftToLdom.html">ShiftToLdom</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleLDomPurity()
@@ -109,7 +110,8 @@ ldom = -531.109, purity = -0.392247 for magenta
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../LDomPurity.m"> LDomPurity.m</a>
 % </p>
 % </html>
 %

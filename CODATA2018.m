@@ -4,16 +4,19 @@
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a>  &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CODATA2018.m"> CODATA2018.m</a>
 % </p>
 % </html>
 %
-% Returns a struct with CODATA constants relevant to illumination, and some more
+% Returns CODATA constants relevant to illumination, and some more
 %% Syntax
-% |cd = CODATA2018()|
+% |cd = CODATA2018(varargin)|
 %% Input Arguments
-% * None
+% * |varargin|: optional character string. May be any of the field names below, e.g. |'b'| or |NA|.
 %% Output Arguments
+% When no optional argument is present:
+%
 % |cd|: struct with fields
 % * |b|:= Wien wavelength displacement law constant
 % * |bprime|:= Wien frequency displacement law constant
@@ -34,6 +37,9 @@
 % 
 % Each field is a struct, with fields |name| (the same names as above), |value| (the value), |reluncertainty| (the
 % relative uncertainty), |absuncertainty| (absolute uncertainty), and |unit| (the physical unit)
+% 
+% When the optional argument is given, |cd| is the requested physical constant information
+% struct.
 %% Algorithm
 % Creates |cd| using data from NIST, <https://physics.nist.gov/cuu/Constants/index.html>
 %% See also
@@ -48,7 +54,7 @@
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
-function cd = CODATA2018()
+function cd = CODATA2018(varargin)
 % function cd = CODATA2018()
 % from https://physics.nist.gov/cuu/Constants/index.html
     persistent rv;
@@ -71,7 +77,16 @@ function cd = CODATA2018()
         rv.c1L= MakeEntry('first radiation constant for spectral radiance, 2 h c^2', 1.191042972E-16, 0, 'W m^2 sr^-1');
         rv.c2 = MakeEntry('second radiation constant, h c / k', 0.01438776877, 0, 'm K');
     end
-    cd = rv;
+    if nargin == 0
+        cd = rv;
+    else
+        name = varargin{1};
+        if isfield(rv, name)
+            cd = rv.(name);
+        else
+            error('CODATA2018: unknown physical constant %s',name);
+        end
+    end
 end
 
 function rv = MakeEntry(name,value,uncertainty,unit)

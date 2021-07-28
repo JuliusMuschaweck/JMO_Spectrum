@@ -1,10 +1,11 @@
-%% Octave xyz2rgb
+%% Octave_xyz2rgb
 % 
 % <html>
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
 % <a href="GroupedList.html"> Grouped list</a>
+% Source code: <a href = "file:../Octave_xyz2rgb.m"> Octave_xyz2rgb.m</a></html>
 % </p>
 % </html>
 %
@@ -55,15 +56,15 @@
 % ## algorithm taken from the following book:
 % ## Burger, Burge "Digitale Bildverarbeitung", 3rd edition (2015)
 
-function rgb = xyz2rgb (xyz)
+function rgb = Octave_xyz2rgb (xyz)
 
-  if (nargin != 1)
+  if (nargin ~= 1)
     print_usage ();
-  endif
+  end
 
   [xyz, cls, sz, is_im, is_nd, is_int] ...
     = colorspace_conversion_input_check ("xyz2rgb", "XYZ", xyz, 1);
-  #  only accept single and double inputs because valid xyz values can be >1
+  % #  only accept single and double inputs because valid xyz values can be >1
 
   % ## transform from CIE XYZ to linear sRGB values with whitepoint D65
   % ## (source of matrix: book of Burger)
@@ -72,11 +73,11 @@ function rgb = xyz2rgb (xyz)
     -0.969256, 1.875992, 0.041556;
     0.055648, -0.204043, 1.057311];
 
-  # Matlab uses the following slightly different conversion matrix
-  # matrix_xyz2rgb_D65 = ...
-  #  [3.2406, -1.5372, -0.4986;
-  #  -0.9689, 1.8758, 0.0415;
-  #  0.0557, -0.2040, 1.0570];
+%   # Matlab uses the following slightly different conversion matrix
+%   # matrix_xyz2rgb_D65 = ...
+%   #  [3.2406, -1.5372, -0.4986;
+%   #  -0.9689, 1.8758, 0.0415;
+%   #  0.0557, -0.2040, 1.0570];
 
   rgb_lin = xyz * matrix_xyz2rgb_D65';
 

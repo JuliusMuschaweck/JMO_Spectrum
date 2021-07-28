@@ -11,13 +11,13 @@
 %% Spectrum
 % In this library, a spectrum is a struct with at least two fields named |lam| and |val|, which meet the following requirements:
 %
-% * |lam| is a 1D vector of numeric values which are not complex, > 0, and strictly ascending.
-% * |val| is a 1D vector of numeric values which are not complex.
+% * |lam| is a 1D vector of real numbers, all > 0, and strictly ascending.
+% * |val| is a 1D vector of real numbers.
 % * |lam| and |val| are of same length and have at least two elements.
 % 
 % It is desirable, but not necessary, for |lam| and |val| to be column vectors.
 % 
-% There is a function |rv = SpectrumSanityCheck(rhs)| (see <SpectrumSanityCheck.html here>, which tests all these requirements 
+% There is a function |rv = SpectrumSanityCheck(rhs)| (see <SpectrumSanityCheck.html here>), which tests all these requirements 
 % and, if met, returns the same struct except that |lam| and |val| are converted to column vectors if necessary.
 % 
 % A spectrum models the function S(lambda) which represents a physical scalar function of wavelength. Like spectral radiant flux, spectral irradiance, 

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ResampleSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="ResampleSpectrum.m"><style type="text/css">
+      --><title>ResampleSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="ResampleSpectrum.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -72,6 +72,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
+Source code: <a href = "file:../ResampleSpectrum.m"> ResampleSpectrum.m</a>
 </p>
 </p><p>Assign a new wavelength vector to a spectrum, interpolating the old values.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Author's notice</a></li><li><a href="#7">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>function rv = ResampleSpectrum(spectrum, lam_new)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spectrum</tt>: scalar, valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li><li><tt>lam_new</tt>: 1-D vector of double, valid wavelength array (positive, stricly ascending)</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A copy of the old spectrum with all fields, but <tt>lam</tt> is replaced and <tt>val</tt> is linearly interpolated. For <tt>lam_new values</tt> outside the old interval, <tt>val(i) == 0</tt></li></ul></div><h2 id="4">Algorithm</h2><p>See Output Arguments</p><h2 id="5">See also</h2><p><a href="EvalSpectrum.html">EvalSpectrum</a></p><h2 id="6">Author's notice</h2><p>JMO Spectrum Library, 2021. See <a href="https://github.com/JuliusMuschaweck/JMO_Spectrum">https://github.com/JuliusMuschaweck/JMO_Spectrum</a> for complete up to date code and documentation. I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></p><h2 id="7">Usage Example</h2><pre class="error">File 'ExampleResampleSpectrum.m' not found.</pre><pre class="codeoutput">
 s_new = 
@@ -90,6 +91,7 @@ s_new =
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
 % <a href="GroupedList.html"> Grouped list</a>
+% Source code: <a href = "file:../ResampleSpectrum.m"> ResampleSpectrum.m</a>
 % </p>
 % </html>
 %

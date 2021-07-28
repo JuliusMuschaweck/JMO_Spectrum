@@ -8,4 +8,5 @@ function publishWithStandardExample(fn)
     fprintf('publishing %s\n',fn);
     drawnow;
     publish([fn,'.m'],'evalCode',true,'showCode',false,'codeToEvaluate',strcat('runExample(''Example',fn,''')'));
+    open(['html/',fn,'.html']);
 end

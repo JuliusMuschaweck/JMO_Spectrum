@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE_Lab</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-19"><meta name="DC.source" content="CIE_Lab.m"><style type="text/css">
+      --><title>CIE_Lab</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="CIE_Lab.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
-<a href="GroupedList.html"> Grouped list</a>
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../CIE_Lab.m"> CIE_Lab.m</a>
 </p>
 </p><p>Computes CIELAB L*, a*, b* values from XYZ tristimulus values</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_Lab(XYZ, XYZn)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values for which Lab values shall be computed</li><li><tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ</tt> is taken</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt>. <tt>L</tt> is the lightness, which should be between 0 (totally black) and 100 (the reference white). <tt>a &gt; 0</tt> for reddish, <tt>a &lt; 0</tt> for greenish hues, and <tt>b &gt; 0</tt> for yellowish, <tt>b &lt; 0</tt> for bluish hues.</li></ul></div><h2 id="4">Algorithm</h2><p>Applies the CIELAB formulas (8.3) to (8.11) according to section 8.2.1. of CIE 015:2018</p><h2 id="5">See also</h2><p><a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="CIE_Luv.html">CIE_Luv</a>, <a href="CIE_upvp.html">CIE_upvp</a></p><h2 id="6">Usage Example</h2><pre class="error">File 'Examples/ExampleCIE_Lab.m' not found.</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -81,7 +82,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %  <p style="font-size:75%;">Navigate to: &nbsp; 
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
-% <a href="GroupedList.html"> Grouped list</a>
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CIE_Lab.m"> CIE_Lab.m</a>
 % </p>
 % </html>
 %

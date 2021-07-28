@@ -89,26 +89,31 @@
 % 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
 %
+% <PlotCIEupvpBorder.html PlotCIEupvpBorder> plots the CIE u'v' monochromatic border, with optional color fill and other options
+% 
 % <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
 % 
+% <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
+% 
+% <RainbowColorMap.html RainbowColorMap> A rainbow color map to be used with Matlab's 'colormap' function
+% 
+% <ReadASCIITableFile.html ReadASCIITableFile> Reads a matrix of numbers from an ASCII text file, with optional delimiter control and
+% generic comment line handling.
+% 
+% <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile> Reads an (n x 2) matrix of numbers from an ASCII text file, with optional delimiter control and
+% generic comment line handling, and creates a spectrum from these two columns
+% 
+% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>  Reads a spectrum from an ASCII text file in LightTools(R) spectrum format with comment line
+% handling.
+%
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
 % 
+% <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
-% 
-% <PlotCRIResult.html PlotCRIResult>
-% 
-% <ExamplePlotCRIResult.html ExamplePlotCRIResult>
-% 
-% <RainbowColorMap.html RainbowColorMap>
-% 
-% <ReadASCIITableFile.html ReadASCIITableFile>
-% 
-% <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile>
-% 
-% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>
+
 % 
 % <RGBLEDSpectrum.html RGBLEDSpectrum>
 % 

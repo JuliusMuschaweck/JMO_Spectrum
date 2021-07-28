@@ -17,8 +17,20 @@
 % 
 % <GaussSpectrum.html GaussSpectrum> creates a Gaussian spectrum, normalized to peak = 1.0
 % 
+% <MakeSpectrum.html MakeSpectrum> creates a spectrum struct out of fields lam and val, with sanity checks
+% 
+% <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
+% 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
 %
+% <ReadASCIITableFile.html ReadASCIITableFile> Reads a matrix of numbers from an ASCII text file, with optional delimiter control and
+% generic comment line handling.
+% 
+% <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile> Reads an (n x 2) matrix of numbers from an ASCII text file, with optional delimiter control and
+% generic comment line handling, and creates a spectrum from these two columns
+% 
+% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>  Reads a spectrum from an ASCII text file in LightTools(R) spectrum format with comment line
+% handling.
 %% Add, modify, transform spectra
 %
 % <AddSpectra.html AddSpectra> adds two spectra without weights.
@@ -67,6 +79,8 @@
 % <MacAdamEllipse_g.html MacAdamEllipse_g> helper function for <MacAdamEllipse.html MacAdamEllipse>
 % 
 % <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
+% 
+% <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
 %% Utility functions
 %
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
@@ -92,25 +106,20 @@
 % 
 % <LinInterpolAdd4Async.html LinInterpolAdd4Async> from four tabulated functions yy0(xx0) ... yy3(xx3), compute the sum of the four interpolated functions over the same query grid xq, using four processors in parallel
 % 
-% <MakeSpectrum.html MakeSpectrum> creates a spectrum struct out of fields lam and val, with sanity checks
-% 
-% <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
-% 
 % <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
 % superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
 %
 % <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
+%
+% <PlotCIEupvpBorder.html PlotCIEupvpBorder> plots the CIE u'v' monochromatic border, with optional color fill and other options
+% 
+% <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
+% 
+% <RainbowColorMap.html RainbowColorMap> A rainbow color map to be used with Matlab's 'colormap' function
+%
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>
-% 
-% <PlotCIExyBorder.html PlotCIExyBorder>
-% 
-% <PlotCRIResult.html PlotCRIResult>
-% 
-% <ExamplePlotCRIResult.html ExamplePlotCRIResult>
-% 
-% <RainbowColorMap.html RainbowColorMap>
 % 
 % <ReadASCIITableFile.html ReadASCIITableFile>
 % 

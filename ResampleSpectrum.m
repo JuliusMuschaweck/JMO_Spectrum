@@ -5,6 +5,7 @@
 % <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
 % <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
 % <a href="GroupedList.html"> Grouped list</a>
+% Source code: <a href = "file:../ResampleSpectrum.m"> ResampleSpectrum.m</a>
 % </p>
 % </html>
 %
