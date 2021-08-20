@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ShiftToLdom</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="ShiftToLdom.m"><style type="text/css">
+      --><title>ShiftToLdom</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-30"><meta name="DC.source" content="ShiftToLdom.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +67,39 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>ShiftToLdom</h1><p>
+  </style></head><body><div class="content"><h1>ShiftToLdom</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 Source code: <a href = "file:../ShiftToLdom.m"> ShiftToLdom.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Shifts the wavelength array of a spectrum such that the desired dominant wavelength results.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec_in</tt>: struct, a valid spectrum (see <a href="docDesignDecisions.html">design decisions</a> for requirements). The spectrum whose wavelength shall be shifted</li><li><tt>ldom</tt>: scalar double. The target dominant wavelength in nm. Must be &gt;= 400 and &lt;= 695</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>spec_out</tt>: struct, a valid spectrum. Same <tt>val</tt> as the input spectrum, but a constant shift has been added to <tt>lam</tt> in order to achieve the desired dominant wavelength.</li></ul></div><h2 id="4">Algorithm</h2><p>Iteratively applies a candidate shift, computes the resulting dominant wavelength, and adjusts the candidate shift until agreement is reached within roundoff error. See <a href="LDomPurity.html">LDomPurity</a> for definition of dominant wavelength.</p><h2 id="5">See also</h2><p><a href="FindRoot1D.html">FindRoot1D</a>, <a href="LDomPurity.html">LDomPurity</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleShiftToLdom()
+    blue = ReadLightToolsSpectrumFile(<span class="string">'LERTDUW_S2WP_blue.sre'</span>);
+    ldom_0 = LDomPurity(blue);
+    blue.XYZ = CIE1931_XYZ(blue);
+    fprintf(<span class="string">'Dominant wavelength of blue LED is %g nm\n'</span>,ldom_0);
+    ldom_target = 470;
+    [blue470, shift] = ShiftToLdom(blue, ldom_target);
+    blue470.XYZ = CIE1931_XYZ(blue470);
+    test470 = LDomPurity(blue470);
+    fprintf(<span class="string">'Dominant wavelength of shifted blue LED is %g nm, should be %g nm, difference = %g nm\n'</span>,<span class="keyword">...</span>
+        test470,ldom_target,test470-ldom_target);
+    fprintf(<span class="string">'Wavelength shift of %g nm required to achieve dominant wavelength shift of %g nm\n'</span>,shift,ldom_target-ldom_0);
+    figure();
+    hold <span class="string">on</span>;
+    plot(blue.lam,blue.val,<span class="string">'b'</span>);
+    plot(blue470.lam, blue470.val,<span class="string">'Color'</span>,[0,0.3,0.7]);
+    legend({<span class="string">'original blue'</span>,<span class="string">'shifted blue'</span>});
+    ah = PlotCIExyBorder();
+    plot(ah, [blue.XYZ.x, blue470.XYZ.x],[blue.XYZ.y, blue470.XYZ.y],<span class="string">'Marker'</span>,<span class="string">'o'</span>);
+    axis([0.05, 0.2, -0.05,0.1]); 
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">Dominant wavelength of shifted blue LED is 470 nm, should be 470 nm, difference = -5.68434e-14 nm
+Wavelength shift of 24.0232 nm required to achieve dominant wavelength shift of 15.3332 nm
+</pre><img vspace="5" hspace="5" src="ShiftToLdom_01.png" alt=""> <img vspace="5" hspace="5" src="ShiftToLdom_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% ShiftToLdom
 % 
@@ -87,7 +112,32 @@ Source code: <a href = "file:../ShiftToLdom.m"> ShiftToLdom.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% Shifts the wavelength array of a spectrum such that the desired dominant wavelength
+% results.
+%% Syntax
+% |[spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)|
+%
+%% Input Arguments
+% * |spec_in|: struct, a valid spectrum (see <docDesignDecisions.html design decisions> for
+% requirements). The spectrum whose wavelength shall be shifted
+% * |ldom|: scalar double. The target dominant wavelength in nm. Must be >= 400 and <= 695
+%% Output Arguments
+% * |spec_out|: struct, a valid spectrum. Same |val| as the input spectrum, but a constant shift has been added to |lam| 
+% in order to achieve the desired dominant wavelength. 
+%% Algorithm
+% Iteratively applies a candidate shift, computes the resulting dominant wavelength, and
+% adjusts the candidate shift until agreement is reached within roundoff error. 
+% See <LDomPurity.html LDomPurity> for definition of dominant wavelength.
+%% See also
+% <FindRoot1D.html FindRoot1D>, <LDomPurity.html LDomPurity>
+%% Usage Example
+% <include>Examples/ExampleShiftToLdom.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function [spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)
     % delta_lam must be added to spec_in to get dominant wavelength ldom

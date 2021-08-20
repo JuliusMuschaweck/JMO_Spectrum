@@ -9,8 +9,42 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Writes a spectrum to a text file in LightTools .sre format
+%% Syntax
+% |WriteLightToolsSpectrumFile(spectrum, filename, varargin)|
 %
+%% Input Arguments
+% * |spectrum|: valid spectrum struct, see <docDesignDecisions.html requirements>.
+% * |filename|: character string. If the filename does not have extension |'.sre'|, that
+% extension is appended.
+% * |varargin|: Name-Value pairs
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>  </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'mode'       </td> <td> character string   </td> <td> 'continuous' (default) or 'discrete' </td> <td> Written to the LightTools file </td></tr>
+% <tr><td> 'comment'    </td> <td> character string or cell array of strings </td> <td> '' (default) </td> <td> Written to the LightTools file </td></tr>
+% </table>
+% </p>
+% </html>
+%
+%% Output Arguments
+% None
+%% Algorithm
+% Opens the file with |filename| for writing, writes an appropriate LightTools header, and
+% then |lam| and |val| into the following lines, one pair per line
+%% See also
+% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>
+%% Usage Example
+% <include>Examples/ExampleWriteLightToolsSpectrumFile.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
 function WriteLightToolsSpectrumFile(spectrum, filename, varargin)
 % function WriteLightToolsSpectrumFile(spectrum, filename, varargin)
 % Action: Write LightTools .sre spectrum file, to assign to a source

@@ -9,15 +9,33 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% returns spectrum (fields lam and val) for Vlambda with |lam == 360:830|
+%% Syntax
+% |rv = Vlambda()|
+%
+%% Input Arguments
+%
+% none
+%
+%% Output Arguments
+% * |rv|: spectrum struct, with |rv.lam == 360:830| and |rv.val| the standardized
+% V(lambda) values, and an appropriate |rv.name| field.
+%% Algorithm
+% Calls <CIE1931_Data.html CIE1931_Data> to retrieve V(lambda) as the y color matching
+% function and returns it.
+%% See also
+% <CIE1931_Data.html CIE1931_Data> <CIE1931_XYZ.html CIE1931_XYZ>
+%% Usage Example
+% <include>Examples/ExampleVlambda.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function rv = Vlambda()
-    % return spectrum (fields lam and val) for Vlambda with lam == 360:830
-    persistent iXYZ;
-    if isempty(iXYZ)
-        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
-        iXYZ = CIE1931XYZ;
-    end
+    iXYZ = CIE1931_Data();
     rv.lam = iXYZ.lam;
     rv.val = iXYZ.y;
     rv.name = 'V(lambda)';

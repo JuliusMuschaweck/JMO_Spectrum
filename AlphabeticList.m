@@ -109,31 +109,25 @@
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
 % 
-% <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
-%% Not Yet Documented
+% <RGBLEDSpectrum.html RGBLEDSpectrum> is a class that models red/green/blue LED spectra under operating conditions, from data sheet
+% information only.
 % 
-% <OptimalAdditiveMix.html OptimalAdditiveMix>
-
-% 
-% <RGBLEDSpectrum.html RGBLEDSpectrum>
-% 
-% <ShiftToLdom.html RGBLEDSpectrum>
-% 
-% <SolarSpectrum.html SolarSpectrum>
-% 
-% <SpectrumSanityCheck.html SpectrumSanityCheck>
-% 
-% <TestCIEDE2000.html TestCIEDE2000>
-% 
-% <TestCRI_vanKries.html TestCRI_vanKries>
-% 
-% <TestLinInterpol.html TestLinInterpol>
-% 
-% <TestMacAdamEllipse.html TestMacAdamEllipse>
-% 
-% <Vlambda.html Vlambda>
-% 
-% <WriteLightToolsSpectrumFile.html WriteLightToolsSpectrumFile>
+% <ShiftToLdom.html ShiftToLdom> shifts the wavelength array of a spectrum such that the desired dominant wavelength
+% results.
 %
-% <XYZ_from_xyY.html XYZ_from_xyY>
+% <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
+% 
+% <SolarSpectrum.html SolarSpectrum> returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
+% 
+% <SpectrumSanityCheck.html SpectrumSanityCheck>  performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 
+% returns a sanitized spectrum when possible 
+% 
+% <Vlambda.html Vlambda> returns spectrum (fields lam and val) for Vlambda, the human eye spectral sensitivity, with |lam == 360:830|
+% 
+% <WriteLightToolsSpectrumFile.html WriteLightToolsSpectrumFile> writes a spectrum to a text file in LightTools .sre format
+%
+% <XYZ_from_xyY.html XYZ_from_xyY> is a simple convenience function to create complete XYZ information from xy color coordinates
+% and flux
+%% Not Yet Documented
+
 

@@ -1,3 +1,4 @@
+
 publishWithStandardExample('AddSpectra.m');
 publishWithStandardExample('AddWeightedSpectra.m');
 publishWithStandardExample('CauchyFromAbbe.m');
@@ -49,20 +50,20 @@ publishWithStandardExample('ReadASCIITableFile.m');
 publishWithStandardExample('ReadASCIITableSpectrumFile.m');
 publishWithStandardExample('ReadLightToolsSpectrumFile.m');
 publishWithStandardExample('ResampleSpectrum.m');
-
+publish('RGBLEDSpectrum.m','evalCode',false,'showCode',false);
+Doc_mlx('TestRGBLED.mlx');
+publishWithStandardExample('ShiftToLdom.m');
+publishWithStandardExample('SolarSpectrum.m');
+publishWithStandardExample('SpectrumSanityCheck.m');
 publishWithStandardExample('sRGB_to_XYZ.m');
+publishWithStandardExample('Vlambda.m');
+publishWithStandardExample('WriteLightToolsSpectrumFile.m');
 
 % COBYLA.m
 % Example_WhiteLED.m
-NotYetDocumented('OptimalAdditiveMix.m');
-NotYetDocumented('RGBLEDSpectrum.m');
-NotYetDocumented('ShiftToLdom.m');
-NotYetDocumented('SolarSpectrum.m');
-NotYetDocumented('SpectrumSanityCheck.m');
-NotYetDocumented('TestMacAdamEllipse.m');
-NotYetDocumented('Vlambda.m');
-NotYetDocumented('WriteLightToolsSpectrumFile.m');
-NotYetDocumented('XYZ_from_xyY.m');
+% NotYetDocumented('OptimalAdditiveMix.m');
+% NotYetDocumented('TestMacAdamEllipse.m');
+publishWithStandardExample('XYZ_from_xyY.m');
 NotYetDocumented('XYZ_to_sRGB.m');
 
 fprintf('publish additional docs\n')

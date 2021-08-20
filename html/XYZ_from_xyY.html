@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>XYZ_from_xyY</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="XYZ_from_xyY.m"><style type="text/css">
+      --><title>XYZ_from_xyY</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-31"><meta name="DC.source" content="XYZ_from_xyY.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +67,35 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>XYZ_from_xyY</h1><p>
+  </style></head><body><div class="content"><h1>XYZ_from_xyY</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../XYZ_from_xyY.m"> XYZ_from_xyY.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Simple convenience function to create complete XYZ information from xy color coordinates and flux</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = XYZ_from_xyY(x, y, Y)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>x</tt>: any array of double. CIE 1931 x color coordinate(s)</li><li><tt>y</tt>: any array of double, same size. CIE 1931 y color coordinate(s)</li><li><tt>Y</tt>: any array of double, same size. CIE 1931 Y tristimulus value</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: struct with fields <tt>x</tt>, <tt>y</tt>, (copies of input), <tt>z == 1 - x - y</tt>, <tt>cw</tt> (the color weight(s)), and <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt> tristimulus values. Identical structure as the output of <a href="CIE1931_XYZ.html">CIE1931_XYZ</a>.</li></ul></div><h2 id="4">Algorithm</h2><p>Applies the generic formulas.</p><h2 id="5">See also</h2><p><a href="CIE1931_XYZ.html">CIE1931_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleXYZ_from_xyY()
+    x = 0.2;
+    y = 0.4;
+    Y = 2;
+    rv = XYZ_from_xyY(x, y, Y)
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+rv = 
+
+  struct with fields:
+
+    cw: 5
+     x: 0.2000
+     y: 0.4000
+     z: 0.4000
+     X: 1
+     Y: 2
+     Z: 2
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% XYZ_from_xyY
 % 
@@ -87,16 +108,41 @@ Source code: <a href = "file:../XYZ_from_xyY.m"> XYZ_from_xyY.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% Simple convenience function to create complete XYZ information from xy color coordinates
+% and flux
+%% Syntax
+% |rv = XYZ_from_xyY(x, y, Y)|
 %
+%% Input Arguments
+% * |x|: any array of double. CIE 1931 x color coordinate(s)
+% * |y|: any array of double, same size. CIE 1931 y color coordinate(s)
+% * |Y|: any array of double, same size. CIE 1931 Y tristimulus value
+%
+%% Output Arguments
+% * |rv|: struct with fields |x|, |y|, (copies of input), |z == 1 - x - y|, |cw| (the color
+% weight(s)), and |X|, |Y|, |Z| tristimulus values. Identical structure as the output of
+% <CIE1931_XYZ.html CIE1931_XYZ>.
+%% Algorithm
+% Applies the generic formulas.
+%% See also
+% <CIE1931_XYZ.html CIE1931_XYZ>
+%% Usage Example
+% <include>Examples/ExampleXYZ_from_xyY.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%%
 function rv = XYZ_from_xyY(x, y, Y)
-    rv.cw = Y/y;
+    rv.cw = Y./y;
     rv.x = x;
     rv.y = y;
     rv.z = 1 - x - y;
-    rv.X = x * rv.cw;
+    rv.X = x .* rv.cw;
     rv.Y = Y;
-    rv.Z = rv.z * rv.cw;
+    rv.Z = rv.z .* rv.cw;
 end
 ##### SOURCE END #####
 --></body></html>

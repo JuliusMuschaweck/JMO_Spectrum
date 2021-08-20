@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE_Illuminant</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="CIE_Illuminant.m"><style type="text/css">
+      --><title>CIE_Illuminant</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-30"><meta name="DC.source" content="CIE_Illuminant.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -83,31 +83,36 @@ Source code: <a href = "file:../CIE_Illuminant.m"> CIE_Illuminant.m</a>
 </table></p>
 </p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A spectrum with fields <tt>lam</tt> (a copy of the input argument), <tt>val</tt> (the spectrum values), and <tt>name</tt> (an appropriate name</li></ul></div><h2 id="4">Algorithm</h2><p>For all except <tt>'D'</tt> or <tt>'E'</tt>, retrieves the data from <tt>CIE_Standard_Illuminants.mat</tt>, searches the appropriate standardized spectrum, and interpolates it over input argument <tt>lam</tt>. For illuminant <tt>'D'</tt>, calls <a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a>. For <tt>'E'</tt>, creates a flat, all <tt>val(i) == 1</tt> spectrum over input argument <tt>lam</tt>.</p><p>The wavelength ranges in the standard are 300 nm to 780 nm in 5 nm steps for <tt>'A';'C';'E','D','D50';'D55';'D65';'D75'</tt>, and 380 nm to 780 nm in 5 nm steps for all <tt>FLxx</tt> and <tt>HPx</tt> and <tt>LEDx</tt> spectra. For <tt>'D'</tt>, the wavelength range of the standard is 300 nm to 830 nm in 5 nm steps.</p><h2 id="5">See also</h2><p><a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIE_Illuminant()
-    names = {<span class="string">'A'</span>,<span class="string">'C'</span>,<span class="string">'E'</span>,<span class="string">'D50'</span>,<span class="string">'D55'</span>,<span class="string">'D65'</span>,<span class="string">'D75'</span>,<span class="string">'FL1'</span>,<span class="string">'FL2'</span>,<span class="string">'FL3'</span>,<span class="string">'FL4'</span>,<span class="string">'FL5'</span>,<span class="string">'FL6'</span>,<span class="string">'FL7'</span>,<span class="string">'FL8'</span>,<span class="string">'FL9'</span>,<span class="string">'FL10'</span>,<span class="string">'FL11'</span>,<span class="string">'FL12'</span>,<span class="keyword">...</span>
-        <span class="string">'FL3_1'</span>,<span class="string">'FL3_2'</span>,<span class="string">'FL3_3'</span>,<span class="string">'FL3_4'</span>,<span class="string">'FL3_5'</span>,<span class="string">'FL3_6'</span>,<span class="string">'FL3_7'</span>,<span class="string">'FL3_8'</span>,<span class="string">'FL3_9'</span>,<span class="string">'FL3_10'</span>,<span class="string">'FL3_11'</span>,<span class="string">'FL3_12'</span>,<span class="string">'FL3_13'</span>,<span class="string">'FL3_14'</span>,<span class="string">'FL3_15'</span>,<span class="keyword">...</span>
-        <span class="string">'HP1'</span>,<span class="string">'HP2'</span>,<span class="string">'HP3'</span>,<span class="string">'HP4'</span>,<span class="string">'HP5'</span>};
+    names_white = {<span class="string">'A'</span>,<span class="string">'C'</span>,<span class="string">'E'</span>,<span class="string">'D50'</span>,<span class="string">'D55'</span>,<span class="string">'D65'</span>,<span class="string">'D75'</span>};
+    names_fluorescent= {<span class="string">'FL1'</span>,<span class="string">'FL2'</span>,<span class="string">'FL3'</span>,<span class="string">'FL4'</span>,<span class="string">'FL5'</span>,<span class="string">'FL6'</span>,<span class="string">'FL7'</span>,<span class="string">'FL8'</span>,<span class="string">'FL9'</span>,<span class="string">'FL10'</span>,<span class="string">'FL11'</span>,<span class="string">'FL12'</span>,<span class="keyword">...</span>
+        <span class="string">'FL3_1'</span>,<span class="string">'FL3_2'</span>,<span class="string">'FL3_3'</span>,<span class="string">'FL3_4'</span>,<span class="string">'FL3_5'</span>,<span class="string">'FL3_6'</span>,<span class="string">'FL3_7'</span>,<span class="string">'FL3_8'</span>,<span class="string">'FL3_9'</span>,<span class="string">'FL3_10'</span>,<span class="string">'FL3_11'</span>,<span class="string">'FL3_12'</span>,<span class="string">'FL3_13'</span>,<span class="string">'FL3_14'</span>,<span class="string">'FL3_15'</span>};
+    names_highpressure = {<span class="string">'HP1'</span>,<span class="string">'HP2'</span>,<span class="string">'HP3'</span>,<span class="string">'HP4'</span>,<span class="string">'HP5'</span>};
+    names_LEDs = {<span class="string">'LED_B1'</span>,<span class="string">'LED_B2'</span>,<span class="string">'LED_B3'</span>,<span class="string">'LED_B4'</span>,<span class="string">'LED_B5'</span>,<span class="string">'LED_BH1'</span>,<span class="string">'LED_RGB1'</span>,<span class="string">'LED_V1'</span>,<span class="string">'LED_V2'</span>};
+    
+    plot1(names_white, <span class="string">'Generic white CIE standard illuminants'</span>,<span class="string">'NorthEastOutside'</span>);
+    plot1(names_fluorescent, <span class="string">'Fluorescent CIE standard illuminants'</span>,<span class="string">'NorthEastOutside'</span>);
+    plot1(names_highpressure, <span class="string">'High pressure lamp CIE standard illuminants'</span>,<span class="string">'NorthEastOutside'</span>);
+    plot1(names_LEDs, <span class="string">'LED CIE standard illuminants'</span>,<span class="string">'NorthEastOutside'</span>);
+    
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> plot1(names, ititle, location)
     figure();
-    clf;
     hold <span class="string">on</span>;
     <span class="keyword">for</span> i = 1:length(names)
         ni = names{i};
         si = CIE_Illuminant(ni);
         plot(si.lam, si.val / mean(si.val));
     <span class="keyword">end</span>
-    title(<span class="string">'CIE standard illuminants'</span>);
-    
-    figure();
-    hold <span class="string">on</span>;
-    sA = CIE_Illuminant(<span class="string">'A'</span>,<span class="string">'lam'</span>,400:2:700);
-    plot(sA.lam, sA.val / max(sA.val));
-    sD50 = CIE_Illuminant(<span class="string">'D50'</span>);
-    plot(sD50.lam, sD50.val / max(sD50.val));
-    sD5600 = CIE_Illuminant(<span class="string">'D'</span>,<span class="string">'T'</span>,5600);
-    plot(sD5600.lam, sD5600.val / max(sD5600.val));
-    legend({<span class="string">'A'</span>,<span class="string">'D50'</span>,<span class="string">'D(5600)'</span>});
+    title(ititle);
+    <span class="keyword">for</span> i = 1:length(names)
+        <span class="comment">% make underscores printable in legend</span>
+        names{i} = replace(names{i}, <span class="string">'_'</span>,<span class="string">'\_'</span>);
+    <span class="keyword">end</span>
+    legend(names,<span class="string">'Location'</span>,location);
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="CIE_Illuminant_01.png" alt=""> <img vspace="5" hspace="5" src="CIE_Illuminant_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="CIE_Illuminant_01.png" alt=""> <img vspace="5" hspace="5" src="CIE_Illuminant_02.png" alt=""> <img vspace="5" hspace="5" src="CIE_Illuminant_03.png" alt=""> <img vspace="5" hspace="5" src="CIE_Illuminant_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% CIE_Illuminant
 % 

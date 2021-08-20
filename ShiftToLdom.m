@@ -9,7 +9,32 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Shifts the wavelength array of a spectrum such that the desired dominant wavelength
+% results.
+%% Syntax
+% |[spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)|
+%
+%% Input Arguments
+% * |spec_in|: struct, a valid spectrum (see <docDesignDecisions.html design decisions> for
+% requirements). The spectrum whose wavelength shall be shifted
+% * |ldom|: scalar double. The target dominant wavelength in nm. Must be >= 400 and <= 695
+%% Output Arguments
+% * |spec_out|: struct, a valid spectrum. Same |val| as the input spectrum, but a constant shift has been added to |lam| 
+% in order to achieve the desired dominant wavelength. 
+%% Algorithm
+% Iteratively applies a candidate shift, computes the resulting dominant wavelength, and
+% adjusts the candidate shift until agreement is reached within roundoff error. 
+% See <LDomPurity.html LDomPurity> for definition of dominant wavelength.
+%% See also
+% <FindRoot1D.html FindRoot1D>, <LDomPurity.html LDomPurity>
+%% Usage Example
+% <include>Examples/ExampleShiftToLdom.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function [spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)
     % delta_lam must be added to spec_in to get dominant wavelength ldom

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>SpectrumSanityCheck</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="SpectrumSanityCheck.m"><style type="text/css">
+      --><title>SpectrumSanityCheck</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-31"><meta name="DC.source" content="SpectrumSanityCheck.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +67,130 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>SpectrumSanityCheck</h1><p>
+  </style></head><body><div class="content"><h1>SpectrumSanityCheck</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 Source code: <a href = "file:../SpectrumSanityCheck.m"> SpectrumSanityCheck.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Performs various checks to see if a spectrum complies with the <a href="docDesignDecisions.html">requirements</a>, returns a sanitized spectrum when possible</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[ok, msg, rv] = SpectrumSanityCheck(spec, varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec</tt>: a struct.</li><li><tt>varargin</tt>: Name-Value pairs</li></ul></div><p>
+<p style="margin-left: 25px">
+<table border=1>
+<tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+<tr><td> 'doThrow'       </td> <td> logical scalar   </td> <td> true (default) </td> <td> When true, an error is thrown on failure. When false, a message is returned</td></tr>
+<tr><td> 'doStrip'       </td> <td> logical scalar   </td> <td> false (default) </td> <td> When true, the returned spectrum has only fields 'lam' and 'val'</td></tr>
+</table>
+</p>
+</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>ok</tt>: scalar logical. True when  <tt>spec</tt> conforms to the requirements.</li><li><tt>msg</tt>: character string. Diagnostic message. Empty when there are no complaints.</li><li><tt>rv</tt>: A valid spectrum struct.</li></ul></div><h2 id="4">Algorithm</h2><p>Checks if</p><div><ul><li>the struct <tt>spec</tt> has fields <tt>lam</tt> and <tt>val</tt>, which must both be vectors of double</li><li>the lengths of <tt>lam</tt> and <tt>val</tt> are the same, and both are all finite reals</li><li><tt>lam</tt> is all positive and strictly ascending</li></ul></div><p>When ok, returns a copy of <tt>spec</tt>, with <tt>lam</tt> and <tt>val</tt> being column vectors. Optionally strips all other fields. When not ok, throws an error, or optionally returns a message and</p><h2 id="5">See also</h2><p><a href="docDesignDecisions.html">Requirements</a>, <a href="MakeSpectrum.html">MakeSpectrum</a>, <a href="MakeSpectrumDirect.html">MakeSpectrumDirect</a>,</p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleSpectrumSanityCheck()
+    good = MakeSpectrum([400, 700], [1 1], <span class="string">'name'</span>,<span class="string">'good'</span>);
+    good
+    [ok, msg, rv] = SpectrumSanityCheck(good);
+    fprintf(<span class="string">'good spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+    rv
+    [~, ~, rvstripped] = SpectrumSanityCheck(good,<span class="string">'doStrip'</span>,true);
+    rvstripped
+
+    bad = struct(<span class="string">'LAM'</span>,[400, 700], <span class="string">'val'</span>, [1 1]);
+    bad
+    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
+    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+
+    bad = struct(<span class="string">'lam'</span>,[400, 399], <span class="string">'val'</span>, [1 1]);
+    bad
+    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
+    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+
+    bad = struct(<span class="string">'lam'</span>,[400, 700], <span class="string">'val'</span>, [1 1 1]);
+    bad
+    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
+    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+
+    bad = struct(<span class="string">'lam'</span>,[400, 700], <span class="string">'val'</span>, [1, 1/0]);
+    bad
+    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
+    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+    
+    bad = struct(<span class="string">'lam'</span>,[-400, 100], <span class="string">'val'</span>, [1 1]);
+    bad
+    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
+    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+good = 
+
+  struct with fields:
+
+     lam: [2&times;1 double]
+     val: [2&times;1 double]
+    name: 'good'
+
+good spectrum: ok = 1, msg = ''
+
+rv = 
+
+  struct with fields:
+
+     lam: [2&times;1 double]
+     val: [2&times;1 double]
+    name: 'good'
+
+
+rvstripped = 
+
+  struct with fields:
+
+    lam: [2&times;1 double]
+    val: [2&times;1 double]
+
+
+bad = 
+
+  struct with fields:
+
+    LAM: [400 700]
+    val: [1 1]
+
+bad spectrum: ok = 0, msg = 'expect field lam'
+
+bad = 
+
+  struct with fields:
+
+    lam: [400 399]
+    val: [1 1]
+
+bad spectrum: ok = 0, msg = 'lam must be strictly ascending'
+
+bad = 
+
+  struct with fields:
+
+    lam: [400 700]
+    val: [1 1 1]
+
+bad spectrum: ok = 0, msg = 'lam / val must be same size'
+
+bad = 
+
+  struct with fields:
+
+    lam: [400 700]
+    val: [1 Inf]
+
+bad spectrum: ok = 0, msg = 'val must be finite'
+
+bad = 
+
+  struct with fields:
+
+    lam: [-400 100]
+    val: [1 1]
+
+bad spectrum: ok = 0, msg = 'lam must be positive'
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% SpectrumSanityCheck
 % 
@@ -87,7 +203,49 @@ Source code: <a href = "file:../SpectrumSanityCheck.m"> SpectrumSanityCheck.m</a
 % </p>
 % </html>
 %
-% documentation to be completed
+% Performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 
+% returns a sanitized spectrum when possible 
+%% Syntax
+% |[ok, msg, rv] = SpectrumSanityCheck(spec, varargin)|
+%
+%% Input Arguments
+% * |spec|: a struct. 
+% * |varargin|: Name-Value pairs
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'doThrow'       </td> <td> logical scalar   </td> <td> true (default) </td> <td> When true, an error is thrown on failure. When false, a message is returned</td></tr>
+% <tr><td> 'doStrip'       </td> <td> logical scalar   </td> <td> false (default) </td> <td> When true, the returned spectrum has only fields 'lam' and 'val'</td></tr>
+% </table>
+% </p>
+% </html>
+%
+%% Output Arguments
+% * |ok|: scalar logical. True when  |spec| conforms to the requirements.
+% * |msg|: character string. Diagnostic message. Empty when there are no complaints.
+% * |rv|: A valid spectrum struct.
+%% Algorithm
+% Checks if
+%
+% * the struct |spec| has fields |lam| and |val|, which must both be vectors of double
+% * the lengths of |lam| and |val| are the same, and both are all finite reals
+% * |lam| is all positive and strictly ascending
+% 
+% When ok, returns a copy of |spec|, with |lam| and |val| being column vectors. Optionally
+% strips all other fields. When not ok, throws an error, or optionally returns a message and 
+%% See also
+% <docDesignDecisions.html Requirements>, <MakeSpectrum.html MakeSpectrum>, <MakeSpectrumDirect.html MakeSpectrumDirect>, 
+%% Usage Example
+% <include>Examples/ExampleSpectrumSanityCheck.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 %
 function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)	
 % function [ok, msg, colspec] = SpectrumSanityCheck(spec, varargin)
@@ -102,23 +260,27 @@ function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)
     addParameter(p, 'doThrow', true, @islogical);
     addParameter(p, 'doStrip', false, @islogical);
     parse(p,varargin{:});
-    msg = [];
-    msg = check( isfield(spec,'lam'), msg, 'expect field lam');
+    msg = check( isfield(spec,'lam'), [], 'expect field lam');
     msg = check( isfield(spec,'val'), msg, 'expect field val');
     if isempty(msg)
         msg = check( isvector(spec.lam), msg, 'lam must be vector');
         msg = check( isvector(spec.val), msg, 'val must be vector');
     end
+    if ~isempty(msg)
+        ok = false;
+        rv = [];
+        return;
+    end
     nn = length(spec.lam);
     if isempty(msg)
         msg = check( nn > 1, msg, 'length of lam must be >= 2 (no line spectra)');
+        msg = check( numel(spec.lam) == numel(spec.val), msg, 'lam / val must be same size');
         msg = check( isreal(spec.lam), msg, 'lam must be real');
-        msg = check( sum(isfinite(spec.lam)) == nn, msg, 'lam must be finite');
+        msg = check( all(isfinite(spec.lam)), msg, 'lam must be finite');
         msg = check( isreal(spec.val), msg, 'val must be real');
-        msg = check( sum(isfinite(spec.val)) == nn, msg, 'val must be finite');
+        msg = check( all(isfinite(spec.val)), msg, 'val must be finite');
     end
     if isempty(msg)
-        msg = check( size(spec.lam) == size(spec.val), msg, 'lam / val must be same size');
         msg = check( sum(spec.lam <= 0) == 0, msg, 'lam must be positive');
         msg = check( isAscending(spec.lam), msg, 'lam must be strictly ascending');
     end
@@ -129,6 +291,8 @@ function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)
     if ok
         if ~(p.Results.doStrip)
             rv = spec;
+        else 
+            rv = MakeSpectrumDirect(spec.lam, spec.lam);
         end
         nn = length(spec.lam);
         rv.lam = reshape(spec.lam,nn,1);

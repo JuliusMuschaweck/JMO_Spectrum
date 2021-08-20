@@ -9,7 +9,36 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Computes sRGB display drive values from desired XYZ tristimulus values
+%% Syntax
+% |rv = XYZ_to_sRGBX, Y, Z, opts)
+%
+%% Input Arguments
+% * |X|: scalar, vector or matrix of double. The tristimulus X values.
+% * |Y|: scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Y values.
+% * |Z|: scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Z values.
+% * |opts|: Optional name-value pair: |'clip'|, logical scalar. Default is false, which may
+% lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When
+% true, negative values are clipped.
+%% Output Arguments
+% * |rv|: struct with fields |R|, |G|, |B| (1 x n row vectors, where |n == numel(X)|), and |RGB|, an nx3 matrix
+% with one sRGB triplet per row.
+%% Algorithm
+% The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
+adsfa asdf
+% created from sRGB values to encode color and brightness. See also 
+% <https://en.wikipedia.org/wiki/SRGB https://en.wikipedia.org/wiki/SRGB> for a detailed
+% description. sRGB values are "gamma corrected": the first step is therefore to remove the
+% gamma correction. For small values, gamma correction is linear, for large absolute values,
+% it is a power function with $\gamma = 2.4$. To cope with negative values, gamma correction
+% f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear
+% RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is
+% converted to $XYZ = M \times RGB$ with the matrix M derived from standardized primaries'
+% tristimulus values. A display white point corresponding to D65 is assumed.
+%% See also
+% <XYZ_to_sRGB.html XYZ_to_sRGB>
+%% Usage Example
+% <include>Examples/ExamplesRGB_to_XYZ.m</include>
 function rv = XYZ_to_sRGB(X, Y, Z, opts)
     arguments
         X (:,:) double

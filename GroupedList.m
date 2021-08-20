@@ -31,6 +31,10 @@
 % 
 % <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>  Reads a spectrum from an ASCII text file in LightTools(R) spectrum format with comment line
 % handling.
+% 
+% <SolarSpectrum.html SolarSpectrum> returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
+% 
+% <Vlambda.html Vlambda> returns spectrum (fields lam and val) for Vlambda, the human eye spectral sensitivity, with |lam == 360:830|
 %% Add, modify, transform spectra
 %
 % <AddSpectra.html AddSpectra> adds two spectra without weights.
@@ -45,10 +49,16 @@
 %
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
+% 
+% <ShiftToLdom.html ShiftToLdom> shifts the wavelength array of a spectrum such that the desired dominant wavelength
+% results.
 %% Modeling LED spectra
 % 
 % <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % Given a white LED spectrum, modifies it to match a desired CIE XYZ target 
 % (e.g. for LEDs from a different white bin, or at different operating conditions)
+% 
+% <RGBLEDSpectrum.html RGBLEDSpectrum> is a class that models red/green/blue LED spectra under operating conditions, from data sheet
+% information only.
 %% Evaluate colorimetric properties
 %
 % <CCT.html CCT> computes the correlated color temperature of a spectrum
@@ -81,6 +91,9 @@
 % <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
 % 
 % <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
+%
+% <XYZ_from_xyY.html XYZ_from_xyY> is a simple convenience function to create complete XYZ information from xy color coordinates
+% and flux
 %% Utility functions
 %
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
@@ -116,7 +129,13 @@
 % <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
 % 
 % <RainbowColorMap.html RainbowColorMap> A rainbow color map to be used with Matlab's 'colormap' function
-%
+% 
+% <SpectrumSanityCheck.html SpectrumSanityCheck>  performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 
+% returns a sanitized spectrum when possible 
+% 
+% <Vlambda.html Vlambda> returns spectrum (fields lam and val) for Vlambda with |lam == 360:830|
+% 
+% <WriteLightToolsSpectrumFile.html WriteLightToolsSpectrumFile> writes a spectrum to a text file in LightTools .sre format
 %% Not Yet Documented
 % 
 % <OptimalAdditiveMix.html OptimalAdditiveMix>

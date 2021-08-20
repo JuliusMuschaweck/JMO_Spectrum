@@ -9,8 +9,43 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
+%% Syntax
+% |rv = SolarSpectrum(type)|
 %
+%% Input Arguments
+% * |type|: character string. 
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Value</b>    </td> <td>  <b>Meaning</b> </td>
+% <tr><td> 'AM0'  </td> <td> Extraterrestrial irradiance spectrum according to ASTM G173-03, from 280 nm to 4000 nm </td>  
+% <tr><td> 'AM15_GlobalTilt'  </td>  <td> Global irradiance spectrum on tilted surface, with air mass 1.5, according to ASTM G173-03, from 280 nm to 4000 nm</td>  
+% <tr><td> 'AM15_Direct_Circumsolar'  </td>  <td> Direct and circumsolar irradiance spectrum on tilted surface, with air mass 1.5, according to ASTM G173-03, from 280 nm to 4000 nm</td>  
+% <tr><td> 'AM0_ASTM_E490'  </td>  <td> Extraterrestrial irradiance spectrum according to ASTM G173-03, from 119.5 nm to 1 mm = 1e6 nm</td>  
+% </table>
+% </p>
+% </html>
+%
+%% Output Arguments
+% * |rv|: struct with fields |lam|, |val| (both double vectors) and |name| (character string), the requested solar spectrum
+%% Algorithm
+% At first call, loads the spectra from 'solarSpectra_AM0_AM15_ASTM_G173_03.mat' and
+% 'solarSpectrum_AM0_ASTM_E_490.mat', storing them in persistent variables to speed up
+% subsequent calls. Returns requested variant. These spectra have both higher resolution and
+% wavelength range compared to the CIE daylight spectra.
+%% See also
+% <CIE_Illuminant_D.html CIE_Illuminant_D>
+%% Usage Example
+% <include>Examples/ExampleSolarSpectrum.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%%
 function rv = SolarSpectrum(type)
     % Return specific solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
     % Parameters:

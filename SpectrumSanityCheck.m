@@ -9,7 +9,49 @@
 % </p>
 % </html>
 %
-% documentation to be completed
+% Performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 
+% returns a sanitized spectrum when possible 
+%% Syntax
+% |[ok, msg, rv] = SpectrumSanityCheck(spec, varargin)|
+%
+%% Input Arguments
+% * |spec|: a struct. 
+% * |varargin|: Name-Value pairs
+%
+% <html>
+% <p style="margin-left: 25px">
+% <table border=1>
+% <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
+% <tr><td> 'doThrow'       </td> <td> logical scalar   </td> <td> true (default) </td> <td> When true, an error is thrown on failure. When false, a message is returned</td></tr>
+% <tr><td> 'doStrip'       </td> <td> logical scalar   </td> <td> false (default) </td> <td> When true, the returned spectrum has only fields 'lam' and 'val'</td></tr>
+% </table>
+% </p>
+% </html>
+%
+%% Output Arguments
+% * |ok|: scalar logical. True when  |spec| conforms to the requirements.
+% * |msg|: character string. Diagnostic message. Empty when there are no complaints.
+% * |rv|: A valid spectrum struct.
+%% Algorithm
+% Checks if
+%
+% * the struct |spec| has fields |lam| and |val|, which must both be vectors of double
+% * the lengths of |lam| and |val| are the same, and both are all finite reals
+% * |lam| is all positive and strictly ascending
+% 
+% When ok, returns a copy of |spec|, with |lam| and |val| being column vectors. Optionally
+% strips all other fields. When not ok, throws an error, or optionally returns a message and 
+%% See also
+% <docDesignDecisions.html Requirements>, <MakeSpectrum.html MakeSpectrum>, <MakeSpectrumDirect.html MakeSpectrumDirect>, 
+%% Usage Example
+% <include>Examples/ExampleSpectrumSanityCheck.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
 %
 function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)	
 % function [ok, msg, colspec] = SpectrumSanityCheck(spec, varargin)
@@ -24,23 +66,27 @@ function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)
     addParameter(p, 'doThrow', true, @islogical);
     addParameter(p, 'doStrip', false, @islogical);
     parse(p,varargin{:});
-    msg = [];
-    msg = check( isfield(spec,'lam'), msg, 'expect field lam');
+    msg = check( isfield(spec,'lam'), [], 'expect field lam');
     msg = check( isfield(spec,'val'), msg, 'expect field val');
     if isempty(msg)
         msg = check( isvector(spec.lam), msg, 'lam must be vector');
         msg = check( isvector(spec.val), msg, 'val must be vector');
     end
+    if ~isempty(msg)
+        ok = false;
+        rv = [];
+        return;
+    end
     nn = length(spec.lam);
     if isempty(msg)
         msg = check( nn > 1, msg, 'length of lam must be >= 2 (no line spectra)');
+        msg = check( numel(spec.lam) == numel(spec.val), msg, 'lam / val must be same size');
         msg = check( isreal(spec.lam), msg, 'lam must be real');
-        msg = check( sum(isfinite(spec.lam)) == nn, msg, 'lam must be finite');
+        msg = check( all(isfinite(spec.lam)), msg, 'lam must be finite');
         msg = check( isreal(spec.val), msg, 'val must be real');
-        msg = check( sum(isfinite(spec.val)) == nn, msg, 'val must be finite');
+        msg = check( all(isfinite(spec.val)), msg, 'val must be finite');
     end
     if isempty(msg)
-        msg = check( size(spec.lam) == size(spec.val), msg, 'lam / val must be same size');
         msg = check( sum(spec.lam <= 0) == 0, msg, 'lam must be positive');
         msg = check( isAscending(spec.lam), msg, 'lam must be strictly ascending');
     end
@@ -51,6 +97,8 @@ function [ok, msg, rv] = SpectrumSanityCheck(spec, varargin)
     if ok
         if ~(p.Results.doStrip)
             rv = spec;
+        else 
+            rv = MakeSpectrumDirect(spec.lam, spec.lam);
         end
         nn = length(spec.lam);
         rv.lam = reshape(spec.lam,nn,1);

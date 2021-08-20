@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Vlambda</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-28"><meta name="DC.source" content="Vlambda.m"><style type="text/css">
+      --><title>Vlambda</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-31"><meta name="DC.source" content="Vlambda.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +67,25 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Vlambda</h1><p>
+  </style></head><body><div class="content"><h1>Vlambda</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../Vlambda.m"> Vlambda.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>returns spectrum (fields lam and val) for Vlambda with <tt>lam == 360:830</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = Vlambda()</tt></p><h2 id="2">Input Arguments</h2><p>none</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: spectrum struct, with <tt>rv.lam == 360:830</tt> and <tt>rv.val</tt> the standardized V(lambda) values, and an appropriate <tt>rv.name</tt> field.</li></ul></div><h2 id="4">Algorithm</h2><p>Calls <a href="CIE1931_Data.html">CIE1931_Data</a> to retrieve V(lambda) as the y color matching function and returns it.</p><h2 id="5">See also</h2><p><a href="CIE1931_Data.html">CIE1931_Data</a> <a href="CIE1931_XYZ.html">CIE1931_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleVlambda()
+    vlam = Vlambda();
+    figure();
+    plot(vlam.lam, vlam.val);
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    ylabel(<span class="string">'V(\lambda)'</span>);
+    grid <span class="string">on</span>;
+    title(<span class="string">'The V(\lambda) human eye sensitivity curve'</span>);
+<span class="keyword">end</span>
+
+</pre><img vspace="5" hspace="5" src="Vlambda_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Vlambda
 % 
@@ -87,15 +98,33 @@ Source code: <a href = "file:../Vlambda.m"> Vlambda.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% returns spectrum (fields lam and val) for Vlambda with |lam == 360:830|
+%% Syntax
+% |rv = Vlambda()|
+%
+%% Input Arguments
+%
+% none
+%
+%% Output Arguments
+% * |rv|: spectrum struct, with |rv.lam == 360:830| and |rv.val| the standardized
+% V(lambda) values, and an appropriate |rv.name| field.
+%% Algorithm
+% Calls <CIE1931_Data.html CIE1931_Data> to retrieve V(lambda) as the y color matching
+% function and returns it.
+%% See also
+% <CIE1931_Data.html CIE1931_Data> <CIE1931_XYZ.html CIE1931_XYZ>
+%% Usage Example
+% <include>Examples/ExampleVlambda.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 function rv = Vlambda()
-    % return spectrum (fields lam and val) for Vlambda with lam == 360:830
-    persistent iXYZ;
-    if isempty(iXYZ)
-        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
-        iXYZ = CIE1931XYZ;
-    end
+    iXYZ = CIE1931_Data();
     rv.lam = iXYZ.lam;
     rv.val = iXYZ.y;
     rv.name = 'V(lambda)';
