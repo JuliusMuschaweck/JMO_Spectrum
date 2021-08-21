@@ -40,7 +40,7 @@
 % The Cauchy dispersion model assumes n = A0 + A1/lambda^2 + A2/lambda^4 + ... When only index nD and Abbe number are
 % given, only A0 and A1 can be computed. See <docCauchyFromAbbe.html docCauchyFromAbbe> for details.
 %% See also
-% <AddWeightedSpectra.html AddWeightedSpectra>
+% 
 %% Usage Example
 % <include>Examples/ExampleCauchyFromAbbe.m</include>
 

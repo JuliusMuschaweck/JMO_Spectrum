@@ -58,13 +58,8 @@ publishWithStandardExample('SpectrumSanityCheck.m');
 publishWithStandardExample('sRGB_to_XYZ.m');
 publishWithStandardExample('Vlambda.m');
 publishWithStandardExample('WriteLightToolsSpectrumFile.m');
-
-% COBYLA.m
-% Example_WhiteLED.m
-% NotYetDocumented('OptimalAdditiveMix.m');
-% NotYetDocumented('TestMacAdamEllipse.m');
 publishWithStandardExample('XYZ_from_xyY.m');
-NotYetDocumented('XYZ_to_sRGB.m');
+publishWithStandardExample('XYZ_to_sRGB.m');
 
 fprintf('publish additional docs\n')
 publish('docDesignDecisions.m','evalCode',true,'showCode',true);

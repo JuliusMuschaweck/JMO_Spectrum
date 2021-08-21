@@ -25,7 +25,7 @@
 %% See also
 % <AddSpectra.html AddSpectra>, <MultiplySpectra.html MultiplySpectra>
 %% Usage Example
-% <include>ExampleAddWeightedSpectra.m</include>
+% <include>Examples/ExampleAddWeightedSpectra.m</include>
 
 % publish with publish('AddWeightedSpectra.m','evalCode',true,'showCode',false,'codeToEvaluate','ExampleAddWeightedSpectra();');
 

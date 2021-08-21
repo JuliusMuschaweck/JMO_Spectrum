@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>WriteLightToolsSpectrumFile</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-31"><meta name="DC.source" content="WriteLightToolsSpectrumFile.m"><style type="text/css">
+      --><title>WriteLightToolsSpectrumFile</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-21"><meta name="DC.source" content="WriteLightToolsSpectrumFile.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,30 +84,20 @@ Source code: <a href = "file:../WriteLightToolsSpectrumFile.m"> WriteLightToolsS
 </p>
 </p><h2 id="3">Output Arguments</h2><p>None</p><h2 id="4">Algorithm</h2><p>Opens the file with <tt>filename</tt> for writing, writes an appropriate LightTools header, and then <tt>lam</tt> and <tt>val</tt> into the following lines, one pair per line</p><h2 id="5">See also</h2><p><a href="ReadLightToolsSpectrumFile.html">ReadLightToolsSpectrumFile</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleWriteLightToolsSpectrumFile()
-    s = MakeSpectrum([400 700], [1 2],<span class="string">'name'</span>,<span class="string">'some example spectrum'</span>);
-    fn = <span class="string">'dum.sre'</span>;
-    WriteLightToolsSpectrumFile(s, fn,<span class="string">'comment'</span>, <span class="string">'some comment'</span>);
-    fh = fopen(fn, <span class="string">'r'</span>);
-    <span class="keyword">while</span> true
-        l = fgetl(fh);
-        <span class="keyword">if</span> isequal(l, -1)
-            <span class="keyword">break</span>;
-        <span class="keyword">end</span>
-        fprintf(<span class="string">'%s\n'</span>,l);
-    <span class="keyword">end</span>
-    fclose(fh);  
-    <span class="syscmd">!del dum.sre</span>
+    spec = MakeSpectrum([400 700],[1 2],<span class="string">'name'</span>,<span class="string">'example spectrum'</span>);
+    WriteLightToolsSpectrumFile(spec, <span class="string">'tmp.sre'</span>);
+    <span class="syscmd">!more tmp.sre</span>
+    <span class="syscmd">!del tmp.sre</span>
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput"># LightTools spectrum file, created 31-Jul-2021 00:50:52
-# some comment
-# name: some example spectrum
-dfat 1.0
-dataname: some example spectrum
-continuous
-radiometric
-400	1
-700	2
+</pre><pre class="codeoutput"># LightTools spectrum file, created 21-Aug-2021 18:15:15 
+# name: example spectrum 
+dfat 1.0 
+dataname: example spectrum 
+continuous 
+radiometric 
+400     1 
+700     2 
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% WriteLightToolsSpectrumFile

@@ -1,11 +1,19 @@
 %% JMO Spectrum Library
-% Version 2.1, July 19, 2021
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a>
+% </p>
+% </html>
+%
+% Version 2.1, August 21, 2021
 % 
 % Julius Muschaweck, JMO GmbH, Zugspitzstr. 66, 82131 Gauting, Germany
 % &nbsp; &nbsp; email: 
-% julius@jmoptics.de?
+% julius@jmoptics.de
 % &nbsp; &nbsp; web: 
 % <https://www.jmoptics.de>
+% 
 %% Rationale
 % We deal routinely with spectra in illumination optics. We need to analyze LED spectra, compute color coordinates and color rendering values from spectra, integrate them, 
 % add spectra, multiply spectra with scalar weights and with other spectra (like transmission spectra), interpolate a given measured spectrum with non-equidistant 

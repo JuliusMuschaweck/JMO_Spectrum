@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>XYZ_to_sRGB</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-30"><meta name="DC.source" content="XYZ_to_sRGB.m"><style type="text/css">
+      --><title>XYZ_to_sRGB</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-21"><meta name="DC.source" content="XYZ_to_sRGB.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +67,50 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>XYZ_to_sRGB</h1><p>
+  </style></head><body><div class="content"><h1>XYZ_to_sRGB</h1><!--introduction--><p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../XYZ_to_sRGB.m"> XYZ_to_sRGB.m</a>
 </p>
-</p><p>documentation to be completed</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</p><p>Computes sRGB display drive values from desired XYZ tristimulus values</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>|rv = XYZ_to_sRGB(X, Y, Z, opts)</p><h2 id="2">Input Arguments</h2><div><ul><li><tt>X</tt>: scalar, vector or matrix of double. The tristimulus X values.</li><li><tt>Y</tt>: scalar, vector or matrix of double, same number of elements as <tt>X</tt>. The tristimulus Y values.</li><li><tt>Z</tt>: scalar, vector or matrix of double, same number of elements as <tt>X</tt>. The tristimulus Z values.</li><li><tt>opts</tt>: Optional name-value pair: <tt>'clip'</tt>, logical scalar. Default is false, which may lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When true, negative values are clipped.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: struct with fields <tt>R</tt>, <tt>G</tt>, <tt>B</tt> (1 x n row vectors, where <tt>n == numel(X)</tt>), and <tt>RGB</tt>, an nx3 matrix with one sRGB triplet per row.</li></ul></div><h2 id="4">Algorithm</h2><p>The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be created from sRGB values to encode color and brightness. See also <a href="https://en.wikipedia.org/wiki/SRGB">&lt;https://en.wikipedia.org/wiki/SRGB</a>&gt; for a detailed description. First, the XYZ tristimulus values are converted to "linear RGB" values, by multiplying with the matrix M specified in the standard. Then, gamma correction is applied to each individual linear R, G or B value: For small absolute values, the correction is linear, for larger absolute values, the correction is a power law. See the standard for details. At this stage, RGB values may be negative or larger than 1. When the <tt>'clip'</tt> option is set to <tt>true</tt>, RGB values outside the <tt>[0,1]</tt> interval are clipped. A value of <tt>RGB == [1, 1, 1]</tt> is obtained for 100% D65 white, with <tt>XYZ == [0.9505, 1.0000, 1.0890]</tt>. Input XYZ values should be scaled accordingly, to obtain RGB values within <tt>[0,1]</tt>.</p><h2 id="5">See also</h2><p><a href="sRGB_to_XYZ.html">sRGB_to_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> Example_XYZ_to_sRGB()
+    <span class="comment">% D65 should be RGB 1-1-1</span>
+    d65XYZ = CIE1931_XYZ(CIE_Illuminant(<span class="string">'D65'</span>));
+    <span class="comment">% d65XYZ.Y == 100 (approximately) by definition -&gt; scale to 1.0000</span>
+    sRGB_d65 = XYZ_to_sRGB(d65XYZ.X/100, d65XYZ.Y/100, d65XYZ.Z/100); 
+    fprintf(<span class="string">'the following values should be all close to zero (differences between expected and actual RGB / XYZ values)\n'</span>);
+    testdiff = sRGB_d65.RGB - [1,1,1]
+    d65XYZ_2 = sRGB_to_XYZ(sRGB_d65.R,sRGB_d65.G,sRGB_d65.B);
+    testdiff_2 = d65XYZ_2.XYZ - 0.01 * [d65XYZ.X, d65XYZ.Y, d65XYZ.Z]
+    
+    n = 10000;
+    rng(<span class="string">'default'</span>);
+    rand_RGB = 3 * rand(n, 3) - 1;
+    rand_XYZ = sRGB_to_XYZ(rand_RGB(:,1),rand_RGB(:,2),rand_RGB(:,3));
+    rand_RGB_2 = XYZ_to_sRGB(rand_XYZ.X,rand_XYZ.Y, rand_XYZ.Z);
+    testdiff_3 = rand_RGB - rand_RGB_2.RGB;
+    fprintf(<span class="string">'the max. error of converting %g random RGB triplets to XYZ and back is %g\n'</span>,n,max(abs(testdiff_3(:))));
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">the following values should be all close to zero (differences between expected and actual RGB / XYZ values)
+
+testdiff =
+
+   1.0e-04 *
+
+   -0.0754    0.1040   -0.8054
+
+
+testdiff_2 =
+
+   1.0e-06 *
+
+   -0.0142    0.0095   -0.1061
+
+the max. error of converting 10000 random RGB triplets to XYZ and back is 4.03561e-06
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% XYZ_to_sRGB
 % 
@@ -87,7 +123,34 @@ Source code: <a href = "file:../XYZ_to_sRGB.m"> XYZ_to_sRGB.m</a>
 % </p>
 % </html>
 %
-% documentation to be completed
+% Computes sRGB display drive values from desired XYZ tristimulus values
+%% Syntax
+% |rv = XYZ_to_sRGB(X, Y, Z, opts)
+%
+%% Input Arguments
+% * |X|: scalar, vector or matrix of double. The tristimulus X values.
+% * |Y|: scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Y values.
+% * |Z|: scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Z values.
+% * |opts|: Optional name-value pair: |'clip'|, logical scalar. Default is false, which may
+% lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When
+% true, negative values are clipped.
+%% Output Arguments
+% * |rv|: struct with fields |R|, |G|, |B| (1 x n row vectors, where |n == numel(X)|), and |RGB|, an nx3 matrix
+% with one sRGB triplet per row.
+%% Algorithm
+% The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
+% created from sRGB values to encode color and brightness. See also 
+% <https://en.wikipedia.org/wiki/SRGB https://en.wikipedia.org/wiki/SRGB> for a detailed
+% description. First, the XYZ tristimulus values are converted to "linear RGB" values, by multiplying with the matrix M
+% specified in the standard. Then, gamma correction is applied to each individual linear R, G or B value: For small absolute values, the correction is linear, for
+% larger absolute values, the correction is a power law. See the standard for details. At this stage, RGB values may be
+% negative or larger than 1. When the |'clip'| option is set to |true|, RGB values outside the |[0,1]| interval are clipped. 
+% A value of |RGB == [1, 1, 1]| is obtained for 100% D65 white, with |XYZ == [0.9505, 1.0000, 1.0890]|. Input XYZ values
+% should be scaled accordingly, to obtain RGB values within |[0,1]|.
+%% See also
+% <sRGB_to_XYZ.html sRGB_to_XYZ>
+%% Usage Example
+% <include>Examples/ExampleXYZ_to_sRGB.m</include>
 function rv = XYZ_to_sRGB(X, Y, Z, opts)
     arguments
         X (:,:) double

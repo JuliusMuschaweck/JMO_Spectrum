@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CauchyFromAbbe</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-30"><meta name="DC.source" content="CauchyFromAbbe.m"><style type="text/css">
+      --><title>CauchyFromAbbe</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-21"><meta name="DC.source" content="CauchyFromAbbe.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -83,7 +83,7 @@ Source code: <a href = "file:../CauchyFromAbbe.m"> CauchyFromAbbe.m</a>
 <tr><td> 'Cauchy_wlu' </td>     <td> real </td>           <td> real > 0                 </td>  <td>1e-6          </td>   <td> wavelength unit for Cauchy A1. Default 1e-6 (microns). Use 1e-9 for nanometer </td></tr>
 <tr><td> 'lam' </td>            <td> real vector </td>    <td> valid wavelength array in nm</td>  <td> NaN       </td>   <td> When present, rv contains field nSpectrum: a spectrum which is the Cauchy model evaluated over lam </td></tr>
 </table></p>
-</p><h2 id="3">Output Arguments</h2><p><tt>rv</tt> is a struct with fields * <tt>A0</tt> and <tt>A1</tt>: both scalar double, the two Cauchy coefficients. <tt>A0</tt> is dimensionless, <tt>A1</tt> has unit <tt>Cauchy_wlu^2</tt>, which defaults to <tt>&micro;m^2</tt>. * <tt>CauchyFunc</tt>: An anonymous function handle to a function with signature <tt>n = func(lam)</tt>. Evaluates the index as function of <tt>lam</tt> in nanometers, relieving the user from worrying about wavelength unit conversion when adhering to the "all wavelengths are nanometers" convention. * <tt>nSpectrum</tt>: A spectrum, i.e. a struct with fields <tt>lam</tt> and <tt>val</tt>, where <tt>lam</tt> is a copy of the <tt>'lam'</tt> optional argument in nanometers, and <tt>val</tt> is the refractive index evaluated over this array.</p><h2 id="4">Algorithm</h2><p>The Cauchy dispersion model assumes n = A0 + A1/lambda^2 + A2/lambda^4 + ... When only index nD and Abbe number are given, only A0 and A1 can be computed. See <a href="docCauchyFromAbbe.html">docCauchyFromAbbe</a> for details.</p><h2 id="5">See also</h2><p><a href="AddWeightedSpectra.html">AddWeightedSpectra</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p><h2 id="3">Output Arguments</h2><p><tt>rv</tt> is a struct with fields * <tt>A0</tt> and <tt>A1</tt>: both scalar double, the two Cauchy coefficients. <tt>A0</tt> is dimensionless, <tt>A1</tt> has unit <tt>Cauchy_wlu^2</tt>, which defaults to <tt>&micro;m^2</tt>. * <tt>CauchyFunc</tt>: An anonymous function handle to a function with signature <tt>n = func(lam)</tt>. Evaluates the index as function of <tt>lam</tt> in nanometers, relieving the user from worrying about wavelength unit conversion when adhering to the "all wavelengths are nanometers" convention. * <tt>nSpectrum</tt>: A spectrum, i.e. a struct with fields <tt>lam</tt> and <tt>val</tt>, where <tt>lam</tt> is a copy of the <tt>'lam'</tt> optional argument in nanometers, and <tt>val</tt> is the refractive index evaluated over this array.</p><h2 id="4">Algorithm</h2><p>The Cauchy dispersion model assumes n = A0 + A1/lambda^2 + A2/lambda^4 + ... When only index nD and Abbe number are given, only A0 and A1 can be computed. See <a href="docCauchyFromAbbe.html">docCauchyFromAbbe</a> for details.</p><h2 id="5">See also</h2><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleCauchyFromAbbe()
     <span class="comment">%</span>
     nd = 1.5168;
@@ -177,7 +177,7 @@ good coincidence in the visible range, large difference outside</pre><img vspace
 % The Cauchy dispersion model assumes n = A0 + A1/lambda^2 + A2/lambda^4 + ... When only index nD and Abbe number are
 % given, only A0 and A1 can be computed. See <docCauchyFromAbbe.html docCauchyFromAbbe> for details.
 %% See also
-% <AddWeightedSpectra.html AddWeightedSpectra>
+% 
 %% Usage Example
 % <include>Examples/ExampleCauchyFromAbbe.m</include>
 

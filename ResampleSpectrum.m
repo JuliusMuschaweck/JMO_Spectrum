@@ -28,7 +28,7 @@
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
 % <https://creativecommons.org/publicdomain/zero/1.0/legalcode>
 %% Usage Example
-% <include>ExampleResampleSpectrum.m</include>
+% <include>Examples/ExampleResampleSpectrum.m</include>
 
 
 function rv = ResampleSpectrum(spectrum, lam_new)

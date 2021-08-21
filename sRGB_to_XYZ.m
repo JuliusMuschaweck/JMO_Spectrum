@@ -76,9 +76,9 @@ function rv = sRGB_to_XYZ(R, G, B)
     rv.X = reshape(rv.X,sz);
     rv.Y = reshape(rv.Y,sz);
     rv.Z = reshape(rv.Z,sz);
-    rv.x = rv.X / cw;
-    rv.y = rv.Y / cw;
-    rv.z = rv.Z / cw;
+    rv.x = rv.X ./ cw;
+    rv.y = rv.Y ./ cw;
+    rv.z = rv.Z ./ cw;
     
 end
 

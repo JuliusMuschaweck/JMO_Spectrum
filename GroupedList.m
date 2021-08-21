@@ -74,6 +74,8 @@
 %
 % <CIE_upvp.html CIE_upvp> Computes CIE 1960/1964 u, v, u', v' color coordinates from CIE 1931 x, y
 %
+% <CIE_xy_from_upvp.html CIE_xy_from_upvp> Computes CIE x,y coordinates from CIE 1960/1964 u', v'
+%
 % <CIEDE2000_Lab.html CIEDE2000_Lab> Computes the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli
 %
 % <CIEDE2000_XYZ.html CIEDE2000_XYZ> Computes the CIEDE2000 color difference between two XYZ stimuli.
@@ -94,6 +96,8 @@
 %
 % <XYZ_from_xyY.html XYZ_from_xyY> is a simple convenience function to create complete XYZ information from xy color coordinates
 % and flux
+%
+% <XYZ_to_sRGB.html XYZ_to_sRGB> computes sRGB values from desired XYZ tristrimulus values
 %% Utility functions
 %
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
@@ -119,9 +123,6 @@
 % 
 % <LinInterpolAdd4Async.html LinInterpolAdd4Async> from four tabulated functions yy0(xx0) ... yy3(xx3), compute the sum of the four interpolated functions over the same query grid xq, using four processors in parallel
 % 
-% <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
-% superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
-%
 % <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
 %
 % <PlotCIEupvpBorder.html PlotCIEupvpBorder> plots the CIE u'v' monochromatic border, with optional color fill and other options
@@ -136,38 +137,3 @@
 % <Vlambda.html Vlambda> returns spectrum (fields lam and val) for Vlambda with |lam == 360:830|
 % 
 % <WriteLightToolsSpectrumFile.html WriteLightToolsSpectrumFile> writes a spectrum to a text file in LightTools .sre format
-%% Not Yet Documented
-% 
-% <OptimalAdditiveMix.html OptimalAdditiveMix>
-% 
-% <ReadASCIITableFile.html ReadASCIITableFile>
-% 
-% <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile>
-% 
-% <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>
-% 
-% <RGBLEDSpectrum.html RGBLEDSpectrum>
-% 
-% <ShiftToLdom.html RGBLEDSpectrum>
-% 
-% <SolarSpectrum.html SolarSpectrum>
-% 
-% <SpectrumSanityCheck.html SpectrumSanityCheck>
-% 
-% <TestCIEDE2000.html TestCIEDE2000>
-% 
-% <TestCRI_vanKries.html TestCRI_vanKries>
-% 
-% <TestLinInterpol.html TestLinInterpol>
-% 
-% <TestMacAdamEllipse.html TestMacAdamEllipse>
-% 
-% <Vlambda.html Vlambda>
-% 
-% <WriteLightToolsSpectrumFile.html WriteLightToolsSpectrumFile>
-%
-% <XYZ_from_xyY.html XYZ_from_xyY>
-
-
-
-

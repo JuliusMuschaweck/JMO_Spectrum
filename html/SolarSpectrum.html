@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>SolarSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-30"><meta name="DC.source" content="SolarSpectrum.m"><style type="text/css">
+      --><title>SolarSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-21"><meta name="DC.source" content="SolarSpectrum.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -74,7 +74,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="GroupedList.html"> Grouped list</a>
 Source code: <a href = "file:../SolarSpectrum.m"> SolarSpectrum.m</a>
 </p>
-</p><p>Returns a specific solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = SolarSpectrum(type)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>type</tt>: character string.</li></ul></div><p>
+</p><p>Returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = SolarSpectrum(type)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>type</tt>: character string.</li></ul></div><p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Value</b>    </td> <td>  <b>Meaning</b> </td>
@@ -93,16 +93,14 @@ Source code: <a href = "file:../SolarSpectrum.m"> SolarSpectrum.m</a>
     plot(AM0.lam, AM0.val);
     plot(AM15.lam, AM15.val);
     plot(AM15_direct.lam, AM15_direct.val);
+    legend({<span class="string">'AM0'</span>,<span class="string">'AM1.5'</span>,<span class="string">'AM1.5 direct'</span>});
     xlabel(<span class="string">'\lambda (nm)'</span>);
-    ylabel(<span class="string">'spectral irradiance (W/(m^2 nm)'</span>);
-    title(<span class="string">'ASTM G173-03 solar spectra'</span>);
-    legend({<span class="string">'AM0'</span>,<span class="string">'AM1.5 global tilted'</span>,<span class="string">'AM1.5 direct'</span>});
+    ylabel(<span class="string">'spectral irradiance in W/(m^2 nm)'</span>);
     AM0_E490 = SolarSpectrum(<span class="string">'AM0_ASTM_E490'</span>);
     figure();clf;
     plot(log10(AM0_E490.lam),log10(AM0_E490.val));
     xlabel(<span class="string">'log_{10}(\lambda)'</span>);
     ylabel(<span class="string">'log_{10}(E_\lambda)'</span>);
-    title(<span class="string">'ASTM E-490 AM0 extraterrestrial Solar spectrum'</span>);
     legend(<span class="string">'log-log AM0'</span>);
 <span class="keyword">end</span>
 
@@ -119,7 +117,7 @@ Source code: <a href = "file:../SolarSpectrum.m"> SolarSpectrum.m</a>
 % </p>
 % </html>
 %
-% Returns a specific solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
+% Returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
 %% Syntax
 % |rv = SolarSpectrum(type)|
 %

@@ -45,8 +45,8 @@ function rv = CIE_xy_from_upvp(upvp,varargin)
             end
         else
             if isnumeric(upvp) && numel(upvp) == 2
-                rv.x = upvp(1);
-                rv.y = upvp(2);
+                rv.up = upvp(1);
+                rv.vp = upvp(2);
             else
                 error('CIE_upvp: with only upvp argument, upvp must be struct with scalar real fields up and vp, or real vector of length 2');
             end

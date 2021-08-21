@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>SpectrumSanityCheck</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-31"><meta name="DC.source" content="SpectrumSanityCheck.m"><style type="text/css">
+      --><title>SpectrumSanityCheck</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-21"><meta name="DC.source" content="SpectrumSanityCheck.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,112 +84,29 @@ Source code: <a href = "file:../SpectrumSanityCheck.m"> SpectrumSanityCheck.m</a
 </p>
 </p><h2 id="3">Output Arguments</h2><div><ul><li><tt>ok</tt>: scalar logical. True when  <tt>spec</tt> conforms to the requirements.</li><li><tt>msg</tt>: character string. Diagnostic message. Empty when there are no complaints.</li><li><tt>rv</tt>: A valid spectrum struct.</li></ul></div><h2 id="4">Algorithm</h2><p>Checks if</p><div><ul><li>the struct <tt>spec</tt> has fields <tt>lam</tt> and <tt>val</tt>, which must both be vectors of double</li><li>the lengths of <tt>lam</tt> and <tt>val</tt> are the same, and both are all finite reals</li><li><tt>lam</tt> is all positive and strictly ascending</li></ul></div><p>When ok, returns a copy of <tt>spec</tt>, with <tt>lam</tt> and <tt>val</tt> being column vectors. Optionally strips all other fields. When not ok, throws an error, or optionally returns a message and</p><h2 id="5">See also</h2><p><a href="docDesignDecisions.html">Requirements</a>, <a href="MakeSpectrum.html">MakeSpectrum</a>, <a href="MakeSpectrumDirect.html">MakeSpectrumDirect</a>,</p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleSpectrumSanityCheck()
-    good = MakeSpectrum([400, 700], [1 1], <span class="string">'name'</span>,<span class="string">'good'</span>);
-    good
-    [ok, msg, rv] = SpectrumSanityCheck(good);
-    fprintf(<span class="string">'good spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
-    rv
-    [~, ~, rvstripped] = SpectrumSanityCheck(good,<span class="string">'doStrip'</span>,true);
-    rvstripped
-
-    bad = struct(<span class="string">'LAM'</span>,[400, 700], <span class="string">'val'</span>, [1 1]);
-    bad
-    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
-    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
-
-    bad = struct(<span class="string">'lam'</span>,[400, 399], <span class="string">'val'</span>, [1 1]);
-    bad
-    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
-    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
-
-    bad = struct(<span class="string">'lam'</span>,[400, 700], <span class="string">'val'</span>, [1 1 1]);
-    bad
-    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
-    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
-
-    bad = struct(<span class="string">'lam'</span>,[400, 700], <span class="string">'val'</span>, [1, 1/0]);
-    bad
-    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
-    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
-    
-    bad = struct(<span class="string">'lam'</span>,[-400, 100], <span class="string">'val'</span>, [1 1]);
-    bad
-    [ok, msg, rvbad] = SpectrumSanityCheck(bad,<span class="string">'doThrow'</span>,false);
-    fprintf(<span class="string">'bad spectrum: ok = %g, msg = ''%s''\n'</span>,ok, msg);
+    good = MakeSpectrum([400 700], [1 1]);
+    [ok1, msg1, rv1] = SpectrumSanityCheck(good);
+    bad = struct(<span class="string">'lam'</span>, [1, 2, 1], <span class="string">'val'</span>, [0 0 0]);
+    [ok2, msg2, rv2] = SpectrumSanityCheck(bad, <span class="string">'doThrow'</span>, false)
 <span class="keyword">end</span>
 
 </pre><pre class="codeoutput">
-good = 
+ok2 =
 
-  struct with fields:
+  logical
 
-     lam: [2&times;1 double]
-     val: [2&times;1 double]
-    name: 'good'
-
-good spectrum: ok = 1, msg = ''
-
-rv = 
-
-  struct with fields:
-
-     lam: [2&times;1 double]
-     val: [2&times;1 double]
-    name: 'good'
+   0
 
 
-rvstripped = 
+msg2 =
 
-  struct with fields:
-
-    lam: [2&times;1 double]
-    val: [2&times;1 double]
+    'lam must be strictly ascending'
 
 
-bad = 
+rv2 =
 
-  struct with fields:
+     []
 
-    LAM: [400 700]
-    val: [1 1]
-
-bad spectrum: ok = 0, msg = 'expect field lam'
-
-bad = 
-
-  struct with fields:
-
-    lam: [400 399]
-    val: [1 1]
-
-bad spectrum: ok = 0, msg = 'lam must be strictly ascending'
-
-bad = 
-
-  struct with fields:
-
-    lam: [400 700]
-    val: [1 1 1]
-
-bad spectrum: ok = 0, msg = 'lam / val must be same size'
-
-bad = 
-
-  struct with fields:
-
-    lam: [400 700]
-    val: [1 Inf]
-
-bad spectrum: ok = 0, msg = 'val must be finite'
-
-bad = 
-
-  struct with fields:
-
-    lam: [-400 100]
-    val: [1 1]
-
-bad spectrum: ok = 0, msg = 'lam must be positive'
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% SpectrumSanityCheck

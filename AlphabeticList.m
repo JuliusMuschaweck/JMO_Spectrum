@@ -23,6 +23,10 @@
 % <CIE1931_XYZ.html CIE1931_XYZ> computes CIE 1931 tristimulus values X, Y, Z and x, y, z color coordinates for a
 % spectrum
 %
+% <CIEDE2000_Lab.html CIEDE2000_Lab> Computes the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli
+%
+% <CIEDE2000_XYZ.html CIEDE2000_XYZ> Computes the CIEDE2000 color difference between two XYZ stimuli
+%
 % <CIE_Illuminant.html CIE_Illuminant> returns spectra for standard CIE illuminants
 %
 % <CIE_Illuminant_D.html CIE_Illuminant_D> Computes CIE standard illuminant D (daylight) for a desired color temperature
@@ -33,9 +37,7 @@
 %
 % <CIE_upvp.html CIE_upvp> Computes CIE 1960/1964 u, v, u', v' color coordinates from CIE 1931 x, y
 %
-% <CIEDE2000_Lab.html CIEDE2000_Lab> Computes the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli
-%
-% <CIEDE2000_XYZ.html CIEDE2000_XYZ> Computes the CIEDE2000 color difference between two XYZ stimuli
+% <CIE_xy_from_upvp.html CIE_xy_from_upvp> Computes CIE x,y coordinates from CIE 1960/1964 u', v'
 %
 % <CODATA2018.html CODATA2018> Returns a struct with CODATA 2018 constants relevant to illumination, and some more
 %
@@ -70,21 +72,18 @@
 % <MacAdamEllipse.html MacAdamEllipse> compute points and parameters of a MacAdam Ellipse
 % 
 % <MacAdamEllipse_g.html MacAdamEllipse_g> helper function for <MacAdamEllipse.html MacAdamEllipse>
-%
-% <MatchAdditiveMix.html MatchAdditiveMix> computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution
 % 
 % <MakeSpectrum.html MakeSpectrum> creates a spectrum struct out of fields lam and val, with sanity checks
 % 
 % <MakeSpectrumDirect.html MakeSpectrumDirect> creates a spectrum struct out of fields lam and val, without sanity checks
+%
+% <MatchAdditiveMix.html MatchAdditiveMix> computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution
 % 
 % <MatchWhiteLEDSpectrum.html MatchWhiteLEDSpectrum> % Given a white LED spectrum, modifies it to match a desired CIE XYZ target 
 % (e.g. for LEDs from a different white bin, or at different operating conditions)
 % 
 % <MultiplySpectra.html MultiplySpectra> multiplies two spectra, returning the product spectrum
 % 
-% <Octave_xyz2rgb.html Octave_xyz2rgb> A GNU Ocvate routine to convert XYZ to sRGB,
-% superseded by <XYZ_to_sRGB.html XYZ_to_sRGB>
-%
 % <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
 % 
 % <PlanckSpectrum.html PlanckSpectrum> computes Planck blackbody spectra
@@ -114,13 +113,13 @@
 % 
 % <ShiftToLdom.html ShiftToLdom> shifts the wavelength array of a spectrum such that the desired dominant wavelength
 % results.
-%
-% <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
 % 
 % <SolarSpectrum.html SolarSpectrum> returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
 % 
 % <SpectrumSanityCheck.html SpectrumSanityCheck>  performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 
 % returns a sanitized spectrum when possible 
+%
+% <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
 % 
 % <Vlambda.html Vlambda> returns spectrum (fields lam and val) for Vlambda, the human eye spectral sensitivity, with |lam == 360:830|
 % 
@@ -128,6 +127,7 @@
 %
 % <XYZ_from_xyY.html XYZ_from_xyY> is a simple convenience function to create complete XYZ information from xy color coordinates
 % and flux
-%% Not Yet Documented
+%
+% <XYZ_to_sRGB.html XYZ_to_sRGB> computes sRGB values from desired XYZ tristrimulus values
 
 

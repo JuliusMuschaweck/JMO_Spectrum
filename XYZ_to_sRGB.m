@@ -11,7 +11,7 @@
 %
 % Computes sRGB display drive values from desired XYZ tristimulus values
 %% Syntax
-% |rv = XYZ_to_sRGBX, Y, Z, opts)
+% |rv = XYZ_to_sRGB(X, Y, Z, opts)
 %
 %% Input Arguments
 % * |X|: scalar, vector or matrix of double. The tristimulus X values.
@@ -25,20 +25,18 @@
 % with one sRGB triplet per row.
 %% Algorithm
 % The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
-adsfa asdf
 % created from sRGB values to encode color and brightness. See also 
 % <https://en.wikipedia.org/wiki/SRGB https://en.wikipedia.org/wiki/SRGB> for a detailed
-% description. sRGB values are "gamma corrected": the first step is therefore to remove the
-% gamma correction. For small values, gamma correction is linear, for large absolute values,
-% it is a power function with $\gamma = 2.4$. To cope with negative values, gamma correction
-% f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear
-% RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is
-% converted to $XYZ = M \times RGB$ with the matrix M derived from standardized primaries'
-% tristimulus values. A display white point corresponding to D65 is assumed.
+% description. First, the XYZ tristimulus values are converted to "linear RGB" values, by multiplying with the matrix M
+% specified in the standard. Then, gamma correction is applied to each individual linear R, G or B value: For small absolute values, the correction is linear, for
+% larger absolute values, the correction is a power law. See the standard for details. At this stage, RGB values may be
+% negative or larger than 1. When the |'clip'| option is set to |true|, RGB values outside the |[0,1]| interval are clipped. 
+% A value of |RGB == [1, 1, 1]| is obtained for 100% D65 white, with |XYZ == [0.9505, 1.0000, 1.0890]|. Input XYZ values
+% should be scaled accordingly, to obtain RGB values within |[0,1]|.
 %% See also
-% <XYZ_to_sRGB.html XYZ_to_sRGB>
+% <sRGB_to_XYZ.html sRGB_to_XYZ>
 %% Usage Example
-% <include>Examples/ExamplesRGB_to_XYZ.m</include>
+% <include>Examples/ExampleXYZ_to_sRGB.m</include>
 function rv = XYZ_to_sRGB(X, Y, Z, opts)
     arguments
         X (:,:) double
