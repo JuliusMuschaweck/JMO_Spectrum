@@ -18,6 +18,7 @@ publishWithStandardExample('CODATA2018.m');
 publishWithStandardExample('ColorChecker.m');
 publishWithStandardExample('ComputeSpectrumColorimetry.m');
 publishWithStandardExample('CRI.m');
+publishWithStandardExample('DivideSpectra.m');
 publishWithStandardExample('EvalSpectrum.m');
 
 publishWithStandardExample('FindRoot1D.m');
