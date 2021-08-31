@@ -47,6 +47,8 @@
 %
 % <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices
 %
+% <DivideSpectra.html, DivideSpectra> Divide two spectra, with divide by zero treatment
+%
 % <EvalSpectrum.html EvalSpectrum> evaluates the function modeled by a spectrum
 % 
 % <FindRoot1D.html FindRoot1D> finds root of scalar function of one real variable, without derivatives
