@@ -112,8 +112,14 @@ function [values, iline] = GetLine(fh, delims, line_nr)
     end
     values = str2double(strings);% convert tokens to doubles
     values = (values(:))';
-    if any(isnan(values)) % see if that went well
-        error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, itt);
+    test = isnan(values);
+    if min(diff(test)) >= 0 %% there is no NaN before a good number
+        values = values(~test);
+    else
+        error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, tt);
+    end
+    if isempty(values) % see if that went well
+        error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, tt);
     end
 end
 
