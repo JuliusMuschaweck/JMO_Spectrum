@@ -40,7 +40,8 @@
 %% Usage Example
 % <include>Examples/ExampleSolarSpectrum.m</include>
 
-% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+% publish with pu
+blishWithStandardExample('filename.m') in PublishDocumentation.m
 
 % JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
