@@ -31,7 +31,7 @@
 %% Output Arguments
 % * |rv|: A valid spectrum (struct with fields |lam| and |val|).
 %% Algorithm
-% Calls <ReadASCIITableFile.html ReadASCIITableSpectrumFile> to read the table, which is
+% Calls <ReadASCIITableFile.html ReadASCIITableFile> to read the table, which is
 % expected to have at least two rows and at least two columns. The first column is
 % interpreted as wavelength in nanometers, the second column as the values. See
 % <SpectrumSanityCheck.html SpectrumSanityCheck> for requirements what constitutes a valid

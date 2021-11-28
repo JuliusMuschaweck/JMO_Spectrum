@@ -37,7 +37,6 @@
 % from first non-comment line, and all subsequent non-comment lines are expected to have the
 % same number of columns.
 %
-% Therefore, a valid input file consists 
 %% See also
 % <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile>,
 % <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>
