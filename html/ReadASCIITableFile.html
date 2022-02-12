@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ReadASCIITableFile</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-21"><meta name="DC.source" content="ReadASCIITableFile.m"><style type="text/css">
+      --><title>ReadASCIITableFile</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-12"><meta name="DC.source" content="ReadASCIITableFile.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -81,7 +81,7 @@ Source code: <a href = "file:../ReadASCIITableFile.m"> ReadASCIITableFile.m</a>
 <tr><td> 'delimiters'   </td> <td> character string </td> <td> '' (default)    </td> <td> set of characters interpreted as delimiters between numbers. See Matlab's 'split' documentation for details. If not specified, white space is used as delimiter(s).</td></tr>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: double array. Content of the ASCII table</li></ul></div><h2 id="4">Algorithm</h2><p>Reads lines, trimming white space at beginning and end. Trimmed lines that don't start with a digit ('0'...'9') are considered comments and are discarded. Non-comment lines are expected to contain only real number in ASCII format, separated by the given delimiters. Number of columns is taken from first non-comment line, and all subsequent non-comment lines are expected to have the same number of columns.</p><p>Therefore, a valid input file consists</p><h2 id="5">See also</h2><p><a href="ReadASCIITableSpectrumFile.html">ReadASCIITableSpectrumFile</a>, <a href="ReadLightToolsSpectrumFile.html">ReadLightToolsSpectrumFile</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: double array. Content of the ASCII table</li></ul></div><h2 id="4">Algorithm</h2><p>Reads lines, trimming white space at beginning and end. Trimmed lines that don't start with a digit ('0'...'9') are considered comments and are discarded. Non-comment lines are expected to contain only real number in ASCII format, separated by the given delimiters. Number of columns is taken from first non-comment line, and all subsequent non-comment lines are expected to have the same number of columns.</p><h2 id="5">See also</h2><p><a href="ReadASCIITableSpectrumFile.html">ReadASCIITableSpectrumFile</a>, <a href="ReadLightToolsSpectrumFile.html">ReadLightToolsSpectrumFile</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleReadASCIITableSpectrumFile()
     fn = <span class="string">'LED_2666K.sre'</span>;
     spec = ReadASCIITableSpectrumFile(fn); <span class="comment">% default delimiters are ok</span>
@@ -137,7 +137,6 @@ spec =
 % from first non-comment line, and all subsequent non-comment lines are expected to have the
 % same number of columns.
 %
-% Therefore, a valid input file consists 
 %% See also
 % <ReadASCIITableSpectrumFile.html ReadASCIITableSpectrumFile>,
 % <ReadLightToolsSpectrumFile.html ReadLightToolsSpectrumFile>
@@ -212,8 +211,14 @@ function [values, iline] = GetLine(fh, delims, line_nr)
     end
     values = str2double(strings);% convert tokens to doubles
     values = (values(:))';
-    if any(isnan(values)) % see if that went well
-        error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, itt);
+    test = isnan(values);
+    if min(diff(test)) >= 0 %% there is no NaN before a good number
+        values = values(~test);
+    else
+        error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, tt);
+    end
+    if isempty(values) % see if that went well
+        error('ReadASCIITableFile: expect reals in line %g, but found %s',line_nr, tt);
     end
 end
 

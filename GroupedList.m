@@ -52,6 +52,9 @@
 % <ResampleSpectrum.html ResampleSpectrum> replaces the wavelength data points, e.g. to ensure a spectrum is based on
 % 360:830 nm in 1 nm steps
 % 
+% <ScaleSpectrum.html ScaleSpectrum> multiplies a spectrum with a given factor, or normalizes it that
+% the peak, or the radiant/luminous flux, or a weighted integral has a certain value
+%
 % <ShiftToLdom.html ShiftToLdom> shifts the wavelength array of a spectrum such that the desired dominant wavelength
 % results.
 %% Modeling LED spectra

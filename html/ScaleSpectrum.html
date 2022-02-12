@@ -1,0 +1,190 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ScaleSpectrum</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-12"><meta name="DC.source" content="ScaleSpectrum.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>ScaleSpectrum</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../ScaleSpectrum.m"> ScaleSpectrum.m</a>
+</p>
+</p><p>Scales a spectrum by multiplying all values with a constant factor. The factor can be set by different modes: a simple number, or normalized such that the resulting spectrum will have a certain (weighted) integral, or such that the resulting peak will have a certain value</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>function rv = ScaleSpectrum(rhs, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>rhs</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li><li><tt>opts</tt>: Optional name-value pairs: Name <tt>'mode'</tt> can be <tt>'multiply'</tt> (default), <tt>'normalize_peak'</tt>, <tt>'normalize_radiant_flux'</tt>, <tt>'normalize_luminous_flux'</tt>, or <tt>'normalize_integral'</tt>. Name <tt>'value'</tt> must be a real scalar, default is <tt>1.0</tt>. Name <tt>'weight'</tt> must be a valid spectrum.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: Spectrum containing the identical, inherited wavelength array in field <tt>rv.lam</tt>, and the scaled inherited values in field <tt>rv.val</tt></li></ul></div><h2 id="4">Algorithm</h2><div><ul><li>For mode <tt>'multiply'</tt>, the spectrum values are simply multiplied with the number from the <tt>'value'</tt> parameter.</li><li>For mode <tt>'normalize_peak'</tt>, the spectrum is scaled such that the resulting peak equals the <tt>'value'</tt> parameter.</li><li>For mode <tt>'normalize_radiant_flux'</tt>, the spectrum is scaled such that <tt>IntegrateSpectrum(rv)</tt> yields the <tt>'value'</tt> parameter.</li><li>For mode <tt>'normalize_luminous_flux'</tt>, the spectrum is scaled such that <tt>683 * IntegrateSpectrum(rv, Vlambda())</tt>      yields the <tt>'value'</tt> parameter.</li><li>For mode <tt>'normalize_integral'</tt>, the spectrum is scaled such that <tt>IntegrateSpectrum(rv, weight)</tt>      with <tt>weight</tt> taken from the optional <tt>'weight'</tt> parameter, yields the <tt>'value'</tt>      parameter. If no <tt>'weight'</tt> is specified, the result is the same as mode      <tt>'normalize_radiant_flux'</tt></li></ul></div><h2 id="5">See also</h2><p><a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="MultiplySpectra.html">MultiplySpectra</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleScaleSpectrum()
+    s = CIE_Illuminant_D(4000);
+    fprintf(<span class="string">'test spectrum: %s, peak = %g, integral = %g\n'</span>,s.name, max(s.val), IntegrateSpectrum(s));
+    s2 = ScaleSpectrum(s); <span class="comment">% no change</span>
+    fprintf(<span class="string">'compare should be 1 (true): %g\n'</span>,isequal(s.lam(:), s2.lam(:)) &amp;&amp; isequal(s.val(:),s2.val(:)));
+    
+    <span class="comment">% scale to peak 1</span>
+    s_peak_1 = ScaleSpectrum(s, mode = <span class="string">'normalize_peak'</span>); <span class="comment">% no need to specify value: default 1.0</span>
+    fprintf(<span class="string">'peak should be 1: %g\n'</span>, max(s_peak_1.val));
+
+    <span class="comment">% scale to peak 100 </span>
+    s_peak_100 = ScaleSpectrum(s, mode = <span class="string">'normalize_peak'</span>, value = 100);
+    fprintf(<span class="string">'peak should be 100: %g\n'</span>, max(s_peak_100.val));
+    
+    <span class="comment">% scale to radiant flux = 2</span>
+    s_radiant_flux_2 = ScaleSpectrum(s, mode = <span class="string">'normalize_radiant_flux'</span>, value = 2);
+    fprintf(<span class="string">'integral should be 2: %g\n'</span>, IntegrateSpectrum(s_radiant_flux_2 ));
+    
+    <span class="comment">% scale to luminous flux 1</span>
+    s_luminous_flux_1 = ScaleSpectrum(s, mode = <span class="string">'normalize_luminous_flux'</span>);
+    xyz = CIE1931_XYZ(s_luminous_flux_1);
+    fprintf(<span class="string">'lum. flux should be 1: %g\n'</span>, xyz.Y * 683 );
+
+    <span class="comment">% scale such that some weighted integral has value 10</span>
+    w = GaussSpectrum(400:700,550,30);
+    s_weighted = ScaleSpectrum(s, mode = <span class="string">'normalize_integral'</span>, weight = w, value = 10);
+    fprintf(<span class="string">'weighted integral should be 10: %g\n'</span>, IntegrateSpectrum(s_weighted, w) );
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">compare should be 1 (true): 1
+peak should be 1: 1
+peak should be 100: 100
+integral should be 2: 2
+lum. flux should be 1: 1
+weighted integral should be 10: 10
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% ScaleSpectrum
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp; 
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;  
+% Source code: <a href = "file:../ScaleSpectrum.m"> ScaleSpectrum.m</a>
+% </p>
+% </html>
+%
+% Scales a spectrum by multiplying all values with a constant factor. The factor can be set by
+% different modes: a simple number, or normalized such that the resulting spectrum will have a certain
+% (weighted) integral, or such that the resulting peak will have a certain value
+%% Syntax
+% |function rv = ScaleSpectrum(rhs, opts)|
+%% Input Arguments
+% * |rhs|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
+% * |opts|: Optional name-value pairs: Name |'mode'| can be |'multiply'| (default), |'normalize_peak'|, 
+% |'normalize_radiant_flux'|, |'normalize_luminous_flux'|, or
+% |'normalize_integral'|. Name |'value'| must be a real scalar, default is |1.0|. Name |'weight'| must be a valid spectrum.
+%% Output Arguments
+% * |rv|: Spectrum containing the identical, inherited wavelength array in field |rv.lam|, and
+% the scaled inherited values in field |rv.val|
+%% Algorithm
+% * For mode |'multiply'|, the spectrum values are simply multiplied with the number from the |'value'| parameter.
+% * For mode |'normalize_peak'|, the spectrum is scaled such that the resulting peak equals the |'value'| parameter.
+% * For mode |'normalize_radiant_flux'|, the spectrum is scaled such that |IntegrateSpectrum(rv)| yields the |'value'| parameter. 
+% * For mode |'normalize_luminous_flux'|, the spectrum is scaled such that |683 * IntegrateSpectrum(rv, Vlambda())| 
+%      yields the |'value'| parameter. 
+% * For mode |'normalize_integral'|, the spectrum is scaled such that |IntegrateSpectrum(rv, weight)| 
+%      with |weight| taken from the optional |'weight'| parameter, yields the |'value'|
+%      parameter. If no |'weight'| is specified, the result is the same as mode
+%      |'normalize_radiant_flux'|
+%% See also
+% <AddWeightedSpectra.html AddWeightedSpectra>, <IntegrateSpectrum.html IntegrateSpectrum>,
+% <MultiplySpectra.html MultiplySpectra>
+%% Usage Example
+% <include>Examples\ExampleScaleSpectrum.m</include>
+
+% publish with publish('ScaleSpectrum.m','evalCode',true,'showCode',false,'codeToEvaluate','runExample(''ExampleScaleSpectrum'')');
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+function rv = ScaleSpectrum(rhs, opts)
+    arguments
+        rhs (1,1) struct
+        opts.mode (1,1) string = "multiply"
+        opts.value (1,1) double = 1.0
+        opts.weight struct = struct([])
+    end
+    [~,~,rhs] = SpectrumSanityCheck( rhs );
+    if opts.mode == "multiply"
+        fac = opts.value;
+    elseif opts.mode == "normalize_peak"
+        fac = opts.value / max(rhs.val);
+    elseif opts.mode == "normalize_radiant_flux"
+        fac = opts.value / IntegrateSpectrum(rhs);
+    elseif opts.mode == "normalize_luminous_flux"
+        fac = opts.value / (683 * IntegrateSpectrum(rhs, Vlambda()));
+    elseif opts.mode == "normalize_integral"
+        if isempty(opts.weight)
+            fac = opts.value / IntegrateSpectrum(rhs);
+        else
+            [~,~,w] = SpectrumSanityCheck(opts.weight);
+            fac = opts.value / IntegrateSpectrum(rhs, w);
+        end
+    else
+        error('ScaleSpectrum: unknown mode %s',opts.mode);
+    end
+    rv = MakeSpectrumDirect(rhs.lam, rhs.val * fac);
+end
+##### SOURCE END #####
+--></body></html>

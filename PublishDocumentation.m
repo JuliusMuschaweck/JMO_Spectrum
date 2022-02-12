@@ -53,6 +53,7 @@ publishWithStandardExample('ReadLightToolsSpectrumFile.m');
 publishWithStandardExample('ResampleSpectrum.m');
 publish('RGBLEDSpectrum.m','evalCode',false,'showCode',false);
 Doc_mlx('TestRGBLED.mlx');
+publishWithStandardExample('ScaleSpectrum.m');
 publishWithStandardExample('ShiftToLdom.m');
 publishWithStandardExample('SolarSpectrum.m');
 publishWithStandardExample('SpectrumSanityCheck.m');

@@ -113,6 +113,9 @@
 % <RGBLEDSpectrum.html RGBLEDSpectrum> is a class that models red/green/blue LED spectra under operating conditions, from data sheet
 % information only.
 % 
+% <ScaleSpectrum.html ScaleSpectrum> multiplies a spectrum with a given factor, or normalizes it that
+% the peak, or the radiant/luminous flux, or a weighted integral has a certain value
+%
 % <ShiftToLdom.html ShiftToLdom> shifts the wavelength array of a spectrum such that the desired dominant wavelength
 % results.
 % 

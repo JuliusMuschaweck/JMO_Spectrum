@@ -32,7 +32,7 @@
 % <ResampleSpectrum.html ResampleSpectrum>.
 %% See also
 % <AddSpectra.html AddSpectra>, <AddWeightedSpectra.html AddWeightedSpectra>, <IntegrateSpectrum.html
-% IntegrateSpectrum>, <ResampleSpectrum.html ResampleSpectrum>
+% IntegrateSpectrum>, <ResampleSpectrum.html ResampleSpectrum>, <ScaleSpectrum.html ScaleSpectrum>
 %% Usage Example
 % <include>Examples/ExampleMultiplySpectra.m</include>
 

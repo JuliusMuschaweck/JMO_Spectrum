@@ -32,7 +32,7 @@
 % linear. If that is an issue, use <ResampleSpectrum.html ResampleSpectrum> to create a higher resolution version of the
 % product spectrum.
 %% See also
-% <MultiplySpectra.html MultiplySpectra>, <ResampleSpectrum.html ResampleSpectrum>, <CIE1931_XYZ.html CIE1931_XYZ>
+% <MultiplySpectra.html MultiplySpectra>, <ResampleSpectrum.html ResampleSpectrum>, <ScaleSpectrum.html ScaleSpectrum>, <CIE1931_XYZ.html CIE1931_XYZ>
 %% Usage Example
 % <include>Examples/ExampleIntegrateSpectrum.m</include>
 

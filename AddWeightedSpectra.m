@@ -23,7 +23,7 @@
 % with duplicate values removed, and what is added are the weighted sum of linearly interpolated values from all input spectra. Thus, the sum spectrum is a 
 % perfect model of the underlying continuous function which is the weighted sum of the continuous, linearly interpolated input spectra.
 %% See also
-% <AddSpectra.html AddSpectra>, <MultiplySpectra.html MultiplySpectra>
+% <AddSpectra.html AddSpectra>, <MultiplySpectra.html MultiplySpectra>, <ScaleSpectrum.html ScaleSpectrum>
 %% Usage Example
 % <include>Examples/ExampleAddWeightedSpectra.m</include>
 
