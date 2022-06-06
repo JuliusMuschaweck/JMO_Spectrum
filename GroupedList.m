@@ -134,6 +134,8 @@
 % 
 % <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
 % 
+% <PlotSpectrum.html PlotSpectrum> conveniently plots a spectrum just like |plot|
+% 
 % <RainbowColorMap.html RainbowColorMap> A rainbow color map to be used with Matlab's 'colormap' function
 % 
 % <SpectrumSanityCheck.html SpectrumSanityCheck>  performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 

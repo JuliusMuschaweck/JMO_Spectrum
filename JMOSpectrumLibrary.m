@@ -6,7 +6,13 @@
 % </p>
 % </html>
 %
-% Version 2.1, August 21, 2021
+% Version 2.1.2, May 30, 2022
+%
+% <html>
+% <a href="ChangeLog.html"> Change log</a> &nbsp; | &nbsp; 
+% <a href="https://github.com/JuliusMuschaweck/JMO_Spectrum"> Github</a> &nbsp; | &nbsp; 
+% <a href=https://uk.mathworks.com/matlabcentral/fileexchange/98044-jmo_spectrum> Matlab File Exchange</a>
+% </html>
 % 
 % Julius Muschaweck, JMO GmbH, Zugspitzstr. 66, 82131 Gauting, Germany
 % &nbsp; &nbsp; email: 

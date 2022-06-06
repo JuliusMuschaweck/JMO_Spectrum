@@ -96,6 +96,8 @@
 % 
 % <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
 % 
+% <PlotSpectrum.html PlotSpectrum> conveniently plots a spectrum just like |plot|
+% 
 % <RainbowColorMap.html RainbowColorMap> A rainbow color map to be used with Matlab's 'colormap' function
 % 
 % <ReadASCIITableFile.html ReadASCIITableFile> Reads a matrix of numbers from an ASCII text file, with optional delimiter control and

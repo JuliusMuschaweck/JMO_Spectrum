@@ -46,6 +46,7 @@ publishWithStandardExample('PlanckSpectrum.m');
 publishWithStandardExample('PlotCIExyBorder.m');
 publishWithStandardExample('PlotCIEupvpBorder.m');
 publishWithStandardExample('PlotCRIResult.m');
+publishWithStandardExample('PlotSpectrum.m');
 publishWithStandardExample('RainbowColorMap.m');
 publishWithStandardExample('ReadASCIITableFile.m');
 publishWithStandardExample('ReadASCIITableSpectrumFile.m');
@@ -69,6 +70,7 @@ publish('PublishFunctionTemplate.m','evalCode',false,'showCode',false);
 %%
 Doc_mlx('BlackbodySpectrumWithRefractiveIndex.mlx');
 Doc_mlx('docCauchyFromAbbe.mlx');
+Doc_mlx('ChangeLog.mlx');
 
 %%
 fprintf('publish main doc pages\n')
