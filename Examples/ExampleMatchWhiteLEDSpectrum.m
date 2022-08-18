@@ -5,9 +5,9 @@ function ExampleMatchWhiteLEDSpectrum()
     spec.XYZ = CIE1931_XYZ(spec);
     
     matchOriginal = MatchWhiteLEDSpectrum(spec, spec.XYZ);
-    delta = matchOriginal.spec.val - spec.val;
-    test = max(abs(delta)) < 1e-14;
-    fprintf('match original deviation : %g\n',max(abs(delta)));
+    delta = AddWeightedSpectra({matchOriginal.spec, spec},[1, -1]);
+    test = max(abs(delta.val)) < 1e-14;
+    fprintf('match original deviation : %g\n',max(abs(delta.val)));
     
     % prepare target at 4500K Planck
     xyt = PlanckLocus().xy_func(4500);

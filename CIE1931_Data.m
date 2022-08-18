@@ -19,7 +19,7 @@
 % 
 % * |lam|:  360:830 in 1 nm
 % * |x, y, z|: the color matching functions
-% * |xBorder, yBorder|: the coordinates of the monochromatic border 
+% * |xBorder, yBorder, zBorder|: the coordinates of the monochromatic border 
 % * |PlanckT, Planckx, Plancky|: temperature, x and y coordinates of the Planck locus
 %% Algorithm
 % Retrieves the data stored in |CIE1931_lam_x_y_z.mat|
@@ -36,6 +36,10 @@
 %
 
 function rv = CIE1931_Data()
-    load('CIE1931_lam_x_y_z.mat');
-    rv = CIE1931XYZ;
+    persistent irv;
+    if isempty(irv)
+        load('CIE1931_lam_x_y_z.mat');
+        irv = CIE1931XYZ;
+    end
+    rv = irv;
 end

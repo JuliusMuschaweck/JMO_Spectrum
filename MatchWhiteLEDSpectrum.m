@@ -85,9 +85,13 @@ function rv = MatchWhiteLEDSpectrum(whiteLEDspectrum, XYZ_target)
     end
     % bracket established -- find shift to bring target between blue and yellow
     [dlam, fb, nfe, ok, msg]= FindRoot1D(testshift, -dlam_max, dlam_max);
-    blue_shifted = MakeSpectrumDirect(blue.lam + dlam,  blue.val, 'XYZ',true);
-    yellow_shifted = MakeSpectrumDirect(yellow.lam - dlam,  yellow.val, 'XYZ',true);
-    
+    if abs(dlam) < 1e-10 % no shift
+        blue_shifted = MakeSpectrumDirect(blue.lam,  blue.val, 'XYZ',true);
+        yellow_shifted = MakeSpectrumDirect(yellow.lam,  yellow.val, 'XYZ',true);
+    else
+        blue_shifted = MakeSpectrumDirect(blue.lam + dlam,  blue.val, 'XYZ',true);
+        yellow_shifted = MakeSpectrumDirect(yellow.lam - dlam,  yellow.val, 'XYZ',true);
+    end
     % compute weights
     blue_dist = norm([blue_shifted.XYZ.x, blue_shifted.XYZ.y] - xyt);
     yellow_dist = norm([yellow_shifted.XYZ.x, yellow_shifted.XYZ.y] - xyt);
