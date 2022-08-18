@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Vlambda</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-01"><meta name="DC.source" content="Vlambda.m"><style type="text/css">
+      --><title>Vlambda</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-07-19"><meta name="DC.source" content="Vlambda.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -74,16 +74,24 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../Vlambda.m"> Vlambda.m</a>
 </p>
-</p><p>returns spectrum (fields lam and val) for Vlambda with <tt>lam == 360:830</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = Vlambda()</tt></p><h2 id="2">Input Arguments</h2><p>none</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: spectrum struct, with <tt>rv.lam == 360:830</tt> and <tt>rv.val</tt> the standardized V(lambda) values, and an appropriate <tt>rv.name</tt> field.</li></ul></div><h2 id="4">Algorithm</h2><p>Calls <a href="CIE1931_Data.html">CIE1931_Data</a> to retrieve V(lambda) as the y color matching function and returns it.</p><h2 id="5">See also</h2><p><a href="CIE1931_Data.html">CIE1931_Data</a> <a href="CIE1931_XYZ.html">CIE1931_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p><p>returns spectrum (fields lam and val) for Vlambda with <tt>lam == 360:830</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = Vlambda( optional_lam )</tt></p><h2 id="2">Input Arguments</h2><p><tt>optional_lam</tt>: Optional, vector of double. The idea is that these are wavelengths, but unlike the wavelengths in a spectrum, these values don't need to be ascending or positive.</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: When there is no <tt>optional_lam</tt> argument, <tt>rv</tt> is a spectrum struct, with <tt>rv.lam == 360:830</tt> and <tt>rv.val</tt> the standardized V(lambda) values, and an appropriate <tt>rv.name</tt> field. When <tt>optional_lam</tt> is present, rv is a vector of double, same length as <tt>lam</tt>. The interpolated values.</li></ul></div><h2 id="4">Algorithm</h2><p>With no input argument: Calls <a href="CIE1931_Data.html">CIE1931_Data</a> to retrieve V(lambda) as the y color matching function and returns it, as a valid spectrum struct. When there is an input argument, effectively calls <tt>EvalSpectrum</tt> to obtain the interpolated values and returns those.</p><h2 id="5">See also</h2><p><a href="CIE1931_Data.html">CIE1931_Data</a> <a href="CIE1931_XYZ.html">CIE1931_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExampleVlambda()
     vlam = Vlambda();
     figure();
     plot(vlam.lam, vlam.val);
     xlabel(<span class="string">'\lambda (m)'</span>);
     title(<span class="string">'The V(\lambda) eye sensitivity curve'</span>);
+    narrow = 520:590;
+    sample = Vlambda(narrow);
+    figure();
+    plot(narrow, sample);
+    xlabel(<span class="string">'\lambda (m)'</span>);
+    title(<span class="string">'The V(lambda) curve around its peak'</span>);
+    fprintf(<span class="string">'The interpolated value of the V(lambda) curve at 417.56 nm is %g\n'</span>, Vlambda(417.56));
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="Vlambda_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+</pre><pre class="codeoutput">The interpolated value of the V(lambda) curve at 417.56 nm is 0.00296213
+</pre><img vspace="5" hspace="5" src="Vlambda_01.png" alt=""> <img vspace="5" hspace="5" src="Vlambda_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Vlambda
 % 
@@ -98,18 +106,20 @@ Source code: <a href = "file:../Vlambda.m"> Vlambda.m</a>
 %
 % returns spectrum (fields lam and val) for Vlambda with |lam == 360:830|
 %% Syntax
-% |rv = Vlambda()|
+% |rv = Vlambda( optional_lam )|
 %
 %% Input Arguments
 %
-% none
+% |optional_lam|: Optional, vector of double. The idea is that these are wavelengths, but unlike the wavelengths in a spectrum, these
+% values don't need to be ascending or positive.
 %
 %% Output Arguments
-% * |rv|: spectrum struct, with |rv.lam == 360:830| and |rv.val| the standardized
-% V(lambda) values, and an appropriate |rv.name| field.
+% * |rv|: When there is no |optional_lam| argument, |rv| is a spectrum struct, with |rv.lam == 360:830| and |rv.val| the standardized
+% V(lambda) values, and an appropriate |rv.name| field. When |optional_lam| is present, rv is a vector of double, same length as |lam|. The interpolated values.
 %% Algorithm
-% Calls <CIE1931_Data.html CIE1931_Data> to retrieve V(lambda) as the y color matching
-% function and returns it.
+% With no input argument: Calls <CIE1931_Data.html CIE1931_Data> to retrieve V(lambda) as the y color matching
+% function and returns it, as a valid spectrum struct. When there is an input argument, effectively calls |EvalSpectrum|
+% to obtain the interpolated values and returns those.
 %% See also
 % <CIE1931_Data.html CIE1931_Data> <CIE1931_XYZ.html CIE1931_XYZ>
 %% Usage Example
@@ -121,11 +131,24 @@ Source code: <a href = "file:../Vlambda.m"> Vlambda.m</a>
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
-function rv = Vlambda()
-    iXYZ = CIE1931_Data();
-    rv.lam = iXYZ.lam;
-    rv.val = iXYZ.y;
-    rv.name = 'V(lambda)';
+function rv = Vlambda( varargin )
+    if nargin > 0
+        if nargin ~= 1 
+            error('Vlambda: call with zero or one parameters');
+        end
+        lam = varargin{1};
+        if isreal(lam) && (isscalar(lam) || isvector(lam))
+            vl = Vlambda();
+            rv = EvalSpectrum(vl, lam);
+        else
+            error('Vlambda: call with real array');
+        end
+    else
+        iXYZ = CIE1931_Data();
+        rv.lam = iXYZ.lam;
+        rv.val = iXYZ.y;
+        rv.name = 'V(lambda)';
+    end
 end
 ##### SOURCE END #####
 --></body></html>

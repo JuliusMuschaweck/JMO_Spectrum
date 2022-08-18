@@ -20,6 +20,8 @@
 %
 % <CIE1931_Data.html CIE1931_Data> returns |struct| with CIE 1931 color matching functions, monochromatic border and Planck locus
 %
+% <CIE1964_Data.html CIE1964_Data> returns |struct| with CIE 1964 color matching functions, and monochromatic border 
+%
 % <CIE1931_XYZ.html CIE1931_XYZ> computes CIE 1931 tristimulus values X, Y, Z and x, y, z color coordinates for a
 % spectrum
 %

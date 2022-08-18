@@ -108,7 +108,10 @@
 % <CauchyFromAbbe.html CauchyFromAbbe> computes A0 and A1 coefficients of the Cauchy dispersion model from reference index and
 % Abbe number
 %
-% <CIE1931_Data.html CIE1931_Data> returns |struct| with CIE 1931 color matching functions, monochromatic border and Planck locus
+% <CIE1931_Data.html CIE1931_Data> returns |struct| with CIE 1931 color matching functions, monochromatic border and
+% Planck locus 
+%
+% <CIE1964_Data.html CIE1964_Data> returns |struct| with CIE 1964 color matching functions, and monochromatic border 
 %
 % <CODATA2018.html CODATA2018> Returns a struct with CODATA 2018 constants relevant to illumination, and some more
 % 

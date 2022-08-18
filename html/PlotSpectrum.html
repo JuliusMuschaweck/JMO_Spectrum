@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>PlotSpectrum</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-01"><meta name="DC.source" content="PlotSpectrum.m"><style type="text/css">
+      --><title>PlotSpectrum</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-07-10"><meta name="DC.source" content="PlotSpectrum.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -74,7 +74,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../XXX.m"> XXX.m</a>
 </p>
-</p><p>Convenience function to avoid <tt>plot(s.lam, s.val)</tt>, and errors like <tt>plot(good.lam, bad.val)</tt>. Additional parameters are forwarded to <tt>plot</tt>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>function PlotSpectrum(s, varargin)</tt></p><p><tt>function PlotSpectrum(ax, s, varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>s</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li><li><tt>ax</tt>: An Axes objct handle</li><li><tt>varargin</tt>: Any other arguments</li></ul></div><h2 id="3">Output Arguments</h2><p>None</p><h2 id="4">Algorithm</h2><p><tt>PlotSpectrum(s, varargin)</tt> plots the spectrum <tt>s</tt> to the current axes, essentially calling <tt>plot(s.lam,s.val,varargin{2:end}</tt>, i.e. optional arguments are simply forwarded to <tt>plot</tt>.</p><p><tt>PlotSpectrum(ax, s, varargin)</tt> does the same, but plots to axes <tt>ax</tt>.</p><h2 id="5">See also</h2><p>Matlab <tt>plot</tt> for additional arguments</p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p><p>Convenience function to avoid <tt>plot(s.lam, s.val)</tt>, and errors like <tt>plot(good.lam, bad.val)</tt>. Additional parameters are forwarded to <tt>plot</tt>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>function PlotSpectrum(s, varargin)</tt></p><p><tt>function PlotSpectrum(ax, s, varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>s</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li><li><tt>ax</tt>: An Axes objct handle</li><li><tt>varargin</tt>: Any other arguments</li></ul></div><h2 id="3">Output Arguments</h2><p><tt>p</tt>: The Line object returned by <tt>plot</tt></p><h2 id="4">Algorithm</h2><p><tt>PlotSpectrum(s, varargin)</tt> plots the spectrum <tt>s</tt> to the current axes, essentially calling <tt>plot(s.lam,s.val,varargin{2:end}</tt>, i.e. optional arguments are simply forwarded to <tt>plot</tt>.</p><p><tt>PlotSpectrum(ax, s, varargin)</tt> does the same, but plots to axes <tt>ax</tt>.</p><h2 id="5">See also</h2><p>Matlab <tt>plot</tt> for additional arguments</p><h2 id="6">Usage Example</h2><pre class="language-matlab">
 <span class="keyword">function</span> ExamplePlotSpectrum()
     <span class="comment">% create some spectra</span>
     s1 = GaussSpectrum(400:700,550,50);
@@ -92,6 +92,38 @@ Source code: <a href = "file:../XXX.m"> XXX.m</a>
     <span class="comment">% now plot the same to the first figure</span>
     PlotSpectrum(ax,s2,<span class="string">'r-.'</span>,<span class="string">'LineWidth'</span>,2) <span class="comment">% or any other arguments that plot(...) recognizes</span>
 <span class="keyword">end</span>
+
+</pre><pre class="codeoutput">
+ans = 
+
+  Line with properties:
+
+              Color: [1 0 0]
+          LineStyle: '-.'
+          LineWidth: 2
+             Marker: 'none'
+         MarkerSize: 6
+    MarkerFaceColor: 'none'
+              XData: [400 401 402 403 404 405 406 407 408 409 410 411 412 &#8230; ]
+              YData: [1.3863e-49 6.1822e-49 2.7294e-48 1.1930e-47 &#8230; ]
+
+  Use GET to show all properties
+
+
+ans = 
+
+  Line with properties:
+
+              Color: [1 0 0]
+          LineStyle: '-.'
+          LineWidth: 2
+             Marker: 'none'
+         MarkerSize: 6
+    MarkerFaceColor: 'none'
+              XData: [400 401 402 403 404 405 406 407 408 409 410 411 412 &#8230; ]
+              YData: [1.3863e-49 6.1822e-49 2.7294e-48 1.1930e-47 &#8230; ]
+
+  Use GET to show all properties
 
 </pre><img vspace="5" hspace="5" src="PlotSpectrum_01.png" alt=""> <img vspace="5" hspace="5" src="PlotSpectrum_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -118,7 +150,7 @@ Source code: <a href = "file:../XXX.m"> XXX.m</a>
 % * |varargin|: Any other arguments
 %
 %% Output Arguments
-% None
+% |p|: The Line object returned by |plot|
 %% Algorithm
 % |PlotSpectrum(s, varargin)| plots the spectrum |s| to the current axes, essentially calling |plot(s.lam,s.val,varargin{2:end}|, i.e.
 % optional arguments are simply forwarded to |plot|.
@@ -136,7 +168,7 @@ Source code: <a href = "file:../XXX.m"> XXX.m</a>
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
-function PlotSpectrum(varargin)
+function p = PlotSpectrum(varargin)
     if nargin == 0
         error('PlotSpectrum: no argument given');
     end
@@ -161,9 +193,9 @@ function PlotSpectrum(varargin)
         error('PlotSpectrum: no valid spectrum argument (class %s):\n %s',class(s),formattedDisplayText(s));
     end
     if nargin >= argstart
-        plot(ax,s.lam,s.val,varargin{argstart:end});
+        p = plot(ax,s.lam,s.val,varargin{argstart:end});
     else
-        plot(ax,s.lam,s.val);
+        p = plot(ax,s.lam,s.val);
     end
 end
 ##### SOURCE END #####

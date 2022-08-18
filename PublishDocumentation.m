@@ -6,6 +6,7 @@ publishWithStandardExample('CCT.m');
 publishWithStandardExample('CCT_from_xy.m');
 publishWithStandardExample('CIE1931_Data.m');
 publishWithStandardExample('CIE1931_XYZ.m');
+publishWithStandardExample('CIE1964_Data.m');
 publishWithStandardExample('CIEDE2000_Lab.m');
 publishWithStandardExample('CIEDE2000_XYZ.m');
 publishWithStandardExample('CIE_Illuminant.m');
