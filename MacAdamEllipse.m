@@ -18,7 +18,7 @@
 % * |nstep|: scalar double. Must be positive. Size scale factor of the ellipse. |nstep == 1| for "just noticeable"
 % * |npoints|: scalar double. Must be positive and integer. The number of points to sample the ellipse
 %% Output Arguments
-% * |ell|: (2 x |npoints|) array of double. The ellipse points. First/second column: x/y values
+% * |ell|: (2 x |npoints|) array of double. The ellipse points. First/second row: x/y values
 % * |g|: 3x3 array of double. The 3 x 3 X-Y-Z tristimulus ellipsoid matrix; only 2x2 are meaningful
 % * |a|: scalar double. First half axis of 1-step ellipse
 % * |b|: scalar double. Second half axis of 1-step ellipse

@@ -44,6 +44,7 @@ function g = MacAdamEllipse_g(X, Y, Z, varargin)
 %   Color-Difference Formula“. JOSA 57, Nr. 4 (1. April 1967): https://doi.org/10.1364/JOSA.57.000537.
 % and Chickering, K. D. „FMC Color-Difference Formulas: Clarification Concerning Usage“.
 %   JOSA 61, Nr. 1 (1. Januar 1971): 118. https://doi.org/10.1364/JOSA.61.000118.
+
     % When applyK1K2 = false, we compute the FMC-1 formula according to Chickering 1971
     % then, the result depends only on x,y color coordinates, not on lightness/luminance
     % in other words, X,Y,Z can be multiplied with the same factors without changing result.

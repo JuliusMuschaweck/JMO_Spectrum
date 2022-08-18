@@ -26,6 +26,7 @@
 % <tr><td> 'Ticks'        </td> <td> double vector    </td> <td> reasonable default </td> <td> array of wavelength values where ticks and labels are plotted. Say ...,'Ticks',[],... to suppress ticks</td></tr>
 % <tr><td> 'TickFontSize' </td> <td> scalar double    </td> <td> 6 (default) </td> <td> Font size for ticks annotation, in points </td></tr>
 % <tr><td> 'ColorFill'    </td> <td> scalar logical   </td> <td> false (default) </td> <td> When true, fill "shoe" with approximate colors </td></tr>
+% <tr><td> 'Opacity'      </td> <td> scalar double    </td> <td> 1.0 (default) </td> <td> Opacity of ColorFill, 0 = fully transparent, 1 = fully opaque </td></tr>
 % </table>
 % </p>
 % </html>
@@ -73,6 +74,7 @@ function [ah, fh] = PlotCIEupvpBorder(varargin)
     p.addParameter('Ticks',defaultTicks,@(x) isempty(x) || (isnumeric(x) && isvector(x)));
     p.addParameter('TickFontSize',6,@(x) isnumeric(x) && isscalar(x));
     p.addParameter('ColorFill',false,@islogical);
+    p.addParameter('Opacity',1,@(x) isnumeric(x) && isscalar(x));
     parse(p,varargin{:});
     if isempty(p.Results.Axes)
         if isempty(p.Results.Figure)
@@ -98,7 +100,7 @@ function [ah, fh] = PlotCIEupvpBorder(varargin)
         load('RGBColorShoeImage.mat','rgb_upvp_img');
         im = image([0 1],[1 0],flipud(rgb_upvp_img));
         alph = 1 - (sum(flipud(rgb_upvp_img),3) >= 3); % set white to transparent
-        im.AlphaData = alph;
+        im.AlphaData = alph * p.Results.Opacity;
         set(gca,'ydir','normal');
     end
     
