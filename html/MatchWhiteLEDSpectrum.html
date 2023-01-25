@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>MatchWhiteLEDSpectrum</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-07-10"><meta name="DC.source" content="MatchWhiteLEDSpectrum.m"><style type="text/css">
+      --><title>MatchWhiteLEDSpectrum</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="MatchWhiteLEDSpectrum.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -82,9 +82,9 @@ Source code: <a href = "file:../MatchWhiteLEDSpectrum.m"> MatchWhiteLEDSpectrum.
     spec.XYZ = CIE1931_XYZ(spec);
     
     matchOriginal = MatchWhiteLEDSpectrum(spec, spec.XYZ);
-    delta = matchOriginal.spec.val - spec.val;
-    test = max(abs(delta)) &lt; 1e-14;
-    fprintf(<span class="string">'match original deviation : %g\n'</span>,max(abs(delta)));
+    delta = AddWeightedSpectra({matchOriginal.spec, spec},[1, -1]);
+    test = max(abs(delta.val)) &lt; 1e-14;
+    fprintf(<span class="string">'match original deviation : %g\n'</span>,max(abs(delta.val)));
     
     <span class="comment">% prepare target at 4500K Planck</span>
     xyt = PlanckLocus().xy_func(4500);
@@ -130,8 +130,8 @@ Source code: <a href = "file:../MatchWhiteLEDSpectrum.m"> MatchWhiteLEDSpectrum.
     
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">Warning: error in runExample: Arrays have incompatible sizes for this operation. 
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+</pre><pre class="codeoutput">match original deviation : 1.11022e-16
+</pre><img vspace="5" hspace="5" src="MatchWhiteLEDSpectrum_01.png" alt=""> <img vspace="5" hspace="5" src="MatchWhiteLEDSpectrum_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MatchWhiteLEDSpectrum
 % 
@@ -220,9 +220,13 @@ function rv = MatchWhiteLEDSpectrum(whiteLEDspectrum, XYZ_target)
     end
     % bracket established REPLACE_WITH_DASH_DASH find shift to bring target between blue and yellow
     [dlam, fb, nfe, ok, msg]= FindRoot1D(testshift, -dlam_max, dlam_max);
-    blue_shifted = MakeSpectrumDirect(blue.lam + dlam,  blue.val, 'XYZ',true);
-    yellow_shifted = MakeSpectrumDirect(yellow.lam - dlam,  yellow.val, 'XYZ',true);
-    
+    if abs(dlam) < 1e-10 % no shift
+        blue_shifted = MakeSpectrumDirect(blue.lam,  blue.val, 'XYZ',true);
+        yellow_shifted = MakeSpectrumDirect(yellow.lam,  yellow.val, 'XYZ',true);
+    else
+        blue_shifted = MakeSpectrumDirect(blue.lam + dlam,  blue.val, 'XYZ',true);
+        yellow_shifted = MakeSpectrumDirect(yellow.lam - dlam,  yellow.val, 'XYZ',true);
+    end
     % compute weights
     blue_dist = norm([blue_shifted.XYZ.x, blue_shifted.XYZ.y] - xyt);
     yellow_dist = norm([yellow_shifted.XYZ.x, yellow_shifted.XYZ.y] - xyt);

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>PlotCIEupvpBorder</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-07-10"><meta name="DC.source" content="PlotCIEupvpBorder.m"><style type="text/css">
+      --><title>PlotCIEupvpBorder</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="PlotCIEupvpBorder.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -85,6 +85,7 @@ Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
 <tr><td> 'Ticks'        </td> <td> double vector    </td> <td> reasonable default </td> <td> array of wavelength values where ticks and labels are plotted. Say ...,'Ticks',[],... to suppress ticks</td></tr>
 <tr><td> 'TickFontSize' </td> <td> scalar double    </td> <td> 6 (default) </td> <td> Font size for ticks annotation, in points </td></tr>
 <tr><td> 'ColorFill'    </td> <td> scalar logical   </td> <td> false (default) </td> <td> When true, fill "shoe" with approximate colors </td></tr>
+<tr><td> 'Opacity'      </td> <td> scalar double    </td> <td> 1.0 (default) </td> <td> Opacity of ColorFill, 0 = fully transparent, 1 = fully opaque </td></tr>
 </table>
 </p>
 </p><h2 id="3">Output Arguments</h2><div><ul><li><tt>ah</tt>: handle to axes where the border was plotted, to be used for further plotting of e.g. color coordinates</li><li><tt>fh</tt>: handle to figure where the border was plotted, to be used for further plotting.</li></ul></div><h2 id="4">Algorithm</h2><p>Takes the monochromatic border values from the CIE xy standards, converts it to u'v' and plots it, using the specified options.</p><h2 id="5">See also</h2><p><a href="PlotCIExyBorder.html">PlotCIExyBorder</a>, <a href="CIE1931_Data.html,">CIE1931_Data</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
@@ -109,7 +110,7 @@ Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
     <span class="comment">% specified</span>
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="PlotCIEupvpBorder_01.png" alt=""> <img vspace="5" hspace="5" src="PlotCIEupvpBorder_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="PlotCIEupvpBorder_01.png" alt=""> <img vspace="5" hspace="5" src="PlotCIEupvpBorder_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% PlotCIEupvpBorder
 % 
@@ -139,6 +140,7 @@ Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
 % <tr><td> 'Ticks'        </td> <td> double vector    </td> <td> reasonable default </td> <td> array of wavelength values where ticks and labels are plotted. Say ...,'Ticks',[],... to suppress ticks</td></tr>
 % <tr><td> 'TickFontSize' </td> <td> scalar double    </td> <td> 6 (default) </td> <td> Font size for ticks annotation, in points </td></tr>
 % <tr><td> 'ColorFill'    </td> <td> scalar logical   </td> <td> false (default) </td> <td> When true, fill "shoe" with approximate colors </td></tr>
+% <tr><td> 'Opacity'      </td> <td> scalar double    </td> <td> 1.0 (default) </td> <td> Opacity of ColorFill, 0 = fully transparent, 1 = fully opaque </td></tr>
 % </table>
 % </p>
 % </html>
@@ -186,6 +188,7 @@ function [ah, fh] = PlotCIEupvpBorder(varargin)
     p.addParameter('Ticks',defaultTicks,@(x) isempty(x) || (isnumeric(x) && isvector(x)));
     p.addParameter('TickFontSize',6,@(x) isnumeric(x) && isscalar(x));
     p.addParameter('ColorFill',false,@islogical);
+    p.addParameter('Opacity',1,@(x) isnumeric(x) && isscalar(x));
     parse(p,varargin{:});
     if isempty(p.Results.Axes)
         if isempty(p.Results.Figure)
@@ -211,7 +214,7 @@ function [ah, fh] = PlotCIEupvpBorder(varargin)
         load('RGBColorShoeImage.mat','rgb_upvp_img');
         im = image([0 1],[1 0],flipud(rgb_upvp_img));
         alph = 1 - (sum(flipud(rgb_upvp_img),3) >= 3); % set white to transparent
-        im.AlphaData = alph;
+        im.AlphaData = alph * p.Results.Opacity;
         set(gca,'ydir','normal');
     end
     

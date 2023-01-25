@@ -13,7 +13,7 @@
 %% Syntax
 % |rv = JMOSpectrumVersion()|
 %% Output Arguments
-% * |rv|: A |struct| with fields |major| and |minor|, both are nonnegative integers.
+% * |rv|: A |struct| with fields |major| and |minor| and |patch|, all are nonnegative integers.
 %% Usage Example
 % <include>Examples/ExampleJMOSpectrumVersion.m</include>
 
@@ -26,4 +26,5 @@
 function rv = JMOSpectrumVersion()
     rv.major = 2;
     rv.minor = 1;
+    rv.patch = 3; % as of 2023-01-24
 end

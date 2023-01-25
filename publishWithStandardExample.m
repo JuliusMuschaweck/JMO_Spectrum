@@ -9,4 +9,5 @@ function publishWithStandardExample(fn)
     drawnow;
     publish([fn,'.m'],'evalCode',true,'showCode',false,'codeToEvaluate',strcat('runExample(''Example',fn,''')'));
     open(['html/',fn,'.html']);
+    close all;
 end
