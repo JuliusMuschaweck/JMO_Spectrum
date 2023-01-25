@@ -1,4 +1,4 @@
-function rv = COBYLA( func, x0, constraints, rho_start, rho_end
+function rv = COBYLA( func, x0, constraints, rho_start, rho_end)
     % initialize
     rho = rho_start;
     mu = 0;
@@ -70,7 +70,8 @@ function rv = IsAcceptableSimplex( x, rho, alpha, beta )
             break;
         end
     end
-    return ok;
+    rv = ok;
+    return;
 end
 
 function rv = CayleyMengerMatrix( x )
