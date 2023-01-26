@@ -77,7 +77,7 @@ function WriteLightToolsSpectrumFile(spectrum, filename, varargin)
         fn = strcat(fn,'.sre');
     end
     fh = fopen(fn,'w');
-    fprintf(fh,'# LightTools spectrum file, created %s\n',datestr(now));
+    fprintf(fh,'# LightTools spectrum file, created %s\n',datetime());
     if ~(isempty(res.comment))
         if iscell(res.comment)
             for i = 1:length(res.comment)
