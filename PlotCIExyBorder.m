@@ -98,6 +98,7 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     
     if p.Results.ColorFill
         load('RGBColorShoeImage.mat','rgbimg2');
+%        load('RGBColorShoeImage_trueRainbow.mat','rgbimg2');
         im = image([0 1],[1 0],flipud(rgbimg2));
         alph = 1 - (sum(flipud(rgbimg2),3) == 3); % set white to transparent
         im.AlphaData = alph * p.Results.Opacity;

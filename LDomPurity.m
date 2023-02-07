@@ -39,7 +39,7 @@
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
-function [ldom, purity] = LDomPurity(rhs, opts)
+function [ldom, purity, xyBorder] = LDomPurity(rhs, opts)
     % Computes dominant wavelength in nm and purity, from E = (1/3,1/3). 
     % Ldom and purity negative if E -> x/y intersects magenta line, not the monochromatic border.
     % Returns [555,0] for x/y == E within circle of radius eps = 2.2e-16. 
@@ -53,8 +53,12 @@ function [ldom, purity] = LDomPurity(rhs, opts)
     if isempty(CIE1931XYZ)
         load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
     end
-    xb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);
-    yb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.yBorder, lambda);
+    % JM 28.1.2023: these lines take the longest time, replace by LinInterpol
+    %xb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);
+    %yb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.yBorder, lambda);
+    xb = @(lambda) LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);
+    yb = @(lambda) LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.yBorder, lambda);
+
     % atan2(y,x), not x,y(!), goes from -pi to pi, x axis is 0 y axis is pi/2
     % so atan2 jumps at the -x axis.
     % we rotate left by pi/2 such that the -x axis becomes the -y axis in CIE xy
@@ -89,12 +93,13 @@ function [ldom, purity] = LDomPurity(rhs, opts)
     angle = @(lambda) atan2(- xb(lambda) + Ex, - Ey + yb(lambda));
 %    dx0 = x0 - 1/3.0;
 %    dy0 = y0 - 1/3.0;
-     dx0 = x0 - Ex;
-     dy0 = y0 - Ey;
+    dx0 = x0 - Ex;
+    dy0 = y0 - Ey;
     if (abs(dx0) < eps && abs(dy0) < eps)
         % x/y at white point
         ldom = 555; %arbitrary
         purity = 0;
+        xyBorder = [xb(555),yb(555)];
         return;
     end
     % compute angle a0 of line from white point to x/y
@@ -116,13 +121,29 @@ function [ldom, purity] = LDomPurity(rhs, opts)
     if (zerofun(360) * zerofun(830)) >= 0
         error('LDomPurity: angle not bracketed');
     end
-    [ldom,~,exitflag,~] = fzero( zerofun, [360, 830]);
-    if exitflag ~= 1
+    % JM 29.1.2023: use FindRoot1D to improve speed
+    % [ldom,~,exitflag,~] = fzero( zerofun, [360, 830]);
+    [ldom, ~, ~, lDomOk] = FindRoot1D(zerofun, 360, 830,'throwOnFailure',false);
+    % if exitflag ~= 1
+    if ~lDomOk
         % this cannot happen...
         error('LDomPurity: Root finding failed, fzero exitflag = %g',exitflag);
     end
     xbldom   = xb(ldom);
     ybldom = yb(ldom);
     ldom = ldom  * plusminus;
-    purity = plusminus * norm([dx0,dy0]) / norm ([xbldom - 1/3.0, ybldom - 1/3.0]);
+    % JM 20230201: Fix small bug with purity always w.r.t 1/3, 1/3, not opts.E
+%    purity = plusminus * norm([dx0,dy0]) / norm ([xbldom - 1/3.0, ybldom - 1/3.0]);
+%    purity = plusminus * norm([dx0,dy0]) / norm ([xbldom - Ex, ybldom - Ey]);
+    % now compute correct purity values for magenta line.
+    if plusminus == 1.0
+       purity = norm([dx0,dy0]) / norm ([xbldom - Ex, ybldom - Ey]);
+       xyBorder = [xbldom, ybldom];
+    else
+       xyRed = [CIE1931XYZ.xBorder(end), CIE1931XYZ.yBorder(end)];
+       xyViolet = [CIE1931XYZ.xBorder(1), CIE1931XYZ.yBorder(1)];
+       xyBorder = lineIntersect(xyRed,xyViolet,[xbldom, ybldom],[Ex,Ey]);
+       purity = - norm([dx0,dy0]) / norm(xyBorder - [Ex,Ey]);
+    end
 end
+

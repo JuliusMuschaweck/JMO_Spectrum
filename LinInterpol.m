@@ -47,11 +47,15 @@ function yq = LinInterpol(xx,yy,xq)
     % Just like builtin function interp1(xx, yy, xq, 'linear', 0) except
     % that a C++ DLL routine is called which is much faster and much less safe
     % GNU Octave: simply forwards to the interp1 call.
+    persistent iPrepare;
     if (~ispc) || IsOctave()
         yq = interp1(xx, yy, xq, 'linear', 0);
         return;
     end
-    iPrepareLinInterpol();
+    if isempty(iPrepare)
+        iPrepare = true;
+        iPrepareLinInterpol();
+    end
     yq = xq;
     [ok,yq] = calllib('LinInterpol','LinInterpol',yq,xx,yy,xq,length(xx),length(xq));
     if ~(ok == 0)

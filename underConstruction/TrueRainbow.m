@@ -124,6 +124,7 @@ function rv = TrueRainbow(opts)
         opts.showDiagnostics = false;
         opts.floor = 0.01;
     end
+    floor = opts.floor;
     % obtain CIE border
     cie = CIE1931_Data();
     lam = cie.lam;
@@ -136,17 +137,20 @@ function rv = TrueRainbow(opts)
     E = [Ex, Ey];
 
     % sRGB gamut
-    R = [0.64, 0.30];
+    R = [0.64, 0.33]; % 0.33 not 0.3 -- JM 5.2.2023
     G = [0.3, 0.6];
     B = [0.15, 0.06];
     % mid points of RGB triangle sides
     RB = 0.5 * (R+B);
     BG = 0.5 * (B+G);
     GR = 0.5 * (G+R);
-    % RGB corner weights for spline.
-    w_R = 5;
-    w_G = 3.5;
-    w_B = 2;
+    % RGB corner weights for spline
+%     w_R = 5;
+%     w_G = 3.5;
+%     w_B = 2;
+    w_R = 20;
+    w_G = 20;
+    w_B = 20;
 
     R_spline = @(u) WeightedBezierSpline(GR, R, RB, w_R, u);
     G_spline = @(u) WeightedBezierSpline(BG, G, GR, w_G, u);
@@ -154,12 +158,14 @@ function rv = TrueRainbow(opts)
 
 
     n = length(lam);
+    % x and y will be the coordinates on the splines as function of dominant wavelength
     x = nan(1,n);
     y = nan(1,n);
 
     % dominant wavelengths of mid points
     lam_BG = LDomPurity(BG);
-    lam_GR = LDomPurity(GR);    
+    lam_GR = LDomPurity(GR);
+    lam_RB = LDomPurity(RB); % LDomPurity(RB) < 0 since in magenta !!
 
     % project monochromatic CIE border to RGB spline
     % by numerical 1D root finding
@@ -179,14 +185,46 @@ function rv = TrueRainbow(opts)
         y(i) = xy(2);
     end
     z = 1 - x - y;
+
+    % do the same for the magenta line
+    % magenta line is parameterized by negative values of lDom
+    % first, the limiting wavelengths
+    tmp = -0.5 * [xB(1), yB(1)] + 1.5 * E; 
+        % tmp is a point on the line from 360nm to E on the other side of E
+    ldom_mag_360 = - LDomPurity(tmp); % about -570
+    tmp = -0.5 * [xB(end), yB(end)] + 1.5 * E; 
+    ldom_mag_830 = - LDomPurity(tmp); % about -495
+    % then, in small steps:
+    n_mag = 300;
+    lam_mag = linspace(ldom_mag_360, ldom_mag_830, n_mag);
+    ixB_mag = LinInterpol(lam, xB, -lam_mag);
+    iyB_mag = LinInterpol(lam, yB, -lam_mag);
+    x_mag = nan(1, n_mag);
+    y_mag = nan(1, n_mag);
+    for i = 1:n_mag
+        xyB = [ixB_mag(i), iyB_mag(i)];
+        if lam_mag(i) < lam_RB % lam_RG about - 520 (negative)
+            u = ProjectToBracketedSpline( B_spline, xyB);
+            xy = B_spline(u);
+        else
+            u = ProjectToBracketedSpline( R_spline, xyB);
+            xy = R_spline(u);
+        end
+        x_mag(i) = xy(1);
+        y_mag(i) = xy(2);
+    end
+    z_mag = 1 - x_mag - y_mag;
+
     % the sRGB conversion matrix
     M = [ 3.2406255, -1.5372080, -0.4986286;
         -0.9689307,  1.8757561,  0.0415175;
         0.0557101, -0.2040211,  1.0569959];
     % linear RGB weights for the sRGB primaries
     RGBlin = [x(:),y(:),z(:)] * M'; % 3 x n
+    RGBlin_mag = [x_mag(:),y_mag(:),z_mag(:)] * M';
     % a couple spurious very slightly negative values set to zero
     RGBlin(RGBlin < 0) = 0;
+    RGBlin_mag(RGBlin_mag < 0) = 0;
     assert(all(RGBlin(:) >= 0));
 
     % the inverse sRGB conversion matrix
@@ -195,26 +233,34 @@ function rv = TrueRainbow(opts)
          0.0193, 0.1192, 0.9505];
     % the relative luminance of each linear RGB value
     Y_lin = RGBlin * (M2(2,:))';
+    Y_lin_mag = RGBlin_mag * (M2(2,:))';
 
     % scale linear RGB to obtain equal luminance linear RGB values
     tmp = RGBlin ./ Y_lin;
     RGB_lin_equalY = tmp / max(tmp(:));
+    tmp = RGBlin_mag ./ Y_lin_mag;
+    RGB_lin_mag_equalY = tmp / max(tmp(:));
 
     % test = RGB_lin_equalY * (M2(2,:))';
 
     % apply the sRGB Gamma function to obtain equal luminance sRGB
     % only for demonstration/plotting purposes
     RGB_equalY = Gamma(RGB_lin_equalY);
-
-    floor = opts.floor;
+    % RGB_mag_equalY = Gamma(RGB_lin_mag_equalY);
 
     vlam = cie.y;
     solar = PlanckSpectrum(lam, 5500);
-    weight = solar.val .* vlam;
-    weight = (weight + floor) / (1 + floor);
+    weight = solar.val .* vlam; % now weight is luminance of 5500K spectrum
+    weight = (weight + floor) / (1 + floor); % but with nonzero at boundaries
     tmp = RGB_lin_equalY .* weight;
     RGB_lin_vlam_Y = tmp / max(tmp(:));
     RGB_vlam_Y = Gamma(RGB_lin_vlam_Y);
+
+    weight_mag = max(RGB_lin_vlam_Y(:)) / max(RGB_lin_mag_equalY(:));
+    tmp = RGB_lin_mag_equalY .* weight_mag;
+    RGB_lin_mag_matched_Y = tmp / max(tmp(:));
+    RGB_mag_matched_Y = Gamma(RGB_lin_mag_matched_Y);
+    
 
     if isempty(opts.lam)
         rv.lam = lam;
@@ -226,12 +272,17 @@ function rv = TrueRainbow(opts)
     end
     rv.RGBfunc = @(lam) InterpolRainbow(rv.lam, rv.RGB, lam);
     rv.RainbowImageFunc = @ (lam_query, horizontal, n_lines) RainbowImage(rv.lam, rv.RGB, lam_query, horizontal, n_lines);
+    
+    rv.lam_magenta = lam_mag;
+    rv.RGB_magenta = RGB_mag_matched_Y;
+    rv.RGBfunc_magenta = @(lam) InterpolRainbow(rv.lam_magenta, rv.RGB_magenta, lam);
+
     rv.floor = opts.floor;
 
     if opts.showDiagnostics
         ShowDiagnostics();
     end
-
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% end body of main function
 
     function X_C_prime = Gamma(X_B)
         X_C_prime = NaN(size(X_B));
@@ -254,7 +305,8 @@ function rv = TrueRainbow(opts)
         d2 = xy2 - E;
         rv = d1(1)*d2(2) - d1(2) * d2(1);
     end
-
+    
+    % local function
     function ax = ShowDiagnostics()
         figure(2);
         clf;
@@ -281,7 +333,9 @@ function rv = TrueRainbow(opts)
         scatter(ax, pp(1), pp(2),'o');
         plot([xB(1),Ex], [yB(1),Ey],'b');
 
-        scatter(x, y, '.');
+        scatter(x, y, '.b');
+        scatter(x_mag, y_mag, '.g');
+    
 
         figure(3);
         clf;
@@ -352,14 +406,14 @@ function rv = TrueRainbow(opts)
         plot(r.lam, r.RGB(:,3),'b');
         title(sprintf('R,G,B values with floor = %g',r.floor));
 
-        figure(12);
+        figure(13);
         peaks();
         rgb = r.RainbowImageFunc(420:670,false,1);
         colormap(rgb);
         colorbar;
         title('peaks() with true rainbow color map');
-    end 
-end
+    end % ShowDiagnostics
+end % main function
 
 function rv = WeightedBezierSpline( p0, p1, p2, w1, uu)
     arguments
