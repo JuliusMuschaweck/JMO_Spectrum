@@ -1,0 +1,153 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CIE_S_026_Data</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-02-25"><meta name="DC.source" content="CIE_S_026_Data.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CIE_S_026_Data</h1><!--introduction--><p>
+ <p style="font-size:75%;">Navigate to: &nbsp;
+<a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+<a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
+<a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
+Source code: <a href = "file:../CIE_S_026_Data.m"> CIE_S_026_Data.m</a>
+</p>
+</p><p>Returns <tt>struct</tt> with the five human eye sensitivity spectra acc. to CIE S 026</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_S_026_Data()</tt></p><h2 id="2">Input Arguments</h2><p>none</p><h2 id="3">Output Arguments</h2><p><tt>rv</tt>: struct with fields:</p><div><ul><li><tt>S_cone_opic_sensitivity</tt>: sensitivity spectrum of S (blue) cones</li><li><tt>M_cone_opic_sensitivity</tt>: sensitivity spectrum of M (green) cones</li><li><tt>L_cone_opic_sensitivity</tt>: sensitivity spectrum of L (red) cones</li><li><tt>rhodopic_sensitivity</tt>: sensitivity spectrum of rods (for night vision)</li><li><tt>melanopic_sensitivity</tt>: sensitivity spectrum of melanopic ipRGC cells (day/night)</li></ul></div><h2 id="4">Algorithm</h2><p>Retrieves the data stored in <tt>CIES026_lam_S_M_L_r_m.mat</tt></p><h2 id="5">See also</h2><p>(not yet implemented) <a href="CIE1964_XYZ.html">CIE1964_XYZ</a>, <a href="PlotCIExyBorder.html">PlotCIExyBorder</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+<span class="keyword">function</span> ExampleCIE_S_026_Data()
+    CIES026 = CIE_S_026_Data();
+    figure();
+    clf;
+    hold <span class="string">on</span>;
+    PlotSpectrum(CIES026.S_cone_opic_sensitivity,<span class="string">'b'</span>);
+    PlotSpectrum(CIES026.M_cone_opic_sensitivity,<span class="string">'g'</span>);
+    PlotSpectrum(CIES026.L_cone_opic_sensitivity,<span class="string">'r'</span>);
+    PlotSpectrum(CIES026.rhodopic_sensitivity,<span class="string">'k'</span>);
+    PlotSpectrum(CIES026.melanopic_sensitivity,<span class="string">'m'</span>);
+    legend({<span class="string">'S_cone_opic'</span>,<span class="string">'M_cone_opic'</span>,<span class="keyword">...</span>
+        <span class="string">'L_cone_opic'</span>,<span class="string">'rhodopic'</span>,<span class="string">'melanopic'</span>},<span class="string">'Interpreter'</span>,<span class="string">'none'</span>);
+    xlabel(<span class="string">'\lambda (nm)'</span>);
+    title(<span class="string">'human eye cone sensitivities (CIE S 026)'</span>);
+
+    D65 = CIE_Illuminant(<span class="string">'D65'</span>);
+    D65_lm = 683 * IntegrateSpectrum(D65, Vlambda());
+    D65_melanopic_mW = 1000 * IntegrateSpectrum(D65, CIES026.melanopic_sensitivity);
+    fprintf(<span class="string">'6500 K cold white daylight  spectrum has %0.2f mW/lm melanopic efficacy\n'</span>, D65_melanopic_mW/D65_lm);
+
+    Planck2700 = PlanckSpectrum(360:830,2700);
+    Planck2700_lm = 683 * IntegrateSpectrum(Planck2700, Vlambda());
+    Planck_melanopic_mW = 1000 * IntegrateSpectrum(Planck2700, CIES026.melanopic_sensitivity);
+    fprintf(<span class="string">'2700 K warm white blackbody spectrum has %0.2f mW/lm melanopic efficacy\n'</span>,Planck_melanopic_mW/Planck2700_lm);
+<span class="keyword">end</span>
+
+</pre><pre class="codeoutput">6500 K cold white daylight  spectrum has 1.33 mW/lm melanopic efficacy
+2700 K warm white blackbody spectrum has 0.61 mW/lm melanopic efficacy
+</pre><img vspace="5" hspace="5" src="CIE_S_026_Data_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CIE_S_026_Data
+% 
+% <html>
+%  <p style="font-size:75%;">Navigate to: &nbsp; 
+% <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
+% <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp; 
+% <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp; 
+% Source code: <a href = "file:../CIE_S_026_Data.m"> CIE_S_026_Data.m</a>
+% </p>
+% </html>
+%
+% Returns |struct| with the five human eye sensitivity spectra acc. to CIE S 026
+%% Syntax
+% |rv = CIE_S_026_Data()|
+%% Input Arguments
+% none
+%% Output Arguments
+% |rv|: struct with fields:
+% 
+% * |S_cone_opic_sensitivity|: sensitivity spectrum of S (blue) cones
+% * |M_cone_opic_sensitivity|: sensitivity spectrum of M (green) cones
+% * |L_cone_opic_sensitivity|: sensitivity spectrum of L (red) cones
+% * |rhodopic_sensitivity|: sensitivity spectrum of rods (for night vision)
+% * |melanopic_sensitivity|: sensitivity spectrum of melanopic ipRGC cells (day/night)
+
+%% Algorithm
+% Retrieves the data stored in |CIES026_lam_S_M_L_r_m.mat|
+%% See also
+% (not yet implemented)
+% <CIE1964_XYZ.html CIE1964_XYZ>, <PlotCIExyBorder.html PlotCIExyBorder>
+%% Usage Example
+% <include>Examples/ExampleCIE_S_026_Data.m</include>
+
+% publish with publishWithStandardExample('filename.m') in PublishDocumentation.m
+
+% JMO Spectrum Library, 2021. See https://github.com/JuliusMuschaweck/JMO_Spectrum
+% I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
+% (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+%
+
+function rv = CIE_S_026_Data()
+    load('CIES026_lam_S_M_L_r_m.mat','CIES026');
+    rv = CIES026;
+end
+##### SOURCE END #####
+--></body></html>

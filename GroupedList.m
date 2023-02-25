@@ -113,6 +113,8 @@
 %
 % <CIE1964_Data.html CIE1964_Data> returns |struct| with CIE 1964 color matching functions, and monochromatic border 
 %
+% <CIE_S_026_Data.html CIE_S_026_Data> returns |struct| with human eye sensitivities from CIE S026:E2018 
+%
 % <CODATA2018.html CODATA2018> Returns a struct with CODATA 2018 constants relevant to illumination, and some more
 % 
 % <EvalSpectrum.html EvalSpectrum> evaluates the function modeled by a spectrum

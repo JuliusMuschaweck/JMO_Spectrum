@@ -29,12 +29,12 @@ classdef TMatrixGammaCamera <TRGBFilterCamera
         function RGB_C_prime = Response(obj, spectrum)
             RGB_C_prime = struct;
             RGB_C = obj.WhiteBalancedResponse(spectrum);
-            %% Regine: check clipping before applying M
+            %% check clipping before applying M
             [RGB_C, sensorClipped] = obj.Clip(RGB_C);
             RGB_M = obj.M * RGB_C.RGB;            
             RGB_B = obj.SaturationControl(RGB_M);
             iRGB = [obj.Gamma(RGB_B(1));obj.Gamma(RGB_B(2));obj.Gamma(RGB_B(3))];
-            %% Regine: check clipping again for display
+            %% check clipping again for display
             RGB_C_prime.R = iRGB(1);
             RGB_C_prime.G = iRGB(2);
             RGB_C_prime.B = iRGB(3);

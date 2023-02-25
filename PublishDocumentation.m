@@ -11,6 +11,7 @@ publishWithStandardExample('CIE_Illuminant.m');
 publishWithStandardExample('CIE_Illuminant_D.m');
 publishWithStandardExample('CIE_Lab.m');
 publishWithStandardExample('CIE_Luv.m');
+publishWithStandardExample('CIE_S_026_Data.m');
 publishWithStandardExample('CIE_upvp.m');
 publishWithStandardExample('CIE_xy_from_upvp.m');
 publishWithStandardExample('CIEDE2000_Lab.m');

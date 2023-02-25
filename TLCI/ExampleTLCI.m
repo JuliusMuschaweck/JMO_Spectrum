@@ -36,5 +36,15 @@ function ExampleTLCI()
     TLCI_result = StandardTLCICalculator.Goodness(LEDwhite);
     PlotTLCIResult(TLCI_result, 3, 'white 3000K LED', 150);
     
+    figure(4);
+    clf;
+    hold on;
+    PlotSpectrum(bad,'LineWidth',1.5);
+    PlotSpectrum(LEDwhite,'LineWidth',1.5);
+    xlabel('\lambda (nm)');
+    title('Two test spectra for TLCI');
+    axis([350,800,-0.05,1.8]);
+    grid on;
+
     
 end

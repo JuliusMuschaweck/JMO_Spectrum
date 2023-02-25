@@ -37,6 +37,8 @@
 %
 % <CIE_Luv.html CIE_Luv> Computes CIELUV L*, u*, v* values from XYZ tristimulus values
 %
+% <CIE_S_026_Data.html CIE_S_026_Data> returns |struct| with human eye sensitivities from CIE S026:E2018 
+%
 % <CIE_upvp.html CIE_upvp> Computes CIE 1960/1964 u, v, u', v' color coordinates from CIE 1931 x, y
 %
 % <CIE_xy_from_upvp.html CIE_xy_from_upvp> Computes CIE x,y coordinates from CIE 1960/1964 u', v'

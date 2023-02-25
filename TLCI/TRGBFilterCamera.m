@@ -66,22 +66,3 @@ classdef TRGBFilterCamera < TCamera
     end
 end
 
-function rv = IntegrateProductSpectra_Regine( lhs, rhs )
-% it would be correct to integrate the linearly interpolated product
-% analytically, but Regine and Alan Reynolds do it simpler
-    if isequal(lhs.lam, rhs.lam)
-        sls2.lam = lhs.lam;
-        sls2.val = lhs.val .* rhs.val;
-    else
-        sls2 = MultiplySpectra(lhs,rhs);
-    end
-    dlam = diff(sls2.lam);
-    mindlam = min(dlam);
-    maxdlam = max(dlam);
-    if (mindlam == maxdlam)
-        rv = sum(sls2.val) * mindlam;
-    else
-        y = 0.5 * (s1s2.val(2:end) + s1s2.val(1:(end-1)));
-        rv = (dlam(:))' * (y(:));
-    end
-end
