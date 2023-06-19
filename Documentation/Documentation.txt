@@ -1,0 +1,6 @@
+The documentation for the spectrum library starts at
+
+html/JMOSpectrumLibrary.html
+
+June 18th, 2023
+Julius Muschaweck
