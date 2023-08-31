@@ -81,7 +81,7 @@
 % solar spectrum doesn't look good here because of narrow absorption lines), and the human eye sensitivity is taken to
 % follow V(lambda). We could now simply scale the equal luminance linear RGB values such that they follow the product of
 % both functions (5500K spectrum times V(lambda)). However, there would be substantial deep red and deep blue tails
-% which would be essentially black. We therefore scale this original weighted luminance |L| (nromalized to peak 1), 
+% which would be essentially black. We therefore scale this original weighted luminance |L| (normalized to peak 1), 
 % with a small |floor| value, such % that the resulting luminance value |L'| is given by |L' = (L + floor) / (1 +
 % floor)|, mapping the interval |[0, 1]| to |[floor, 1]|. This way, the deep red and blue tails remain dark red and dark
 % purple.
@@ -148,9 +148,9 @@ function rv = TrueRainbow(opts)
 %     w_R = 5;
 %     w_G = 3.5;
 %     w_B = 2;
-    w_R = 20;
-    w_G = 20;
-    w_B = 20;
+    w_R = 5;
+    w_G = 5;
+    w_B = 5;
 
     R_spline = @(u) WeightedBezierSpline(GR, R, RB, w_R, u);
     G_spline = @(u) WeightedBezierSpline(BG, G, GR, w_G, u);

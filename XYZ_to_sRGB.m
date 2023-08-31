@@ -21,7 +21,7 @@
 % lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When
 % true, negative values are clipped.
 %% Output Arguments
-% * |rv|: struct with fields |R|, |G|, |B| (1 x n row vectors, where |n == numel(X)|), and |RGB|, an nx3 matrix
+% * |rv|: struct with fields |R|, |G|, |B|, same size as |X|, and |RGB|, an nx3 matrix
 % with one sRGB triplet per row.
 %% Algorithm
 % The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
@@ -49,6 +49,7 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
     % X,Y,Z of D65 white is (X, Y, Z = 0.9505, 1.0000, 1.0890)
     % rv has fields R, G, B which are scalars or arrays of same size
     % and field RGB which is a nx3 array of R,G,B values
+    sz = size(X);
     XYZ = cat(2,X(:),Y(:),Z(:)); % n x 3
     M = [ 3.2406255, -1.5372080, -0.4986286;
          -0.9689307,  1.8757561,  0.0415175;
@@ -67,10 +68,11 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
     else
         rv.clipped = false;
     end
-    rv.R = sRGB(1,:);
-    rv.G = sRGB(2,:);
-    rv.B = sRGB(3,:);
+    rv.R = reshape(sRGB(1,:),sz);
+    rv.G = reshape(sRGB(2,:),sz);
+    rv.B = reshape(sRGB(3,:),sz);
     rv.RGB = sRGB';
+    rv.RGBlin = RGBlin';
 end
 
 function X_C_prime = Gamma(X_B)

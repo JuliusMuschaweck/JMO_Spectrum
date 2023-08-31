@@ -71,14 +71,19 @@ function rv = sRGB_to_XYZ(R, G, B)
     rv.Y = XYZ(2,:);
     rv.Z = XYZ(3,:);
     rv.XYZ = XYZ';
+    rv.RGBlin = RGBlin;
     cw = sum(XYZ);
     sz = size(R);
-    rv.X = reshape(rv.X,sz);
-    rv.Y = reshape(rv.Y,sz);
-    rv.Z = reshape(rv.Z,sz);
+    % JM 25.08.23: first scale withcw, then reshape
     rv.x = rv.X ./ cw;
     rv.y = rv.Y ./ cw;
     rv.z = rv.Z ./ cw;
+    rv.X = reshape(rv.X,sz);
+    rv.Y = reshape(rv.Y,sz);
+    rv.Z = reshape(rv.Z,sz);
+    rv.x = reshape(rv.x,sz);
+    rv.y = reshape(rv.y,sz);
+    rv.z = reshape(rv.z,sz);
     
 end
 
