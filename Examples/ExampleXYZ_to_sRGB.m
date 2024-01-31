@@ -15,4 +15,14 @@ function Example_XYZ_to_sRGB()
     rand_RGB_2 = XYZ_to_sRGB(rand_XYZ.X,rand_XYZ.Y, rand_XYZ.Z);
     testdiff_3 = rand_RGB - rand_RGB_2.RGB;
     fprintf('the max. error of converting %g random RGB triplets to XYZ and back is %g\n',n,max(abs(testdiff_3(:))));
+
+    % calling with single parameter X which has fields X, Y, Z
+    XYZ_to_sRGB( CIE1931_XYZ(CIE_Illuminant('E')) )
+    
+    % calling with single parameter X which is n x 3 array
+    test = XYZ_to_sRGB( ...
+        [1, 1, 1; ...
+         2, 2, 2] );
+    test.RGB
+
 end

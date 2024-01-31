@@ -48,13 +48,13 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
         Z (:,:) double = nan
         opts.clip (1,1) logical = false
     end
-    if isscalar(Y) && isnan(Y) % X must be 
-        % a n x 3 matrix, to be interpreted as one RGB triplet per row
+    if isscalar(Y) && isnan(Y) % Y missing - X must be 
+        % a n x 3 matrix, to be interpreted as one RGB triplet per row, or
         % a struct with fields X, Y, Z which must be double arrays of same size
         if isnumeric(X)
             assert(size(X,2) == 3,'XYZ_to_sRGB: When single argument X is given and it is an array, it must have size n x 3');
             XYZ = X;
-            sz = size(X);
+            sz = size(X(:,1));
         else
             assert(isstruct(X) && isfield(X,'X') && isfield(X,'Y') && isfield(X,'Z') ,...
                 'XYZ_to_sRGB: non-numeric single argument X must be a struct with fields X, Y, and Z');
@@ -83,7 +83,8 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
     RGBlin = M * XYZ'; % 3 x n
     
     % apply gamma
-    sRGB = Gamma(RGBlin);
+    sRGB = Gamma(RGBlin); % 3 x n
+    sRGB = sRGB'; % n x 3 again
     % clip
     if opts.clip
         lt0 = (sRGB < 0);
@@ -94,10 +95,10 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
     else
         rv.clipped = false;
     end
-    rv.R = reshape(sRGB(1,:),sz);
-    rv.G = reshape(sRGB(2,:),sz);
-    rv.B = reshape(sRGB(3,:),sz);
-    rv.RGB = sRGB';
+    rv.R = reshape(sRGB(:,1),sz);
+    rv.G = reshape(sRGB(:,2),sz);
+    rv.B = reshape(sRGB(:,3),sz);
+    rv.RGB = sRGB;
     rv.RGBlin = RGBlin';
 end
 
