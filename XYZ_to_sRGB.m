@@ -64,7 +64,7 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
             sz = size(X.X);
         end
     else % X must a double matrix, and Y and Z must be same size
-        assert(~any(isnan(Z)),'XYZ_to_sRGB: Z must be given when Y is given');
+        assert(~any(isnan(Z(:))),'XYZ_to_sRGB: Z must be given when Y is given');
         assert(isnumeric(X),'XYZ_to_sRGB: When Y is given, X must be numeric array');
         assert(isequal(size(X), size(Y), size(Z)),'XYZ_to_sRGB: X, Y, Z must have same size');
         XYZ = cat(2,X(:),Y(:),Z(:)); % n x 3

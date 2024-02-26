@@ -118,6 +118,7 @@ classdef CRI < handle
                 rv.Ri(i,1) = this.SingleRi_1nm(lamp, si);
             end
             rv.Ra = mean(rv.Ri(1:8));
+            rv.lamp = lamp;
         end
         
         function PlotCRISpectra(this, fh)

@@ -54,7 +54,7 @@
 %
 % We proceed in the following steps:
 %
-% * We obtain the CIE xy monochromatic border color points as function of wavelengthm in 1 nm intervals from 360 nm to
+% * We obtain the CIE xy monochromatic border color points as function of wavelength in 1 nm intervals from 360 nm to
 % 830 nm.
 %
 % * We obtain the sRGB color gamut, i.e. the R, G, B primary color points
@@ -97,7 +97,7 @@
 %
 % * The field |floor| is just a copy of the input floor value (default 0.01).
 %
-% * The field |RGBfunc| is a function with sigbature |rv = RGBfunc(lam)| which allows to interpolate the rainbow RGB
+% * The field |RGBfunc| is a function with signature |rv = RGBfunc(lam)| which allows to interpolate the rainbow RGB
 % values to any set of wavelength values.
 %
 % * The field |RainbowImageFunc| is also a function, with signature |rv = RainbowImageFunc(lam_query, horizontal,

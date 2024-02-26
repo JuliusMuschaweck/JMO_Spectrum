@@ -88,8 +88,6 @@ contourf(insideShoe);
 
 zz = 1 - xx - yy;
 
-
-
 rgb = XYZ_to_sRGB( xx,yy,zz);
 % ltz = rgb < 0;
 %rgb(ltz) = 0;

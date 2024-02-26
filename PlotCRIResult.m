@@ -114,7 +114,7 @@ function [refspec, fh] = PlotCRIResult(lamp, opts)
     end
     
     % show the result
-    if isnan(opts.Figure)
+    if isnumeric(opts.Figure) && isnan(opts.Figure) % added check for isnumeric to avoid error with figure handle
         fh = figure();
     elseif isgraphics(opts.Figure,'figure')
         fh = opts.Figure;
@@ -152,7 +152,11 @@ function [refspec, fh] = PlotCRIResult(lamp, opts)
             text(c0+dn/2, r0+dn/2 + 105,sprintf('R%g = %0.1f', idx, icri.Ri(idx)), 'HorizontalAlignment','center',  'VerticalAlignment','middle');
         end
     end
-    title(sprintf('%s, Ra = %0.1f',opts.Title,icri.Ra));
+    if ~isempty(opts.Title)
+        title(sprintf('%s, Ra = %0.1f',opts.Title,icri.Ra));
+    else
+        title(sprintf('Ra = %0.1f',icri.Ra));
+    end
 end
 
 

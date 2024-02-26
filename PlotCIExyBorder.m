@@ -73,6 +73,7 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     defaultTicks = [400, 430, 450:10:480, 485:5:520, 530:10:620, 640, 700];
     p.addParameter('Ticks',defaultTicks,@(x) isempty(x) || (isnumeric(x) && isvector(x)));
     p.addParameter('TickFontSize',6,@(x) isnumeric(x) && isscalar(x));
+    p.addParameter('TicksInside',false,@islogical)
     p.addParameter('ColorFill',false,@islogical);
     p.addParameter('Opacity',1,@(x) isnumeric(x) && isscalar(x));
     parse(p,varargin{:});
@@ -126,6 +127,9 @@ function [ah, fh] = PlotCIExyBorder(varargin)
     end
     if ~isempty(p.Results.Ticks)
         [b,db] = border(p.Results.Ticks,CIE1931XYZ);
+        if p.Results.TicksInside
+            db = -db;
+        end
         for i = 1:size(b,1)
             d = [-0.00,0.015];
             plot(b(i,1) + db(i,1) * d, b(i,2) + db(i,2) * d, p.Results.LineSpec);
