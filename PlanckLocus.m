@@ -146,5 +146,24 @@ function Juv = JuddLine(T, pl)
     len = norm([tangent_u,tangent_v]);
     Juv.du = - tangent_v/len;
     Juv.dv = tangent_u/len;
+    
+    [Juv.x, Juv.y] = xy_uv(Juv.u, Juv.v);
+    dxy = dxy_duv(Juv.u, Juv.v) * [Juv.du;Juv.dv];
+    dxy = dxy / norm(dxy);
+    Juv.dx = dxy(1);
+    Juv.dy = dxy(2);
+end
+
+function [x, y] = xy_uv(u, v)
+    den = 2 * u - 8 * v + 4;
+    x = 3 * u / den;
+    y = 2 * v / den;
+end
+
+function rv = dxy_duv(u,v) 
+    % returns 2 x 2 Jacoby matrix. See SupportingMaterials/invert_u_v.ipynb
+    % rv = [dxdu, dxdv; dydu, dydv] such that rv * [du;dv] = [dx;dy]
+    den = (u - 4*v + 2)^2;
+    rv = [3 - 6*v, 6 * u; - v, u+2] / den;
 end
 

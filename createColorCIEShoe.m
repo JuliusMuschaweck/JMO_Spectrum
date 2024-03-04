@@ -140,7 +140,7 @@ upblue = interp2(xx, yy, rgbimg2(:,:,3), tmp.x,tmp.y,'linear',1);
 rgb_upvp_img = cat(3,upred, upgreen, upblue);
 
 
-save('RGBColorShoeImage_trueRainbow.mat','rgbimg2','rgb_upvp_img','insideShoe'); % use "insideShoe" for alpha channel
+%save('RGBColorShoeImage_trueRainbow.mat','rgbimg2','rgb_upvp_img','insideShoe'); % use "insideShoe" for alpha channel
 fh2 = figure(2);
 clf;
 image([0 1],[1 0],flipud(RGB_image),'AlphaData',flipud(insideShoe));
