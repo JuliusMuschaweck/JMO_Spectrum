@@ -85,10 +85,43 @@ classdef IES_TM30 < handle
             ref_area =  polyarea(obj.Jab_binned_s_ref_.a_prime, obj.Jab_binned_s_ref_.b_prime);
             Rg = 100 * test_area / ref_area;        % J'a'b' values averaged over the 16 hue bins
         end
+
+        function rv = ColorVectorGraphic(obj)
             % 4.5 Color Vector Graphic
             %     scale ref avg aprime bprime radially to circle with r = 1
             %     apply delta avg aprime bprime 
             %     Plot arrow plot with color background, Fig. 8
+            % rv: struct with fields
+            %   x_ref, y_ref, x_test, y_test according to (58) - (61)
+            %   fig: figure handle to graphic according to Fig. 8 bottom
+            ref_bins = obj.Jab_binned_s_ref_.bin;
+            ref_h = obj.Jab_binned_s_ref_.h;
+            for i = 1:16
+                h(i) = mean(ref_h(ref_bins == i)); %#ok<AGROW>
+            end
+            rv.x_ref = cos(h); % (58)
+            rv.y_ref = sin(h); % (59)
+            % conflict between standard and code:
+            % TM30-18 document says (a_test_j - a_ref_j) / sqrt((a_test_j + b_ref_j)^2)
+            % where the denominator is strange. 
+            % First, the sqrt and the ^2 cancel to become abs(). It should be sqrt(a^2+b^2)
+            % Second, scaling should be norm([a_ref_j,b_ref_j]). It makes no sense to mix
+            % a_test with b_ref
+            % In the Excel VBA code, they do it like they should but not how the standard is
+            % written. We'll do the same.
+            den = sqrt((obj.Jab_binned_s_ref_.a_prime).^2 +  (obj.Jab_binned_s_ref_.b_prime).^2);
+            rv.x_test = rv.x_ref + (obj.Jab_binned_s_.a_prime ... 
+                - obj.Jab_binned_s_ref_.a_prime) ./ den; % (60)
+            rv.y_test = rv.y_ref + (obj.Jab_binned_s_.b_prime ...
+                - obj.Jab_binned_s_ref_.b_prime) ./ den; % (61)
+            fh = figure;
+            clf; hold on;
+            ax = gca;
+            background = imread('CVG_Background.png');
+            imshow(background);
+            axis on;
+            
+        end
             % 4.6 Local Chroma shifts R_cs,hj
             %     16 relative radial delta aprime bprimes
             %     Plot as in Fig. 11
@@ -265,6 +298,8 @@ classdef IES_TM30 < handle
             rv.J_prime = nan(1,nbins);
             rv.a_prime = nan(1,nbins);
             rv.b_prime = nan(1,nbins);
+            rv.h = angle;
+            rv.bin = bin;
             for i =1:nbins
                 rv.J_prime(i) = mean(Jab.J_prime(bin == i));
                 rv.a_prime(i) = mean(Jab.a_prime(bin == i));
