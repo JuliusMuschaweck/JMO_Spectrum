@@ -7,6 +7,9 @@ spec = ReadASCIITableSpectrumFile('OSRAM_ColorCalc_LED4000K.txt');
 figure(1);clf;
 PlotSpectrum(spec);
 [myCCT,myduv] = CCT(spec)
+
+tmp = EvalSpectrum(spec,380:780);
+tmp = tmp / max(tmp);
 %%
 tm30.SetSpectrum(spec);
 [Rf,Rfi, Rf_hj] = tm30.FidelityIndex();
