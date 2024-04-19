@@ -3,3 +3,7 @@ Playground/
 /LinInterpol/.vs
 /LinInterpol/x64
 /LinInterpol/LinInterpol.vcxproj.user
+*converted-to.pdf
+*.log
+*.aux
+*.gz
