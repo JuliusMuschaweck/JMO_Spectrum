@@ -1,3 +1,5 @@
+clear;
+
 ff = fopen('test.spdx','w');
 
 Manufacturer = 'mft';
@@ -8,31 +10,50 @@ Laboratory = 'lab';
 UniqueIdentifier = 'unique';
 ReportNumber = 'report #';
 ReportDate = 'report date';
-DocumentCreationDate = '2024-4-19';
-Comments = 'no comment';
+DocumentCreationDate = string(datetime('now','Format','yyyy-MM-dd'));
+Comments = '';
+SpectralQuantity = 'relative';
+BandwidthFWHM = 2.0;
+BandwidthCorrected = true;
 
+spec = ReadLightToolsSpectrumFile('LED_4003K.sre');
 
 try
     fprintf(ff,'<?xml version="1.0"?>\n');
     fprintf(ff,'<?xml-stylesheet type="text/xsl" href="TM-27-14.xsl"?>\n');
     fprintf(ff,'<IESTM2714 xmlns="http://www.ies.org/iestm2714" version="1.0">\n');
     fprintf(ff,'<Header>\n');
-    fprintf(ff,'<IESTM2714 xmlns="http://www.ies.org/iestm2714" version="1.0">\n');
-    fprintf(ff,'\n');
-    fprintf(ff,'\n');
-    fprintf(ff,'\n');
-    fprintf(ff,'\n');
-    fprintf(ff,'\n');
-    fprintf(ff,'\n');
-    fprintf(ff,'\n');
+    fprintf(ff,'<Manufacturer>%s</Manufacturer>\n',Manufacturer);
+    fprintf(ff,'<CatalogNumber>%s</CatalogNumber>\n',CatalogNumber);
+    fprintf(ff,'<Description>%s</Description>\n',Description);
+    fprintf(ff,'<DocumentCreator>%s</DocumentCreator>\n',DocumentCreator);
+    fprintf(ff,'<Laboratory>%s</Laboratory>\n',Laboratory);
+    fprintf(ff,'<UniqueIdentifier>%s</UniqueIdentifier>\n',UniqueIdentifier);
+    fprintf(ff,'<ReportNumber>%s</ReportNumber>\n',ReportNumber);
+    fprintf(ff,'<ReportDate>%s</ReportDate>\n',ReportDate);
+    fprintf(ff,'<DocumentCreationDate>%s</DocumentCreationDate>\n',DocumentCreationDate);
+    fprintf(ff,'<Comments>%s</Comments>\n',Comments);
+    fprintf(ff,'</Header>\n');
+    fprintf(ff,'<SpectralDistribution>\n');
+    fprintf(ff,'<SpectralQuantity>%s</SpectralQuantity>\n',SpectralQuantity);
+    fprintf(ff,'<BandwidthFWHM>%g</BandwidthFWHM>\n',BandwidthFWHM);
+    fprintf(ff,'<BandwidthCorrected>%s</BandwidthCorrected>\n',mat2str(BandwidthCorrected));
+    for i = 1:length(spec.lam)
+        fprintf(ff,'<SpectralData wavelength="%g">%g</SpectralData>\n',spec.lam(i), spec.val(i));
+    end
+    fprintf(ff,'</SpectralDistribution>\n');
+    fprintf(ff,'</IESTM2714>\n');
     
-catch (ME)
+catch ME
     fclose(ff);
-    ME.what
+    ME.message
     return;
 end
 fclose(ff);
 
+tm30 = IES_TM30();
+tm30.SetSpectrum(spec);
+tm30.CreateFullReport();
 
 % <?xml version="1.0"?>
 % <?xml-stylesheet type="text/xsl" href="TM-27-14.xsl"?>

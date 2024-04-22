@@ -295,7 +295,7 @@ classdef IES_TM30 < handle
             for i = 1:16
                 yval = rv.R_csh(i) * 100;
                 ypos = yval + sign(yval) * 5;
-                text(axc,i,ypos,sprintf('%.0f%%',ypos),...
+                text(axc,i,ypos,sprintf('%.0f%%',yval),...
                     VerticalAlignment="middle", ...
                     HorizontalAlignment='center',...
                     FontSize=12, ...
@@ -547,6 +547,7 @@ classdef IES_TM30 < handle
                 opts.IndividualFidelityGraphicsName (1,1) string = "IndividualFidelityGraphics.eps"
                 opts.ReportFileName (1,1) string = "TM30Report.pdf"
             end
+            fprintf("Creating graphics...\n");
             spg = obj.SpectrumGraphics(RelativeScale=opts.SpectrumRelativeScale);
             exportgraphics(spg.ax,opts.SpectrumGraphicsName,'ContentType','vector');
             Rch = obj.LocalChromaHueShiftFidelityGraphics(xLabels=[false, false, true],...
@@ -558,8 +559,20 @@ classdef IES_TM30 < handle
             exportgraphics(cvg.ax,opts.CVGGraphicsName,'ContentType','vector');
             ivg = obj.IndividualFidelityGraphics();
             exportgraphics(ivg.ax,opts.IndividualFidelityGraphicsName,'ContentType','vector');
-            incl = fopen("TM30Include.tex","w");
 
+            test = dir('TM30ReportTemplate.tex');
+            if ~(isstruct(test) && test.isdir == false)
+                fprintf('File "TM30ReportTemplate.tex" not found in current path, copying it from library folder\n');
+                fn = strcat(fileparts(which("IES_TM30.m")),'\','TM30ReportTemplate.tex');
+                status = copyfile(fn,'.');
+                if ~status
+                    error('IES_TM30.CreateFullReport: Cannot copy "TM30ReportTemplate.tex" to current folder');
+                end
+            else
+                fprintf('TM30ReportTemplate.tex found in current folder\n');
+            end
+            fprintf('writing LaTeX include file "TM30Include.tex"\n');
+            incl = fopen("TM30Include.tex","w");
             try
                 fprintf(incl,"%% JMO Spectrum Library TM 30 report -- LaTeX include file\n");
                 OneCmd(incl,"Source",opts.Source);
@@ -582,9 +595,21 @@ classdef IES_TM30 < handle
                 OneCmd(incl,"RnineVal",sprintf("%0.0f",cinf.CRI_all.Ri(9)));
                 OneCmd(incl,"RthirteenVal",sprintf("%0.0f",cinf.CRI_all.Ri(13)));
                 fclose(incl);
+                fprintf('running pdflatex to create pdf report\n');
                 [status,cmdout] = system('pdflatex TM30ReportTemplate.tex');
-                system(sprintf('ren TM30ReportTemplate.pdf "%s"',opts.ReportFileName));
-                system(opts.ReportFileName);
+                if ~(status == 0)
+                    error('IES_TM30.CreateFullReport: could not run pdflatex. MikTeX installed?');
+                end
+                fn = opts.ReportFileName;
+                [~,~,ext] = fileparts(fn);
+                if ~(string(ext) == ".pdf")
+                    fn = strcat(fn,".pdf");
+                end
+                copyfile("TM30ReportTemplate.pdf",fn);
+                delete("TM30ReportTemplate.pdf");
+                fprintf('opening %s in standard external pdf viewer\n',fn);
+                system(fn);
+                fprintf('finished creating TM30 report: %s\n',fn);
             catch ME
                 fclose(incl);
                 rethrow(ME);
