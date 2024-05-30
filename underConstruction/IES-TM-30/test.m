@@ -18,32 +18,32 @@ figure(2);
 clf;
 bar(Rfi);
 
-%%
+%% Creating the full TM30 report via LaTeX 
+% Requires that pdflatex.exe is on the system path
 tm30.CreateFullReport(...
-    "Source","some 4000K LED",...
-    "Manufacturer","unknown manufacturer",...
-    "Model","unknown model",...
-    "Notes","results from TM30 test run",...
-    "ReportFileName",'someTM30Test');
+    Source = "some 4000K LED",...
+    Manufacturer = "unknown manufacturer",...
+    Model = "unknown model",...
+    Notes = "results from TM30 test run",...
+    ReportFileName = 'someTM30Test');
 %%
 cvg = tm30.ColorVectorGraphic(Disclaimer=false,DisclaimerTime=false);
-exportgraphics(cvg.ax,'ColorVectorGraphics.eps','ContentType','vector');
+% exportgraphics(cvg.ax,'ColorVectorGraphics.eps','ContentType','vector');
 
 %%
 Rch = tm30.LocalChromaHueShiftFidelityGraphics(xLabels=[false, false, true],...
     relBarWidth=0.9*[1,1,1], mValues=[true,false,false]);
-exportgraphics(Rch.axc,'ChromaShiftGraphics.eps','ContentType','vector');
-exportgraphics(Rch.axh,'HueShiftGraphics.eps','ContentType','vector');
-exportgraphics(Rch.axf,'FidelityGraphics.eps','ContentType','vector');
+%exportgraphics(Rch.axc,'ChromaShiftGraphics.eps','ContentType','vector');
+%exportgraphics(Rch.axh,'HueShiftGraphics.eps','ContentType','vector');
+%exportgraphics(Rch.axf,'FidelityGraphics.eps','ContentType','vector');
 %%
 ivg = tm30.IndividualFidelityGraphics();
-exportgraphics(ivg.ax,'IndividualFidelityGraphics.eps','ContentType','vector');
+% exportgraphics(ivg.ax,'IndividualFidelityGraphics.eps','ContentType','vector');
 %%
 spg = tm30.SpectrumGraphics(RelativeScale="peak");
-exportgraphics(spg.ax,'SpectrumGraphics.eps','ContentType','vector');
-%%
-
-%tmp.Clear();
+%exportgraphics(spg.ax,'SpectrumGraphics.eps','ContentType','vector');
+%% Matlab figure
+% Tried to create TM30 report as a Matlab figure, but could not really make it work
 
 gridheight = 38;
 gridwidth = 2;
