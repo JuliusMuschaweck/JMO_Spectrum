@@ -75,7 +75,7 @@ function rv = CIE_Illuminant_D(CCT,varargin)
     S1 =  CIE_Standard.DaylightComponents.S1;
     S2 =  CIE_Standard.DaylightComponents.S2;
     SD = S0 + M1 * S1 + M2 * S2;
-    rv.lam = lam'; % 26.2.2024 JM to make column vectors
-    rv.val = LinInterpol(ilam, SD, lam');
+    rv.lam = lam(:); % 26.2.2024 JM to make column vectors, 17.8.24 (:) not '
+    rv.val = LinInterpol(ilam(:), SD, rv.lam); % JM 17.8.24 make val column
     rv.name = sprintf('CIE standard illuminant D for CCT = %g',CCT);        
 end
