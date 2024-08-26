@@ -51,7 +51,9 @@ function [ldom, purity, xyBorder] = LDomPurity(rhs, opts)
     end
     persistent CIE1931XYZ;
     if isempty(CIE1931XYZ)
-        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+        % 22.8.2024 now using official CIE data
+        CIE1931XYZ = CIE1931_Data();
+        % load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
     end
     % JM 28.1.2023: these lines take the longest time, replace by LinInterpol
     %xb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);

@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>SpectrumSanityCheck</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="SpectrumSanityCheck.m"><style type="text/css">
+      -->
+<title>SpectrumSanityCheck</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="SpectrumSanityCheck.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,59 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>SpectrumSanityCheck</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>SpectrumSanityCheck</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 Source code: <a href = "file:../SpectrumSanityCheck.m"> SpectrumSanityCheck.m</a>
 </p>
-</p><p>Performs various checks to see if a spectrum complies with the <a href="docDesignDecisions.html">requirements</a>, returns a sanitized spectrum when possible</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[ok, msg, rv] = SpectrumSanityCheck(spec, varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec</tt>: a struct.</li><li><tt>varargin</tt>: Name-Value pairs</li></ul></div><p>
+</p>
+<p>Performs various checks to see if a spectrum complies with the <a href="docDesignDecisions.html">requirements</a>, returns a sanitized spectrum when possible</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[ok, msg, rv] = SpectrumSanityCheck(spec, varargin)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>spec</tt>: a struct.</li>
+<li>
+<tt>varargin</tt>: Name-Value pairs</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
@@ -82,7 +132,34 @@ Source code: <a href = "file:../SpectrumSanityCheck.m"> SpectrumSanityCheck.m</a
 <tr><td> 'doStrip'       </td> <td> logical scalar   </td> <td> false (default) </td> <td> When true, the returned spectrum has only fields 'lam' and 'val'</td></tr>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>ok</tt>: scalar logical. True when  <tt>spec</tt> conforms to the requirements.</li><li><tt>msg</tt>: character string. Diagnostic message. Empty when there are no complaints.</li><li><tt>rv</tt>: A valid spectrum struct.</li></ul></div><h2 id="4">Algorithm</h2><p>Checks if</p><div><ul><li>the struct <tt>spec</tt> has fields <tt>lam</tt> and <tt>val</tt>, which must both be vectors of double</li><li>the lengths of <tt>lam</tt> and <tt>val</tt> are the same, and both are all finite reals</li><li><tt>lam</tt> is all positive and strictly ascending</li></ul></div><p>When ok, returns a copy of <tt>spec</tt>, with <tt>lam</tt> and <tt>val</tt> being column vectors. Optionally strips all other fields. When not ok, throws an error, or optionally returns a message and</p><h2 id="5">See also</h2><p><a href="docDesignDecisions.html">Requirements</a>, <a href="MakeSpectrum.html">MakeSpectrum</a>, <a href="MakeSpectrumDirect.html">MakeSpectrumDirect</a>,</p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>ok</tt>: scalar logical. True when <tt>spec</tt> conforms to the requirements.</li>
+<li>
+<tt>msg</tt>: character string. Diagnostic message. Empty when there are no complaints.</li>
+<li>
+<tt>rv</tt>: A valid spectrum struct.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Checks if</p>
+<div>
+<ul>
+<li>the struct <tt>spec</tt> has fields <tt>lam</tt> and <tt>val</tt>, which must both be vectors of double</li>
+<li>the lengths of <tt>lam</tt> and <tt>val</tt> are the same, and both are all finite reals</li>
+<li>
+<tt>lam</tt> is all positive and strictly ascending</li>
+</ul>
+</div>
+<p>When ok, returns a copy of <tt>spec</tt>, with <tt>lam</tt> and <tt>val</tt> being column vectors. Optionally strips all other fields. When not ok, throws an error, or optionally returns a message and</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="docDesignDecisions.html">Requirements</a>, <a href="MakeSpectrum.html">MakeSpectrum</a>, <a href="MakeSpectrumDirect.html">MakeSpectrumDirect</a>,</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleSpectrumSanityCheck()
     good = MakeSpectrum([400 700], [1 1]);
     [ok1, msg1, rv1] = SpectrumSanityCheck(good);
@@ -90,7 +167,8 @@ Source code: <a href = "file:../SpectrumSanityCheck.m"> SpectrumSanityCheck.m</a
     [ok2, msg2, rv2] = SpectrumSanityCheck(bad, <span class="string">'doThrow'</span>, false)
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">
+</pre>
+<pre class="codeoutput">
 ok2 =
 
   logical
@@ -107,7 +185,14 @@ rv2 =
 
      []
 
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% SpectrumSanityCheck
 % 
@@ -236,4 +321,6 @@ function rv = check(condition, msg, errmsg)
     end
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

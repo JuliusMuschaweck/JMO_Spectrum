@@ -10,6 +10,7 @@
 % </html>
 %
 % Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z
+% based on official CIE data from <https://cie.co.at/data-tables>.
 %% Syntax
 % |rv = CIE1931_XYZ(spec)|
 %% Input Arguments
@@ -45,8 +46,10 @@ function rv = CIE1931_XYZ(spec)
     % also returns rv.z = 1 - rv.x-rv.y
     persistent iXYZ;
     if isempty(iXYZ)
-        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
-        iXYZ = CIE1931XYZ;
+        iXYZ = CIE1931_Data();
+        % before 21.8.24
+        %load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+        %iXYZ = CIE1931XYZ;
     end
     if (iXYZ.lam(2) - iXYZ.lam(1)) ~= 1
         error('CIE1931_XYZ: no unit spacing in CIE1931XYZ.lam');

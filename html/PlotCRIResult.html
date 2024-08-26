@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>PlotCRIResult</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="PlotCRIResult.m"><style type="text/css">
+      -->
+<title>PlotCRIResult</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="PlotCRIResult.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,59 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>PlotCRIResult</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>PlotCRIResult</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../PlotCRIResult.m"> PlotCRIResult.m</a>
 </p>
-</p><p>Plots a chart to compare CRI colors between test and reference lamp</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[refspec, fh] = PlotCRIResult(lamp, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lamp</tt>: scalar struct. A valid spectrum</li><li><tt>opts</tt>: Name-Value pairs</li></ul></div><p>
+</p>
+<p>Plots a chart to compare CRI colors between test and reference lamp</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[refspec, fh] = PlotCRIResult(lamp, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>lamp</tt>: scalar struct. A valid spectrum</li>
+<li>
+<tt>opts</tt>: Name-Value pairs</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
@@ -88,7 +138,24 @@ Source code: <a href = "file:../PlotCRIResult.m"> PlotCRIResult.m</a>
 <tr><td> 'Background    </td> <td> double vector of length 3  </td> <td> [0.5 0.5 0.5] (default)</td> <td> background color (medium gray improves visibility) </td></tr>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>refspec</tt>: the CRI reference spectrum</li><li><tt>fh</tt>: the figure handle</li></ul></div><h2 id="4">Algorithm</h2><p>For the lamp spectrum and the reference spectrum, computes the reflected spectra (pairs) for 16 color samples (all 14 standardized CRI spectra, unofficial #15 (asian skin), and 100% perfect white). Determines sRGB values for all reflected spectra using <a href="XYZ_to_sRGB.html">XYZ_to_sRGB</a>. Creates a plot with 4 x 4 square color patches, where the outer frame / the inner square are the colors of the sample under the reference / test lamp. Writes additional information into the patches (name of sample, RGB values, individual Ri). Uses the optional figure parameters or their default values to set figure properties</p><h2 id="5">See also</h2><p><a href="CRI.html">CRI</a>, <a href="XYZ_to_sRGB.html">XYZ_to_sRGB</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>refspec</tt>: the CRI reference spectrum</li>
+<li>
+<tt>fh</tt>: the figure handle</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>For the lamp spectrum and the reference spectrum, computes the reflected spectra (pairs) for 16 color samples (all 14 standardized CRI spectra, unofficial #15 (asian skin), and 100% perfect white). Determines sRGB values for all reflected spectra using <a href="XYZ_to_sRGB.html">XYZ_to_sRGB</a>. Creates a plot with 4 x 4 square color patches, where the outer frame / the inner square are the colors of the sample under the reference / test lamp. Writes additional information into the patches (name of sample, RGB values, individual Ri). Uses the optional figure parameters or their default values to set figure properties</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CRI.html">CRI</a>, <a href="XYZ_to_sRGB.html">XYZ_to_sRGB</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExamplePlotCRIResult()
     <span class="comment">% a perfect lamps to illuminate: D65</span>
     PlotCRIResult(CIE_Illuminant_D(6500), <span class="string">'Title'</span>,  <span class="string">'Perfect D65'</span>, <span class="string">'Pos_x'</span>, 100, <span class="string">'Pos_y'</span>, 10);
@@ -109,7 +176,17 @@ Source code: <a href = "file:../PlotCRIResult.m"> PlotCRIResult.m</a>
 
 
 
-</pre><img vspace="5" hspace="5" src="PlotCRIResult_01.png" alt=""> <img vspace="5" hspace="5" src="PlotCRIResult_02.png" alt=""> <img vspace="5" hspace="5" src="PlotCRIResult_03.png" alt=""> <img vspace="5" hspace="5" src="PlotCRIResult_04.png" alt=""> <img vspace="5" hspace="5" src="PlotCRIResult_05.png" alt=""> <img vspace="5" hspace="5" src="PlotCRIResult_06.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<pre class="codeoutput">Warning: error in runExample: Unable to find file or directory
+'CRISpectra.mat'. 
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% PlotCRIResult
 % 
@@ -227,7 +304,7 @@ function [refspec, fh] = PlotCRIResult(lamp, opts)
     end
     
     % show the result
-    if isnan(opts.Figure)
+    if isnumeric(opts.Figure) && isnan(opts.Figure) % added check for isnumeric to avoid error with figure handle
         fh = figure();
     elseif isgraphics(opts.Figure,'figure')
         fh = opts.Figure;
@@ -265,10 +342,16 @@ function [refspec, fh] = PlotCRIResult(lamp, opts)
             text(c0+dn/2, r0+dn/2 + 105,sprintf('R%g = %0.1f', idx, icri.Ri(idx)), 'HorizontalAlignment','center',  'VerticalAlignment','middle');
         end
     end
-    title(sprintf('%s, Ra = %0.1f',opts.Title,icri.Ra));
+    if ~isempty(opts.Title)
+        title(sprintf('%s, Ra = %0.1f',opts.Title,icri.Ra));
+    else
+        title(sprintf('Ra = %0.1f',icri.Ra));
+    end
 end
 
 
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

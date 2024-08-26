@@ -7,7 +7,9 @@ This open source Matlab library is designed to make these engineering tasks easy
 
 [![View JMO_Spectrum on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://uk.mathworks.com/matlabcentral/fileexchange/98044-jmo_spectrum)
 
+[![Obtain JMO_Spectrum on GitHub](https://github.com/JuliusMuschaweck/JMO_Spectrum)](https://github.com/JuliusMuschaweck/JMO_Spectrum)
+
 For more information, look at the documentation, index.html (which forwards to html/JMOSpectrumLibrary.html)
 
-September 2019 - August 2021
+September 2019 - August 2024
 Julius Muschaweck (julius@jmoptics.de)

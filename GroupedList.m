@@ -13,6 +13,12 @@
 %
 % <CIE_Illuminant_D.html CIE_Illuminant_D> Computes CIE standard illuminant D (daylight) for a desired color temperature
 %
+% <CIE1931_Data.html CIE1931_Data> returns |struct| with CIE 1931 color matching functions, monochromatic border and Planck locus
+%
+% <CIE1964_Data.html CIE1964_Data> returns |struct| with CIE 1964 color matching functions, and monochromatic border 
+%
+% <CIEData.html CIEData> Class that contains official CIE spectral data and makes it accessible for this library
+%
 % <ColorChecker.html ColorChecker> returns selected MacBeth ColorChecker reflectivity spectra
 % 
 % <GaussSpectrum.html GaussSpectrum> creates a Gaussian spectrum, normalized to peak = 1.0

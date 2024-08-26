@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>LinInterpol</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="LinInterpol.m"><style type="text/css">
+      -->
+<title>LinInterpol</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="LinInterpol.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,75 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>LinInterpol</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>LinInterpol</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../LinInterpol.m"> LinInterpol.m</a>
 </p>
-</p><p>From tabulated function <tt>yy(xx)</tt>, compute linearly interpolated values at <tt>xq</tt> query points</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>yq = LinInterpol(xx,yy,xq)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>xx</tt>: double vector, array of <tt>x</tt> values. Must be strictly ascending and have at least length 2 (unchecked preconditions).</li><li><tt>yy</tt>: double vector, array of function values. Must have at least same length as <tt>xx</tt> (unchecked precondition); if longer, the excess values are ignored.</li><li><tt>xq</tt>: double vector, array of query values. Must be strictly ascending if length &gt; 1.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>yq</tt>: double vector, same length as <tt>xq</tt>, with linearly interpolated function values for <tt>xq</tt> values inside the <tt>xx</tt> range, zero for <tt>xq</tt> values strictly outside the <tt>xx</tt> range.</li></ul></div><h2 id="4">Algorithm</h2><p>Computes the same result as Matlab's <tt>interp1(xx, yy, xq, 'linear', 0)</tt>. (In fact, the routine forwards to precisely this call if the platform is not a Windows PC or if the routine is used in Gnu Octave). On a Windows PC under Matlab, the call is forwarded to a C++ DLL (see the <tt>LinInterpol</tt> subdirectory for the Visual Studio c++ project and source code). Using this function is much faster, and much less safe than <tt>interp1</tt>, but within well tested library routines, speed is important, because linear interpolation is at the core of many library routines: Whenever two spectra, or a spectrum and a weighting function, are used in a routine, linear interpolation is used to "interweave" the wavelength arrays.</p><h2 id="5">See also</h2><p><a href="LinInterpolAdd4Async.html">LinInterpolAdd4Async</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>From tabulated function <tt>yy(xx)</tt>, compute linearly interpolated values at <tt>xq</tt> query points</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>yq = LinInterpol(xx,yy,xq)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>xx</tt>: double vector, array of <tt>x</tt> values. Must be strictly ascending and have at least length 2 (unchecked preconditions).</li>
+<li>
+<tt>yy</tt>: double vector, array of function values. Must have at least same length as <tt>xx</tt> (unchecked precondition); if longer, the excess values are ignored.</li>
+<li>
+<tt>xq</tt>: double vector, array of query values. Must be strictly ascending if length &gt; 1.</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>yq</tt>: double vector, same length as <tt>xq</tt>, with linearly interpolated function values for <tt>xq</tt> values inside the <tt>xx</tt> range, zero for <tt>xq</tt> values strictly outside the <tt>xx</tt> range.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Computes the same result as Matlab's <tt>interp1(xx, yy, xq, 'linear', 0)</tt>. (In fact, the routine forwards to precisely this call if the platform is not a Windows PC or if the routine is used in Gnu Octave). On a Windows PC under Matlab, the call is forwarded to a C++ DLL (see the <tt>LinInterpol</tt> subdirectory for the Visual Studio c++ project and source code). Using this function is much faster, and much less safe than <tt>interp1</tt>, but within well tested library routines, speed is important, because linear interpolation is at the core of many library routines: Whenever two spectra, or a spectrum and a weighting function, are used in a routine, linear interpolation is used to "interweave" the wavelength arrays.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="LinInterpolAdd4Async.html">LinInterpolAdd4Async</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleLinInterpol()
     xx = [1 2 4];
     yy = [2,1,2];
@@ -89,7 +155,14 @@ Source code: <a href = "file:../LinInterpol.m"> LinInterpol.m</a>
     legend({<span class="string">'Underlying function'</span>,<span class="string">'Interpolated values'</span>});
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="LinInterpol_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="LinInterpol_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% LinInterpol
 % 
@@ -140,11 +213,15 @@ function yq = LinInterpol(xx,yy,xq)
     % Just like builtin function interp1(xx, yy, xq, 'linear', 0) except
     % that a C++ DLL routine is called which is much faster and much less safe
     % GNU Octave: simply forwards to the interp1 call.
+    persistent iPrepare;
     if (~ispc) || IsOctave()
         yq = interp1(xx, yy, xq, 'linear', 0);
         return;
     end
-    iPrepareLinInterpol();
+    if isempty(iPrepare)
+        iPrepare = true;
+        iPrepareLinInterpol();
+    end
     yq = xq;
     [ok,yq] = calllib('LinInterpol','LinInterpol',yq,xx,yy,xq,length(xx),length(xq));
     if ~(ok == 0)
@@ -158,4 +235,6 @@ function yq = LinInterpol(xx,yy,xq)
     end
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

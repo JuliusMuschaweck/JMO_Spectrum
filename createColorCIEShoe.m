@@ -32,7 +32,10 @@ ok = purity < 1;
 
 % magenta line
 
-load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+% 22.8.2024 now using official CIE data
+CIE1931XYZ = CIE1931_Data();
+% load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+
 m360 = [CIE1931XYZ.xBorder(1);CIE1931XYZ.yBorder(1)];
 m830 = [CIE1931XYZ.xBorder(end);CIE1931XYZ.yBorder(end)];
 ok2 = false(size(ok));
@@ -49,6 +52,7 @@ insideShoe = ok & ok2;
 magenta = insideShoe & (purity < 0);
 
 %%
+% addpath("underConstruction\"); % necessary for TrueRainbow to be available
 rainbow = TrueRainbow('floor',1);
 i_fullRGB = rainbow.RGBfunc(lDom(:));
 fullRed = reshape(i_fullRGB.R, size(lDom));

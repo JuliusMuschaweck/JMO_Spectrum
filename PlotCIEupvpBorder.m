@@ -104,7 +104,9 @@ function [ah, fh] = PlotCIEupvpBorder(varargin)
         set(gca,'ydir','normal');
     end
     
-    load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+    % 22.8.2024 now using official CIE data
+    CIE1931XYZ = CIE1931_Data();
+    % load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
     hold on;
     xb = CIE1931XYZ.xBorder;
     yb = CIE1931XYZ.yBorder;

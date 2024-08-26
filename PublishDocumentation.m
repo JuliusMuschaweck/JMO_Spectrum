@@ -14,6 +14,7 @@ publishWithStandardExample('CIE_Luv.m');
 publishWithStandardExample('CIE_S_026_Data.m');
 publishWithStandardExample('CIE_upvp.m');
 publishWithStandardExample('CIE_xy_from_upvp.m');
+publishWithStandardExample('CIEData.m');
 publishWithStandardExample('CIEDE2000_Lab.m');
 publishWithStandardExample('CIEDE2000_XYZ.m');
 publishWithStandardExample('CODATA2018.m');

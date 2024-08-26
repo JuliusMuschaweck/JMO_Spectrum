@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIEDE2000_XYZ</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="CIEDE2000_XYZ.m"><style type="text/css">
+      -->
+<title>CIEDE2000_XYZ</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CIEDE2000_XYZ.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,75 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CIEDE2000_XYZ</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CIEDE2000_XYZ</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>  &nbsp; | &nbsp;
 Source code: <a href = "file:../CIEDE2000_XYZ.m"> CIEDE2000_XYZ.m</a>
 </p>
-</p><p>Compute the CIEDE2000 color difference between two XYZ stimuli.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>dE = CIEDE2000_XYZ( XYZ1, XYZ2, XYZn )</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ1</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the first stimulus</li><li><tt>XYZ2</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the second stimulus</li><li><tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ1</tt> aand <tt>XYZ2</tt> are taken</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>dE</tt>: scalar double. The color difference. <tt>dE == 1</tt> is assumed to be just noticeable.</li></ul></div><h2 id="4">Algorithm</h2><p>Computes CIELAB Lab values for <tt>XYZ1</tt> and <tt>XYZ2</tt> using <a href="CIE_Lab.html">CIE_Lab</a>. (This is the step for which the reference white is needed). Then forwards to <a href="CIEDE2000_Lab.html">CIEDE2000_Lab</a> to do the actual work.</p><h2 id="5">See also</h2><p><a href="CIEDE2000_Lab.html">CIEDE2000_XYZ</a> <a href="CIE_Lab.html">CIE_Lab</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Compute the CIEDE2000 color difference between two XYZ stimuli.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>dE = CIEDE2000_XYZ( XYZ1, XYZ2, XYZn )</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>XYZ1</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the first stimulus</li>
+<li>
+<tt>XYZ2</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the second stimulus</li>
+<li>
+<tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>, the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ1</tt> aand <tt>XYZ2</tt> are taken</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>dE</tt>: scalar double. The color difference. <tt>dE == 1</tt> is assumed to be just noticeable.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Computes CIELAB Lab values for <tt>XYZ1</tt> and <tt>XYZ2</tt> using <a href="CIE_Lab.html">CIE_Lab</a>. (This is the step for which the reference white is needed). Then forwards to <a href="CIEDE2000_Lab.html">CIEDE2000_Lab</a> to do the actual work.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIEDE2000_Lab.html">CIEDE2000_XYZ</a> <a href="CIE_Lab.html">CIE_Lab</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIEDE2000_XYZ()
     name = <span class="string">' Air Mass 1.5 Solar Spectrum'</span>;
     fprintf(<span class="string">'CIEDE2000 dE of CIE D Illuminants vs. %s\n'</span>,name);
@@ -103,7 +169,8 @@ Source code: <a href = "file:../CIEDE2000_XYZ.m"> CIEDE2000_XYZ.m</a>
     legend(leg,<span class="string">'Location'</span>,<span class="string">'northeastoutside'</span>);
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">T = 5000 K, dE = 5.15571
+</pre>
+<pre class="codeoutput">T = 5000 K, dE = 5.15571
 T = 5200 K, dE = 4.046
 T = 5400 K, dE = 3.19512
 T = 5600 K, dE = 2.84076
@@ -114,7 +181,14 @@ T = 6400 K, dE = 6.27216
 T = 6600 K, dE = 7.56989
 T = 6800 K, dE = 8.79269
 T = 7000 K, dE = 9.89
-</pre><img vspace="5" hspace="5" src="CIEDE2000_XYZ_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="CIEDE2000_XYZ_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CIEDE2000_XYZ
 % 
@@ -153,4 +227,6 @@ function dE = CIEDE2000_XYZ( XYZ1, XYZ2, XYZn )
     dE = CIEDE2000_Lab(CIE_Lab(XYZ1, XYZn), CIE_Lab(XYZ2, XYZn));
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

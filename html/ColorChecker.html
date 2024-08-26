@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ColorChecker</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="ColorChecker.m"><style type="text/css">
+      -->
+<title>ColorChecker</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="ColorChecker.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,71 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>ColorChecker</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>ColorChecker</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>  &nbsp; | &nbsp;
 Source code: <a href = "file:../ColorChecker.m"> ColorChecker.m</a>
 </p>
-</p><p>return selected MacBeth ColorChecker reflectivity spectra</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = ColorChecker(i)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>i</tt>: scalar or vector double. The index (or index list) of the desired spectra.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: When <tt>i</tt> is scalar: A struct with fields  <tt>name</tt> (the name), <tt>lam</tt> (the wavelength array, 380:5:760), and <tt>val</tt> (the corresponding reflectivity values). When <tt>i</tt> is a vector of length &gt; 1, then rv is a cell array of such spectrum structs. <tt>i</tt> need not be sorted, and need not be unique.</li></ul></div><h2 id="4">Algorithm</h2><p>On first call, reads the spectra from <tt>ColorChecker.mat</tt> and stores them in a persistent variable. Data source: EBU Tech 3355, appendix 4. Subsequent calls will not re-read the .mat file and be much faster. ColorChecker spectra are widely used in the movie industry, and serve as the basis for the TLCI (Television Lighting Consistency Index).</p><h2 id="5">See also</h2><p><a href="CRI.html">CRI</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>return selected MacBeth ColorChecker reflectivity spectra</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = ColorChecker(i)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>i</tt>: scalar or vector double. The index (or index list) of the desired spectra.</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: When <tt>i</tt> is scalar: A struct with fields <tt>name</tt> (the name), <tt>lam</tt> (the wavelength array, 380:5:760), and <tt>val</tt> (the corresponding reflectivity values). When <tt>i</tt> is a vector of length &gt; 1, then rv is a cell array of such spectrum structs. <tt>i</tt> need not be sorted, and need not be unique.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>On first call, reads the spectra from <tt>ColorChecker.mat</tt> and stores them in a persistent variable. Data source: EBU Tech 3355, appendix 4. Subsequent calls will not re-read the .mat file and be much faster. ColorChecker spectra are widely used in the movie industry, and serve as the basis for the TLCI (Television Lighting Consistency Index).</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CRI.html">CRI</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleColorChecker()
     idx = [1 4 7 14 19 24];
     ccSpectra = ColorChecker(idx);
@@ -93,7 +155,14 @@ Source code: <a href = "file:../ColorChecker.m"> ColorChecker.m</a>
     title(<span class="string">'Some ColorChecker reflectivities'</span>);
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="ColorChecker_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="ColorChecker_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% ColorChecker
 % 
@@ -148,4 +217,6 @@ end
 
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

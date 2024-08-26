@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIEDE2000_Lab</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="CIEDE2000_Lab.m"><style type="text/css">
+      -->
+<title>CIEDE2000_Lab</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CIEDE2000_Lab.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,75 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CIEDE2000_Lab</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CIEDE2000_Lab</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../CIEDE2000_Lab.m"> CIEDE2000_Lab.m</a>
 </p>
-</p><p>Compute the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>dE = CIEDE2000_Lab( Lab1, Lab2 )</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>Lab1</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt></li><li><tt>Lab1</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt></li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>dE</tt>: scalar double. The color difference. <tt>dE == 1</tt> is assumed to be just noticeable.</li></ul></div><h2 id="4">Algorithm</h2><p>Computes the CIEDE 2000 color difference, following CIE 015:2018 (same as <a href="https://www.iso.org/standard/63731.html">ISO/CIE 11664-6:2014</a>. The computation is somewhat involved. In <a href="https://doi.org/10.1002/col.20070">Sharma et al, &#8220;The CIEDE2000 Color-Difference Formula: Implementation Notes, Supplementary Test Data, and Mathematical Observations.&#8221;</a> the authors give great guidance and many additional test Lab pairs. I followed their advice; for a test, see usage example below.</p><h2 id="5">See also</h2><p><a href="CIEDE2000_XYZ.html">CIEDE2000_XYZ</a> <a href="CIE_Lab.html">CIE_Lab</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Compute the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>dE = CIEDE2000_Lab( Lab1, Lab2 )</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>Lab1</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt>
+</li>
+<li>
+<tt>Lab1</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>a</tt> and <tt>b</tt>
+</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>dE</tt>: scalar double. The color difference. <tt>dE == 1</tt> is assumed to be just noticeable.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Computes the CIEDE 2000 color difference, following CIE 015:2018 (same as <a href="https://www.iso.org/standard/63731.html">ISO/CIE 11664-6:2014</a>. The computation is somewhat involved. In <a href="https://doi.org/10.1002/col.20070">Sharma et al, &ldquo;The CIEDE2000 Color-Difference Formula: Implementation Notes, Supplementary Test Data, and Mathematical Observations.&rdquo;</a> the authors give great guidance and many additional test Lab pairs. I followed their advice; for a test, see usage example below.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIEDE2000_XYZ.html">CIEDE2000_XYZ</a> <a href="CIE_Lab.html">CIE_Lab</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIEDE2000_Lab()
     load(<span class="string">'CIEDE2000TestData_Sharma.mat'</span>);
     n = length(CIEDE2000TestData_Sharma);
@@ -96,8 +162,16 @@ Source code: <a href = "file:../CIEDE2000_Lab.m"> CIEDE2000_Lab.m</a>
     <span class="keyword">end</span>
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">CIEDE2000_Lab works well, max. diff = 4.9499e-05
-</pre><img vspace="5" hspace="5" src="CIEDE2000_Lab_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<pre class="codeoutput">CIEDE2000_Lab works well, max. diff = 4.9499e-05
+</pre>
+<img vspace="5" hspace="5" src="CIEDE2000_Lab_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CIEDE2000_Lab
 % 
@@ -212,4 +286,6 @@ end
 
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

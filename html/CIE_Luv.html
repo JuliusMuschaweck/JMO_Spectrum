@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE_Luv</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="CIE_Luv.m"><style type="text/css">
+      -->
+<title>CIE_Luv</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CIE_Luv.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,73 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CIE_Luv</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CIE_Luv</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../CIE_Luv.m"> CIE_Luv.m</a>
 </p>
-</p><p>Computes CIELUV L*, u*, v* values from XYZ tristimulus values</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_Luv(XYZ, XYZn)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values for which Luv values shall be computed</li><li><tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ</tt> is taken</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>u</tt> and <tt>v</tt>. <tt>L</tt> is the lightness, which should be between 0 (totally black) and 100 (the reference white). <tt>u</tt> and <tt>v</tt> is 13 times the u'v' distance to the reference white.</li></ul></div><h2 id="4">Algorithm</h2><p>Applies the CIELuv formulas (8.26) to (8.30) according to section 8.2.2. of CIE 015:2018</p><h2 id="5">See also</h2><p><a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="CIE_Lab.html">CIE_Lab</a>, <a href="CIE_upvp.html">CIE_upvp</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Computes CIELUV L*, u*, v* values from XYZ tristimulus values</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = CIE_Luv(XYZ, XYZn)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>XYZ</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values for which Luv values shall be computed</li>
+<li>
+<tt>XYZn</tt>: A <tt>struct</tt> with scalar real fields <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt>: the tristimulus values of the "reference white": the brightest diffuse white in the scene from which <tt>XYZ</tt> is taken</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: A <tt>struct</tt> with scalar real fields <tt>L</tt>, <tt>u</tt> and <tt>v</tt>. <tt>L</tt> is the lightness, which should be between 0 (totally black) and 100 (the reference white). <tt>u</tt> and <tt>v</tt> is 13 times the u'v' distance to the reference white.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Applies the CIELuv formulas (8.26) to (8.30) according to section 8.2.2. of CIE 015:2018</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="CIE_Lab.html">CIE_Lab</a>, <a href="CIE_upvp.html">CIE_upvp</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIE_Luv()
     white = CIE_Illuminant(<span class="string">'D65'</span>);
     red = MultiplySpectra(white, GaussSpectrum(360:830, 620, 60));
@@ -109,11 +173,19 @@ Source code: <a href = "file:../CIE_Luv.m"> CIE_Luv.m</a>
 <span class="keyword">end</span>
 
 
-</pre><pre class="codeoutput">white L = 100, u = 0, v = 0
-red L = 79.729, u = 80.119, v = 85.4643
+</pre>
+<pre class="codeoutput">white L = 100, u = 0, v = 0
+red L = 79.7289, u = 80.1185, v = 85.4642
 green L = 66.2237, u = -110.28, v = 20.8113
-blue L = 49.5674, u = -36.9415, v = -119.338
-</pre><img vspace="5" hspace="5" src="CIE_Luv_01.png" alt=""> <img vspace="5" hspace="5" src="CIE_Luv_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+blue L = 49.5674, u = -36.9417, v = -119.338
+</pre>
+<img vspace="5" hspace="5" src="CIE_Luv_01.png" alt=""> <img vspace="5" hspace="5" src="CIE_Luv_02.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CIE_Luv
 % 
@@ -173,4 +245,6 @@ function rv = f(rhs)
     end
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

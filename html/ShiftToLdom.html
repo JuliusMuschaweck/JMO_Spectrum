@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ShiftToLdom</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="ShiftToLdom.m"><style type="text/css">
+      -->
+<title>ShiftToLdom</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="ShiftToLdom.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,73 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>ShiftToLdom</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>ShiftToLdom</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 Source code: <a href = "file:../ShiftToLdom.m"> ShiftToLdom.m</a>
 </p>
-</p><p>Shifts the wavelength array of a spectrum such that the desired dominant wavelength results.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec_in</tt>: struct, a valid spectrum (see <a href="docDesignDecisions.html">design decisions</a> for requirements). The spectrum whose wavelength shall be shifted</li><li><tt>ldom</tt>: scalar double. The target dominant wavelength in nm. Must be &gt;= 400 and &lt;= 695</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>spec_out</tt>: struct, a valid spectrum. Same <tt>val</tt> as the input spectrum, but a constant shift has been added to <tt>lam</tt> in order to achieve the desired dominant wavelength.</li></ul></div><h2 id="4">Algorithm</h2><p>Iteratively applies a candidate shift, computes the resulting dominant wavelength, and adjusts the candidate shift until agreement is reached within roundoff error. See <a href="LDomPurity.html">LDomPurity</a> for definition of dominant wavelength.</p><h2 id="5">See also</h2><p><a href="FindRoot1D.html">FindRoot1D</a>, <a href="LDomPurity.html">LDomPurity</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Shifts the wavelength array of a spectrum such that the desired dominant wavelength results.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>spec_in</tt>: struct, a valid spectrum (see <a href="docDesignDecisions.html">design decisions</a> for requirements). The spectrum whose wavelength shall be shifted</li>
+<li>
+<tt>ldom</tt>: scalar double. The target dominant wavelength in nm. Must be &gt;= 400 and &lt;= 695</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>spec_out</tt>: struct, a valid spectrum. Same <tt>val</tt> as the input spectrum, but a constant shift has been added to <tt>lam</tt> in order to achieve the desired dominant wavelength.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Iteratively applies a candidate shift, computes the resulting dominant wavelength, and adjusts the candidate shift until agreement is reached within roundoff error. See <a href="LDomPurity.html">LDomPurity</a> for definition of dominant wavelength.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="FindRoot1D.html">FindRoot1D</a>, <a href="LDomPurity.html">LDomPurity</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleShiftToLdom()
     blue = ReadLightToolsSpectrumFile(<span class="string">'blue.sre'</span>);
     blueLdom = LDomPurity(blue);
@@ -94,9 +158,17 @@ Source code: <a href = "file:../ShiftToLdom.m"> ShiftToLdom.m</a>
     title(<span class="string">'ShiftToLdom example'</span>);
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">original ldom = 447.352, new ldom = 460
+</pre>
+<pre class="codeoutput">original ldom = 447.352, new ldom = 460
 ldom shift = 12.6483 achieved by wavelength shift = 21.7189
-</pre><img vspace="5" hspace="5" src="ShiftToLdom_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="ShiftToLdom_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% ShiftToLdom
 % 
@@ -223,4 +295,6 @@ function [spec_out, delta_lam] = ShiftToLdom(spec_in, ldom)
     end
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

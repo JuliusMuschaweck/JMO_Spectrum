@@ -43,6 +43,8 @@
 %
 % <CIE_xy_from_upvp.html CIE_xy_from_upvp> Computes CIE x,y coordinates from CIE 1960/1964 u', v'
 %
+% <CIEData.html CIEData> Class that contains official CIE spectral data and makes it accessible for this library
+%
 % <CODATA2018.html CODATA2018> Returns a struct with CODATA 2018 constants relevant to illumination, and some more
 %
 % <ColorChecker.html ColorChecker> returns selected MacBeth ColorChecker reflectivity spectra

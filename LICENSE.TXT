@@ -1,2 +1,5 @@
 I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+CIE Data in class CIEData.m and CIE_Database.mat has been adapted from CIE, 
+https://cie.co.at/data-tables, which has been provided by CIE under 
+CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).

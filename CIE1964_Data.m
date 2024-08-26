@@ -36,6 +36,24 @@
 %
 
 function rv = CIE1964_Data()
-    load('CIE1964_lam_x_y_z.mat','CIE1964XYZ');
-    rv = CIE1964XYZ;
+    % 21.8.2024 JM: New official CIE data
+    persistent irv;
+    if isempty(irv)
+        cie = CIEData();
+        irv.lam = cie.Column_by_Idx("CIE1964_xyz",1);
+        irv.x = cie.Column_by_Idx("CIE1964_xyz",2);
+        irv.y = cie.Column_by_Idx("CIE1964_xyz",3);
+        irv.z = cie.Column_by_Idx("CIE1964_xyz",4);
+        border_lam = cie.Column_by_Idx("CIE1964_border",1);
+        if ~isequal(border_lam,irv.lam)
+            error('CIE1964_Data: Inconsistent wavelength arrays');
+        end
+        irv.xBorder = cie.Column_by_Idx("CIE1964_border",2);
+        irv.yBorder = cie.Column_by_Idx("CIE1964_border",3);
+        irv.zBorder = cie.Column_by_Idx("CIE1964_border",4);
+    end
+    rv = irv;
+    % before 21.8.24
+    % load('CIE1964_lam_x_y_z.mat','CIE1964XYZ');
+    % rv = CIE1964XYZ;
 end

@@ -9,7 +9,8 @@
 % </p>
 % </html>
 %
-% Returns |struct| with the five human eye sensitivity spectra according to CIE S 026
+% Returns |struct| with the five human eye sensitivity spectra according to CIE S026:2018,
+% based on official CIE data from <https://cie.co.at/data-tables>.
 %% Syntax
 % |rv = CIE_S_026_Data()|
 %% Input Arguments
@@ -39,6 +40,17 @@
 %
 
 function rv = CIE_S_026_Data()
-    load('CIES026_lam_S_M_L_r_m.mat','CIES026');
-    rv = CIES026;
+    ciedata = CIEData(); % "lam, s_sc, s_mc, s_lc, s_rh, s_mel"
+    lam = ciedata.Column_by_Header("A-opic_action","lam");
+    GetCol = @(s) ciedata.Column_by_Header("A-opic_action",s);
+    rv.S_cone_opic_sensitivity = MakeSpectrum(lam, GetCol("s_sc"));
+
+    rv.M_cone_opic_sensitivity = MakeSpectrum(lam, GetCol("s_mc"));
+    rv.L_cone_opic_sensitivity = MakeSpectrum(lam, GetCol("s_lc"));
+    rv.rhodopic_sensitivity = MakeSpectrum(lam, GetCol("s_rh"));
+    rv.melanopic_sensitivity = MakeSpectrum(lam, GetCol("s_mel"));
+    
+    % before 23.8.24
+    % load('CIES026_lam_S_M_L_r_m.mat','CIES026');
+    % rv = CIES026;
 end

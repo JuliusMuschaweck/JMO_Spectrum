@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CRI</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="CRI.m"><style type="text/css">
+      -->
+<title>CRI</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CRI.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,88 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CRI</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CRI</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../CRI.m"> CRI.m</a>
 </p>
-</p><p>The CRI class provides what is needed to compute Color Rendering Indices</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Properties</a></li><li><a href="#3">Methods</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li>Constructor: <tt>rv = CRI()</tt></li></ul></div><h2 id="2">Properties</h2><div><ul><li><tt>CRISpectra_</tt>: Read-only. Array of 16 structs with test sample properties. Each is a spectrum, with fields <tt>lam == 360:830</tt> in 1 nm steps, <tt>val</tt> (the % sample's reflectivity), <tt>name</tt> (a name from <tt>TCS01</tt> to <tt>TCS016</tt>), <tt>description</tt> (a description like <tt>'Light greyish red'</tt>), and <tt>munsell</tt> (the approximate Munsell code). Elements 1..8 a are the 8 standard reflectivity spectra used for Ra. Elements 9..14 are the 6 additional spectra as defined in CIE 13.3-1995. In addition, #15 is (inofficial) "Japanese skin", and #16 is "Perfect white".</li><li><tt>strict_5nm_</tt>: A logical scalar flag. When false (default), integration is done in 1 nm steps. When set to true, integration is done in 5 nm steps.</li></ul></div><h2 id="3">Methods</h2><div><ul><li><tt>function prev = SetStrict_5nm(this, yesno)</tt>: Sets the <tt>strict_5nm_</tt> flag to <tt>yesno</tt> and returns its previous value. <b>Input argument</b>: <tt>yesno</tt>, logical scalar. <b>Output argument</b>: <tt>prev</tt>, logical scalar.</li><li><tt>function rv = SingleRi(this, spectrum, i)</tt>: Computes the single color rendering index Ri for color sample <tt>i</tt>. <b>Input arguments</b>: <tt>spectrum</tt>: A valid spectrum, (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>: the test lamp. <tt>i</tt>: Integer scalar, 1 &lt;= i &lt;= 16: The color sample. <b>Output argument</b>: <tt>rv</tt>, double scalar, the single color rendering index.</li><li><tt>function rv = MySingleR(this, testlamp_spectrum, reflectivity_spectrum)</tt>: Computes the single color rendering index for a user defined color sample. <b>Input arguments</b>: <tt>testlamp_spectrum</tt>: A valid spectrum: the test lamp. <tt>reflectivity_spectrum</tt>: A valid spectrum, the sample reflectivitiy. Should be &gt;= 0 and &lt;= 1. <b>Output argument</b>: <tt>rv</tt>, double scalar, the single color rendering index.</li><li><tt>function [rv, Ri_1_8] = Ra(this, spectrum)</tt>: Computes the first eight single CRI values, returns Ra as their arithmetic mean. <b>Input argument</b>: <tt>spectrum</tt>: A valid spectrum: the test lamp. <b>Output arguments</b>: <tt>rv</tt>: Double scalar: the Ra value. <tt>Ri_1_8</tt>: Double array, length 8: the first eight Ri values.</li><li><tt>function rv = FullCRI(this, spectrum)</tt>: Computes all 16 Ri values. <b>Input argument</b>: <tt>spectrum</tt>: A valid spectrum: the test lamp. <b>Output argument</b>: <tt>rv</tt>, a struct with field <tt>Ri</tt>: double array, length 16, the single Ri values, and field <tt>Ra</tt>, the Ra value.</li><li><tt>function PlotCRISpectra(this, fh)</tt>: Plots the 16 CRI spectra <b>Input argument</b>: <tt>fh</tt>: Optional figure handle. When present, clears the figure and plots the spectra there. When absent, creates a new figure for plotting.</li><li><tt>function [ok, rv_struct] = Test(this, doPrint)</tt>: performs a test, comparing results to expected for a number of CIE standard illuminants.</li></ul></div><h2 id="4">Algorithm</h2><p>The constructor loads the CRI reflectivity spectra from <tt>CRISpectra.mat</tt>, and interpolates them to <tt>360:830</tt> to speed up the color matching integrals. The individual CRI calculations follow the prescription in CIE 13.3-1995. As a default, all integrals are executed over wavelengths "interweaving" 360:830 with the actual test lamp spectrum. When the <tt>strict_5nm</tt> flag is set to true, all spectra are interpolated to 360:5:830 before integration.</p><h2 id="5">See also</h2><p><a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a>, <a href="PlanckSpectrum.html">PlanckSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>The CRI class provides what is needed to compute Color Rendering Indices based on official CIE data from <a href="https://cie.co.at/data-tables">https://cie.co.at/data-tables</a>.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Properties</a>
+</li>
+<li>
+<a href="#3">Methods</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<div>
+<ul>
+<li>Constructor: <tt>rv = CRI()</tt>
+</li>
+</ul>
+</div>
+<h2 id="2">Properties</h2>
+<div>
+<ul>
+<li>
+<tt>CRISpectra_</tt>: Read-only. Array of 16 structs with test sample properties. Each is a spectrum, with fields <tt>lam == 360:830</tt> in 1 nm steps, <tt>val</tt> (the % sample's reflectivity), <tt>name</tt> (a name from <tt>TCS01</tt> to <tt>TCS016</tt>), <tt>description</tt> (a description like <tt>'Light greyish red'</tt>), and <tt>munsell</tt> (the approximate Munsell code). Elements 1..8 a are the 8 standard reflectivity spectra used for Ra. Elements 9..14 are the 6 additional spectra as defined in CIE 13.3-1995. In addition, #15 is "Japanese skin", based on the Japanese JIS Z 8726 standard, and #16 is "Perfect white", for reference.</li>
+<li>
+<tt>strict_5nm_</tt>: A logical scalar flag. When false (default), integration is done in 1 nm steps. When set to true, integration is done in 5 nm steps.</li>
+</ul>
+</div>
+<h2 id="3">Methods</h2>
+<div>
+<ul>
+<li>
+<tt>function prev = SetStrict_5nm(this, yesno)</tt>: Sets the <tt>strict_5nm_</tt> flag to <tt>yesno</tt> and returns its previous value. <b>Input argument</b>: <tt>yesno</tt>, logical scalar. <b>Output argument</b>: <tt>prev</tt>, logical scalar.</li>
+<li>
+<tt>function rv = SingleRi(this, spectrum, i)</tt>: Computes the single color rendering index Ri for color sample <tt>i</tt>. <b>Input arguments</b>: <tt>spectrum</tt>: A valid spectrum, (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>: the test lamp. <tt>i</tt>: Integer scalar, 1 &lt;= i &lt;= 16: The color sample. <b>Output argument</b>: <tt>rv</tt>, double scalar, the single color rendering index.</li>
+<li>
+<tt>function rv = MySingleR(this, testlamp_spectrum, reflectivity_spectrum)</tt>: Computes the single color rendering index for a user defined color sample. <b>Input arguments</b>: <tt>testlamp_spectrum</tt>: A valid spectrum: the test lamp. <tt>reflectivity_spectrum</tt>: A valid spectrum, the sample reflectivitiy. Should be &gt;= 0 and &lt;= 1. <b>Output argument</b>: <tt>rv</tt>, double scalar, the single color rendering index.</li>
+<li>
+<tt>function [rv, Ri_1_8] = Ra(this, spectrum)</tt>: Computes the first eight single CRI values, returns Ra as their arithmetic mean. <b>Input argument</b>: <tt>spectrum</tt>: A valid spectrum: the test lamp. <b>Output arguments</b>: <tt>rv</tt>: Double scalar: the Ra value. <tt>Ri_1_8</tt>: Double array, length 8: the first eight Ri values.</li>
+<li>
+<tt>function rv = FullCRI(this, spectrum)</tt>: Computes all 16 Ri values. <b>Input argument</b>: <tt>spectrum</tt>: A valid spectrum: the test lamp. <b>Output argument</b>: <tt>rv</tt>, a struct with field <tt>Ri</tt>: double array, length 16, the single Ri values, and field <tt>Ra</tt>, the Ra value.</li>
+<li>
+<tt>function PlotCRISpectra(this, fh)</tt>: Plots the 16 CRI spectra <b>Input argument</b>: <tt>fh</tt>: Optional figure handle. When present, clears the figure and plots the spectra there. When absent, creates a new figure for plotting.</li>
+<li>
+<tt>function [ok, rv_struct] = Test(this, doPrint)</tt>: performs a test, comparing results to expected for a number of CIE standard illuminants.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>The constructor loads the CRI reflectivity spectra from <tt>CRISpectra.mat</tt>, and interpolates them to <tt>360:830</tt> to speed up the color matching integrals. The individual CRI calculations follow the prescription in CIE 13.3-1995. As a default, all integrals are executed over wavelengths "interweaving" 360:830 with the actual test lamp spectrum. When the <tt>strict_5nm</tt> flag is set to true, all spectra are interpolated to 360:5:830 before integration.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a>, <a href="PlanckSpectrum.html">PlanckSpectrum</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCRI()
 <span class="comment">% Constructor: </span>
 <span class="comment">% loads the CRI reflectivity spectra into the read-only variable CRISpectra_</span>
@@ -116,7 +195,8 @@ cri.PlotCRISpectra();
 
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">
+</pre>
+<pre class="codeoutput">
 cri = 
 
   CRI with properties:
@@ -124,18 +204,25 @@ cri =
     CRISpectra_: [1&times;16 struct]
     strict_5nm_: 0
 
-Ra = 51.5163 for CIE standard illuminant FL4
-Ra = 99.9866 for CIE standard illuminant D65
+Ra = 51.3719 for CIE Illuminant FL4
+Ra = 99.987 for CIE Illuminant D65
 Ra = 97.9982 for 6500K Planck
-Ra = 51.3267 for CIE standard illuminant FL4 (5 nm steps)
-Ra = 99.9867 for CIE standard illuminant D65 (5 nm steps)
+Ra = 50.2658 for CIE Illuminant FL4 (5 nm steps)
+Ra = 99.9869 for CIE Illuminant D65 (5 nm steps)
 Ra = 97.9945 for 6500K Planck (5 nm steps)
-R9 = -110.66 for FL4: Really really bad, FL4 fluorescent and saturated red doesn't match well
-R9 = 99.9511 for D65: perfect by definition
+R9 = -111.075 for FL4: Really really bad, FL4 fluorescent and saturated red doesn't match well
+R9 = 99.9558 for D65: perfect by definition
 R9 = 95.8613 for 6500K Planck: 
 R  = 95.6862 of Planck 6500K for "my red" sample 
-Ra = 51.5163 for FL4, all Ri = 42.2, 69.9, 90.4, 38.0, 41.0, 53.8, 65.1, 11.7, -110.7, 31.5, 18.8, 25.1, 46.8, 94.3, 34.9, 100.0, 
-</pre><img vspace="5" hspace="5" src="CRI_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+Ra = 51.3719 for FL4, all Ri = 42.0, 69.8, 90.4, 37.8, 40.9, 53.7, 65.0, 11.5, -111.1, 31.3, 18.4, 24.9, 46.7, 94.3, 34.8, 100.0, 
+</pre>
+<img vspace="5" hspace="5" src="CRI_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CRI
 %
@@ -149,6 +236,7 @@ Ra = 51.5163 for FL4, all Ri = 42.2, 69.9, 90.4, 38.0, 41.0, 53.8, 65.1, 11.7, -
 % </html>
 %
 % The CRI class provides what is needed to compute Color Rendering Indices
+% based on official CIE data from <https://cie.co.at/data-tables>.
 %% Syntax
 % * Constructor: |rv = CRI()|
 %% Properties
@@ -156,7 +244,7 @@ Ra = 51.5163 for FL4, all Ri = 42.2, 69.9, 90.4, 38.0, 41.0, 53.8, 65.1, 11.7, -
 % in 1 nm steps, |val| (the % sample's reflectivity), |name| (a name from |TCS01| to |TCS016|), |description| (a description 
 % like |'Light greyish red'|), and |munsell| (the approximate Munsell code). 
 % Elements 1..8 a are the 8 standard reflectivity spectra used for Ra. Elements 9..14 are the 6 additional spectra
-% as defined in CIE 13.3-1995. In addition, #15 is (inofficial) "Japanese skin", and #16 is "Perfect white".
+% as defined in CIE 13.3-1995. In addition, #15 is "Japanese skin", based on the Japanese JIS Z 8726 standard, and #16 is "Perfect white", for reference.
 % * |strict_5nm_|: A logical scalar flag. When false (default), integration is done in 1 nm steps. When set to true,
 % integration is done in 5 nm steps.
 %% Methods
@@ -214,14 +302,64 @@ classdef CRI < handle
     end
     methods
         function this = CRI()
-            % Constructor, reads the CRI spectra from CRISpectra.mat
-            tmp = load('CRISpectra.mat','CRISpectra');
-            s = tmp.CRISpectra;
-            lam = s(1).lam;
-            for i = 1:length(s)
-                s(i).lam = 360:830;
-                s(i).val = LinInterpol(lam, s(i).val, s(i).lam);
+            colorNames = ["Light greyish red"
+                "Dark greyish yellow"
+                "Strong yellow green"
+                "Moderate yellowish green"
+                "Light bluish green"
+                "Light blue"
+                "Light violet"
+                "Light reddish purple"
+                "Strong red"
+                "Strong yellow"
+                "Strong green"
+                "Strong blue"
+                "Light yellowish pink (Caucasian skin)"
+                "Moderate olive green (leaf green)"
+                "Japanese skin"
+                "Perfect white"];
+            munsell = ["7.5  R 6/4"
+                "5  Y6/4"
+                "5 GY 6/8"
+                "2.5 G 6/6"
+                "10 BG 6/4"
+                "5 PB 6/8"
+                "2.5 P 6/8"
+                "10 P 6/8"
+                "4.5 R 4/13"
+                "5 Y 8/10"
+                "4.5 G 5/8"
+                "3 PB 3/11"
+                "5 YR 8/4"
+                "5 GY 4/4"
+                "unknown"
+                "unknown"];
+            % first 14 names from CIE 13.3 1995
+            % except that I changed "human complexion" -> "Caucasian skin"
+            % read spectra 1..14 from official CIE data
+            ciedata = CIEData();
+            lam = ciedata.Column_by_Idx("CRI_Refl",1);
+            for i = 1:14
+                ival = ciedata.Column_by_Idx("CRI_Refl",i+1);
+                s(i) = MakeSpectrum(lam, ival,"name",sprintf("TCS%02.0f",i),...
+                    "description",colorNames(i),"munsell",munsell(i)); %#ok<AGROW>
             end
+            tmp = load('CRI_R15.mat', 'CRI_R15');
+            s(15) = tmp.CRI_R15; 
+            s(16) = MakeSpectrum([360 830],[1 1],"name","TCS16", ...
+                "description",colorNames(16),"munsell",munsell(16));
+            for i = 1:16
+                s(i) = ResampleSpectrum(s(i),360:830);
+            end
+            % before 23.8.24
+            % Constructor, reads the CRI spectra from CRISpectra.mat
+            % tmp = load('CRISpectra.mat','CRISpectra');
+            % s = tmp.CRISpectra;
+            % lam = s(1).lam;
+            % for i = 1:length(s)
+            %     s(i).lam = 360:830;
+            %     s(i).val = LinInterpol(lam, s(i).val, s(i).lam);
+            % end
             this.CRISpectra_ = s;
             this.strict_5nm_ = false;
         end
@@ -257,6 +395,7 @@ classdef CRI < handle
                 rv.Ri(i,1) = this.SingleRi_1nm(lamp, si);
             end
             rv.Ra = mean(rv.Ri(1:8));
+            rv.lamp = lamp;
         end
         
         function PlotCRISpectra(this, fh)
@@ -501,4 +640,6 @@ classdef CRI < handle
     
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

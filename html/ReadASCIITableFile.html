@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ReadASCIITableFile</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="ReadASCIITableFile.m"><style type="text/css">
+      -->
+<title>ReadASCIITableFile</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="ReadASCIITableFile.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,28 +72,89 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>ReadASCIITableFile</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>ReadASCIITableFile</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp;| &nbsp;
 Source code: <a href = "file:../ReadASCIITableFile.m"> ReadASCIITableFile.m</a>
 </p>
-</p><p>Reads a matrix of numbers from an ASCII text file, with optional delimiter control and generic comment line handling.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = ReadASCIITableFile(fn, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>fn</tt>: character string. Filename from where to read.</li><li><tt>opts</tt>: Name-Value pair</li></ul></div><p>
+</p>
+<p>Reads a matrix of numbers from an ASCII text file, with optional delimiter control and generic comment line handling.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = ReadASCIITableFile(fn, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>fn</tt>: character string. Filename from where to read.</li>
+<li>
+<tt>opts</tt>: Name-Value pair</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
 <tr><td> 'delimiters'   </td> <td> character string </td> <td> '' (default)    </td> <td> set of characters interpreted as delimiters between numbers. See Matlab's 'split' documentation for details. If not specified, white space is used as delimiter(s).</td></tr>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: double array. Content of the ASCII table</li></ul></div><h2 id="4">Algorithm</h2><p>Reads lines, trimming white space at beginning and end. Trimmed lines that don't start with a digit ('0'...'9') are considered comments and are discarded. Non-comment lines are expected to contain only real number in ASCII format, separated by the given delimiters. Number of columns is taken from first non-comment line, and all subsequent non-comment lines are expected to have the same number of columns.</p><h2 id="5">See also</h2><p><a href="ReadASCIITableSpectrumFile.html">ReadASCIITableSpectrumFile</a>, <a href="ReadLightToolsSpectrumFile.html">ReadLightToolsSpectrumFile</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: double array. Content of the ASCII table</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Reads lines, trimming white space at beginning and end. Trimmed lines that don't start with a digit ('0'...'9') are considered comments and are discarded. Non-comment lines are expected to contain only real number in ASCII format, separated by the given delimiters. Number of columns is taken from first non-comment line, and all subsequent non-comment lines are expected to have the same number of columns.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="ReadASCIITableSpectrumFile.html">ReadASCIITableSpectrumFile</a>, <a href="ReadLightToolsSpectrumFile.html">ReadLightToolsSpectrumFile</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleReadASCIITableSpectrumFile()
     fn = <span class="string">'LED_2666K.sre'</span>;
     spec = ReadASCIITableSpectrumFile(fn); <span class="comment">% default delimiters are ok</span>
     spec
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">
+</pre>
+<pre class="codeoutput">
 spec = 
 
   struct with fields:
@@ -96,7 +162,14 @@ spec =
     lam: [201&times;1 double]
     val: [201&times;1 double]
 
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% ReadASCIITableFile
 % 
@@ -224,4 +297,6 @@ end
 
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>SolarSpectrum</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="SolarSpectrum.m"><style type="text/css">
+      -->
+<title>SolarSpectrum</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="SolarSpectrum.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,57 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>SolarSpectrum</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>SolarSpectrum</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 Source code: <a href = "file:../SolarSpectrum.m"> SolarSpectrum.m</a>
 </p>
-</p><p>Returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = SolarSpectrum(type)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>type</tt>: character string.</li></ul></div><p>
+</p>
+<p>Returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = SolarSpectrum(type)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>type</tt>: character string.</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Value</b>    </td> <td>  <b>Meaning</b> </td>
@@ -84,7 +132,22 @@ Source code: <a href = "file:../SolarSpectrum.m"> SolarSpectrum.m</a>
 <tr><td> 'AM0_ASTM_E490'  </td>  <td> Extraterrestrial irradiance spectrum according to ASTM G173-03, from 119.5 nm to 1 mm = 1e6 nm</td>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: struct with fields <tt>lam</tt>, <tt>val</tt> (both double vectors) and <tt>name</tt> (character string), the requested solar spectrum</li></ul></div><h2 id="4">Algorithm</h2><p>At first call, loads the spectra from 'solarSpectra_AM0_AM15_ASTM_G173_03.mat' and 'solarSpectrum_AM0_ASTM_E_490.mat', storing them in persistent variables to speed up subsequent calls. Returns requested variant. These spectra have both higher resolution and wavelength range compared to the CIE daylight spectra.</p><h2 id="5">See also</h2><p><a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: struct with fields <tt>lam</tt>, <tt>val</tt> (both double vectors) and <tt>name</tt> (character string), the requested solar spectrum</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>At first call, loads the spectra from 'solarSpectra_AM0_AM15_ASTM_G173_03.mat' and 'solarSpectrum_AM0_ASTM_E_490.mat', storing them in persistent variables to speed up subsequent calls. Returns requested variant. These spectra have both higher resolution and wavelength range compared to the CIE daylight spectra.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleSolarSpectrum()
     AM0 = SolarSpectrum(<span class="string">'AM0'</span>);
     AM15 = SolarSpectrum(<span class="string">'AM15_GlobalTilt'</span>);
@@ -104,7 +167,14 @@ Source code: <a href = "file:../SolarSpectrum.m"> SolarSpectrum.m</a>
     legend(<span class="string">'log-log AM0'</span>);
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="SolarSpectrum_01.png" alt=""> <img vspace="5" hspace="5" src="SolarSpectrum_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="SolarSpectrum_01.png" alt=""> <img vspace="5" hspace="5" src="SolarSpectrum_02.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% SolarSpectrum
 % 
@@ -191,4 +261,6 @@ function rv = SolarSpectrum(type)
     end
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

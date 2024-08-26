@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CCT</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="CCT.m"><style type="text/css">
+      -->
+<title>CCT</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CCT.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,79 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CCT</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CCT</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../CCT.m"> CCT.m</a>
 </p>
-</p><p>Computes the correlated color temperature (CCT) of a spectrum</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[iCCT, dist_uv, ok, errmsg] = CCT(spec)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>iCCT</tt>: scalar double. The correlated color temperature in Kelvin</li><li><tt>dist_uv</tt>: scalar double. The distance to the Planck locus in uv coordinates. Negative when below Planck locus (towards magenta).</li><li><tt>ok</tt>: When requested, function sets ok to false, sets iCCT and dist_uv to NaN in case of error instead of throwing error.</li><li><tt>errmsg</tt>: Contains error and warning message(s)</li></ul></div><h2 id="4">Algorithm</h2><p>For a CIE 1931 xy color point, transform it to CIE 1960 uv coordinates, and then find the closest point on the Planck locus in CIE 1960 uv coordinates. The absolute temperature corresponding to the blackbody radiation that yields this point on the Planck locus is the CCT. See also the official CIE definition <a href="https://cie.co.at/eilvterm/17-23-068">https://cie.co.at/eilvterm/17-23-068</a>.</p><p>This function first computes xy color coordinates from the input spectrum, and then calls <a href="CCT_from_xy.html">CCT_from_xy</a></p><h2 id="5">See also</h2><p><a href="CCT_from_xy.html">CCT_from_xy</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Computes the correlated color temperature (CCT) of a spectrum</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[iCCT, dist_uv, ok, errmsg] = CCT(spec)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>spec</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>iCCT</tt>: scalar double. The correlated color temperature in Kelvin</li>
+<li>
+<tt>dist_uv</tt>: scalar double. The distance to the Planck locus in uv coordinates. Negative when below Planck locus (towards magenta).</li>
+<li>
+<tt>ok</tt>: When requested, function sets ok to false, sets iCCT and dist_uv to NaN in case of error instead of throwing error.</li>
+<li>
+<tt>errmsg</tt>: Contains error and warning message(s)</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>For a CIE 1931 xy color point, transform it to CIE 1960 uv coordinates, and then find the closest point on the Planck locus in CIE 1960 uv coordinates. The absolute temperature corresponding to the blackbody radiation that yields this point on the Planck locus is the CCT. See also the official CIE definition <a href="https://cie.co.at/eilvterm/17-23-068">https://cie.co.at/eilvterm/17-23-068</a>.</p>
+<p>This function first computes xy color coordinates from the input spectrum, and then calls <a href="CCT_from_xy.html">CCT_from_xy</a>
+</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CCT_from_xy.html">CCT_from_xy</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCCT()
     T = 5704;
     s = CIE_Illuminant_D(T);
@@ -89,11 +159,19 @@ Source code: <a href = "file:../CCT.m"> CCT.m</a>
     
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">Testing CCT for CIE Illuminant D for 5704 K.
+</pre>
+<pre class="codeoutput">Testing CCT for CIE Illuminant D for 5704 K.
 CCT = 5701.65 K, difference is -2.35443 K
 Testing CCT for Planck spectrum at 5704 K.
 CCT = 5704 K, difference is 0.000232545 K
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CCT
 % 
@@ -156,4 +234,6 @@ end
 
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

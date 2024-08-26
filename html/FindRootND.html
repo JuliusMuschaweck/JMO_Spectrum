@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FindRootND</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="FindRootND.m"><style type="text/css">
+      -->
+<title>FindRootND</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="FindRootND.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,62 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>FindRootND</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>FindRootND</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../FindRootND.m"> FindRootND.m</a>
 </p>
-</p><p>Finds multidimensional root of function in N dimensions, without derivatives</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[rv, ok, info] = FindRootND(func, x0, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>func</tt>: handle to function with signature <tt>rv = func(x)</tt>, where both <tt>rv</tt> and <tt>x</tt> are vectors of same length <tt>n</tt></li><li><tt>x0</tt>: double vector, with length <tt>n</tt>. The starting point for the search</li><li><tt>opts</tt>: Name-Value pairs</li></ul></div><p>
+</p>
+<p>Finds multidimensional root of function in N dimensions, without derivatives</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[rv, ok, info] = FindRootND(func, x0, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>func</tt>: handle to function with signature <tt>rv = func(x)</tt>, where both <tt>rv</tt> and <tt>x</tt> are vectors of same length <tt>n</tt>
+</li>
+<li>
+<tt>x0</tt>: double vector, with length <tt>n</tt>. The starting point for the search</li>
+<li>
+<tt>opts</tt>: Name-Value pairs</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Name</b>      </td> <td>  <b>Type</b>     </td> <td><b>Value</b>      </td> <td><b>Meaning</b>                              </td></tr>
@@ -85,7 +138,25 @@ Source code: <a href = "file:../FindRootND.m"> FindRootND.m</a>
 <tr><td> 'tolMin'         </td> <td> positive double  </td> <td> 1e-12 (default)  </td> <td> tolerance for local minimum detection </td></tr>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: double vector of length <tt>n</tt>. The <tt>x</tt> value at the root.</li><li><tt>ok</tt>: scalar logical. <tt>true</tt> for success, <tt>false</tt> for failure</li><li><tt>info</tt>: <tt>struct</tt> with fields <tt>fvec</tt> (the last function value), <tt>msg</tt> (a diagnostic string), <tt>iter</tt> (the number of line search iterations), and <tt>history</tt>. <tt>history</tt> is a struct with fields <tt>x</tt>, <tt>fvec</tt>, and <tt>xRestart</tt>. They all are matrices with size <tt>(2, iter)</tt>: the history of x and function values, and the x values where the Jacobian estimate was reset.</li></ul></div><h2 id="4">Algorithm</h2><p>Implements Broyden's method (see <a href="https://en.wikipedia.org/wiki/Broyden%27s_method">https://en.wikipedia.org/wiki/Broyden%27s_method</a>, closely following the implementation in Press et al., Numerical Recipes, chapter 9.7.3. This is a quasi-Newton method, where the Jacobian is estimated by simple forward differencing and approximately updated using the function value history. In other words, it is a multidimensional generalization of the secant method.</p><h2 id="5">See also</h2><p><a href="FindRoot1D.html">FindRoot1D</a>, Matlab's <tt>fsolve</tt> in the Optimization toolbox.</p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: double vector of length <tt>n</tt>. The <tt>x</tt> value at the root.</li>
+<li>
+<tt>ok</tt>: scalar logical. <tt>true</tt> for success, <tt>false</tt> for failure</li>
+<li>
+<tt>info</tt>: <tt>struct</tt> with fields <tt>fvec</tt> (the last function value), <tt>msg</tt> (a diagnostic string), <tt>iter</tt> (the number of line search iterations), and <tt>history</tt>. <tt>history</tt> is a struct with fields <tt>x</tt>, <tt>fvec</tt>, and <tt>xRestart</tt>. They all are matrices with size <tt>(2, iter)</tt>: the history of x and function values, and the x values where the Jacobian estimate was reset.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Implements Broyden's method (see <a href="https://en.wikipedia.org/wiki/Broyden%27s_method">https://en.wikipedia.org/wiki/Broyden%27s_method</a>, closely following the implementation in Press et al., Numerical Recipes, chapter 9.7.3. This is a quasi-Newton method, where the Jacobian is estimated by simple forward differencing and approximately updated using the function value history. In other words, it is a multidimensional generalization of the secant method.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="FindRoot1D.html">FindRoot1D</a>, Matlab's <tt>fsolve</tt> in the Optimization toolbox.</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleFindRootND()
     figure();
     clf;
@@ -129,7 +200,14 @@ Source code: <a href = "file:../FindRootND.m"> FindRootND.m</a>
     rv = [exp(xx) + yy; 2 + yy - xx^2];
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="FindRootND_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="FindRootND_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% FindRootND
 % 
@@ -420,4 +498,6 @@ end
 
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

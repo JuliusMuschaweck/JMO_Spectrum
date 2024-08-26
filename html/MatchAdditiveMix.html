@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>MatchAdditiveMix</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="MatchAdditiveMix.m"><style type="text/css">
+      -->
+<title>MatchAdditiveMix</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="MatchAdditiveMix.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,77 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>MatchAdditiveMix</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>MatchAdditiveMix</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../MatchAdditiveMix.m"> MatchAdditiveMix.m</a>
 </p>
-</p><p>Computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>XYZ1, XYZ2, XYZ3</tt>: <tt>struct</tt> s with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: the three input tristimuli</li><li><tt>XYZ_target</tt>: <tt>struct</tt> with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: the target tristimulus</li><li><tt>opts</tt>: Name-Value pair: <tt>'XYZ_fix'</tt>, another <tt>struct</tt> with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: a fixed contribution, such that the sum of <tt>XYZ_fix</tt> and the weighted three <tt>XYZi</tt> tristimuli yield <tt>XYZ_target</tt>.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: (3,1) double column vector: the weights such that <tt>[XYZ1.X,XYZ2.X,XYZ3.X] * rv + XYZ_fixed.X == XYZ_target.X</tt>, likewise for <tt>Y</tt> and <tt>Z</tt>, within numerical accuracy.</li><li><tt>Acond</tt>: scalar double. The condition number of the 3x3 matrix of the equation system: diagnostic information</li></ul></div><h2 id="4">Algorithm</h2><p>Sets up the 3x3 linear equation system, and solves it.</p><h2 id="5">See also</h2><p><a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="MatchWhiteLEDSpectrum.html">MatchWhiteLEDSpectrum</a>, <a href="OptimalAdditiveMix.html">OptimalAdditiveMix</a>, <a href="XYZ_from_xyY.html">XYZ_from_xyY</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Computes weights of three XYZ tristimuli to match a target XYZ tristimulus, with an optional fixed contribution</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>XYZ1, XYZ2, XYZ3</tt>: <tt>struct</tt> s with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: the three input tristimuli</li>
+<li>
+<tt>XYZ_target</tt>: <tt>struct</tt> with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: the target tristimulus</li>
+<li>
+<tt>opts</tt>: Name-Value pair: <tt>'XYZ_fix'</tt>, another <tt>struct</tt> with scalar double fields <tt>X</tt>, <tt>Y</tt> and <tt>Z</tt>: a fixed contribution, such that the sum of <tt>XYZ_fix</tt> and the weighted three <tt>XYZi</tt> tristimuli yield <tt>XYZ_target</tt>.</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: (3,1) double column vector: the weights such that <tt>[XYZ1.X,XYZ2.X,XYZ3.X] * rv + XYZ_fixed.X == XYZ_target.X</tt>, likewise for <tt>Y</tt> and <tt>Z</tt>, within numerical accuracy.</li>
+<li>
+<tt>Acond</tt>: scalar double. The condition number of the 3x3 matrix of the equation system: diagnostic information</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Sets up the 3x3 linear equation system, and solves it.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="CIE1931_XYZ.html">CIE1931_XYZ</a>, <a href="MatchWhiteLEDSpectrum.html">MatchWhiteLEDSpectrum</a>, <a href="OptimalAdditiveMix.html">OptimalAdditiveMix</a>, <a href="XYZ_from_xyY.html">XYZ_from_xyY</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleMatchAdditiveMix()
     XYZ1 = struct(<span class="string">'X'</span>, 1 , <span class="string">'Y'</span>, 1, <span class="string">'Z'</span>, 1 );
     XYZ2 = struct(<span class="string">'X'</span>, 1 , <span class="string">'Y'</span>, 1, <span class="string">'Z'</span>, 1.001 ); <span class="comment">% very nearly the same, nearly singular, yields extreme weights</span>
@@ -194,7 +262,8 @@ Source code: <a href = "file:../MatchAdditiveMix.m"> MatchAdditiveMix.m</a>
     rv = struct(<span class="string">'X'</span>, X , <span class="string">'Y'</span>, Y, <span class="string">'Z'</span>, Z );
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">
+</pre>
+<pre class="codeoutput">
 rv =
 
    1.0e+03 *
@@ -209,7 +278,14 @@ Acond =
    1.0490e+04
 
 max. dev. xy = 1.54984e-05
-</pre><img vspace="5" hspace="5" src="MatchAdditiveMix_01.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_02.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_03.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="MatchAdditiveMix_01.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_02.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_03.png" alt=""> <img vspace="5" hspace="5" src="MatchAdditiveMix_04.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% MatchAdditiveMix
 % 
@@ -271,4 +347,6 @@ function [rv, Acond] = MatchAdditiveMix(XYZ1, XYZ2, XYZ3, XYZ_target, opts)
     Acond = cond(A);
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

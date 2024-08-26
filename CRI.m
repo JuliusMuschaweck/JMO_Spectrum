@@ -10,6 +10,7 @@
 % </html>
 %
 % The CRI class provides what is needed to compute Color Rendering Indices
+% based on official CIE data from <https://cie.co.at/data-tables>.
 %% Syntax
 % * Constructor: |rv = CRI()|
 %% Properties
@@ -17,7 +18,7 @@
 % in 1 nm steps, |val| (the % sample's reflectivity), |name| (a name from |TCS01| to |TCS016|), |description| (a description 
 % like |'Light greyish red'|), and |munsell| (the approximate Munsell code). 
 % Elements 1..8 a are the 8 standard reflectivity spectra used for Ra. Elements 9..14 are the 6 additional spectra
-% as defined in CIE 13.3-1995. In addition, #15 is (inofficial) "Japanese skin", and #16 is "Perfect white".
+% as defined in CIE 13.3-1995. In addition, #15 is "Japanese skin", based on the Japanese JIS Z 8726 standard, and #16 is "Perfect white", for reference.
 % * |strict_5nm_|: A logical scalar flag. When false (default), integration is done in 1 nm steps. When set to true,
 % integration is done in 5 nm steps.
 %% Methods
@@ -75,14 +76,64 @@ classdef CRI < handle
     end
     methods
         function this = CRI()
-            % Constructor, reads the CRI spectra from CRISpectra.mat
-            tmp = load('CRISpectra.mat','CRISpectra');
-            s = tmp.CRISpectra;
-            lam = s(1).lam;
-            for i = 1:length(s)
-                s(i).lam = 360:830;
-                s(i).val = LinInterpol(lam, s(i).val, s(i).lam);
+            colorNames = ["Light greyish red"
+                "Dark greyish yellow"
+                "Strong yellow green"
+                "Moderate yellowish green"
+                "Light bluish green"
+                "Light blue"
+                "Light violet"
+                "Light reddish purple"
+                "Strong red"
+                "Strong yellow"
+                "Strong green"
+                "Strong blue"
+                "Light yellowish pink (Caucasian skin)"
+                "Moderate olive green (leaf green)"
+                "Japanese skin"
+                "Perfect white"];
+            munsell = ["7.5  R 6/4"
+                "5  Y6/4"
+                "5 GY 6/8"
+                "2.5 G 6/6"
+                "10 BG 6/4"
+                "5 PB 6/8"
+                "2.5 P 6/8"
+                "10 P 6/8"
+                "4.5 R 4/13"
+                "5 Y 8/10"
+                "4.5 G 5/8"
+                "3 PB 3/11"
+                "5 YR 8/4"
+                "5 GY 4/4"
+                "unknown"
+                "unknown"];
+            % first 14 names from CIE 13.3 1995
+            % except that I changed "human complexion" -> "Caucasian skin"
+            % read spectra 1..14 from official CIE data
+            ciedata = CIEData();
+            lam = ciedata.Column_by_Idx("CRI_Refl",1);
+            for i = 1:14
+                ival = ciedata.Column_by_Idx("CRI_Refl",i+1);
+                s(i) = MakeSpectrum(lam, ival,"name",sprintf("TCS%02.0f",i),...
+                    "description",colorNames(i),"munsell",munsell(i)); %#ok<AGROW>
             end
+            tmp = load('CRI_R15.mat', 'CRI_R15');
+            s(15) = tmp.CRI_R15; 
+            s(16) = MakeSpectrum([360 830],[1 1],"name","TCS16", ...
+                "description",colorNames(16),"munsell",munsell(16));
+            for i = 1:16
+                s(i) = ResampleSpectrum(s(i),360:830);
+            end
+            % before 23.8.24
+            % Constructor, reads the CRI spectra from CRISpectra.mat
+            % tmp = load('CRISpectra.mat','CRISpectra');
+            % s = tmp.CRISpectra;
+            % lam = s(1).lam;
+            % for i = 1:length(s)
+            %     s(i).lam = 360:830;
+            %     s(i).val = LinInterpol(lam, s(i).val, s(i).lam);
+            % end
             this.CRISpectra_ = s;
             this.strict_5nm_ = false;
         end

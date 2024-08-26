@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>PlanckSpectrum</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="PlanckSpectrum.m"><style type="text/css">
+      -->
+<title>PlanckSpectrum</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="PlanckSpectrum.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,61 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>PlanckSpectrum</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>PlanckSpectrum</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../PlanckSpectrum.m"> PlanckSpectrum.m</a>
 </p>
-</p><p>Computes Planck's blackbody spectrum as function of temperature and wavelength</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>function rv = PlanckSpectrum(lam_vec, T, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lam_vec</tt>: vector of double, positive, strictly ascending. Wavelengths of the resulting spectrum</li><li><tt>T</tt>: scalar positive double. The absolute temperature in Kelvin. May be <tt>Inf</tt>, then, with <tt>'normalize'</tt> to <tt>'localpeak1'</tt> returns the high temperate asymptotic shape.</li><li><tt>opts</tt>: Name-value pairs:</li></ul></div><p>
+</p>
+<p>Computes Planck's blackbody spectrum as function of temperature and wavelength</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>function rv = PlanckSpectrum(lam_vec, T, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>lam_vec</tt>: vector of double, positive, strictly ascending. Wavelengths of the resulting spectrum</li>
+<li>
+<tt>T</tt>: scalar positive double. The absolute temperature in Kelvin. May be <tt>Inf</tt>, then, with <tt>'normalize'</tt> to <tt>'localpeak1'</tt> returns the high temperate asymptotic shape.</li>
+<li>
+<tt>opts</tt>: Name-value pairs:</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1><tr><td><b>Name</b></td><td><b>Type</b></td><td><b>Value</b></td><td><b>Meaning</b></td></tr>
 <tr><td> 'normalize' </td><td>string</td> <td> 'globalpeak1' (default) </td> <td> scaled such that global peak would be 1.0 even if
@@ -106,7 +158,23 @@ NOTE: For dispersive index as function of wavelength, the wavelength is interpre
 <tr><td> 'doTest' </td><td> logical scalar </td><td> false (default) </td> <td> Ignore </td></tr>
 <tr><td>  </td><td> </td><td> true </td> <td> Perform diagnostic test ignoring input values, then return. See code for details </td></tr>
 </table></p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A spectrum, i.e. struct with fields <tt>lam</tt> (copy of <tt>lam_vec</tt>) and <tt>val</tt>, the Planck spectrum.</li></ul></div><h2 id="4">Algorithm</h2><p>Takes the constants for b, h, c and k from <a href="CODATA2018.html">CODATA2018</a>, and computes the blackbody parameters c1L and c2 from these. Using b, c1L and c2, computes the blackbody basic spectral radiance, which is then normalized according to the <tt>'normalize'</tt> option. For the intricacies of computing blackbody spectra in anything else but vacuum, especially in dispersive media (like air, if you want to be precise), see <a href="BlackbodySpectrumWithRefractiveIndex.html">BlackbodySpectrumWithRefractiveIndex</a></p><h2 id="5">See also</h2><p><a href="CIE_Illuminant.html">CIE_Illuminant</a>, <a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: A spectrum, i.e. struct with fields <tt>lam</tt> (copy of <tt>lam_vec</tt>) and <tt>val</tt>, the Planck spectrum.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Takes the constants for b, h, c and k from <a href="CODATA2018.html">CODATA2018</a>, and computes the blackbody parameters c1L and c2 from these. Using b, c1L and c2, computes the blackbody basic spectral radiance, which is then normalized according to the <tt>'normalize'</tt> option. For the intricacies of computing blackbody spectra in anything else but vacuum, especially in dispersive media (like air, if you want to be precise), see <a href="BlackbodySpectrumWithRefractiveIndex.html">BlackbodySpectrumWithRefractiveIndex</a>
+</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIE_Illuminant.html">CIE_Illuminant</a>, <a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExamplePlanckSpectrum()
     T1 = 3200;
     T2 = 5600;
@@ -126,7 +194,14 @@ NOTE: For dispersive index as function of wavelength, the wavelength is interpre
     legend({<span class="string">'Planck 3200K'</span>,<span class="string">'Planck 5600K'</span>,<span class="string">'CIE D 5600K'</span>},<span class="string">'Location'</span>,<span class="string">'southeast'</span>);
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="PlanckSpectrum_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="PlanckSpectrum_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% PlanckSpectrum
 % 
@@ -547,4 +622,6 @@ function TestPlanckSpectrum()
 end
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

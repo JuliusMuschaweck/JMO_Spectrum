@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FindRoot1D</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="FindRoot1D.m"><style type="text/css">
+      -->
+<title>FindRoot1D</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="FindRoot1D.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,16 +72,117 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>FindRoot1D</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>FindRoot1D</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../FindRoot1D.m"> FindRoot1D.m</a>
 </p>
-</p><p>Finds root of scalar function of one real variable, without derivatives.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Algorithm</a></li><li><a href="#7">See also</a></li><li><a href="#8">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = FindRoot1D( func, x1, x2 )</tt></p><p><tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt></p><p><tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, _)</tt></p><h2 id="2">Description</h2><p><tt>rv = FindRoot1D( func, x1, x2 )</tt> finds a root of the continuous function <tt>func</tt>, bracketed between <tt>x1</tt> and <tt>x2</tt>, i.e. <tt>func(x1)</tt> and <tt>func(x2)</tt> must have opposite signs. Then, <tt>func(rv] == 0</tt> within a tolerance <tt>tol</tt>, meaning that <tt>func(x)</tt> changes sign within an interval of width <tt>tol</tt>. The default tolerance is <tt>1e-12</tt>.</p><p><tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt> lets you define options via name-value pairs as optional arguments. Possible options are</p><div><ul><li><tt>'tol'</tt>: The <tt>x</tt> tolerance, default <tt>1e-12</tt>. Must be a positive real number</li><li><tt>'nfemax'</tt>: The maximum number of function evaluations default <tt>100</tt>. Must be a positive integer.</li><li><tt>'throwOnFailure'</tt>: Determines if error conditions cause throwing an error, default = true</li></ul></div><p><tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2, _)</tt> returns additional information. <tt>fb</tt> is the function value, <tt>fb==func(rv)</tt>, <tt>nfe</tt> is the actual number of function evaluations. <tt>ok</tt> is a boolean flag with obvious meaning, and <tt>msg</tt> is an error message.</p><h2 id="3">Examples</h2><pre class="language-matlab">x0 = FindRoot1D(@(x) x^4 - 0.1, 0, 1)
+</p>
+<p>Finds root of scalar function of one real variable, without derivatives.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Description</a>
+</li>
+<li>
+<a href="#3">Examples</a>
+</li>
+<li>
+<a href="#4">Input Arguments</a>
+</li>
+<li>
+<a href="#5">Output Arguments</a>
+</li>
+<li>
+<a href="#6">Algorithm</a>
+</li>
+<li>
+<a href="#7">See also</a>
+</li>
+<li>
+<a href="#8">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = FindRoot1D( func, x1, x2 )</tt>
+</p>
+<p>
+<tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt>
+</p>
+<p>
+<tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2,_)</tt>
+</p>
+<h2 id="2">Description</h2>
+<p>
+<tt>rv = FindRoot1D( func, x1, x2 )</tt> finds a root of the continuous function <tt>func</tt>, bracketed between <tt>x1</tt> and <tt>x2</tt>, i.e. <tt>func(x1)</tt> and <tt>func(x2)</tt> must have opposite signs. Then, <tt>func(rv] == 0</tt> within a tolerance <tt>tol</tt>, meaning that <tt>func(x)</tt> changes sign within an interval of width <tt>tol</tt>. The default tolerance is <tt>1e-12</tt>.</p>
+<p>
+<tt>rv = FindRoot1D( func, x1, x2, NameValueArgs)</tt> lets you define options via name-value pairs as optional arguments. Possible options are</p>
+<div>
+<ul>
+<li>
+<tt>'tol'</tt>: The <tt>x</tt> tolerance, default <tt>1e-12</tt>. Must be a positive real number</li>
+<li>
+<tt>'nfemax'</tt>: The maximum number of function evaluations default <tt>100</tt>. Must be a positive integer.</li>
+<li>
+<tt>'throwOnFailure'</tt>: Determines if error conditions cause throwing an error, default = true</li>
+</ul>
+</div>
+<p>
+<tt>[rv, fb, nfe, ok, msg] = FindRoot1D( func, x1, x2,_)</tt> returns additional information. <tt>fb</tt> is the function value, <tt>fb==func(rv)</tt>, <tt>nfe</tt> is the actual number of function evaluations. <tt>ok</tt> is a boolean flag with obvious meaning, and <tt>msg</tt> is an error message.</p>
+<h2 id="3">Examples</h2>
+<pre class="language-matlab">x0 = FindRoot1D(@(x) x^4 - 0.1, 0, 1)
 x0 = 0.5623
-</pre><h2 id="4">Input Arguments</h2><div><ul><li><tt>func</tt>: A function handle to a function that returns a scalar real when you call it with a scalar real parameter, like <tt>func(0.3)</tt>.</li><li><tt>x1, x2</tt>: Scalar real numbers such that <tt>func(x1)</tt> and <tt>func(x2)</tt> have opposite signs.</li><li><tt>NameValueArgs</tt>: Optional name-value argument pairs, see above.</li></ul></div><h2 id="5">Output Arguments</h2><div><ul><li><tt>rv</tt>: The root, i.e. the value where <tt>func(rv) == 0</tt> within tolerance. NaN on error</li><li><tt>fb</tt>: The function value at the root, <tt>fb == func(rv)</tt>. NaN on error</li><li><tt>nfe</tt>: Number of function evaluations. Integer &gt;= 2.</li><li><tt>ok</tt>: Flag to show success or failure. Logical. Makes sense only if the optional <tt>'throwOnFailure'</tt> flag is set to <tt>false</tt>.</li><li><tt>msg</tt>: Error message, on failure. String. Makes sense only if the optional <tt>'throwOnFailure'</tt> flag is set to <tt>false</tt>.</li></ul></div><h2 id="6">Algorithm</h2><p>Closely following the Van Wijngaarden-Dekker-Brent method of Press et al., "Numerical Recipes", chapter 9.3.</p><p>Tries to converge to the root by inverse parabolic interpolation. When the interpolation step fails or doesn't make the bracketing interval shrink fast enough, uses bisection, in effect combining the fail safety of bisectioning with the speed of inverse parabolic interpolation.</p><p>Does not make use of derivative information. Assumes that the function <tt>func</tt> is continuous. In fact, <tt>FindRoot1D(@(x) 1/x, -0.1, 0.2)</tt> happily returns <tt>7.2758e-13</tt> as a root, ignoring that <tt>1/x</tt> has a pole at <tt>x==0</tt>.</p><p>Provides essentially the same functionality as Matlab's <tt>fzero(func, [x1, x2])</tt>, but is about 13 times faster.</p><h2 id="7">See also</h2><p>Matlab's <tt>fzero</tt> function</p><h2 id="8">Usage Example</h2><pre class="language-matlab">
+</pre>
+<h2 id="4">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>func</tt>: A function handle to a function that returns a scalar real when you call it with a scalar real parameter, like <tt>func(0.3)</tt>.</li>
+<li>
+<tt>x1, x2</tt>: Scalar real numbers such that <tt>func(x1)</tt> and <tt>func(x2)</tt> have opposite signs.</li>
+<li>
+<tt>NameValueArgs</tt>: Optional name-value argument pairs, see above.</li>
+</ul>
+</div>
+<h2 id="5">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: The root, i.e. the value where <tt>func(rv) == 0</tt> within tolerance. NaN on error</li>
+<li>
+<tt>fb</tt>: The function value at the root, <tt>fb == func(rv)</tt>. NaN on error</li>
+<li>
+<tt>nfe</tt>: Number of function evaluations. Integer &gt;= 2.</li>
+<li>
+<tt>ok</tt>: Flag to show success or failure. Logical. Makes sense only if the optional <tt>'throwOnFailure'</tt> flag is set to <tt>false</tt>.</li>
+<li>
+<tt>msg</tt>: Error message, on failure. String. Makes sense only if the optional <tt>'throwOnFailure'</tt> flag is set to <tt>false</tt>.</li>
+</ul>
+</div>
+<h2 id="6">Algorithm</h2>
+<p>Closely following the Van Wijngaarden-Dekker-Brent method of Press et al., "Numerical Recipes", chapter 9.3.</p>
+<p>Tries to converge to the root by inverse parabolic interpolation. When the interpolation step fails or doesn't make the bracketing interval shrink fast enough, uses bisection, in effect combining the fail safety of bisectioning with the speed of inverse parabolic interpolation.</p>
+<p>Does not make use of derivative information. Assumes that the function <tt>func</tt> is continuous. In fact, <tt>FindRoot1D(@(x) 1/x, -0.1, 0.2)</tt> happily returns <tt>7.2758e-13</tt> as a root, ignoring that <tt>1/x</tt> has a pole at <tt>x==0</tt>.</p>
+<p>Provides essentially the same functionality as Matlab's <tt>fzero(func, [x1, x2])</tt>, but is about 13 times faster.</p>
+<h2 id="7">See also</h2>
+<p>Matlab's <tt>fzero</tt> function</p>
+<h2 id="8">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleFindRoot1D()
     rv = FindRoot1D( @log, 0.1, 42);
     fprintf(<span class="string">'Root of log function = %g, with %g difference to 1\n'</span>,rv, rv-1);
@@ -86,10 +192,18 @@ x0 = 0.5623
     fprintf(<span class="string">'function value at root = %g, using %g evaluations\n'</span>, fb, nfe);
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">Root of log function = 1, with 0 difference to 1
+</pre>
+<pre class="codeoutput">Root of log function = 1, with 0 difference to 1
 Same, but with tol = 1e-06: root = 1, with -4.171e-12 difference to 1
 function value at root = -4.171e-12, using 12 evaluations
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% FindRoot1D
 % 
@@ -271,4 +385,6 @@ function rv1 = SIGN(aa,bb)
     end
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

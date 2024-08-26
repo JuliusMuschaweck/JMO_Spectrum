@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE_S_026_Data</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-02-25"><meta name="DC.source" content="CIE_S_026_Data.m"><style type="text/css">
+      -->
+<title>CIE_S_026_Data</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CIE_S_026_Data.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,76 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CIE_S_026_Data</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CIE_S_026_Data</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../CIE_S_026_Data.m"> CIE_S_026_Data.m</a>
 </p>
-</p><p>Returns <tt>struct</tt> with the five human eye sensitivity spectra acc. to CIE S 026</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE_S_026_Data()</tt></p><h2 id="2">Input Arguments</h2><p>none</p><h2 id="3">Output Arguments</h2><p><tt>rv</tt>: struct with fields:</p><div><ul><li><tt>S_cone_opic_sensitivity</tt>: sensitivity spectrum of S (blue) cones</li><li><tt>M_cone_opic_sensitivity</tt>: sensitivity spectrum of M (green) cones</li><li><tt>L_cone_opic_sensitivity</tt>: sensitivity spectrum of L (red) cones</li><li><tt>rhodopic_sensitivity</tt>: sensitivity spectrum of rods (for night vision)</li><li><tt>melanopic_sensitivity</tt>: sensitivity spectrum of melanopic ipRGC cells (day/night)</li></ul></div><h2 id="4">Algorithm</h2><p>Retrieves the data stored in <tt>CIES026_lam_S_M_L_r_m.mat</tt></p><h2 id="5">See also</h2><p>(not yet implemented) <a href="CIE1964_XYZ.html">CIE1964_XYZ</a>, <a href="PlotCIExyBorder.html">PlotCIExyBorder</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Returns <tt>struct</tt> with the five human eye sensitivity spectra according to CIE S026:2018, based on official CIE data from <a href="https://cie.co.at/data-tables">https://cie.co.at/data-tables</a>.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = CIE_S_026_Data()</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<p>none</p>
+<h2 id="3">Output Arguments</h2>
+<p>
+<tt>rv</tt>: struct with fields:</p>
+<div>
+<ul>
+<li>
+<tt>S_cone_opic_sensitivity</tt>: sensitivity spectrum of S (blue) cones</li>
+<li>
+<tt>M_cone_opic_sensitivity</tt>: sensitivity spectrum of M (green) cones</li>
+<li>
+<tt>L_cone_opic_sensitivity</tt>: sensitivity spectrum of L (red) cones</li>
+<li>
+<tt>rhodopic_sensitivity</tt>: sensitivity spectrum of rods (for night vision)</li>
+<li>
+<tt>melanopic_sensitivity</tt>: sensitivity spectrum of melanopic ipRGC cells (day/night)</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Retrieves the data stored in <tt>CIES026_lam_S_M_L_r_m.mat</tt>
+</p>
+<h2 id="5">See also</h2>
+<p>(not yet implemented) <a href="CIE1964_XYZ.html">CIE1964_XYZ</a>, <a href="PlotCIExyBorder.html">PlotCIExyBorder</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIE_S_026_Data()
     CIES026 = CIE_S_026_Data();
     figure();
@@ -101,9 +168,17 @@ Source code: <a href = "file:../CIE_S_026_Data.m"> CIE_S_026_Data.m</a>
     fprintf(<span class="string">'2700 K warm white blackbody spectrum has %0.2f mW/lm melanopic efficacy\n'</span>,Planck_melanopic_mW/Planck2700_lm);
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">6500 K cold white daylight  spectrum has 1.33 mW/lm melanopic efficacy
+</pre>
+<pre class="codeoutput">6500 K cold white daylight  spectrum has 1.33 mW/lm melanopic efficacy
 2700 K warm white blackbody spectrum has 0.61 mW/lm melanopic efficacy
-</pre><img vspace="5" hspace="5" src="CIE_S_026_Data_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="CIE_S_026_Data_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CIE_S_026_Data
 % 
@@ -116,7 +191,8 @@ Source code: <a href = "file:../CIE_S_026_Data.m"> CIE_S_026_Data.m</a>
 % </p>
 % </html>
 %
-% Returns |struct| with the five human eye sensitivity spectra acc. to CIE S 026
+% Returns |struct| with the five human eye sensitivity spectra according to CIE S026:2018,
+% based on official CIE data from <https://cie.co.at/data-tables>.
 %% Syntax
 % |rv = CIE_S_026_Data()|
 %% Input Arguments
@@ -146,8 +222,21 @@ Source code: <a href = "file:../CIE_S_026_Data.m"> CIE_S_026_Data.m</a>
 %
 
 function rv = CIE_S_026_Data()
-    load('CIES026_lam_S_M_L_r_m.mat','CIES026');
-    rv = CIES026;
+    ciedata = CIEData(); % "lam, s_sc, s_mc, s_lc, s_rh, s_mel"
+    lam = ciedata.Column_by_Header("A-opic_action","lam");
+    GetCol = @(s) ciedata.Column_by_Header("A-opic_action",s);
+    rv.S_cone_opic_sensitivity = MakeSpectrum(lam, GetCol("s_sc"));
+
+    rv.M_cone_opic_sensitivity = MakeSpectrum(lam, GetCol("s_mc"));
+    rv.L_cone_opic_sensitivity = MakeSpectrum(lam, GetCol("s_lc"));
+    rv.rhodopic_sensitivity = MakeSpectrum(lam, GetCol("s_rh"));
+    rv.melanopic_sensitivity = MakeSpectrum(lam, GetCol("s_mel"));
+    
+    % before 23.8.24
+    % load('CIES026_lam_S_M_L_r_m.mat','CIES026');
+    % rv = CIES026;
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>PlotCIEupvpBorder</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="PlotCIEupvpBorder.m"><style type="text/css">
+      -->
+<title>PlotCIEupvpBorder</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="PlotCIEupvpBorder.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,57 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>PlotCIEupvpBorder</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>PlotCIEupvpBorder</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
 </p>
-</p><p>Plot the CIE u'v' monochromatic border, with optional color fill and other options</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[ah, fh] = PlotCIEupvpBorder(varargin)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>varargin</tt>: Optional name-value pairs:</li></ul></div><p>
+</p>
+<p>Plot the CIE u'v' monochromatic border, with optional color fill and other options</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[ah, fh] = PlotCIEupvpBorder(varargin)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>varargin</tt>: Optional name-value pairs:</li>
+</ul>
+</div>
+<p>
 <p style="margin-left: 25px">
 <table border=1>
 <tr><td> <b>Name</b>    </td> <td>  <b>Type</b>     </td> <td><b>Value</b>     </td> <td><b>Meaning</b>                              </td></tr>
@@ -88,7 +136,24 @@ Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
 <tr><td> 'Opacity'      </td> <td> scalar double    </td> <td> 1.0 (default) </td> <td> Opacity of ColorFill, 0 = fully transparent, 1 = fully opaque </td></tr>
 </table>
 </p>
-</p><h2 id="3">Output Arguments</h2><div><ul><li><tt>ah</tt>: handle to axes where the border was plotted, to be used for further plotting of e.g. color coordinates</li><li><tt>fh</tt>: handle to figure where the border was plotted, to be used for further plotting.</li></ul></div><h2 id="4">Algorithm</h2><p>Takes the monochromatic border values from the CIE xy standards, converts it to u'v' and plots it, using the specified options.</p><h2 id="5">See also</h2><p><a href="PlotCIExyBorder.html">PlotCIExyBorder</a>, <a href="CIE1931_Data.html,">CIE1931_Data</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>ah</tt>: handle to axes where the border was plotted, to be used for further plotting of e.g. color coordinates</li>
+<li>
+<tt>fh</tt>: handle to figure where the border was plotted, to be used for further plotting.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Takes the monochromatic border values from the CIE xy standards, converts it to u'v' and plots it, using the specified options.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="PlotCIExyBorder.html">PlotCIExyBorder</a>, <a href="CIE1931_Data.html,">CIE1931_Data</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExamplePlotCIEupvpBorder()
     <span class="comment">% bare minimal plot</span>
     PlotCIEupvpBorder();
@@ -98,7 +163,10 @@ Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
     [ah, fh] = PlotCIEupvpBorder(<span class="string">'Figure'</span>, fh, <span class="string">'LineSpec'</span>,<span class="string">'m'</span>,<span class="string">'PlotOptions'</span>,{<span class="string">'LineWidth'</span>,1.5},<span class="string">'Ticks'</span>, [510 520 530], <span class="string">'TickFontSize'</span>,10, <span class="string">'ColorFill'</span>,true);
     green = ComputeSpectrumColorimetry(GaussSpectrum(450:600,520,30));
     <span class="comment">% find the point on the monochromatic border corresponding to lDom</span>
-    load(<span class="string">'CIE1931_lam_x_y_z.mat'</span>,<span class="string">'CIE1931XYZ'</span>);
+    <span class="comment">% 22.8.2024 now using official CIE data</span>
+    CIE1931XYZ = CIE1931_Data();
+    <span class="comment">% load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');</span>
+ 
     xPure = LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.xBorder, green.Ldom);
     yPure = LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.yBorder, green.Ldom);
     <span class="comment">% plot line from white point, to x/y of green, to border at green.lDom</span>
@@ -110,7 +178,14 @@ Source code: <a href = "file:../PlotCIEupvpBorder.m"> PlotCIEupvpBorder.m</a>
     <span class="comment">% specified</span>
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="PlotCIEupvpBorder_01.png" alt=""> <img vspace="5" hspace="5" src="PlotCIEupvpBorder_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="PlotCIEupvpBorder_01.png" alt=""> <img vspace="5" hspace="5" src="PlotCIEupvpBorder_02.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% PlotCIEupvpBorder
 % 
@@ -218,7 +293,9 @@ function [ah, fh] = PlotCIEupvpBorder(varargin)
         set(gca,'ydir','normal');
     end
     
-    load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+    % 22.8.2024 now using official CIE data
+    CIE1931XYZ = CIE1931_Data();
+    % load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
     hold on;
     xb = CIE1931XYZ.xBorder;
     yb = CIE1931XYZ.yBorder;
@@ -300,4 +377,6 @@ function [upvpbb, dxyb] = border(lam, CIEXYZ, upb, vpb)
     dxyb = cat(2,diupb(:)./ idupblen ,divpb(:)./ idupblen);
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

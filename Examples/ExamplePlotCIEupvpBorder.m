@@ -7,7 +7,10 @@ function ExamplePlotCIEupvpBorder()
     [ah, fh] = PlotCIEupvpBorder('Figure', fh, 'LineSpec','m','PlotOptions',{'LineWidth',1.5},'Ticks', [510 520 530], 'TickFontSize',10, 'ColorFill',true);
     green = ComputeSpectrumColorimetry(GaussSpectrum(450:600,520,30));
     % find the point on the monochromatic border corresponding to lDom
-    load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+    % 22.8.2024 now using official CIE data
+    CIE1931XYZ = CIE1931_Data();
+    % load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+ 
     xPure = LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.xBorder, green.Ldom);
     yPure = LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.yBorder, green.Ldom);
     % plot line from white point, to x/y of green, to border at green.lDom

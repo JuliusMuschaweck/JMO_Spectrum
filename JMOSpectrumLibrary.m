@@ -6,7 +6,7 @@
 % </p>
 % </html>
 %
-% Version 2.1.2, May 30, 2022
+% Version 2.2, August 26, 2024
 %
 % <html>
 % <a href="ChangeLog.html"> Change log</a> &nbsp; | &nbsp; 
@@ -27,10 +27,11 @@
 % 
 % In practice, this is tedious: spectra come in various formats, and the problem of dealing with 
 % two spectra als tabulated values which have two different sets of wavelengths is annoying. In addition, many 
-% colorimetric calculations, from computing simple x/y coordinates all the way to the color rendering index, are not easily accessable.
+% colorimetric calculations, from computing simple x/y coordinates all the way to the color rendering index, are not easily accessible.
 % This open source Matlab library is designed to make these engineering
-% tasks easy and transparent. Many routines are compatible with GNU Octave,
-% and with Matlab for Mac and Linux.
+% tasks easy and transparent. Many routines are compatible with GNU Octave (although fewer and fewer).
+% and with Matlab for Mac and Linux. The colorimetric calculations are based on official CIE data from
+% <https://cie.co.at/data-tables>.
 %
 % For details on design decisions and code conventions, see
 % <docDesignDecisions.html design decisions>.
@@ -61,9 +62,9 @@ figure();
 clf;
 hold on;
 plot(red.lam, red.val,'r');
-plot(green.lam, green.val,'g');
-plot(blue.lam, blue.val,'b');
-plot(sumspec.lam, sumspec.val,'k');
+PlotSpectrum(green,'g'); % convenience function
+PlotSpectrum(blue,'b');
+PlotSpectrum(sumspec,'k');
 legend({'red','green','blue','weighted sum'},'Location','NorthWest');
 grid on;
 xlabel('lam');

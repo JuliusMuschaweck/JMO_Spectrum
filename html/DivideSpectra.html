@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>DivideSpectra</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="DivideSpectra.m"><style type="text/css">
+      -->
+<title>DivideSpectra</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="DivideSpectra.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,13 +72,74 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>DivideSpectra</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>DivideSpectra</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a>
 </p>
-</p><p>Divide two spectra, with divide by zero treatment</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>rv = <tt>DivideSpectra(lhs, rhs, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>lhs</tt>: A valid spectrum, i.e. a struct with two array fields, <tt>lam</tt> and <tt>val</tt> (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a> for detailed requirements)</li><li><tt>rhs</tt>: Likewise</li><li><tt>opts</tt>: Name-Value pair. <tt>'tiny'</tt> must be a positive double scalar. Default is <tt>eps</tt>, i.e. <tt>2.2204e-16</tt>. Relative threshold to avoid division by (near) zero. Those rhs values whose magnitude is less than <tt>tiny * max(abs(rhs.val))</tt> are effectively set to <tt>Inf</tt>, i.e. the division returns zero instead of some huge value.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A spectrum modeling the division.</li></ul></div><h2 id="4">Algorithm</h2><p><a href="MultiplySpectra.html">MultiplySpectra</a> is called, with the inverse of <tt>rhs.val</tt> and the near zero division threshold properly applied. When the spectra have finite overlap, then the resulting wavelength range is that overlap. When the spectra only share a single wavelength, i.e. the only overlap at one point, or when the spectra don't overlap, the resulting spectrum has two wavelength values covering the full range, i.e. <tt>min(min(lhs.lam),min(rhs.lam)),max(max(lhs.lam),max(rhs.lam))</tt> with <tt>rv.val == [0,0]</tt>.</p><h2 id="5">See also</h2><p><a href="AddSpectra.html">AddSpectra</a>, <a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="MultiplySpectra.html">MultiplySpectra</a>, <a href="ResampleSpectrum.html">ResampleSpectrum</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Divide two spectra, with divide by zero treatment</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>rv = <tt>DivideSpectra(lhs, rhs, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>lhs</tt>: A valid spectrum, i.e. a struct with two array fields, <tt>lam</tt> and <tt>val</tt> (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a> for detailed requirements)</li>
+<li>
+<tt>rhs</tt>: Likewise</li>
+<li>
+<tt>opts</tt>: Name-Value pair. <tt>'tiny'</tt> must be a positive double scalar. Default is <tt>eps</tt>, i.e. <tt>2.2204e-16</tt>. Relative threshold to avoid division by (near) zero. Those rhs values whose magnitude is less than <tt>tiny * max(abs(rhs.val))</tt> are effectively set to <tt>Inf</tt>, i.e. the division returns zero instead of some huge value.</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: A spectrum modeling the division.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>
+<a href="MultiplySpectra.html">MultiplySpectra</a> is called, with the inverse of <tt>rhs.val</tt> and the near zero division threshold properly applied. When the spectra have finite overlap, then the resulting wavelength range is that overlap. When the spectra only share a single wavelength, i.e. the only overlap at one point, or when the spectra don't overlap, the resulting spectrum has two wavelength values covering the full range, i.e. <tt>min(min(lhs.lam),min(rhs.lam)),max(max(lhs.lam),max(rhs.lam))</tt> with <tt>rv.val == [0,0]</tt>.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="AddSpectra.html">AddSpectra</a>, <a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="MultiplySpectra.html">MultiplySpectra</a>, <a href="ResampleSpectrum.html">ResampleSpectrum</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleDivideSpectra()
     <span class="comment">% compute and plot atmospheric transmission</span>
     AM1_5 = SolarSpectrum(<span class="string">'AM15_GlobalTilt'</span>);
@@ -99,7 +165,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
     xlabel(<span class="string">'\lambda (nm)'</span>);
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="DivideSpectra_01.png" alt=""> <img vspace="5" hspace="5" src="DivideSpectra_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="DivideSpectra_01.png" alt=""> <img vspace="5" hspace="5" src="DivideSpectra_02.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% DivideSpectra
 % 
@@ -155,4 +228,6 @@ function rv = DivideSpectra(lhs, rhs, opts)
     rv = MultiplySpectra(lhs, rhs);
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

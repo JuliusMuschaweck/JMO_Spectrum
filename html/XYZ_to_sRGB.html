@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>XYZ_to_sRGB</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="XYZ_to_sRGB.m"><style type="text/css">
+      -->
+<title>XYZ_to_sRGB</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="XYZ_to_sRGB.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,75 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>XYZ_to_sRGB</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>XYZ_to_sRGB</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../XYZ_to_sRGB.m"> XYZ_to_sRGB.m</a>
 </p>
-</p><p>Computes sRGB display drive values from desired XYZ tristimulus values</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p>|rv = XYZ_to_sRGB(X, Y, Z, opts)</p><h2 id="2">Input Arguments</h2><div><ul><li><tt>X</tt>: scalar, vector or matrix of double. The tristimulus X values.</li><li><tt>Y</tt>: scalar, vector or matrix of double, same number of elements as <tt>X</tt>. The tristimulus Y values.</li><li><tt>Z</tt>: scalar, vector or matrix of double, same number of elements as <tt>X</tt>. The tristimulus Z values.</li><li><tt>opts</tt>: Optional name-value pair: <tt>'clip'</tt>, logical scalar. Default is false, which may lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When true, negative values are clipped.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: struct with fields <tt>R</tt>, <tt>G</tt>, <tt>B</tt> (1 x n row vectors, where <tt>n == numel(X)</tt>), and <tt>RGB</tt>, an nx3 matrix with one sRGB triplet per row.</li></ul></div><h2 id="4">Algorithm</h2><p>The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be created from sRGB values to encode color and brightness. See also <a href="https://en.wikipedia.org/wiki/SRGB">&lt;https://en.wikipedia.org/wiki/SRGB</a>&gt; for a detailed description. First, the XYZ tristimulus values are converted to "linear RGB" values, by multiplying with the matrix M specified in the standard. Then, gamma correction is applied to each individual linear R, G or B value: For small absolute values, the correction is linear, for larger absolute values, the correction is a power law. See the standard for details. At this stage, RGB values may be negative or larger than 1. When the <tt>'clip'</tt> option is set to <tt>true</tt>, RGB values outside the <tt>[0,1]</tt> interval are clipped. A value of <tt>RGB == [1, 1, 1]</tt> is obtained for 100% D65 white, with <tt>XYZ == [0.9505, 1.0000, 1.0890]</tt>. Input XYZ values should be scaled accordingly, to obtain RGB values within <tt>[0,1]</tt>.</p><h2 id="5">See also</h2><p><a href="sRGB_to_XYZ.html">sRGB_to_XYZ</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Computes sRGB display drive values from desired XYZ tristimulus values</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>|rv = XYZ_to_sRGB(X, Y, Z, opts)</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>X</tt>: scalar, vector or matrix of double. The tristimulus X values. When <tt>Y</tt> and <tt>Z</tt> are not given, <tt>X</tt> may also be a n x 3 matrix, interpreted as an RGB triplet in each row, or a struct with fields <tt>X.X</tt>, <tt>X.Y</tt>, <tt>X.Z</tt> which must be numeric arrays of same size</li>
+<li>
+<tt>Y</tt>: Optional scalar, vector or matrix of double, same number of elements as <tt>X</tt>. The tristimulus Y values.</li>
+<li>
+<tt>Z</tt>: Optional scalar, vector or matrix of double, same number of elements as <tt>X</tt>. The tristimulus Z values. When <tt>Y</tt> is givenm <tt>Z</tt> must also be given.</li>
+<li>
+<tt>opts</tt>: Optional name-value pair: <tt>'clip'</tt>, logical scalar. Default is false, which may lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When true, negative values and values &gt; 1 are clipped to [0;1]</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: struct with fields <tt>R</tt>, <tt>G</tt>, <tt>B</tt>, same size as <tt>X</tt>, and <tt>RGB</tt>, an nx3 matrix with one sRGB triplet per row, and <tt>RGBlin</tt>, the corresponding linear RGB values, before gamma is applied.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be created from sRGB values to encode color and brightness. See also &lt;https://en.wikipedia.org/wiki/SRGB <a href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a>&gt; for a detailed description. First, the XYZ tristimulus values are converted to "linear RGB" values, by multiplying with the matrix M specified in the standard. Then, gamma correction is applied to each individual linear R, G or B value: For small absolute values, the correction is linear, for larger absolute values, the correction is a power law. See the standard for details. At this stage, RGB values may be negative or larger than 1. When the <tt>'clip'</tt> option is set to <tt>true</tt>, RGB values outside the <tt>[0,1]</tt> interval are clipped. A value of <tt>RGB == [1, 1, 1]</tt> is obtained for 100% D65 white, with <tt>XYZ == [0.9505, 1.0000, 1.0890]</tt>. Input XYZ values should be scaled accordingly, to obtain RGB values within <tt>[0,1]</tt>.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="sRGB_to_XYZ.html">sRGB_to_XYZ</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> Example_XYZ_to_sRGB()
     <span class="comment">% D65 should be RGB 1-1-1</span>
     d65XYZ = CIE1931_XYZ(CIE_Illuminant(<span class="string">'D65'</span>));
@@ -92,25 +158,59 @@ Source code: <a href = "file:../XYZ_to_sRGB.m"> XYZ_to_sRGB.m</a>
     rand_RGB_2 = XYZ_to_sRGB(rand_XYZ.X,rand_XYZ.Y, rand_XYZ.Z);
     testdiff_3 = rand_RGB - rand_RGB_2.RGB;
     fprintf(<span class="string">'the max. error of converting %g random RGB triplets to XYZ and back is %g\n'</span>,n,max(abs(testdiff_3(:))));
+
+    <span class="comment">% calling with single parameter X which has fields X, Y, Z</span>
+    XYZ_to_sRGB( CIE1931_XYZ(CIE_Illuminant(<span class="string">'E'</span>)) )
+    
+    <span class="comment">% calling with single parameter X which is n x 3 array</span>
+    test = XYZ_to_sRGB( <span class="keyword">...</span>
+        [1, 1, 1; <span class="keyword">...</span>
+         2, 2, 2] );
+    test.RGB
+
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">the following values should be all close to zero (differences between expected and actual RGB / XYZ values)
+</pre>
+<pre class="codeoutput">the following values should be all close to zero (differences between expected and actual RGB / XYZ values)
 
 testdiff =
 
-   1.0e-04 *
-
-   -0.0754    0.1040   -0.8054
+    6.2997    6.2998    6.2992
 
 
 testdiff_2 =
 
-   1.0e-06 *
+   1.0e-04 *
 
-   -0.0142    0.0095   -0.1061
+   -0.0150    0.0100   -0.1121
 
 the max. error of converting 10000 random RGB triplets to XYZ and back is 4.03561e-06
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+
+ans = 
+
+  struct with fields:
+
+    clipped: 0
+          R: 7.9307
+          G: 7.1723
+          B: 7.0462
+        RGB: [7.9307 7.1723 7.0462]
+     RGBlin: [128.7501 101.3302 97.1368]
+
+
+ans =
+
+    1.0852    0.9769    0.9587
+    1.4669    1.3225    1.2982
+
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% XYZ_to_sRGB
 % 
@@ -128,15 +228,19 @@ the max. error of converting 10000 random RGB triplets to XYZ and back is 4.0356
 % |rv = XYZ_to_sRGB(X, Y, Z, opts)
 %
 %% Input Arguments
-% * |X|: scalar, vector or matrix of double. The tristimulus X values.
-% * |Y|: scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Y values.
-% * |Z|: scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Z values.
+% * |X|: scalar, vector or matrix of double. The tristimulus X values. When |Y| and |Z| are not
+% given, |X| may also be a n x 3 matrix, interpreted as an RGB triplet in each row, or a
+% struct with fields |X.X|, |X.Y|, |X.Z| which must be numeric arrays of same size
+% * |Y|: Optional scalar, vector or matrix of double, same number of elements as |X|. The tristimulus Y values.
+% * |Z|: Optional scalar, vector or matrix of double, same number of elements as |X|. The
+% tristimulus Z values. When |Y| is givenm |Z| must also be given.
 % * |opts|: Optional name-value pair: |'clip'|, logical scalar. Default is false, which may
 % lead to negative sRGB values when the XYZ color point is outside the sRGB color gamut. When
-% true, negative values are clipped.
+% true, negative values and values > 1 are clipped to [0;1]
 %% Output Arguments
-% * |rv|: struct with fields |R|, |G|, |B| (1 x n row vectors, where |n == numel(X)|), and |RGB|, an nx3 matrix
-% with one sRGB triplet per row.
+% * |rv|: struct with fields |R|, |G|, |B|, same size as |X|, and |RGB|, an nx3 matrix
+% with one sRGB triplet per row, and |RGBlin|, the corresponding linear RGB values, before
+% gamma is applied.
 %% Algorithm
 % The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be
 % created from sRGB values to encode color and brightness. See also 
@@ -153,24 +257,48 @@ the max. error of converting 10000 random RGB triplets to XYZ and back is 4.0356
 % <include>Examples/ExampleXYZ_to_sRGB.m</include>
 function rv = XYZ_to_sRGB(X, Y, Z, opts)
     arguments
-        X (:,:) double
-        Y (:,:) double
-        Z (:,:) double
+        X (:,:) 
+        Y (:,:) double = nan
+        Z (:,:) double = nan
         opts.clip (1,1) logical = false
+    end
+    if isscalar(Y) && isnan(Y) % Y missing - X must be 
+        % a n x 3 matrix, to be interpreted as one RGB triplet per row, or
+        % a struct with fields X, Y, Z which must be double arrays of same size
+        if isnumeric(X)
+            assert(size(X,2) == 3,'XYZ_to_sRGB: When single argument X is given and it is an array, it must have size n x 3');
+            XYZ = X;
+            sz = size(X(:,1));
+        else
+            assert(isstruct(X) && isfield(X,'X') && isfield(X,'Y') && isfield(X,'Z') ,...
+                'XYZ_to_sRGB: non-numeric single argument X must be a struct with fields X, Y, and Z');
+            assert(isnumeric(X.X) && isnumeric(X.Y) && isnumeric(X.Y) && ...
+                isequal(size(X.X), size(X.Y) ,size(X.Z)),'XYZ_to_sRGB: X.X, X.Y and X.Z must be numeric arrays with same size');
+            XYZ = cat(2,X.X(:),X.Y(:),X.Z(:)); % n x 3
+            sz = size(X.X);
+        end
+    else % X must a double matrix, and Y and Z must be same size
+        assert(~any(isnan(Z(:))),'XYZ_to_sRGB: Z must be given when Y is given');
+        assert(isnumeric(X),'XYZ_to_sRGB: When Y is given, X must be numeric array');
+        assert(isequal(size(X), size(Y), size(Z)),'XYZ_to_sRGB: X, Y, Z must have same size');
+        XYZ = cat(2,X(:),Y(:),Z(:)); % n x 3
+        sz = size(X);
     end
     % See https://en.wikipedia.org/wiki/SRGB
     % X, Y, Z may be arrays of equal size. Must be scaled such that
     % X,Y,Z of D65 white is (X, Y, Z = 0.9505, 1.0000, 1.0890)
     % rv has fields R, G, B which are scalars or arrays of same size
     % and field RGB which is a nx3 array of R,G,B values
-    XYZ = cat(2,X(:),Y(:),Z(:)); % n x 3
+                % sz = size(X);
+                % XYZ = cat(2,X(:),Y(:),Z(:)); % n x 3
     M = [ 3.2406255, -1.5372080, -0.4986286;
          -0.9689307,  1.8757561,  0.0415175;
           0.0557101, -0.2040211,  1.0569959];
     RGBlin = M * XYZ'; % 3 x n
     
     % apply gamma
-    sRGB = Gamma(RGBlin);
+    sRGB = Gamma(RGBlin); % 3 x n
+    sRGB = sRGB'; % n x 3 again
     % clip
     if opts.clip
         lt0 = (sRGB < 0);
@@ -181,10 +309,11 @@ function rv = XYZ_to_sRGB(X, Y, Z, opts)
     else
         rv.clipped = false;
     end
-    rv.R = sRGB(1,:);
-    rv.G = sRGB(2,:);
-    rv.B = sRGB(3,:);
-    rv.RGB = sRGB';
+    rv.R = reshape(sRGB(:,1),sz);
+    rv.G = reshape(sRGB(:,2),sz);
+    rv.B = reshape(sRGB(:,3),sz);
+    rv.RGB = sRGB;
+    rv.RGBlin = RGBlin';
 end
 
 function X_C_prime = Gamma(X_B)
@@ -198,4 +327,6 @@ function X_C_prime = Gamma(X_B)
 end
 
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

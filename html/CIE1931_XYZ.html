@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>CIE1931_XYZ</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="CIE1931_XYZ.m"><style type="text/css">
+      -->
+<title>CIE1931_XYZ</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="CIE1931_XYZ.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,71 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>CIE1931_XYZ</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>CIE1931_XYZ</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../CIE1931_XYZ.m"> CIE1931_XYZ.m</a>
 </p>
-</p><p>Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = CIE1931_XYZ(spec)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>spec</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: A struct with fields <tt>X, Y, Z, x, y, z, cw</tt>, all scalar double</li></ul></div><h2 id="4">Algorithm</h2><p>The integrals of the spectrum, weighted with the color matching functions, are computed using <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>. There the wavelength arrays are properly interweaved, both the spectrum and the color matching functions are linearly interpolated for all occurring wavelenghts, multiplied and integrated using the trapezoidal rule. Thus, even spectra with extremely narrow spikes and/or steep slopes within a single nanometer range are treated correctly. There are two exceptions: When <tt>spec.lam</tt> has no overlap with 360:830, returns <tt>0,0,0,NaN,NaN,Nan</tt>. When <tt>spec.lam</tt> is a scalar (a single line spectrum, which is actually not considered a proper spectrum in this library), the color matching functions are evaluated at that single wavelength.</p><h2 id="5">See also</h2><p><a href="CIE_Lab.html">CIE_Lab</a>, <a href="CIE_Luv.html">CIE_Luv</a>, <a href="CIE_upvp.html">CIE_upvp</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="LDomPurity.html">LDomPurity</a>, <a href="LinInterpol.html">LinInterpol</a>, <a href="MultiplySpectra.html">MultiplySpectra</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z based on official CIE data from <a href="https://cie.co.at/data-tables">https://cie.co.at/data-tables</a>.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = CIE1931_XYZ(spec)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>spec</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: A struct with fields <tt>X, Y, Z, x, y, z, cw</tt>, all scalar double</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>The integrals of the spectrum, weighted with the color matching functions, are computed using <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>. There the wavelength arrays are properly interweaved, both the spectrum and the color matching functions are linearly interpolated for all occurring wavelenghts, multiplied and integrated using the trapezoidal rule. Thus, even spectra with extremely narrow spikes and/or steep slopes within a single nanometer range are treated correctly. There are two exceptions: When <tt>spec.lam</tt> has no overlap with 360:830, returns <tt>0,0,0,NaN,NaN,Nan</tt>. When <tt>spec.lam</tt> is a scalar (a single line spectrum, which is actually not considered a proper spectrum in this library), the color matching functions are evaluated at that single wavelength.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIE_Lab.html">CIE_Lab</a>, <a href="CIE_Luv.html">CIE_Luv</a>, <a href="CIE_upvp.html">CIE_upvp</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="LDomPurity.html">LDomPurity</a>, <a href="LinInterpol.html">LinInterpol</a>, <a href="MultiplySpectra.html">MultiplySpectra</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleCIE1931_XYZ()
     <span class="comment">% Standard illuminant E: A flat spectrum from 360:830</span>
     sE = CIE_Illuminant(<span class="string">'E'</span>);
@@ -85,16 +147,24 @@ Source code: <a href = "file:../CIE1931_XYZ.m"> CIE1931_XYZ.m</a>
     fprintf(<span class="string">'CIE Illuminant E: X Y Z x y z = %g, %g, %g, %g, %g, %g\n'</span>,sE.XYZ.X,sE.XYZ.Y,sE.XYZ.Z,sE.XYZ.x,sE.XYZ.y,sE.XYZ.z);
     <span class="comment">% a single mode helium neon laser line with integral 1</span>
     s_HeNe = MakeSpectrum([632.815, 632.816, 632.817],[0,1000,0]);
-    s_HeNe.XYZ = CIE1931_XYZ(s_HeNe);
+    s_HeNe.XYZ = CIE1964_XYZ(s_HeNe);
     fprintf(<span class="string">'HeNe: X Y Z x y z = %g, %g, %g, %g, %g, %g\n'</span>,s_HeNe.XYZ.X,s_HeNe.XYZ.Y,s_HeNe.XYZ.Z,s_HeNe.XYZ.x,s_HeNe.XYZ.y,s_HeNe.XYZ.z);
     testY = EvalSpectrum(Vlambda(),632.816);
     fprintf(<span class="string">'Compare HeNe Y = %g vs V(lambda) at 632.816 = %g: difference = %g\n'</span>,s_HeNe.XYZ.Y,testY, s_HeNe.XYZ.Y - testY);
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">CIE Illuminant E: X Y Z x y z = 106.865, 106.857, 106.892, 0.333315, 0.333288, 0.333397
-HeNe: X Y Z x y z = 0.584787, 0.237093, 3.64118e-05, 0.711492, 0.288463, 4.43012e-05
-Compare HeNe Y = 0.237093 vs V(lambda) at 632.816 = 0.237093: difference = -5.60649e-12
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<pre class="codeoutput">CIE Illuminant E: X Y Z x y z = 106.865, 106.857, 106.892, 0.333315, 0.333288, 0.333397
+HeNe: X Y Z x y z = 0.584054, 0.251922, 0, 0.698649, 0.301351, 1.11022e-16
+Compare HeNe Y = 0.251922 vs V(lambda) at 632.816 = 0.237093: difference = 0.0148292
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% CIE1931_XYZ
 % 
@@ -108,6 +178,7 @@ Compare HeNe Y = 0.237093 vs V(lambda) at 632.816 = 0.237093: difference = -5.60
 % </html>
 %
 % Computes CIE1931 X, Y, Z tristimulus values and x, y, z color coordinates of a spectrum, and its color weight X+Y+Z
+% based on official CIE data from <https://cie.co.at/data-tables>.
 %% Syntax
 % |rv = CIE1931_XYZ(spec)|
 %% Input Arguments
@@ -143,8 +214,10 @@ function rv = CIE1931_XYZ(spec)
     % also returns rv.z = 1 - rv.x-rv.y
     persistent iXYZ;
     if isempty(iXYZ)
-        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
-        iXYZ = CIE1931XYZ;
+        iXYZ = CIE1931_Data();
+        % before 21.8.24
+        %load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+        %iXYZ = CIE1931XYZ;
     end
     if (iXYZ.lam(2) - iXYZ.lam(1)) ~= 1
         error('CIE1931_XYZ: no unit spacing in CIE1931XYZ.lam');
@@ -189,4 +262,6 @@ function rv = CIE1931_XYZ(spec)
     rv.z = 1 - rv.x - rv.y;
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

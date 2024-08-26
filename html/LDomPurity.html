@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>LDomPurity</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="LDomPurity.m"><style type="text/css">
+      -->
+<title>LDomPurity</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="LDomPurity.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,79 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>LDomPurity</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>LDomPurity</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../LDomPurity.m"> LDomPurity.m</a>
 </p>
-</p><p>Computes dominant wavelength and purity</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[ldom, purity] = LDomPurity(rhs, opts)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>rhs</tt>: A valid spectrum (see <a href="IsSpectrum.html">IsSpectrum</a> for what that is), or</li><li><tt>rhs</tt>: alternatively, a struct with fieldy <tt>x</tt> and <tt>y</tt> (a CIE 1931 color point), or</li><li><tt>rhs</tt>: alternatively, a double vector of length 2, interpreted as an x-y CIE 1931 color point</li><li><tt>opts</tt>: Name-value pair, <tt>'E'</tt>, <tt>E</tt>, where <tt>E</tt> is a double vector of length 2, interpreted as an x-y CIE 1931 color, or a struct with fieldy <tt>x</tt> and <tt>y</tt>. <tt>E</tt> is the center point from where the dominant wavelength is determined. Default is <tt>E = [1/3, 1/3]</tt>.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>ldom</tt>: scalar double: the dominant wavelength in nm. Negative when color point lies towards magenta line. 555 nm when color point coincides with white point within roundoff.</li><li><tt>purity</tt>: scalar double: the relative distance from the <tt>[1/3, 1/3]</tt> (or optional <tt>E</tt>) white point to the monochromatic border.    Negative when colorpoint lies towards magenta line. Zero when color point coincides with white point within roundoff.</li></ul></div><h2 id="4">Algorithm</h2><p>First, computes the angle of the line from white point to border, to see if that is towards the monochromatic border or towards magenta line. Then, finds that monochromatic wavelength whose border point leads to the same angle, by iterative root finding. The monochromatic border points are taken from the CIE standard in 1 nm steps. In between a 1 nm interval, linear interpolation is used.</p><h2 id="5">See also</h2><p><a href="CIE1931_Data.html">CIE1931_Data</a>, <a href="ShiftToLdom.html">ShiftToLdom</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Computes dominant wavelength and purity</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>[ldom, purity] = LDomPurity(rhs, opts)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rhs</tt>: A valid spectrum (see <a href="IsSpectrum.html">IsSpectrum</a> for what that is), or</li>
+<li>
+<tt>rhs</tt>: alternatively, a struct with fieldy <tt>x</tt> and <tt>y</tt> (a CIE 1931 color point), or</li>
+<li>
+<tt>rhs</tt>: alternatively, a double vector of length 2, interpreted as an x-y CIE 1931 color point</li>
+<li>
+<tt>opts</tt>: Name-value pair, <tt>'E'</tt>, <tt>E</tt>, where <tt>E</tt> is a double vector of length 2, interpreted as an x-y CIE 1931 color, or a struct with fieldy <tt>x</tt> and <tt>y</tt>. <tt>E</tt> is the center point from where the dominant wavelength is determined. Default is <tt>E = [1/3, 1/3]</tt>.</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>ldom</tt>: scalar double: the dominant wavelength in nm. Negative when color point lies towards magenta line. 555 nm when color point coincides with white point within roundoff.</li>
+<li>
+<tt>purity</tt>: scalar double: the relative distance from the <tt>[1/3, 1/3]</tt> (or optional <tt>E</tt>) white point to the monochromatic border. Negative when colorpoint lies towards magenta line. Zero when color point coincides with white point within roundoff.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>First, computes the angle of the line from white point to border, to see if that is towards the monochromatic border or towards magenta line. Then, finds that monochromatic wavelength whose border point leads to the same angle, by iterative root finding. The monochromatic border points are taken from the CIE standard in 1 nm steps. In between a 1 nm interval, linear interpolation is used.</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="CIE1931_Data.html">CIE1931_Data</a>, <a href="ShiftToLdom.html">ShiftToLdom</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleLDomPurity()
     cie = CIE1931_Data();
     xB = @(lam) interp1(cie.lam, cie.xBorder, lam);
@@ -125,11 +195,19 @@ Source code: <a href = "file:../LDomPurity.m"> LDomPurity.m</a>
     <span class="comment">%plot(ah, [D65XYZ.x, xy_green(1) ], [D65XYZ.y, xy_green(2)]);</span>
 <span class="keyword">end</span>
 
-</pre><pre class="codeoutput">ldom = 607.113, purity = 0.999998 for red
+</pre>
+<pre class="codeoutput">ldom = 607.113, purity = 0.999998 for red
 ldom = 507.557, purity = 0.705528 for green
-ldom = -531.109, purity = -0.392249 for magenta
-ldom = 508.147, purity = 0.67531 for green with D65 white point
-</pre><img vspace="5" hspace="5" src="LDomPurity_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+ldom = -531.109, purity = -0.841618 for magenta
+ldom = 508.147, purity = 0.688516 for green with D65 white point
+</pre>
+<img vspace="5" hspace="5" src="LDomPurity_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% LDomPurity
 % 
@@ -172,7 +250,7 @@ ldom = 508.147, purity = 0.67531 for green with D65 white point
 % I dedicate the JMO_Spectrum library to the public domain under Creative Commons Zero 
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
-function [ldom, purity] = LDomPurity(rhs, opts)
+function [ldom, purity, xyBorder] = LDomPurity(rhs, opts)
     % Computes dominant wavelength in nm and purity, from E = (1/3,1/3). 
     % Ldom and purity negative if E -> x/y intersects magenta line, not the monochromatic border.
     % Returns [555,0] for x/y == E within circle of radius eps = 2.2e-16. 
@@ -184,10 +262,16 @@ function [ldom, purity] = LDomPurity(rhs, opts)
     end
     persistent CIE1931XYZ;
     if isempty(CIE1931XYZ)
-        load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
+        % 22.8.2024 now using official CIE data
+        CIE1931XYZ = CIE1931_Data();
+        % load('CIE1931_lam_x_y_z.mat','CIE1931XYZ');
     end
-    xb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);
-    yb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.yBorder, lambda);
+    % JM 28.1.2023: these lines take the longest time, replace by LinInterpol
+    %xb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);
+    %yb = @(lambda) interp1(CIE1931XYZ.lam, CIE1931XYZ.yBorder, lambda);
+    xb = @(lambda) LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.xBorder, lambda);
+    yb = @(lambda) LinInterpol(CIE1931XYZ.lam, CIE1931XYZ.yBorder, lambda);
+
     % atan2(y,x), not x,y(!), goes from -pi to pi, x axis is 0 y axis is pi/2
     % so atan2 jumps at the -x axis.
     % we rotate left by pi/2 such that the -x axis becomes the -y axis in CIE xy
@@ -222,12 +306,13 @@ function [ldom, purity] = LDomPurity(rhs, opts)
     angle = @(lambda) atan2(- xb(lambda) + Ex, - Ey + yb(lambda));
 %    dx0 = x0 - 1/3.0;
 %    dy0 = y0 - 1/3.0;
-     dx0 = x0 - Ex;
-     dy0 = y0 - Ey;
+    dx0 = x0 - Ex;
+    dy0 = y0 - Ey;
     if (abs(dx0) < eps && abs(dy0) < eps)
         % x/y at white point
         ldom = 555; %arbitrary
         purity = 0;
+        xyBorder = [xb(555),yb(555)];
         return;
     end
     % compute angle a0 of line from white point to x/y
@@ -249,15 +334,34 @@ function [ldom, purity] = LDomPurity(rhs, opts)
     if (zerofun(360) * zerofun(830)) >= 0
         error('LDomPurity: angle not bracketed');
     end
-    [ldom,~,exitflag,~] = fzero( zerofun, [360, 830]);
-    if exitflag ~= 1
+    % JM 29.1.2023: use FindRoot1D to improve speed
+    % [ldom,~,exitflag,~] = fzero( zerofun, [360, 830]);
+    [ldom, ~, ~, lDomOk] = FindRoot1D(zerofun, 360, 830,'throwOnFailure',false);
+    % if exitflag ~= 1
+    if ~lDomOk
         % this cannot happen...
         error('LDomPurity: Root finding failed, fzero exitflag = %g',exitflag);
     end
     xbldom   = xb(ldom);
     ybldom = yb(ldom);
     ldom = ldom  * plusminus;
-    purity = plusminus * norm([dx0,dy0]) / norm ([xbldom - 1/3.0, ybldom - 1/3.0]);
+    % JM 20230201: Fix small bug with purity always w.r.t 1/3, 1/3, not opts.E
+%    purity = plusminus * norm([dx0,dy0]) / norm ([xbldom - 1/3.0, ybldom - 1/3.0]);
+%    purity = plusminus * norm([dx0,dy0]) / norm ([xbldom - Ex, ybldom - Ey]);
+    % now compute correct purity values for magenta line.
+    if plusminus == 1.0
+       purity = norm([dx0,dy0]) / norm ([xbldom - Ex, ybldom - Ey]);
+       xyBorder = [xbldom, ybldom];
+    else
+       xyRed = [CIE1931XYZ.xBorder(end), CIE1931XYZ.yBorder(end)];
+       xyViolet = [CIE1931XYZ.xBorder(1), CIE1931XYZ.yBorder(1)];
+       xyBorder = lineIntersect(xyRed,xyViolet,[xbldom, ybldom],[Ex,Ey]);
+       purity = - norm([dx0,dy0]) / norm(xyBorder - [Ex,Ey]);
+    end
 end
+
+
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

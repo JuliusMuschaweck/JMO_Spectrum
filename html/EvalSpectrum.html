@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>EvalSpectrum</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-25"><meta name="DC.source" content="EvalSpectrum.m"><style type="text/css">
+      -->
+<title>EvalSpectrum</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-26">
+<meta name="DC.source" content="EvalSpectrum.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,14 +72,74 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>EvalSpectrum</h1><!--introduction--><p>
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>EvalSpectrum</h1>
+<!--introduction-->
+<p>
  <p style="font-size:75%;">Navigate to: &nbsp;
 <a href="JMOSpectrumLibrary.html"> Home</a> &nbsp; | &nbsp;
 <a href="AlphabeticList.html"> Alphabetic list</a> &nbsp; | &nbsp;
 <a href="GroupedList.html"> Grouped list</a> &nbsp; | &nbsp;
 Source code: <a href = "file:../EvalSpectrum.m"> EvalSpectrum.m</a>
 </p>
-</p><p>Evaluates the function modeled by a spectrum</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input Arguments</a></li><li><a href="#3">Output Arguments</a></li><li><a href="#4">Algorithm</a></li><li><a href="#5">See also</a></li><li><a href="#6">Usage Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>rv = EvalSpectrum(s, lam)</tt></p><h2 id="2">Input Arguments</h2><div><ul><li><tt>s</tt>: A valid spectrum</li><li><tt>lam</tt>: Vector of double. The idea is that these are wavelengths, but unlike the wavelengths in a spectrum, these values don't need to be ascending or positive.</li></ul></div><h2 id="3">Output Arguments</h2><div><ul><li><tt>rv</tt>: Vector of double, same length as <tt>lam</tt>. The interpolated values.</li></ul></div><h2 id="4">Algorithm</h2><p>Thinks of the spectrum as a model of a scalar function which piecewise interpolates linearly between the individual wavelength points of the spectrum <tt>s</tt>, and jumps to zero outside. Evaluates this function for each requested value in <tt>lam</tt>. Does the same as calling Matlab's <tt>interp1(s.lam, s.val, lam, 'linear', 0)</tt></p><h2 id="5">See also</h2><p><a href="LinInterpol.html">LinInterpol</a></p><h2 id="6">Usage Example</h2><pre class="language-matlab">
+</p>
+<p>Evaluates the function modeled by a spectrum</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Syntax</a>
+</li>
+<li>
+<a href="#2">Input Arguments</a>
+</li>
+<li>
+<a href="#3">Output Arguments</a>
+</li>
+<li>
+<a href="#4">Algorithm</a>
+</li>
+<li>
+<a href="#5">See also</a>
+</li>
+<li>
+<a href="#6">Usage Example</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Syntax</h2>
+<p>
+<tt>rv = EvalSpectrum(s, lam)</tt>
+</p>
+<h2 id="2">Input Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>s</tt>: A valid spectrum</li>
+<li>
+<tt>lam</tt>: Vector of double. The idea is that these are wavelengths, but unlike the wavelengths in a spectrum, these values don't need to be ascending or positive.</li>
+</ul>
+</div>
+<h2 id="3">Output Arguments</h2>
+<div>
+<ul>
+<li>
+<tt>rv</tt>: Vector of double, same length as <tt>lam</tt>. The interpolated values.</li>
+</ul>
+</div>
+<h2 id="4">Algorithm</h2>
+<p>Thinks of the spectrum as a model of a scalar function which piecewise interpolates linearly between the individual wavelength points of the spectrum <tt>s</tt>, and jumps to zero outside. Evaluates this function for each requested value in <tt>lam</tt>. Does the same as calling Matlab's <tt>interp1(s.lam, s.val, lam, 'linear', 0)</tt>
+</p>
+<h2 id="5">See also</h2>
+<p>
+<a href="LinInterpol.html">LinInterpol</a>
+</p>
+<h2 id="6">Usage Example</h2>
+<pre class="language-matlab">
 <span class="keyword">function</span> ExampleEvalSpectrum()
     s = PlanckSpectrum(360:830,5000);
     lam = [900, 700, 800, 600, 400]; <span class="comment">% any sequence, inside and outside</span>
@@ -87,7 +152,14 @@ Source code: <a href = "file:../EvalSpectrum.m"> EvalSpectrum.m</a>
     legend({<span class="string">'Planck spectrum'</span>,<span class="string">'Interpolated points'</span>},<span class="string">'Location'</span>,<span class="string">'southwest'</span>);
 <span class="keyword">end</span>
 
-</pre><img vspace="5" hspace="5" src="EvalSpectrum_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre>
+<img vspace="5" hspace="5" src="EvalSpectrum_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% EvalSpectrum
 % 
@@ -134,4 +206,6 @@ function rv = EvalSpectrum(s, lam)
     rv = interp1(s.lam, s.val, lam,'linear',0);
 end
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>
