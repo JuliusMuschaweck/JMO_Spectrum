@@ -25,6 +25,8 @@
 % <CIE1931_XYZ.html CIE1931_XYZ> computes CIE 1931 tristimulus values X, Y, Z and x, y, z color coordinates for a
 % spectrum
 %
+% <CIEData.html CIEData> Class that contains official CIE spectral data and makes it accessible for this library
+%
 % <CIEDE2000_Lab.html CIEDE2000_Lab> Computes the CIEDE2000 color difference between two CIELAB L*, a*, b* stimuli
 %
 % <CIEDE2000_XYZ.html CIEDE2000_XYZ> Computes the CIEDE2000 color difference between two XYZ stimuli
@@ -53,7 +55,7 @@
 %
 % <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices
 %
-% <DivideSpectra.html, DivideSpectra> Divide two spectra, with divide by zero treatment
+% <DivideSpectra.html DivideSpectra> Divide two spectra, with divide by zero treatment
 %
 % <EvalSpectrum.html EvalSpectrum> evaluates the function modeled by a spectrum
 % 
