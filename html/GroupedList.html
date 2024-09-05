@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Grouped list of JMO Spectrum Library functions</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-08-26">
+<meta name="DC.date" content="2024-09-01">
 <meta name="DC.source" content="GroupedList.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -111,6 +111,12 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <p>
 <a href="CIE_Illuminant_D.html">CIE_Illuminant_D</a> Computes CIE standard illuminant D (daylight) for a desired color temperature</p>
 <p>
+<a href="CIE1931_Data.html">CIE1931_Data</a> returns <tt>struct</tt> with CIE 1931 color matching functions, monochromatic border and Planck locus</p>
+<p>
+<a href="CIE1964_Data.html">CIE1964_Data</a> returns <tt>struct</tt> with CIE 1964 color matching functions, and monochromatic border</p>
+<p>
+<a href="CIEData.html">CIEData</a> Class that contains official CIE spectral data and makes it accessible for this library</p>
+<p>
 <a href="ColorChecker.html">ColorChecker</a> returns selected MacBeth ColorChecker reflectivity spectra</p>
 <p>
 <a href="GaussSpectrum.html">GaussSpectrum</a> creates a Gaussian spectrum, normalized to peak = 1.0</p>
@@ -137,7 +143,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <p>
 <a href="AddWeightedSpectra.html">AddWeightedSpectra</a> adds several spectra with weights&gt;</p>
 <p>
-<a href="DivideSpectra.html,">DivideSpectra</a> Divide two spectra, with divide by zero treatment</p>
+<a href="DivideSpectra.html">DivideSpectra</a> Divide two spectra, with divide by zero treatment</p>
 <p>
 <a href="IntegrateSpectrum.html">IntegrateSpectrum</a> computes integral of spectrum over wavelength, with an optional weighting function</p>
 <p>
@@ -261,6 +267,12 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % <CIE_Illuminant_D.html CIE_Illuminant_D> Computes CIE standard illuminant D (daylight) for a desired color temperature
 %
+% <CIE1931_Data.html CIE1931_Data> returns |struct| with CIE 1931 color matching functions, monochromatic border and Planck locus
+%
+% <CIE1964_Data.html CIE1964_Data> returns |struct| with CIE 1964 color matching functions, and monochromatic border 
+%
+% <CIEData.html CIEData> Class that contains official CIE spectral data and makes it accessible for this library
+%
 % <ColorChecker.html ColorChecker> returns selected MacBeth ColorChecker reflectivity spectra
 % 
 % <GaussSpectrum.html GaussSpectrum> creates a Gaussian spectrum, normalized to peak = 1.0
@@ -289,7 +301,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % <AddWeightedSpectra.html AddWeightedSpectra> adds several spectra with weights>
 %
-% <DivideSpectra.html, DivideSpectra> Divide two spectra, with divide by zero treatment
+% <DivideSpectra.html DivideSpectra> Divide two spectra, with divide by zero treatment
 %
 % <IntegrateSpectrum.html IntegrateSpectrum> computes integral of spectrum over wavelength, with an optional weighting function
 % 

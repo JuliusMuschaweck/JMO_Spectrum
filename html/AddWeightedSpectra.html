@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>AddWeightedSpectra</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-08-26">
+<meta name="DC.date" content="2024-09-01">
 <meta name="DC.source" content="AddWeightedSpectra.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -141,12 +141,12 @@ Source code: <a href = "file:../AddWeightedSpectra.m"> AddWeightedSpectra.m</a>
 <h2 id="6">Usage Example</h2>
 <pre class="language-matlab">
 <span class="keyword">function</span> ExampleAddWeightedSpectra()
+<span class="comment">    %% add three gauss spectra with weights</span>
     red = GaussSpectrum(linspace(550,700),620,15);
     green = GaussSpectrum(linspace(430,730),530,20);
     blue = GaussSpectrum(linspace(400,500),450,8);
     sumspec = AddWeightedSpectra([red, green, blue],[2, 5, 1.5]);
-    clf;
-    hold <span class="string">on</span>;
+    figure(); clf; hold <span class="string">on</span>;
     plot(red.lam, red.val,<span class="string">'r'</span>);
     plot(green.lam, green.val,<span class="string">'g'</span>);
     plot(blue.lam, blue.val,<span class="string">'b'</span>);
@@ -156,11 +156,37 @@ Source code: <a href = "file:../AddWeightedSpectra.m"> AddWeightedSpectra.m</a>
     xlabel(<span class="string">'lam'</span>);
     ylabel(<span class="string">'val'</span>);
     title(<span class="string">'AddWeightedSpectra demo'</span>);
-    error(<span class="string">'fff'</span>);
+<span class="comment">    %% demonstrate handling of discontinuties</span>
+    s1 = MakeSpectrum([400,500],[1,1]);
+    s2 = MakeSpectrum([480,550],[1.2,1.2]);
+    s3 = MakeSpectrum([530,600],[0.8,0.8]);
+    s123 = AddWeightedSpectra([s1, s2, s3], [2,3,4]);
+    figure(); clf; hold <span class="string">on</span>;
+    PlotSpectrum(s1);
+    PlotSpectrum(s2);
+    PlotSpectrum(s3);
+    PlotSpectrum(s123);
+    xlabel(<span class="string">'lam'</span>);
+    ylabel(<span class="string">'val'</span>);
+    title(<span class="string">'AddWeightedSpectra demo: discontinuities'</span>);
+    legend({<span class="string">"s1"</span>,<span class="string">"s2"</span>,<span class="string">"s3"</span>,<span class="string">"weighted sum"</span>});
+<span class="comment">    %% demonstrate non-overlap</span>
+    s1 = MakeSpectrum([400,500],[1,1]);
+    s2 = MakeSpectrum([530,600],[0.8,0.8]);
+    s12 = AddWeightedSpectra([s1, s2], [2,3]);
+    figure(); clf; hold <span class="string">on</span>;
+    PlotSpectrum(s1);
+    PlotSpectrum(s2);
+    PlotSpectrum(s12);
+    xlabel(<span class="string">'lam'</span>);
+    ylabel(<span class="string">'val'</span>);
+    title(<span class="string">'AddWeightedSpectra demo: non-overlap'</span>);
+    legend({<span class="string">"s1"</span>,<span class="string">"s2"</span>,<span class="string">"weighted sum"</span>});
+    <span class="comment">% error('fff');</span>
 <span class="keyword">end</span>
 
 </pre>
-<img vspace="5" hspace="5" src="AddWeightedSpectra_01.png" alt=""> <p class="footer">
+<img vspace="5" hspace="5" src="AddWeightedSpectra_01.png" alt=""> <img vspace="5" hspace="5" src="AddWeightedSpectra_02.png" alt=""> <img vspace="5" hspace="5" src="AddWeightedSpectra_03.png" alt=""> <p class="footer">
 <br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
 <br>
@@ -259,7 +285,12 @@ function rv = AddWeightedSpectra(spectra,weights)
             continue;
         end % no overlap
         % treat overlapping, unequal lambdas
-        tmplam = unique(sort(cat(1,rv.lam,si.lam)));
+        % insert lambdas just outside ranges to enforce sudden step to 0
+        lamrange = @(s) s.lam(end) - s.lam(1);
+        tiny = 1e-8 * (lamrange(rv) + lamrange(si));
+        tmplam = unique(sort(cat(1,rv.lam,si.lam,...
+                rv.lam(1)-tiny,rv.lam(end)+tiny,...
+                si.lam(1)-tiny, si.lam(end) + tiny)));
         vl = LinInterpol(rv.lam,rv.val,tmplam);
         vr = LinInterpol(si.lam,si.val,tmplam);
         rv.lam = tmplam;
@@ -267,7 +298,7 @@ function rv = AddWeightedSpectra(spectra,weights)
     end
 end
 
-function Test()
+function Test() %#ok<DEFNU>
 %%
     clear sp;
     clear spc;
@@ -275,24 +306,24 @@ function Test()
     spc{1} = sp(1);
     sp(2) = MakeSpectrum([400 410 420], [3,2,1]);
     spc{2} = sp(2);
-    test1 = AddWeightedSpectra(sp,[1,2]);
-    test1c = AddWeightedSpectra(spc,[1,2]);
+    test1 = AddWeightedSpectra(sp,[1,2]); %#ok<NASGU>
+    test1c = AddWeightedSpectra(spc,[1,2]); %#ok<NASGU>
 
 %%    
     sp(3) = MakeSpectrum([420+1e-12, 430 440], [4,4,4]);
-    test1 = AddWeightedSpectra(sp,[1,2,3]);
+    test1 = AddWeightedSpectra(sp,[1,2,3]);%#ok<NASGU>
 
 %%
     sp(4) = MakeSpectrum([450 460 470], [4,4,4]);
-    test1 = AddWeightedSpectra(sp,[1,2,3,4]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4]);%#ok<NASGU>
     
 %%
     sp(5) = MakeSpectrum([350 360 370], [4,4,4]);
-    test1 = AddWeightedSpectra(sp,[1,2,3,4,5]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4,5]);%#ok<NASGU>
 
 %%
     sp(6) = MakeSpectrum([350 360 470], [100 100 100]);
-    test1 = AddWeightedSpectra(sp,[1,2,3,4,5,100]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4,5,100]);%#ok<NASGU>
     
 end
 ##### SOURCE END #####

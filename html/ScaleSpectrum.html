@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>ScaleSpectrum</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-08-26">
+<meta name="DC.date" content="2024-09-01">
 <meta name="DC.source" content="ScaleSpectrum.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -151,10 +151,18 @@ Source code: <a href = "file:../ScaleSpectrum.m"> ScaleSpectrum.m</a>
 <pre class="language-matlab">
 <span class="keyword">function</span> ExampleScaleSpectrum()
     s = CIE_Illuminant_D(4000);
+    fprintf(<span class="string">' '</span>);
     fprintf(<span class="string">'test spectrum: %s, peak = %g, integral = %g\n'</span>,s.name, max(s.val), IntegrateSpectrum(s));
     s2 = ScaleSpectrum(s); <span class="comment">% no change</span>
     fprintf(<span class="string">'compare should be 1 (true): %g\n'</span>,isequal(s.lam(:), s2.lam(:)) &amp;&amp; isequal(s.val(:),s2.val(:)));
     
+    s2 = ScaleSpectrum(s); <span class="comment">% no change</span>
+    fprintf(<span class="string">'compare should be 1 (true): %g\n'</span>,isequal(s.lam(:), s2.lam(:)) &amp;&amp; isequal(s.val(:),s2.val(:)));
+
+    <span class="comment">% scalar multiply, no "mode" needed, since default is "multiply"</span>
+    s2 = ScaleSpectrum(s, value = 2);
+    fprintf(<span class="string">'ratio should be [2,2]: [%g,%g]\n'</span>,min(s2.val./s.val), max(s2.val./s.val) );
+
     <span class="comment">% scale to peak 1</span>
     s_peak_1 = ScaleSpectrum(s, mode = <span class="string">'normalize_peak'</span>); <span class="comment">% no need to specify value: default 1.0</span>
     fprintf(<span class="string">'peak should be 1: %g\n'</span>, max(s_peak_1.val));
@@ -180,6 +188,8 @@ Source code: <a href = "file:../ScaleSpectrum.m"> ScaleSpectrum.m</a>
 
 </pre>
 <pre class="codeoutput">compare should be 1 (true): 1
+compare should be 1 (true): 1
+ratio should be [2,2]: [2,2]
 peak should be 1: 1
 peak should be 100: 100
 integral should be 2: 2

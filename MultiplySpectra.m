@@ -85,8 +85,9 @@ function rv = MultiplySpectra(lhs, rhs)
     % result nonzero only in [lam0;lam1] interval
     lam0 = max(lhs.lam(1), rhs.lam(1));
     lam1 = min(lhs.lam(end), rhs.lam(end));
-    % compute interveawed lam, removing duplicates
+    % compute interweaved lam, removing duplicates
     tmplam = unique(sort(cat(1,lhs.lam,rhs.lam)));
+    % restrict to overlap range
     tmpIdx = (tmplam >= lam0) & (tmplam <= lam1);
     rv.lam = tmplam(tmpIdx);
     if isempty(rv.lam)

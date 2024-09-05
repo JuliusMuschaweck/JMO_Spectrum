@@ -47,7 +47,7 @@
 %
 % <AddWeightedSpectra.html AddWeightedSpectra> adds several spectra with weights>
 %
-% <DivideSpectra.html, DivideSpectra> Divide two spectra, with divide by zero treatment
+% <DivideSpectra.html DivideSpectra> Divide two spectra, with divide by zero treatment
 %
 % <IntegrateSpectrum.html IntegrateSpectrum> computes integral of spectrum over wavelength, with an optional weighting function
 % 

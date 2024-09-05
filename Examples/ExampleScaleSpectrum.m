@@ -1,9 +1,17 @@
 function ExampleScaleSpectrum()
     s = CIE_Illuminant_D(4000);
+    fprintf(' ');
     fprintf('test spectrum: %s, peak = %g, integral = %g\n',s.name, max(s.val), IntegrateSpectrum(s));
     s2 = ScaleSpectrum(s); % no change
     fprintf('compare should be 1 (true): %g\n',isequal(s.lam(:), s2.lam(:)) && isequal(s.val(:),s2.val(:)));
     
+    s2 = ScaleSpectrum(s); % no change
+    fprintf('compare should be 1 (true): %g\n',isequal(s.lam(:), s2.lam(:)) && isequal(s.val(:),s2.val(:)));
+
+    % scalar multiply, no "mode" needed, since default is "multiply"
+    s2 = ScaleSpectrum(s, value = 2);
+    fprintf('ratio should be [2,2]: [%g,%g]\n',min(s2.val./s.val), max(s2.val./s.val) );
+
     % scale to peak 1
     s_peak_1 = ScaleSpectrum(s, mode = 'normalize_peak'); % no need to specify value: default 1.0
     fprintf('peak should be 1: %g\n', max(s_peak_1.val));

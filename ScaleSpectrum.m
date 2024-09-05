@@ -16,14 +16,18 @@
 % |function rv = ScaleSpectrum(rhs, opts)|
 %% Input Arguments
 % * |rhs|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
-% * |opts|: Optional name-value pairs: Name |'mode'| can be |'multiply'| (default), |'normalize_peak'|, 
+% * |opts|: Optional name-value pairs: Name |'factor'| must be a real scalar factor, with which the spectrum values are 
+%   multiplied. When given, all other optional arguments are ignored.
+% Name |'mode'| can be |'multiply'| (default), |'normalize_peak'|, 
 % |'normalize_radiant_flux'|, |'normalize_luminous_flux'|, or
-% |'normalize_integral'|. Name |'value'| must be a real scalar, default is |1.0|. Name |'weight'| must be a valid spectrum.
+% |'normalize_integral'|. Name |'value'| must be a real scalar, default is |1.0|. Name |'weight'| must be a valid
+%   spectrum. 
 %% Output Arguments
 % * |rv|: Spectrum containing the identical, inherited wavelength array in field |rv.lam|, and
 % the scaled inherited values in field |rv.val|
 %% Algorithm
-% * For mode |'multiply'|, the spectrum values are simply multiplied with the number from the |'value'| parameter.
+% * When |'factor'| is given, the spectrum values are simply multiplied with the number from the parameter.
+% * For mode |'multiply'|, the spectrum values are simply multiplied with the number from the |'value'| parameter. 
 % * For mode |'normalize_peak'|, the spectrum is scaled such that the resulting peak equals the |'value'| parameter.
 % * For mode |'normalize_radiant_flux'|, the spectrum is scaled such that |IntegrateSpectrum(rv)| yields the |'value'| parameter. 
 % * For mode |'normalize_luminous_flux'|, the spectrum is scaled such that |683 * IntegrateSpectrum(rv, Vlambda())| 
@@ -47,12 +51,15 @@
 function rv = ScaleSpectrum(rhs, opts)
     arguments
         rhs (1,1) struct
+        opts.factor (1,1) double = NaN
         opts.mode (1,1) string = "multiply"
         opts.value (1,1) double = 1.0
         opts.weight struct = struct([])
     end
     [~,~,rhs] = SpectrumSanityCheck( rhs );
-    if opts.mode == "multiply"
+    if ~isnan(opts.factor)
+        fac = opts.factor;
+    elseif opts.mode == "multiply"
         fac = opts.value;
     elseif opts.mode == "normalize_peak"
         fac = opts.value / max(rhs.val);

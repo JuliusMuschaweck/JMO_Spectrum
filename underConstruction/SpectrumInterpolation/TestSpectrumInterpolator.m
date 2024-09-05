@@ -20,10 +20,10 @@ PlotSpectrum(p2);
 si = SpectrumInterpolator({p1,p2});
 figure(2);
 
-for w1 = [0.25, 0.5, 0.75]
+for w1 = [0.25, 0.5, 1.25]
     weights = [w1, 1-w1];
     ipol = si.Interpolate(weights);
-    PlotSpectrum(ipol);
+    PlotSpectrum(ipol,'--');
 end
 legend({'input 1','input 2', '0.25', '0.5','0.75'})
 

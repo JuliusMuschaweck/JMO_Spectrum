@@ -89,7 +89,12 @@ function rv = AddWeightedSpectra(spectra,weights)
             continue;
         end % no overlap
         % treat overlapping, unequal lambdas
-        tmplam = unique(sort(cat(1,rv.lam,si.lam)));
+        % insert lambdas just outside ranges to enforce sudden step to 0
+        lamrange = @(s) s.lam(end) - s.lam(1);
+        tiny = 1e-8 * (lamrange(rv) + lamrange(si));
+        tmplam = unique(sort(cat(1,rv.lam,si.lam,...
+                rv.lam(1)-tiny,rv.lam(end)+tiny,...
+                si.lam(1)-tiny, si.lam(end) + tiny)));
         vl = LinInterpol(rv.lam,rv.val,tmplam);
         vr = LinInterpol(si.lam,si.val,tmplam);
         rv.lam = tmplam;
@@ -97,7 +102,7 @@ function rv = AddWeightedSpectra(spectra,weights)
     end
 end
 
-function Test()
+function Test() %#ok<DEFNU>
 %%
     clear sp;
     clear spc;
@@ -105,23 +110,23 @@ function Test()
     spc{1} = sp(1);
     sp(2) = MakeSpectrum([400 410 420], [3,2,1]);
     spc{2} = sp(2);
-    test1 = AddWeightedSpectra(sp,[1,2]);
-    test1c = AddWeightedSpectra(spc,[1,2]);
+    test1 = AddWeightedSpectra(sp,[1,2]); %#ok<NASGU>
+    test1c = AddWeightedSpectra(spc,[1,2]); %#ok<NASGU>
 
 %%    
     sp(3) = MakeSpectrum([420+1e-12, 430 440], [4,4,4]);
-    test1 = AddWeightedSpectra(sp,[1,2,3]);
+    test1 = AddWeightedSpectra(sp,[1,2,3]);%#ok<NASGU>
 
 %%
     sp(4) = MakeSpectrum([450 460 470], [4,4,4]);
-    test1 = AddWeightedSpectra(sp,[1,2,3,4]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4]);%#ok<NASGU>
     
 %%
     sp(5) = MakeSpectrum([350 360 370], [4,4,4]);
-    test1 = AddWeightedSpectra(sp,[1,2,3,4,5]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4,5]);%#ok<NASGU>
 
 %%
     sp(6) = MakeSpectrum([350 360 470], [100 100 100]);
-    test1 = AddWeightedSpectra(sp,[1,2,3,4,5,100]);
+    test1 = AddWeightedSpectra(sp,[1,2,3,4,5,100]);%#ok<NASGU>
     
 end
