@@ -27,6 +27,8 @@
 % optional arguments are simply forwarded to |plot|.
 %
 % |PlotSpectrum(ax, s, varargin)| does the same, but plots to axes |ax|.
+% 
+% In addition, sets xlabel = "Wavelength (nm)";
 %% See also
 % Matlab |plot| for additional arguments
 %% Usage Example
@@ -68,4 +70,5 @@ function p = PlotSpectrum(varargin)
     else
         p = plot(ax,s.lam,s.val);
     end
+    xlabel(ax,"Wavelength (nm)");
 end

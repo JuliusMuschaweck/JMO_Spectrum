@@ -20,7 +20,10 @@ classdef IES_TM30 < handle
     end
 
     methods
-        function this = IES_TM30()
+        function this = IES_TM30(opts) % constructor, set up sample color spectra etc.
+            arguments
+                opts.Spectrum (1,1) struct = struct
+            end
             tmp = load('IES_TM30_spectra_raw.mat','IES_TM30_spectra');
             this.IES_TM30_spectra_ = tmp.IES_TM30_spectra;
             this.sRGB_SampleColors_ = nan(99,3);
@@ -34,12 +37,20 @@ classdef IES_TM30 < handle
                 RGB = XYZ_to_sRGB(XYZ_i.X * fac, XYZ_i.Y * fac, XYZ_i.Z * fac);
                 this.sRGB_SampleColors_(i,:) = RGB.RGB;
             end
+            s = opts.Spectrum;
+            if ~isempty(fields(s)) % optional argument has been given
+                if IsSpectrum(opts.Spectrum)
+                    this.SetSpectrum(opts.Spectrum);
+                else
+                    error("IES_TM30: optional argument Spectrum is not a valid spectrum");
+                end
+            end
         end
 
-        function SetSpectrum(obj, s)
+        function SetSpectrum(obj, s) % tell object to evaluate this spectrum
             arguments
                 obj
-                s (1,1) struct
+                s (1,1) struct % a spectrum
             end
             obj.Clear();
             try
@@ -82,7 +93,10 @@ classdef IES_TM30 < handle
             end
         end
 
-        function [Rf, Rf_i, Rf_hj] = FidelityIndex(obj)
+        function [Rf, Rf_i, Rf_hj] = FidelityIndex(obj) 
+            % compute overall fidelity index (4.1), 
+            % 99 individual fidelity indices (4.2)
+            % and 16 local fidelity indices (4.8)
             if isempty(obj.s_)
                 error('IES_TM30.FidelityIndex: no data, use SetSpectrum first');
             end
@@ -96,6 +110,7 @@ classdef IES_TM30 < handle
 
             % 4.8 local color fidelity 
             bin = obj.Jab_binned_s_.bin;
+            dE = nan(1,16);
             for j = 1:16
                 dE(j) = mean(obj.Delta_E_Jab_(bin == j));
             end
@@ -112,6 +127,23 @@ classdef IES_TM30 < handle
         end
 
         function rv = ColorVectorGraphic(obj,opts)
+            % plot the color vector graphics. 
+            % Optional arguments (name-value): 
+            %   FigureNumber (integer double): figure to plot to. Default: 1
+            %   Disclaimer (boolean): Print disclaimer at bottom
+            %   DisclaimerTime (boolean): Add time and date to disclaimer
+            %
+            % Return value:
+            %   rv: struct with fields
+            %       x_ref:  1x16 double (reference axis (non-CIE) coordinate, (58)
+            %       y_ref:  1x16 double (reference axis (non-CIE) coordinate, (59)
+            %       x_test: 1x16 double (reference axis (non-CIE) coordinate, (60)
+            %       y_test: 1x16 double (reference axis (non-CIE) coordinate, (61)
+            %       Rf:     overall fidelity index
+            %       Rg:     overall gamut index
+            %       CCT:    CCT of spectrum
+            %       duv:    uv distance of spectrum to Planck
+            %       ax:     The axis object containing the plot
             arguments
                 obj
                 opts.FigureNumber (1,1) double = 1
@@ -244,6 +276,10 @@ classdef IES_TM30 < handle
                 for fac = [0.8,0.9,1.1,1.2]
                     plot(fac*cos(hires_angles), fac*sin(hires_angles),'w','LineWidth',1);
                 end
+                % +/- 20% markers
+                text(-0.15,-0.75,"-20%",Color="w");
+                text(-0.15,-1.23,"20%",Color="w");
+                axis equal;
             end
 
             function Arrow(ax, x0, y0, x1, y1, color)
@@ -270,6 +306,23 @@ classdef IES_TM30 < handle
             % 4.8 Local Color Fidelity H_f,hj
             %     Similar to 4.1 and 4.2 but now with 16 avg values
             %     Eq 64-65
+            % Optional arguments:
+            %   ChromaFigureNumber: double, default 2
+            %   HueFigureNumber:    double, default 3
+            %   FidelityFigureNumber: double, default 4
+            %   xLabels:     1x3 logical, flag to plot x labels, default true
+            %   relBarWidth: 1x3 double, within [0,1], width of bars, default 0.5 
+            %   mValues:     1x3 logical, flag to plot m (# of individuals
+            %                   in each of the 16 bins) above the plot
+            %
+            % Return value:
+            %   rv: struct with fields
+            %       R_csh: 1x16 double, local chroma shift values
+            %       R_hsh: 1x16 double, local hue shift values
+            %       Rf_hj: 1x16 double, local color fidelity
+            %       axc:    axis handle to chroma shift plot
+            %       axh:    axis handle to hue shift plot
+            %       axf:    axis handle to fidelity shift plot
             arguments
                 obj
                 opts.ChromaFigureNumber (1,1) double = 2
@@ -290,7 +343,7 @@ classdef IES_TM30 < handle
             rv.R_hsh = - ta .* sin(angles) + tb .* cos(angles); % Eq. (63)
             
             % chroma shift figure
-            [fhc, axc, barc] = PrepareFigure(opts.ChromaFigureNumber, rv.R_csh * 100, ...
+            [~, axc, barc] = PrepareFigure(opts.ChromaFigureNumber, rv.R_csh * 100, ...
                 [-40,40], opts.xLabels(1));
             for i = 1:16
                 yval = rv.R_csh(i) * 100;
@@ -322,7 +375,7 @@ classdef IES_TM30 < handle
             axc.YLabel.String = 'Local Chroma Shift (R_{cs,hj})';
 
             % hue shift figure
-            [fhh, axh, barh] = PrepareFigure(opts.HueFigureNumber, rv.R_hsh, ...
+            [~, axh, barh] = PrepareFigure(opts.HueFigureNumber, rv.R_hsh, ...
                 [-0.5,0.5], opts.xLabels(2));
             for i = 1:16
                 yval = rv.R_hsh(i);
@@ -363,7 +416,8 @@ classdef IES_TM30 < handle
 
             % fidelity figure
             [~,~,Rf_hj] = obj.FidelityIndex();
-            [fhf, axf, barf] = PrepareFigure(opts.FidelityFigureNumber, Rf_hj, ...
+            rv.Rf_hj = Rf_hj;
+            [~, axf, barf] = PrepareFigure(opts.FidelityFigureNumber, Rf_hj, ...
                 [0,110], opts.xLabels(3));
             for i = 1:16
                 yval = Rf_hj(i);
@@ -442,6 +496,13 @@ classdef IES_TM30 < handle
         end % LocalChromaHueShiftFidelityGraphics
 
         function rv = IndividualFidelityGraphics(obj, opts)
+            % plot bar chart of 99 individual color fidelities
+            % Optional argument:
+            %   FigureNumber: double, default 5
+            % Return value:
+            %   rv: struct with fields
+            %       ax:     Axis handle to plot
+            %       Rf_j:   1x99 double, individual fidelity values
             arguments
                 obj                
                 opts.FigureNumber (1,1) double = 5;
@@ -463,6 +524,7 @@ classdef IES_TM30 < handle
             ax.set('YMinorTick','on');
             ax.XAxis.set('TickLabelRotation',90);
             i = 0;
+            lbl=cell(3*97,1);
             for j = 1:3:97
                 i = i + 1;
                 lbl{i} = sprintf('CES%02.0f',j);
@@ -482,6 +544,19 @@ classdef IES_TM30 < handle
         end
 
         function rv = SpectrumGraphics(obj, opts)
+            % Plot test and reference spectra
+            % Optional arguments:
+            %   FigureNumber: double, default 6
+            %   RelativeScale: string, "flux" (default) or "peak".
+            %       If "flux", spectra contain same luminous flux
+            %       If "peak", spectra are normalized to peak 1
+            %
+            % Return value:
+            %   rv: struct with fields
+            %       s: A copy of the test spectrum
+            %       s_ref: A copy of the scaled reference spectrum
+            %       ax: Axis handle to plot
+            %       fh: Figure handle to plot
             arguments
                 obj                
                 opts.FigureNumber (1,1) double = 6;
@@ -505,6 +580,8 @@ classdef IES_TM30 < handle
             s = obj.s_;
             sr = obj.s_ref_;
             sr.val = sr.val * fac;
+            rv.s = s;
+            rv.s_ref = sr;
             p1 = PlotSpectrum(sr,'k');
             p2 = PlotSpectrum(s,'r',LineWidth=2);
             lims = axis(ax);
@@ -532,6 +609,100 @@ classdef IES_TM30 < handle
         end
 
         function CreateFullReport(obj,opts)
+            % "Full report" according to Annex D.
+            % It is based on the current spectrum.
+            % The text fields content can and should be specified
+            % This function first creates the figures and saves them to .png
+            % graphics files (whose names can be modified if desired).
+            % Then it opens the specially designed Matlab App that has no
+            % interactive features. The App contains the report.
+            % The method then saves the App main figure to a pdf file.
+            arguments
+                obj
+                opts.Source (1,1) string = "Unnamed source";
+                opts.Manufacturer (1,1) string = "Unnamed manufacturer";
+                opts.Model (1,1) string = "Unnamed model";
+                opts.Notes (1,:) string = "--";
+                opts.SpectrumGraphicsName (1,1) string = "SpectrumGraphics.png"
+                opts.SpectrumRelativeScale (1,1) string = "flux" % or "peak" for multiple very narrow bands
+                opts.ChromaShiftGraphicsName (1,1) string = "ChromaShiftGraphics.png"
+                opts.CVGGraphicsName (1,1) string = "ColorVectorGraphics.png"
+                opts.HueShiftGraphicsName (1,1) string = "HueShiftGraphics.png"
+                opts.FidelityGraphicsName (1,1) string = "FidelityGraphics.png"
+                opts.IndividualFidelityGraphicsName (1,1) string = "IndividualFidelityGraphics.png"
+                opts.ReportFileName (1,1) string = "TM30Report.pdf"
+            end
+            fprintf("Creating graphics...\n");
+            spg = obj.SpectrumGraphics(RelativeScale=opts.SpectrumRelativeScale);
+            exportgraphics(spg.ax,opts.SpectrumGraphicsName);
+            Rch = obj.LocalChromaHueShiftFidelityGraphics(xLabels=[false, false, true],...
+                relBarWidth=0.9*[1,1,1], mValues=[true,false,false]);
+            exportgraphics(Rch.axc,opts.ChromaShiftGraphicsName);
+            exportgraphics(Rch.axh,opts.HueShiftGraphicsName);
+            exportgraphics(Rch.axf,opts.FidelityGraphicsName);
+            cvg = obj.ColorVectorGraphic(Disclaimer=false,DisclaimerTime=false);
+            exportgraphics(cvg.ax,opts.CVGGraphicsName);
+            ivg = obj.IndividualFidelityGraphics();
+            exportgraphics(ivg.ax,opts.IndividualFidelityGraphicsName);
+
+            try
+                app = IESTM30Report;
+                app.SourceValueLabel.Text = opts.Source;
+                app.ManufacturerValueLabel.Text = opts.Manufacturer;
+                app.DateValueLabel.Text = string(datetime('now','Format','yyyy-MM-dd HH:mm'));
+                app.ModelValueLabel.Text = opts.Model;
+                app.SpectrumGraphicsImage.ImageSource = opts.SpectrumGraphicsName;
+                app.ChromaShiftGraphicsImage.ImageSource = opts.ChromaShiftGraphicsName;
+                app.CVGImage.ImageSource = opts.CVGGraphicsName;
+                app.HueShiftGraphicsImage.ImageSource = opts.HueShiftGraphicsName;
+                app.FidelityGraphicsImage.ImageSource = opts.FidelityGraphicsName;
+                app.IndividualFidelityGraphics.ImageSource = opts.IndividualFidelityGraphicsName;
+                app.NotesValueTextArea.Value = opts.Notes;
+                cinf = ComputeSpectrumColorimetry(obj.s_);
+                app.xyupvpLabel.Text = [
+                    sprintf("x     %.4f",cinf.x);
+                    sprintf("y     %.4f",cinf.y);
+                    sprintf("u'     %.4f",cinf.up);
+                    sprintf("v'     %.4f",cinf.vp)
+                    ];
+                app.CRITextArea.Value = [
+                    "CIE 13.3-1995";
+                    "(CRI)";
+                    "";
+                    sprintf("Ra          %.0f",cinf.CRI_all.Ra);
+                    sprintf("R9          %.0f",cinf.CRI_all.Ri(9));
+                    sprintf("R13         %.0f",cinf.CRI_all.Ri(13))
+                    ];
+                fn = opts.ReportFileName;
+                [~,~,ext] = fileparts(fn);
+                if ~(string(ext) == ".pdf")
+                    fn = strcat(fn,".pdf");
+                end
+                exportapp(app.UIFigure, fn)
+                % fprintf('opening %s in standard external pdf viewer\n',fn);
+                % system(fn);
+                % fprintf('finished creating TM30 report: %s\n',fn);
+            catch ME
+                rethrow(ME);
+            end
+        end       
+        
+        function CreateFullReport_LaTeX(obj,opts)
+            % "Full report" according to Annex D.
+            % Requires a working LaTeX installation with pdftex.exe
+            % (MikTeX works well).
+            % The report is based on the current spectrum.
+            % The text fields content can and should be specified
+            % This function first creates the figures and saves them to
+            % .eps graphics files (whose names can be modified if desired).
+            % The report is generated from "TM30ReportTemplate.tex", which
+            % remains itself unchanged. What changes is "TM30Include.tex",
+            % which is generated on each run by this function, and which
+            % contains all the command definitions to populate the report.
+            % Advantage over "CreateFullReport" is that this report
+            % contains vector graphics, which can be printed with higher
+            % quality at large magnification, which is probably not needed
+            % for standard letter size or A4 size output.
             arguments
                 obj
                 opts.Source (1,1) string = "Unnamed source";
@@ -596,7 +767,7 @@ classdef IES_TM30 < handle
                 OneCmd(incl,"RthirteenVal",sprintf("%0.0f",cinf.CRI_all.Ri(13)));
                 fclose(incl);
                 fprintf('running pdflatex to create pdf report\n');
-                [status,cmdout] = system('pdflatex TM30ReportTemplate.tex');
+                [status,~] = system('pdflatex TM30ReportTemplate.tex'); % replace ~ with cmdout to see what happened in detail
                 if ~(status == 0)
                     error('IES_TM30.CreateFullReport: could not run pdflatex. MikTeX installed?');
                 end
@@ -618,8 +789,6 @@ classdef IES_TM30 < handle
                 fprintf(incl,"\\newcommand{\\%s}{%s}\n",cmd,def);
             end
         end
-
-
 
         function Clear(obj)
             obj.s_ = [];                 % spectrum for which we evaluate rendition properties. Scaled to Y_10 = 100

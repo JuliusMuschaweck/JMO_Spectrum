@@ -1,18 +1,20 @@
 clear;
-tm30 = IES_TM30;
-
-%spec = ReadLightToolsSpectrumFile('LED_4003K.sre');
+% reading a 4000K white LED spectrum, exported from the very recommendable OSRAM Color calculator
+% available at https://www.researchgate.net/publication/320930275_ColorCalculator_software
 spec = ReadASCIITableSpectrumFile('OSRAM_ColorCalc_LED4000K.txt');
-% spec = PlanckSpectrum(360:830,10000);
-figure(1);clf;
-PlotSpectrum(spec);
-[myCCT,myduv] = CCT(spec)
-
-tmp = EvalSpectrum(spec,380:780);
-tmp = tmp / max(tmp);
-%%
+[myCCT,myduv] = CCT(spec);
+fprintf("White LED, CCT = %.0f K, uv distance to Planck: %.3f\n", myCCT, myduv);
+% plotting the spectrum -- looks like a regular white LED
+figure(1); clf;
+PlotSpectrum(spec); title("A white LED spectrum");
+ 
+% initialize the IES_TM30 class instance
+tm30 = IES_TM30;
+% tell it which spectrum we want to analyze
 tm30.SetSpectrum(spec);
+% compute the fidelity indices...
 [Rf,Rfi, Rf_hj] = tm30.FidelityIndex();
+% ... and the gamut index
 Rg = tm30.GamutIndex();
 figure(2);
 clf;
@@ -20,15 +22,27 @@ bar(Rfi);
 
 %% Creating the full TM30 report via LaTeX 
 % Requires that pdflatex.exe is on the system path
-tm30.CreateFullReport(...
+tm30.CreateFullReport_LaTeX(...
     Source = "some 4000K LED",...
     Manufacturer = "unknown manufacturer",...
     Model = "unknown model",...
     Notes = "results from TM30 test run",...
-    ReportFileName = 'someTM30Test');
+    ReportFileName = 'someTM30Test_LaTeX.pdf');
+
+%% full report via Matlab App
+%% Creating the full TM30 report via LaTeX 
+% Requires that pdflatex.exe is on the system path
+tm30.CreateFullReport_MLApp(...
+    Source = "some 4000K LED",...
+    Manufacturer = "unknown manufacturer",...
+    Model = "unknown model",...
+    Notes = "results from TM30 test run",...
+    ReportFileName = 'someTM30Test_MLApp.pdf');
+
 %%
-cvg = tm30.ColorVectorGraphic(Disclaimer=false,DisclaimerTime=false);
+cvg = tm30.ColorVectorGraphic(Disclaimer=true,DisclaimerTime=true);
 % exportgraphics(cvg.ax,'ColorVectorGraphics.eps','ContentType','vector');
+% exportgraphics(cvg.ax,'ColorVectorGraphics.png');
 
 %%
 Rch = tm30.LocalChromaHueShiftFidelityGraphics(xLabels=[false, false, true],...
@@ -36,12 +50,17 @@ Rch = tm30.LocalChromaHueShiftFidelityGraphics(xLabels=[false, false, true],...
 %exportgraphics(Rch.axc,'ChromaShiftGraphics.eps','ContentType','vector');
 %exportgraphics(Rch.axh,'HueShiftGraphics.eps','ContentType','vector');
 %exportgraphics(Rch.axf,'FidelityGraphics.eps','ContentType','vector');
+exportgraphics(Rch.axc,'ChromaShiftGraphics.png');
+exportgraphics(Rch.axh,'HueShiftGraphics.png');
+exportgraphics(Rch.axf,'FidelityGraphics.png');
 %%
 ivg = tm30.IndividualFidelityGraphics();
 % exportgraphics(ivg.ax,'IndividualFidelityGraphics.eps','ContentType','vector');
+exportgraphics(ivg.ax,'IndividualFidelityGraphics.png');
 %%
 spg = tm30.SpectrumGraphics(RelativeScale="peak");
 %exportgraphics(spg.ax,'SpectrumGraphics.eps','ContentType','vector');
+exportgraphics(spg.ax,'SpectrumGraphics.png');
 %% Matlab figure
 % Tried to create TM30 report as a Matlab figure, but could not really make it work
 
