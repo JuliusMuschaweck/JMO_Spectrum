@@ -26,5 +26,5 @@
 function rv = JMOSpectrumVersion()
     rv.major = 2;
     rv.minor = 2;
-    rv.patch = 0; % as of 2024-08-26
+    rv.patch = 1; % as of 2024-10-26
 end

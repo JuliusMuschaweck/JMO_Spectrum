@@ -73,6 +73,9 @@
 % <IsOctave.html IsOctave> determines if program is running under GNU Octave
 % 
 % <IsSpectrum.html IsSpectrum> checks if a variable is a valid spectrum
+%
+% <JMOSpectrumPath.html JMOSpectrumPath> returns the path to the library
+% main folder.
 % 
 % <JMOSpectrumVersion.html JMOSpectrumVersion> returns the version of this library
 %
