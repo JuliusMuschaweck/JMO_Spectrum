@@ -27,6 +27,7 @@ publishWithStandardExample('EvalSpectrum.m');
 publishWithStandardExample('FindRoot1D.m');
 publishWithStandardExample('FindRootND.m');
 publishWithStandardExample('GaussSpectrum.m');
+publishWithStandardExample('IES_TM30.m');
 publishWithStandardExample('IntegrateSpectrum.m');
 publish('IsOctave.m','evalCode',false,'showCode',false);
 publishWithStandardExample('IsSpectrum.m');

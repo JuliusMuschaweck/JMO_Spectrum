@@ -93,7 +93,10 @@
 %
 % <ComputeSpectrumColorimetry.html ComputeSpectrumColorimetry> For a given spectrum, computes a large selection of colorimetric properties
 %
-% <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices%% LED model
+% <CRI.html CRI> The CRI class provides what is needed to compute Color Rendering Indices
+%
+% <IES_TM30.html IES_TM30> implements the ANSI/IES TM-30 color rendition
+% standard computations, including the standardized full report.
 %
 % <LDomPurity.html LDomPurity> computes dominant wavelength and purity
 % 

@@ -7,13 +7,24 @@ function ExampleIESTM30()
 
     % plot the test and reference spectra as required for the report
     spg = tm30.SpectrumGraphics(RelativeScale="peak");
+    %   use this to export vector graphics to eps
     % exportgraphics(spg.ax,'SpectrumGraphics.eps','ContentType','vector');
+    %   use this to export raster image to png format
     % exportgraphics(spg.ax,'SpectrumGraphics.png');
+    %   you can use Width=1000 or Resolution=300 parameters to get higher
+    %   resolution if needed. See exportgraphics documentation for details
     
     % plot the color vector graphics circle -> this is the simple report
-    cvg = tm30.ColorVectorGraphic(Disclaimer=true,DisclaimerTime=true);
+    cvg = tm30.ColorVectorGraphic(Disclaimer=true,DisclaimerTime=true)
 
-    % % this is how you would create the full report
+    % plot the local chroma shift, local hue shift and local fidelity graphs
+    Rch = tm30.LocalChromaHueShiftFidelityGraphics(xLabels=[false, false, true],...
+        relBarWidth=0.9*[1,1,1], mValues=[true,false,false])
+
+    % plot the individual fidelity graph
+    ivg = tm30.IndividualFidelityGraphics()
+
+    % % this is how you would create the "full" report 
     % tm30.CreateFullReport(...
     %             Source = "CIE standard illuminant LED-RGB1",...
     %             Manufacturer  = "Simulated spectrum",...

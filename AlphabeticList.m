@@ -65,6 +65,9 @@
 % 
 % <GaussSpectrum.html GaussSpectrum> creates a Gaussian spectrum, normalized to peak = 1.0
 % 
+% <IES_TM30.html IES_TM30> implements the ANSI/IES TM-30 color rendition
+% standard computations, including the standardized full report.
+%
 % <IntegrateSpectrum.html IntegrateSpectrum> computes integral of spectrum over wavelength, with an optional weighting function
 % 
 % <IsOctave.html IsOctave> determines if program is running under GNU Octave
