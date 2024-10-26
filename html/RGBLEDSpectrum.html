@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>RGBLEDSpectrum</title>
-<meta name="generator" content="MATLAB 24.1">
+<meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-08-26">
+<meta name="DC.date" content="2024-10-26">
 <meta name="DC.source" content="RGBLEDSpectrum.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -125,7 +125,7 @@ Source code: <a href = "file:../RGBLEDSpectrum.m"> RGBLEDSpectrum.m</a>
 <div>
 <ul>
 <li>A spectrum, e.g. digitized from the data sheet, gives us the underlying spectral shape at grouping conditions.</li>
-<li>A set of characteristic curves, taken from the datasheet or estimated from prior knowledge, tell us how voltage and spectral properties (dominant wavelength <img src="RGBLEDSpectrum_eq09455198370103551301.png" alt="$\lambda_{dom}$">, luminous flux <img src="RGBLEDSpectrum_eq17494219284116167569.png" alt="$\Phi_v$"> and spectral width <img src="RGBLEDSpectrum_eq09992033592989221171.png" alt="$\sigma$">) vary when current and temperature deviate from grouping conditions.</li>
+<li>A set of characteristic curves, taken from the datasheet or estimated from prior knowledge, tell us how voltage and spectral properties (dominant wavelength <img src="RGBLEDSpectrum_eq09455198370103551301.png" alt="$\lambda_{dom}$" style="width:22px;height:10px;">, luminous flux <img src="RGBLEDSpectrum_eq17494219284116167569.png" alt="$\Phi_v$" style="width:13px;height:10px;"> and spectral width <img src="RGBLEDSpectrum_eq09992033592989221171.png" alt="$\sigma$" style="width:6px;height:6px;">) vary when current and temperature deviate from grouping conditions.</li>
 <li>Grouping conditions (current and temperature), taken from the data sheet, establish the baseline for all relative variations.</li>
 <li>Binning values (for flux, wavelength and voltage) characterize the grouping condition properties of our particular LED sample.</li>
 <li>Finally, we compute the operating condition spectrum: The operating condition flux, dominant wavelength and spectral width result from given binning values plus relative deviation given by the characteristic curves. Then, the underlying base spectrum is transformed in an iterative process to reproduce these values. For voltage, we similarly take the binning value, and the operating condition deviation to compute actual operating voltage.</li>
@@ -271,7 +271,7 @@ Source code: <a href = "file:../RGBLEDSpectrum.m"> RGBLEDSpectrum.m</a>
 <p>See <a href="TestRGBLED.html">TestRGBLED</a> for usage.</p>
 <p class="footer">
 <br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
 <br>
 </p>
 </div>

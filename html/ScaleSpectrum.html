@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>ScaleSpectrum</title>
-<meta name="generator" content="MATLAB 24.1">
+<meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-09-01">
+<meta name="DC.date" content="2024-10-26">
 <meta name="DC.source" content="ScaleSpectrum.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -121,7 +121,7 @@ Source code: <a href = "file:../ScaleSpectrum.m"> ScaleSpectrum.m</a>
 <li>
 <tt>rhs</tt>: A valid spectrum (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a>)</li>
 <li>
-<tt>opts</tt>: Optional name-value pairs: Name <tt>'mode'</tt> can be <tt>'multiply'</tt> (default), <tt>'normalize_peak'</tt>, <tt>'normalize_radiant_flux'</tt>, <tt>'normalize_luminous_flux'</tt>, or <tt>'normalize_integral'</tt>. Name <tt>'value'</tt> must be a real scalar, default is <tt>1.0</tt>. Name <tt>'weight'</tt> must be a valid spectrum.</li>
+<tt>opts</tt>: Optional name-value pairs: Name <tt>'factor'</tt> must be a real scalar factor, with which the spectrum values are multiplied. When given, all other optional arguments are ignored. Name <tt>'mode'</tt> can be <tt>'multiply'</tt> (default), <tt>'normalize_peak'</tt>, <tt>'normalize_radiant_flux'</tt>, <tt>'normalize_luminous_flux'</tt>, or <tt>'normalize_integral'</tt>. Name <tt>'value'</tt> must be a real scalar, default is <tt>1.0</tt>. Name <tt>'weight'</tt> must be a valid spectrum.</li>
 </ul>
 </div>
 <h2 id="3">Output Arguments</h2>
@@ -135,6 +135,7 @@ Source code: <a href = "file:../ScaleSpectrum.m"> ScaleSpectrum.m</a>
 <h2 id="4">Algorithm</h2>
 <div>
 <ul>
+<li>When <tt>'factor'</tt> is given, the spectrum values are simply multiplied with the number from the parameter.</li>
 <li>For mode <tt>'multiply'</tt>, the spectrum values are simply multiplied with the number from the <tt>'value'</tt> parameter.</li>
 <li>For mode <tt>'normalize_peak'</tt>, the spectrum is scaled such that the resulting peak equals the <tt>'value'</tt> parameter.</li>
 <li>For mode <tt>'normalize_radiant_flux'</tt>, the spectrum is scaled such that <tt>IntegrateSpectrum(rv)</tt> yields the <tt>'value'</tt> parameter.</li>
@@ -198,7 +199,7 @@ weighted integral should be 10: 10
 </pre>
 <p class="footer">
 <br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
 <br>
 </p>
 </div>
@@ -222,14 +223,18 @@ weighted integral should be 10: 10
 % |function rv = ScaleSpectrum(rhs, opts)|
 %% Input Arguments
 % * |rhs|: A valid spectrum (see <SpectrumSanityCheck.html SpectrumSanityCheck>)
-% * |opts|: Optional name-value pairs: Name |'mode'| can be |'multiply'| (default), |'normalize_peak'|, 
+% * |opts|: Optional name-value pairs: Name |'factor'| must be a real scalar factor, with which the spectrum values are 
+%   multiplied. When given, all other optional arguments are ignored.
+% Name |'mode'| can be |'multiply'| (default), |'normalize_peak'|, 
 % |'normalize_radiant_flux'|, |'normalize_luminous_flux'|, or
-% |'normalize_integral'|. Name |'value'| must be a real scalar, default is |1.0|. Name |'weight'| must be a valid spectrum.
+% |'normalize_integral'|. Name |'value'| must be a real scalar, default is |1.0|. Name |'weight'| must be a valid
+%   spectrum. 
 %% Output Arguments
 % * |rv|: Spectrum containing the identical, inherited wavelength array in field |rv.lam|, and
 % the scaled inherited values in field |rv.val|
 %% Algorithm
-% * For mode |'multiply'|, the spectrum values are simply multiplied with the number from the |'value'| parameter.
+% * When |'factor'| is given, the spectrum values are simply multiplied with the number from the parameter.
+% * For mode |'multiply'|, the spectrum values are simply multiplied with the number from the |'value'| parameter. 
 % * For mode |'normalize_peak'|, the spectrum is scaled such that the resulting peak equals the |'value'| parameter.
 % * For mode |'normalize_radiant_flux'|, the spectrum is scaled such that |IntegrateSpectrum(rv)| yields the |'value'| parameter. 
 % * For mode |'normalize_luminous_flux'|, the spectrum is scaled such that |683 * IntegrateSpectrum(rv, Vlambda())| 
@@ -253,12 +258,15 @@ weighted integral should be 10: 10
 function rv = ScaleSpectrum(rhs, opts)
     arguments
         rhs (1,1) struct
+        opts.factor (1,1) double = NaN
         opts.mode (1,1) string = "multiply"
         opts.value (1,1) double = 1.0
         opts.weight struct = struct([])
     end
     [~,~,rhs] = SpectrumSanityCheck( rhs );
-    if opts.mode == "multiply"
+    if ~isnan(opts.factor)
+        fac = opts.factor;
+    elseif opts.mode == "multiply"
         fac = opts.value;
     elseif opts.mode == "normalize_peak"
         fac = opts.value / max(rhs.val);

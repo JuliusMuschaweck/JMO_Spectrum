@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>PlotSpectrum</title>
-<meta name="generator" content="MATLAB 24.1">
+<meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-08-26">
+<meta name="DC.date" content="2024-10-26">
 <meta name="DC.source" content="PlotSpectrum.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -138,6 +138,7 @@ Source code: <a href = "file:../XXX.m"> XXX.m</a>
 <tt>PlotSpectrum(s, varargin)</tt> plots the spectrum <tt>s</tt> to the current axes, essentially calling <tt>plot(s.lam,s.val,varargin{2:end}</tt>, i.e. optional arguments are simply forwarded to <tt>plot</tt>.</p>
 <p>
 <tt>PlotSpectrum(ax, s, varargin)</tt> does the same, but plots to axes <tt>ax</tt>.</p>
+<p>In addition, sets xlabel = "Wavelength (nm)";</p>
 <h2 id="5">See also</h2>
 <p>Matlab <tt>plot</tt> for additional arguments</p>
 <h2 id="6">Usage Example</h2>
@@ -196,7 +197,7 @@ ans =
 </pre>
 <img vspace="5" hspace="5" src="PlotSpectrum_01.png" alt=""> <img vspace="5" hspace="5" src="PlotSpectrum_02.png" alt=""> <p class="footer">
 <br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
 <br>
 </p>
 </div>
@@ -231,6 +232,8 @@ ans =
 % optional arguments are simply forwarded to |plot|.
 %
 % |PlotSpectrum(ax, s, varargin)| does the same, but plots to axes |ax|.
+% 
+% In addition, sets xlabel = "Wavelength (nm)";
 %% See also
 % Matlab |plot| for additional arguments
 %% Usage Example
@@ -272,6 +275,7 @@ function p = PlotSpectrum(varargin)
     else
         p = plot(ax,s.lam,s.val);
     end
+    xlabel(ax,"Wavelength (nm)");
 end
 ##### SOURCE END #####
 -->

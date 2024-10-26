@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>sRGB_to_XYZ</title>
-<meta name="generator" content="MATLAB 24.1">
+<meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-08-26">
+<meta name="DC.date" content="2024-10-26">
 <meta name="DC.source" content="sRGB_to_XYZ.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -134,7 +134,7 @@ Source code: <a href = "file:../sRGB_to_XYZ.m"> sRGB_to_XYZ.m</a>
 </ul>
 </div>
 <h2 id="4">Algorithm</h2>
-<p>The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be created from sRGB values to encode color and brightness. See also &lt;https://en.wikipedia.org/wiki/SRGB <a href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a>&gt; for a detailed description. sRGB values are "gamma corrected": the first step is therefore to remove the gamma correction. For small values, gamma correction is linear, for large absolute values, it is a power function with <img src="sRGB_to_XYZ_eq14342865076754437061.png" alt="$\gamma = 2.4$">. To cope with negative values, gamma correction f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is converted to <img src="sRGB_to_XYZ_eq05522337415702942044.png" alt="$XYZ = M \times RGB$"> with the matrix M derived from standardized primaries' tristimulus values. A display white point corresponding to D65 is assumed.</p>
+<p>The sRGB standard, IEC 61966-2-1:1999, including Amendment 1, describes how desired XYZ tristimulus values on the display shall be created from sRGB values to encode color and brightness. See also &lt;https://en.wikipedia.org/wiki/SRGB <a href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a>&gt; for a detailed description. sRGB values are "gamma corrected": the first step is therefore to remove the gamma correction. For small values, gamma correction is linear, for large absolute values, it is a power function with <img src="sRGB_to_XYZ_eq14342865076754437061.png" alt="$\gamma = 2.4$" style="width:38px;height:11px;">. To cope with negative values, gamma correction f(X) is applied as -f(-X). After removing gamma correction, the result is known as "linear RGB": the amounts of the sRGB red, green and blue primaries. In step 2, linear RGB is converted to <img src="sRGB_to_XYZ_eq05522337415702942044.png" alt="$XYZ = M \times RGB$" style="width:98px;height:9px;"> with the matrix M derived from standardized primaries' tristimulus values. A display white point corresponding to D65 is assumed.</p>
 <h2 id="5">See also</h2>
 <p>
 <a href="XYZ_to_sRGB.html">XYZ_to_sRGB</a>
@@ -183,7 +183,7 @@ expect RGB = [0.0001, 0.0001, 0.0001], obtained [0.000100000, 0.000100000, 0.000
 </pre>
 <p class="footer">
 <br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
 <br>
 </p>
 </div>
