@@ -11,10 +11,11 @@
 %
 % Multiply two spectra
 %% Syntax
-% rv = |MultiplySpectra(lhs, rhs)|
+% rv = |MultiplySpectra(lhs, rhs, varargin)|
 %% Input Arguments
 % * |lhs|: A valid spectrum, i.e. a struct with two array fields, |lam| and |val| (see <SpectrumSanityCheck.html SpectrumSanityCheck> for detailed requirements)
 % * |rhs|: Likewise
+% * |varargin|: More spectra to be all multiplied together
 %% Output Arguments
 % * |rv|: A spectrum modeling the product.
 %% Algorithm
@@ -24,7 +25,8 @@
 % points with zero values.). The product spectrum's wavelength points consist of the "interweaved" wavelength arrays of
 % |lhs| and|rhs|, where they overlap. If they don't overlap at all, a spectrum is returned with two wavelength points
 % and both values zero.
-%
+% When there are more than two input arguments, the routine returns the
+% product of all of them.
 % At each wavelength point, one value is taken from the corresponding point of one spectrum and the
 % linearly interpolated point of the other spectrum, then these two are multiplied. Strictly speaking, the product spectrum would not be piecewise
 % linear, it would be piecewise quadratic. However, this is neglected here. If a better approximation to the quadratic
@@ -43,7 +45,7 @@
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
-function rv = MultiplySpectra(lhs, rhs)
+function rv = MultiplySpectra(lhs, rhs, varargin)
     % multiply spectra lhs and rhs, checking for overlap
     %
     % Parameters:
@@ -63,6 +65,14 @@ function rv = MultiplySpectra(lhs, rhs)
     % and NOT assumed to be piecewise quadratic.
     [~,~,lhs] = SpectrumSanityCheck(lhs);
     [~,~,rhs] = SpectrumSanityCheck(rhs);
+    % see if more than two
+    if nargin > 2
+        rv = MultiplySpectra(lhs, rhs);
+        for i = 3:nargin
+            rv = MultiplySpectra(rv,varargin{i-2});
+        end
+        return;
+    end
     % treat equal lambda arrays
     if isequal(lhs.lam, rhs.lam)
         rv.lam = lhs.lam;

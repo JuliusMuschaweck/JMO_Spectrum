@@ -7,7 +7,7 @@ function ExampleMultiplySpectra()
     hold on;
     plot(s1.lam, s1.val);
     plot(s2.lam, s2.val);
-    plot(prodspec.lam, prodspec.val);
+    plot(prodspec.lam, prodspec.val,LineWidth=1.5);
     legend({'s1','s2','prodspec = s1*s2'},'Location','northwest');
     
 end
