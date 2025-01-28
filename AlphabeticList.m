@@ -137,6 +137,8 @@
 % 
 % <SolarSpectrum.html SolarSpectrum> returns a specific standardized solar spectrum, AM 0 (extraterrestrial) or AM 1.5 (air mass 1.5)
 % 
+% <SpectralEfficacy.html SpectralEfficacy> computes the spectral efficacy of a spectrum, in lm/W
+%
 % <SpectrumSanityCheck.html SpectrumSanityCheck>  performs various checks to see if a spectrum complies with the <docDesignDecisions.html requirements>, 
 % returns a sanitized spectrum when possible 
 %

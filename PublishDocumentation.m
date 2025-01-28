@@ -61,6 +61,7 @@ Doc_mlx('TestRGBLED.mlx');
 publishWithStandardExample('ScaleSpectrum.m');
 publishWithStandardExample('ShiftToLdom.m');
 publishWithStandardExample('SolarSpectrum.m');
+publishWithStandardExample('SpectralEfficacy.m');
 publishWithStandardExample('SpectrumSanityCheck.m');
 publishWithStandardExample('sRGB_to_XYZ.m');
 publishWithStandardExample('Vlambda.m');

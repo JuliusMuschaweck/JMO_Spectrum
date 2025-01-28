@@ -105,6 +105,8 @@
 % <MacAdamEllipse_g.html MacAdamEllipse_g> helper function for <MacAdamEllipse.html MacAdamEllipse>
 % 
 % <PlanckLocus.html PlanckLocus> Computes the Planck locus (i.e. the color points of blackbody radiators) in various color spaces, and provides helper functions to compute Judd lines.
+%
+% <SpectralEfficacy.html SpectralEfficacy> computes the spectral efficacy of a spectrum, in lm/W
 % 
 % <sRGB_to_XYZ.html sRGB_to_XYZ> computes XYZ tristimulus value of displayed color on ideal sRGB display
 %

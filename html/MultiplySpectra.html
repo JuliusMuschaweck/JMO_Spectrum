@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>MultiplySpectra</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-10-26">
+<meta name="DC.date" content="2025-01-28">
 <meta name="DC.source" content="MultiplySpectra.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -112,7 +112,7 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 </ul>
 </div>
 <h2 id="1">Syntax</h2>
-<p>rv = <tt>MultiplySpectra(lhs, rhs)</tt>
+<p>rv = <tt>MultiplySpectra(lhs, rhs, varargin)</tt>
 </p>
 <h2 id="2">Input Arguments</h2>
 <div>
@@ -121,6 +121,8 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 <tt>lhs</tt>: A valid spectrum, i.e. a struct with two array fields, <tt>lam</tt> and <tt>val</tt> (see <a href="SpectrumSanityCheck.html">SpectrumSanityCheck</a> for detailed requirements)</li>
 <li>
 <tt>rhs</tt>: Likewise</li>
+<li>
+<tt>varargin</tt>: More spectra to be all multiplied together</li>
 </ul>
 </div>
 <h2 id="3">Output Arguments</h2>
@@ -131,8 +133,7 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 </ul>
 </div>
 <h2 id="4">Algorithm</h2>
-<p>A spectrum in this library models a continuous, piecewise linear function of wavelength. For a given array of wavelenghts, the modeled spectrum is linear between wavelength points, and zero outside the wavelength domain. At the ends of the wavelength domain the modeled spectrum may drop discontinously to zero. (If you don't like these discontinuities at the domain boundary, add end points with zero values.). The product spectrum's wavelength points consist of the "interweaved" wavelength arrays of <tt>lhs</tt> and|rhs|, where they overlap. If they don't overlap at all, a spectrum is returned with two wavelength points and both values zero.</p>
-<p>At each wavelength point, one value is taken from the corresponding point of one spectrum and the linearly interpolated point of the other spectrum, then these two are multiplied. Strictly speaking, the product spectrum would not be piecewise linear, it would be piecewise quadratic. However, this is neglected here. If a better approximation to the quadratic product spectrum is desired, you may resample <tt>lhs</tt> and/or <tt>rhs</tt> on a finer wavelength array using <a href="ResampleSpectrum.html">ResampleSpectrum</a>.</p>
+<p>A spectrum in this library models a continuous, piecewise linear function of wavelength. For a given array of wavelenghts, the modeled spectrum is linear between wavelength points, and zero outside the wavelength domain. At the ends of the wavelength domain the modeled spectrum may drop discontinously to zero. (If you don't like these discontinuities at the domain boundary, add end points with zero values.). The product spectrum's wavelength points consist of the "interweaved" wavelength arrays of <tt>lhs</tt> and|rhs|, where they overlap. If they don't overlap at all, a spectrum is returned with two wavelength points and both values zero. When there are more than two input arguments, the routine returns the product of all of them. At each wavelength point, one value is taken from the corresponding point of one spectrum and the linearly interpolated point of the other spectrum, then these two are multiplied. Strictly speaking, the product spectrum would not be piecewise linear, it would be piecewise quadratic. However, this is neglected here. If a better approximation to the quadratic product spectrum is desired, you may resample <tt>lhs</tt> and/or <tt>rhs</tt> on a finer wavelength array using <a href="ResampleSpectrum.html">ResampleSpectrum</a>.</p>
 <h2 id="5">See also</h2>
 <p>
 <a href="AddSpectra.html">AddSpectra</a>, <a href="AddWeightedSpectra.html">AddWeightedSpectra</a>, <a href="IntegrateSpectrum.html">IntegrateSpectrum</a>, <a href="ResampleSpectrum.html">ResampleSpectrum</a>, <a href="ScaleSpectrum.html">ScaleSpectrum</a>
@@ -148,7 +149,7 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
     hold <span class="string">on</span>;
     plot(s1.lam, s1.val);
     plot(s2.lam, s2.val);
-    plot(prodspec.lam, prodspec.val);
+    plot(prodspec.lam, prodspec.val,LineWidth=1.5);
     legend({<span class="string">'s1'</span>,<span class="string">'s2'</span>,<span class="string">'prodspec = s1*s2'</span>},<span class="string">'Location'</span>,<span class="string">'northwest'</span>);
     
 <span class="keyword">end</span>
@@ -175,10 +176,11 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 %
 % Multiply two spectra
 %% Syntax
-% rv = |MultiplySpectra(lhs, rhs)|
+% rv = |MultiplySpectra(lhs, rhs, varargin)|
 %% Input Arguments
 % * |lhs|: A valid spectrum, i.e. a struct with two array fields, |lam| and |val| (see <SpectrumSanityCheck.html SpectrumSanityCheck> for detailed requirements)
 % * |rhs|: Likewise
+% * |varargin|: More spectra to be all multiplied together
 %% Output Arguments
 % * |rv|: A spectrum modeling the product.
 %% Algorithm
@@ -188,7 +190,8 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 % points with zero values.). The product spectrum's wavelength points consist of the "interweaved" wavelength arrays of
 % |lhs| and|rhs|, where they overlap. If they don't overlap at all, a spectrum is returned with two wavelength points
 % and both values zero.
-%
+% When there are more than two input arguments, the routine returns the
+% product of all of them.
 % At each wavelength point, one value is taken from the corresponding point of one spectrum and the
 % linearly interpolated point of the other spectrum, then these two are multiplied. Strictly speaking, the product spectrum would not be piecewise
 % linear, it would be piecewise quadratic. However, this is neglected here. If a better approximation to the quadratic
@@ -207,7 +210,7 @@ Source code: <a href = "file:../MultiplySpectra.m"> MultiplySpectra.m</a>
 % (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 %
 
-function rv = MultiplySpectra(lhs, rhs)
+function rv = MultiplySpectra(lhs, rhs, varargin)
     % multiply spectra lhs and rhs, checking for overlap
     %
     % Parameters:
@@ -227,6 +230,14 @@ function rv = MultiplySpectra(lhs, rhs)
     % and NOT assumed to be piecewise quadratic.
     [~,~,lhs] = SpectrumSanityCheck(lhs);
     [~,~,rhs] = SpectrumSanityCheck(rhs);
+    % see if more than two
+    if nargin > 2
+        rv = MultiplySpectra(lhs, rhs);
+        for i = 3:nargin
+            rv = MultiplySpectra(rv,varargin{i-2});
+        end
+        return;
+    end
     % treat equal lambda arrays
     if isequal(lhs.lam, rhs.lam)
         rv.lam = lhs.lam;
