@@ -18,13 +18,14 @@
 % |rv|: struct with fields:
 % 
 % * |lam|:  360:830 in 1 nm
-% * |x, y, z|: the color matching functions
+% * |x, y, z|: the color matching function values
+% * |cw|: the color weight function values, cw = x + y + z
 % * |xBorder, yBorder, zBorder|: the coordinates of the monochromatic border 
 % * |PlanckT, Planckx, Plancky|: temperature, x and y coordinates of the Planck locus
 %% Algorithm
-% Retrieves the data stored in |CIE1931_lam_x_y_z.mat|
+% Retrieves the data using CIEData()
 %% See also
-% <CIE1931_XYZ.html CIE1931_XYZ>, <PlotCIExyBorder.html PlotCIExyBorder>
+% <CIE1931_XYZ.html CIE1931_XYZ>, <CIEData.html CIEData>, <PlotCIExyBorder.html PlotCIExyBorder>
 %% Usage Example
 % <include>Examples/ExampleCIE1931_Data.m</include>
 
@@ -44,6 +45,8 @@ function rv = CIE1931_Data()
         irv.x = cie.Column_by_Idx("CIE1931_xyz",2);
         irv.y = cie.Column_by_Idx("CIE1931_xyz",3);
         irv.z = cie.Column_by_Idx("CIE1931_xyz",4);
+        % 21.2.2025 JM: Added cw
+        irv.cw = irv.x + irv.y + irv.z;
         border_lam = cie.Column_by_Idx("CIE1931_border",1);
         if ~isequal(border_lam,irv.lam)
             error('CIE1931_Data: Inconsistent wavelength arrays');

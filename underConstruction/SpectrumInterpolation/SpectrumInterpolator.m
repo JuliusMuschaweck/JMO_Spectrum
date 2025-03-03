@@ -18,15 +18,19 @@ classdef SpectrumInterpolator
                 obj.F_{i} = SpectrumInterpolator.F(obj.sp_{i},obj.phi_(i));
                 obj.G_{i} = SpectrumInterpolator.G(obj.F_{i}); 
             end
-            tmp = obj.G_{1};
-            x = tmp.lam;
+            tmp = obj.G_{1};  
+            x = tmp.x;
             for i = 2:nSpectra
                 tmp = obj.G_{i};
-                x = cat(1,x,tmp.lam);
+                x = cat(1,x,tmp.x);
             end
             x = unique(sort(x));
+            clear tmp;
             for i = 1:nSpectra
-                obj.G_{i} = ResampleSpectrum(obj.G_{i}, x);
+                gg = obj.G_{i};
+                tmp.x = x;
+                tmp.lam = LinInterpol(gg.x, gg.lam, x);
+                obj.G_{i} = tmp;
             end
         end
 
@@ -64,6 +68,24 @@ classdef SpectrumInterpolator
             rv.val = LinInterpol(ipol_lam, tmpval, rv.lam);
         end
 
+        function rv = Eval( obj, x, weights )
+            arguments 
+                obj
+                x (1,1) double
+                weights (:,1) double
+            end
+            assert(length(weights) == length(obj.sp_), ...
+                "SpectrumInterpolator:Eval: wrong # of weights");
+            % evaluate interpolated spectrum at x
+            n = length(weights);
+            gg = zeros(1, n);
+            for i = 1:n
+                iGG = obj.G_{i};
+                gg(i) = interp1(iGG.x, iGG.lam, x);
+            end
+            rv = gg * weights;
+        end
+
 
     end
     methods (Static)
@@ -73,10 +95,10 @@ classdef SpectrumInterpolator
             rv.val(end) = 1; % 
         end
 
-        function rv = G(rhs)
-            rv.lam = rhs.val;
-            rv.val = rhs.lam;
-            rv.lam(1) = eps; % hack to make it a valid "spectrum" with all lam > 0;
+        function rv = G(rhs) % inverse of F
+            rv.x = rhs.val;
+            rv.lam = rhs.lam;
+            % rv.lam(1) = eps; % hack to make it a valid "spectrum" with all lam > 0;
         end
 
     end
