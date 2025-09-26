@@ -147,10 +147,12 @@
 % 
 % <LinInterpolAdd4Async.html LinInterpolAdd4Async> from four tabulated functions yy0(xx0) ... yy3(xx3), compute the sum of the four interpolated functions over the same query grid xq, using four processors in parallel
 % 
-% <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
-%
 % <PlotCIEupvpBorder.html PlotCIEupvpBorder> plots the CIE u'v' monochromatic border, with optional color fill and other options
 % 
+% <PlotCIEuvBorder.html PlotCIEuvBorder> plots the CIE uv monochromatic border, with optional color fill and other options
+% 
+% <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
+%
 % <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
 % 
 % <PlotSpectrum.html PlotSpectrum> conveniently plots a spectrum just like |plot|

@@ -39,7 +39,7 @@
 %% Algorithm
 % Takes the monochromatic border values from the CIE xy standards, converts it to uv and plots it, using the specified options.
 %% See also
-% <PlotCIExyBorder.html PlotCIExyBorder>, <PlotCIEupvpBorder.html PlotCIEupvpBorder><CIE1931_Data.html, CIE1931_Data>
+% <PlotCIExyBorder.html PlotCIExyBorder>, <PlotCIEupvpBorder.html PlotCIEupvpBorder>, <CIE1931_Data.html, CIE1931_Data>
 %% Usage Example
 % <include>Examples/ExamplePlotCIEuvBorder.m</include>
 

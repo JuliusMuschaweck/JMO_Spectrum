@@ -49,6 +49,7 @@ publishWithStandardExample('PlanckLocus.m');
 publishWithStandardExample('PlanckSpectrum.m');
 publishWithStandardExample('PlotCIExyBorder.m');
 publishWithStandardExample('PlotCIEupvpBorder.m');
+publishWithStandardExample('PlotCIEuvBorder.m');
 publishWithStandardExample('PlotCRIResult.m');
 publishWithStandardExample('PlotSpectrum.m');
 publishWithStandardExample('RainbowColorMap.m');

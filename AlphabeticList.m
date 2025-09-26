@@ -106,6 +106,8 @@
 %
 % <PlotCIEupvpBorder.html PlotCIEupvpBorder> plots the CIE u'v' monochromatic border, with optional color fill and other options
 % 
+% <PlotCIEuvBorder.html PlotCIEuvBorder> plots the CIE uv monochromatic border, with optional color fill and other options
+% 
 % <PlotCIExyBorder.html PlotCIExyBorder> plots the CIE xy monochromatic border, with optional color fill and other options
 % 
 % <PlotCRIResult.html PlotCRIResult> plots a chart to compare CRI colors between test and reference lamp
