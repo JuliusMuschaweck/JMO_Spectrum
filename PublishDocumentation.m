@@ -85,7 +85,7 @@ publish('JMOSpectrumLibrary.m','evalCode',true,'showCode',true);
 clear;
 publish('AlphabeticList.m','evalCode',false,'showCode',false);
 clear;
-publish('GroupedList.m','evalCode',false,'showCode',false);
+  
 
 
 close all;

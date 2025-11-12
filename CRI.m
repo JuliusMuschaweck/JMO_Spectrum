@@ -280,7 +280,17 @@ classdef CRI < handle
             end
         end
     end
-    
+
+    methods (Static)
+        function [rv, Ri_1_8] = Ra1995(spec)
+            persistent cri
+            if isempty(cri)
+                cri = CRI();
+            end
+            [rv, Ri_1_8] = cri.Ra(spec);
+        end
+    end
+
     methods (Access = private)
         function rv = PrepareLamp(this, lamp_spectrum)
             % Precompute struct with lamp spectrum, CCT, ref spectrum, warnings, c/d
